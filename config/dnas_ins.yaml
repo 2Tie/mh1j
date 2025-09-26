@@ -1,0 +1,52 @@
+
+
+sha1: e34208b621caf07b02b31472b897502fe1d37a01 #obfuscated matches 5b78507e9078b5f3c19681e1d3dc41f8a17ecf73
+options:
+  basename: dnas_ins
+  base_path: ..
+  target_path: overlays/dnas_ins_noencrypt.bin
+  
+  #compiler
+  platform: ps2
+  compiler: GCC
+  
+  asm_path: asm/overlay/dnas_ins
+  src_path: src/overlay/dnas_ins
+  build_path: build
+  
+  extensions_path: tools/splat_ext
+  symbol_addrs_path: [config/dnas_ins_symbol_addrs.txt, config/main_symbol_addrs.txt, config/dnas_ins_crypt_symbols.txt]
+  undefined_funcs_auto_path: config/dnas_ins_funcs_auto.txt
+  undefined_syms_auto_path: config/dnas_ins_syms_auto.txt
+
+  asm_function_macro: .fn
+  asm_data_macro: .obj
+  asm_inc_header: |
+    .set noat      /* allow manual use of $at */
+    .set noreorder /* don't insert nops after branches */
+
+  find_file_boundaries: False #funcs are already aligned?
+  string_encoding: SHIFT-JIS
+  rodata_string_guesser_level: 2
+  disasm_unknown: True
+  gp_value: 0x0038EB70
+
+  section_order: [".text", ".vutext", ".data", ".vudata", ".rodata", ".init", ".ctor", ".vtables", ".sbss", ".bss", ".common", ".vubss"]
+
+
+segments:
+  - [0x0, databin, dnas_ins_header]
+  - name: dnas_ins
+    type: code
+    start: 0x80
+    vram: 0xA06280
+    bss_size: 0x6FB00
+    subsegments:
+    - [0x80, asm, dnas_ins_code]
+
+    - [0x29D00, data, dnas_ins_data]
+
+
+    - { name: dnas_ins_bss, type: bss, vram: 0xA37D00 }
+
+  - [0x31B00] #eof

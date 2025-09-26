@@ -1,0 +1,52 @@
+
+
+sha1: 7cc3cfcd716226249ae0e48076cf69fd638dd083
+options:
+  basename: yn
+  base_path: ..
+  target_path: overlays/yn.bin
+  
+  #compiler
+  platform: ps2
+  compiler: MWCCPS2
+  
+  asm_path: asm/overlay/yn
+  src_path: src/overlay/yn
+  build_path: build
+  
+  extensions_path: tools/splat_ext
+  symbol_addrs_path: [config/yn_symbol_addrs.txt, config/main_symbol_addrs.txt]
+  undefined_funcs_auto_path: config/yn_funcs_auto.txt
+  undefined_syms_auto_path: config/yn_syms_auto.txt
+
+  find_file_boundaries: False #funcs are already aligned?
+  string_encoding: SHIFT-JIS
+  rodata_string_guesser_level: 2
+  disasm_unknown: True
+  gp_value: 0x0038EB70
+
+  asm_function_macro: .fn
+  asm_data_macro: .obj
+  asm_inc_header: |
+    .set noat      /* allow manual use of $at */
+    .set noreorder /* don't insert nops after branches */
+
+  section_order: [".text", ".vutext", ".data", ".vudata", ".rodata", ".init", ".ctor", ".vtables", ".sbss", ".bss", ".common", ".vubss"]
+
+
+segments:
+  - [0x0, databin, yn_header]
+  - name: yn
+    type: code
+    start: 0x80
+    vram: 0x533A00
+    bss_size: 0x46680
+    subsegments:
+    - [0x80, asm, yn_code]
+
+    - [0x8F80, data, yn_data]
+
+
+    - { name: yn_bss, type: bss, vram: 0x541680 }
+
+  - [0xDD00] #eof

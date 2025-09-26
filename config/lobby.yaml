@@ -1,0 +1,54 @@
+
+
+sha1: 9e75d24e0cc60ae0cfb92b25ae59e64b59d7f038
+options:
+  basename: lobby
+  base_path: ..
+  target_path: overlays/lobby.bin
+  
+  #compiler
+  platform: ps2
+  compiler: MWCCPS2
+  
+  asm_path: asm/overlay/lobby
+  src_path: src/overlay/lobby
+  build_path: build
+  
+  extensions_path: tools/splat_ext
+  symbol_addrs_path: [config/lobby_symbol_addrs.txt, config/main_symbol_addrs.txt]
+  undefined_funcs_auto_path: config/lobby_funcs_auto.txt
+  undefined_syms_auto_path: config/lobby_syms_auto.txt
+
+  find_file_boundaries: False #funcs are already aligned?
+  string_encoding: SHIFT-JIS
+  rodata_string_guesser_level: 2
+  disasm_unknown: True
+  gp_value: 0x0038EB70
+  global_vram_start: 0x100000
+  global_vram_end: 0xe00000
+
+  asm_function_macro: .fn
+  asm_data_macro: .obj
+  asm_inc_header: |
+    .set noat      /* allow manual use of $at */
+    .set noreorder /* don't insert nops after branches */
+
+  section_order: [".text", ".vutext", ".data", ".vudata", ".rodata", ".init", ".ctor", ".vtables", ".sbss", ".bss", ".common", ".vubss"]
+
+
+segments:
+  - [0x0, databin, lobby_header]
+  - name: lobby
+    type: code
+    start: 0x80
+    vram: 0x533A00
+    bss_size: 0xEA680
+    subsegments:
+    - [0x80, asm, lobby_code]
+
+    - [0xDC980, data, lobby_data]
+
+
+    - { name: lobby_bss, type: bss, vram: 0x668780 }
+
+  - [0x134E00] #eof

@@ -1,0 +1,15 @@
+
+	.dummy	:
+	{
+		#	to get addr
+		end	= .;
+		_end	= .;
+	}	>	dummy.bin
+
+	.heap	:
+	{
+		#	to get heap addr
+		end	= .;
+		_end	= .;
+	}	>	heap
+}

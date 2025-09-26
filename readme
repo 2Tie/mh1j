@@ -1,0 +1,21 @@
+setup:
+follow splat quickstart up until config creation
+verify that rabbitizer is >= 1.12.6 (viaddi fix)
+"make tools" to set up the rest of the tools
+place the elf into the base directory, and the decompressed overlays into overlays/ folder.
+
+make split - decrypts net overlays, extracts out problem data, splits everything into asm, then reinjects the data. also generates the lcf file for building.
+make build - links the asm files together, optionally reencrypts net overlays
+
+to contribute:
+to start a new TU, replace an 'asm' segment with 'c' in one of the config folder .yaml's, and add a . before the matching 'rodata' segment. make split to generate the c file and the nonmatchings.
+you may now reverse any of the funcs in the segment. bss-type variables will be declared at the top of the file. if the var is also used in other TUs, make it extern.
+make sure the variables are in reversed order compared to RAM, due to the compiler's bucketing system this is needed for the vars to be placed in the correct order.
+currently mwccgap isn't handling symbols with multiple empty strings correctly, you can replace the .asciz "" with .word 0x00000000 to get correct data sizes. 
+
+the PS2 libraries have a common mismatch for branches to local targets, this will be fixed eventually by migrating those TUs to EEGCC rather than MWCC. For now, those mismatches are ignored, targets made local, or correctly reported.
+
+in the future, there will likely be a list of in-progress scratches, and there are plans to integrate progress tracking through decomp.dev
+deep aspects of how the game functions and descriptions of asset formats will be documented in the repo's wiki, things like the damage func, how monster AI works, quest scripting, camera zones, etc.
+
+thanks to the PS2 decomp community for help setting this up, and to the MHOldschool community for being awesome.

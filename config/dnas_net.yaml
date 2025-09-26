@@ -1,0 +1,52 @@
+
+
+sha1: 10b4a9deb6013e913fa4c456c96943d77df50c1d #original was 22304aee7e329143e22db8bc888bfae86f7e6b63
+options:
+  basename: dnas_ins
+  base_path: ..
+  target_path: overlays/dnas_net_noencrypt.bin
+  
+  #compiler
+  platform: ps2
+  compiler: GCC
+  
+  asm_path: asm/overlay/dnas_net
+  src_path: src/overlay/dnas_net
+  build_path: build
+  
+  extensions_path: tools/splat_ext
+  symbol_addrs_path: [config/dnas_net_symbol_addrs.txt, config/main_symbol_addrs.txt, config/dnas_net_crypt_symbols.txt]
+  undefined_funcs_auto_path: config/dnas_net_funcs_auto.txt
+  undefined_syms_auto_path: config/dnas_net_syms_auto.txt
+
+  asm_function_macro: .fn
+  asm_data_macro: .obj
+  asm_inc_header: |
+    .set noat      /* allow manual use of $at */
+    .set noreorder /* don't insert nops after branches */
+
+  find_file_boundaries: False #funcs are already aligned?
+  string_encoding: SHIFT-JIS
+  rodata_string_guesser_level: 2
+  disasm_unknown: True
+  gp_value: 0x0038EB70
+
+  section_order: [".text", ".vutext", ".data", ".vudata", ".rodata", ".init", ".ctor", ".vtables", ".sbss", ".bss", ".common", ".vubss"]
+
+
+segments:
+  - [0x0, databin, dnas_net_header]
+  - name: dnas_net
+    type: code
+    start: 0x80
+    vram: 0xA06280
+    bss_size: 0x81400
+    subsegments:
+    - [0x80, asm, dnas_net_code]
+
+    - [0x70F80, data, dnas_net_data]
+
+
+    - { name: dnas_net_bss, type: bss, vram: 0xAA7200 }
+
+  - [0xA1000] #eof

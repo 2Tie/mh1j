@@ -1,0 +1,52 @@
+
+
+sha1: feeecbc08b5d12e5d8114efc7b6f05cd68b334e9
+options:
+  basename: game
+  base_path: ..
+  target_path: overlays/game.bin
+  
+  #compiler
+  platform: ps2
+  compiler: MWCCPS2
+  
+  asm_path: asm/overlay/game
+  src_path: src/overlay/game
+  build_path: build
+  
+  extensions_path: tools/splat_ext
+  symbol_addrs_path: [config/game_symbol_addrs.txt, config/main_symbol_addrs.txt]
+  undefined_funcs_auto_path: config/game_funcs_auto.txt
+  undefined_syms_auto_path: config/game_syms_auto.txt
+
+  asm_function_macro: .fn
+  asm_data_macro: .obj
+  asm_inc_header: |
+    .set noat      /* allow manual use of $at */
+    .set noreorder /* don't insert nops after branches */
+
+  find_file_boundaries: False #funcs are already aligned?
+  string_encoding: SHIFT-JIS
+  rodata_string_guesser_level: 2
+  disasm_unknown: True
+  gp_value: 0x0038EB70
+
+  section_order: [".text", ".vutext", ".data", ".vudata", ".rodata", ".init", ".ctor", ".vtables", ".sbss", ".bss", ".common", ".vubss"]
+
+
+segments:
+  - [0x0, databin, game_header]
+  - name: game
+    type: code
+    start: 0x80
+    vram: 0x533A00
+    bss_size: 0x200
+    subsegments:
+    - [0x80, asm, game_code]
+
+    - [0x108200, data, game_data]
+
+
+    - { name: game_bss, type: bss, vram: 0x68F100 }
+
+  - [0x15B780] #eof

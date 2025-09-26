@@ -1,0 +1,13 @@
+_dummy_text_size = 0xC0;
+_dummy_bss_size = 0x0;
+_dummy_text_end = 0xE00000;
+_dummy_segment_end = 0xE00000;
+_dummy_data_size = 0x0;
+_dummy_static_init = 0xE00000;
+_dummy_segment_start = 0xDFFF00;
+_dummy_text_start = 0xDFFF40;
+_dummy_data_start = 0xE00000;
+_dummy_data_end = 0xE00000;
+_dummy_bss_end = 0xE00000;
+_dummy_static_init_end = 0xE00000;
+_dummy_bss_start = 0xE00000;

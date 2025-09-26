@@ -1,0 +1,15 @@
+#original files
+SLPM_654.95
+assets/*
+overlays/*
+
+#raw disasembly
+asm/*
+tools/*.bin
+
+#built objects
+build/*
+
+bin/*
+tools/mwccgap/
+.splache

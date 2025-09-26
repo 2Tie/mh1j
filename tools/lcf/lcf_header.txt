@@ -1,0 +1,29 @@
+MEMORY
+{
+	main		(RWX)	: ORIGIN = 0x100000,		LENGTH = 0x0
+	select.bin	(RWXO)	: ORIGIN = 0x533980,		LENGTH = 0x0	>	select.bin
+	game.bin	(RWXO)	: ORIGIN = 0x533980,		LENGTH = 0x0	>	game.bin
+	yn.bin		(RWXO)	: ORIGIN = 0x533980,		LENGTH = 0x0	>	yn.bin
+	lobby.bin	(RWXO)	: ORIGIN = 0x533980,		LENGTH = 0x0	>	lobby.bin
+	dnas_net.bin	(RWXO)	: ORIGIN = 0xA06200,		LENGTH = 0x0	>	dnas_net.bin
+	dnas_ins.bin	(RWXO)	: ORIGIN = 0xA06200,		LENGTH = 0x0	>	dnas_ins.bin
+	dummy.bin	(RWX)	: ORIGIN = 0xdfff00,		LENGTH = 0x0
+	heap		(RW)	: ORIGIN = 0xe00000,		LENGTH = 0x0
+}
+
+KEEP_SECTION
+{
+	.vutext,
+	.vudata,
+	.vubss,
+	.data
+}
+
+SECTIONS
+{
+    # define for crt0
+    _heap_size  = -1;
+    _stack      = -1;
+    _stack_size = 0x00100000;
+    # define for lcf
+    _align_segment	= 0x80;

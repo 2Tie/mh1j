@@ -1,0 +1,40 @@
+
+
+sha1: #TODO overlaydata
+options:
+  basename: heap
+  base_path: ..
+  
+  #compiler
+  platform: ps2
+  compiler: MWCCPS2
+  
+  asm_path: asm/heap
+  src_path: src/heap
+  build_path: build
+  
+  extensions_path: tools/splat_ext
+  symbol_addrs_path: config/heap_symbol_addrs.txt
+  undefined_funcs_auto_path: config/undefined_funcs_auto.txt
+  undefined_syms_auto_path: config/undefined_syms_auto.txt
+
+  find_file_boundaries: False #funcs are already aligned?
+  string_encoding: SHIFT-JIS
+  rodata_string_guesser_level: 2
+  disasm_unknown: True
+  gp_value: 0x0038EB70
+
+
+segments:
+  - [0x0, databin, overlay/heap/header]
+  - name: heap
+    type: code
+    start: 0x80
+    vram: 0xE00000
+    bss_size: 0x0 #TODO offset 0x14 in the overlay header
+    subsections:
+    - [0x80, asm, overlay/heap/code]
+
+    #- [0x40 + offset, data, overlay/heap/data] #TODO offset 0x1C in overlay header
+
+  -[0x0]#eof
