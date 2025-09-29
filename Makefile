@@ -85,6 +85,7 @@ COMPILER_TAR := mwcps2-3.0b52-030722.tar.gz
 EE_COMPILER_TAR := ee-gcc2.96.tar.xz
 BINUTILS_TAR := binutils-mips-ps2-decompals-linux-x86-64.tar.gz
 MWCCGAP_URL := https://github.com/2Tie/mwccgap.git
+M2CTX_URL := https://raw.githubusercontent.com/ethteck/m2ctx/refs/heads/main/m2ctx.py
 
 # misc
 DNAS_INS_VERIFY := $(BUILD_DIR)/dnas_ins.bin overlays/dnas_ins.bin 0x00 0x31B00
@@ -118,7 +119,7 @@ clean:
 	rm -r $(ASM_DIR)/*
 	rm -r $(BUILD_DIR)/*
 
-tools: $(MWCCPS2) $(WIBO) $(EEGCC) $(AS) $(MWCCGAP)
+tools: $(MWCCPS2) $(WIBO) $(EEGCC) $(AS) $(MWCCGAP) $(M2CTX)
 
 $(MAIN_TARGET): $(ALL_O_FILES) $(LINKER_SCRIPT)
 	@$(LD) $(LD_FLAGS) -o $@ \
@@ -184,3 +185,7 @@ $(AS):
 $(MWCCGAP):
 	@mkdir -p $(dir $@)
 	git clone $(MWCCGAP_URL) $(dir $@)
+
+$(M2CTX):
+	@mkdir -b 
+	wget -P $(TOOLS_DIR) $(M2CTX_URL)

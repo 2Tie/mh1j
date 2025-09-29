@@ -1,44 +1,66 @@
-.macro glabel label
-	.global \label
-	.type \label, @function
-	\label:
+# This file is used by modern gas.
+# Defines the expected assembly macros
+
+# Evaluate this file only once in case it's included more than once
+.ifndef _MACRO_INC_GUARD
+.internal _MACRO_INC_GUARD
+.set _MACRO_INC_GUARD, 1
+
+# A function symbol.
+.macro .fn label, visibility=global
+    .\visibility "\label"
+    .type "\label", @function
+    "\label":
+        .ent "\label"
 .endm
 
-.macro dlabel label
-	.global \label
-	\label:
+# The end of a function symbol.
+.macro endlabel label
+    .size "\label", . - "\label"
+    .end "\label"
 .endm
 
-.macro jlabel label
-	.global \label
-	\label:
+# An alternative entry to a function.
+.macro alabel label, visibility=global
+    .\visibility "\label"
+    .type "\label", @function
+    "\label":
+        .aent "\label"
 .endm
 
-.macro .fn name, visibility=global
-.\visibility "\name"
-.type "\name", @function
-"\name":
+# A label referenced by an error handler table.
+.macro ehlabel label, visibility=global
+    .\visibility "\label"
+    "\label":
 .endm
 
-.macro .endfn name
-.size "\name" . - "\name"
+
+# A label referenced by a jumptable.
+.macro jlabel label, visibility=global
+    .\visibility "\label"
+    "\label":
 .endm
 
-.macro .obj name, visibility=global
-.\visibility "\name"
-.type "\name", @object
-"\name":
+
+# A data symbol.
+.macro .obj label, visibility=global
+    .\visibility "\label"
+    .type "\label", @object
+    "\label":
 .endm
 
-.macro .endobj name
-.size "\name", . - "\name"
+# End of a data symbol.
+.macro enddlabel label
+    .size "\label", . - "\label"
 .endm
 
-.macro .sym name, visibility=global
-.\visibility "\name"
-"\name":
+
+# Label to signal the symbol haven't been matched yet.
+.macro nonmatching label, size=1
+    .global "\label\().NON_MATCHING"
+    .type "\label\().NON_MATCHING", @object
+    .size "\label\().NON_MATCHING", \size
+    "\label\().NON_MATCHING":
 .endm
 
-.macro .endsym name
-.size "\name", . - "\name"
-.endm
+.endif

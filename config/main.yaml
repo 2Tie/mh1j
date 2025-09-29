@@ -38,7 +38,7 @@ segments:
     type: code
     start: 0x180
     vram: 0x100000
-    bss_size: 0x1A8F2C
+    bss_size: 0x1A9900
     subsegments:
     - [0x180, asm, crt0]
     - [0x3b0, asm, ../lib/cri/adx_init]
@@ -341,7 +341,6 @@ segments:
     - {vram: 0x38a11c, type: sbss, name: unsorted}
 
     - { name: bss, type: bss, vram: 0x38AA54 }
-    - { name: vubss, type: bss, vram: 0x533980 }
   - [0x28A200, databin, elf/shstrtab]
   - [0x28A320, databin, elf/strtab]
   - [0x333C30, databin, elf/symtab]

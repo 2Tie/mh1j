@@ -9,7 +9,9 @@ tools/*.bin
 
 #built objects
 build/*
+*.ld
 
 bin/*
 tools/mwccgap/
+tools/m2ctx.py
 .splache
