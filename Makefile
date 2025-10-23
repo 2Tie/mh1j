@@ -11,6 +11,7 @@ INCLUDE_DIR := include
 ASSETS_DIR := assets
 CONFIG_DIR := config
 TOOLS_DIR := tools
+AFS_DIR := $(ASSETS_DIR)/AFS
 EEGCC_PATHS := PATH=$(BIN_DIR)/ee/bin:$(BIN_DIR)/lib/gcc-lib/ee/2.96-ee-001003-1
 
 
@@ -79,6 +80,9 @@ ALL_O_FILES := $(ASM_O_FILES) $(GAME_O_FILES) $(CRI_O_FILES)
 
 LINKER_SCRIPT := $(BUILD_DIR)/SLPM_654.95.lcf
 
+OVERLAY_BINS := game.bin lobby.bin select.bin yn.bin dnas_net.bin dnas_ins.bin
+AFS_OVERLAYS := $(addprefix $(AFS_DIR)/bins/,$(OVERLAY_BINS))
+OVERLAY_BINS := $(addprefix overlays/,$(OVERLAY_BINS))
 OVERLAY_HEADERS := $(shell find $(ASM_DIR)/overlay -name '*_header.s')
 
 COMPILER_TAR := mwcps2-3.0b52-030722.tar.gz
@@ -99,12 +103,12 @@ endif
 
 # rules
 
-# .PHONY: BINUTILS
+.PHONY: tools
 # .PRECIOUS: $(ASM_T_FILES)
 
 build: $(MAIN_TARGET)
 
-split: $(ENC_FILES)
+split: $(ENC_FILES) $(OVERLAY_BINS)
 	$(GENERATE_LCF) $(LINKER_SCRIPT)
 	@find $(ASM_DIR)/overlay -name '*_header.s' -delete
 	@rm -r asm/main/data/elf/ # need to find a way to stop making these .s files!!!
@@ -118,8 +122,11 @@ clean:
 	@#git clean -fdx .splache
 	rm -r $(ASM_DIR)/*
 	rm -r $(BUILD_DIR)/*
+	rm -r $(ASSETS_DIR)/*
 
 tools: $(MWCCPS2) $(WIBO) $(EEGCC) $(AS) $(MWCCGAP) $(M2CTX)
+
+setup: $(OVERLAY_BINS) tools
 
 $(MAIN_TARGET): $(ALL_O_FILES) $(LINKER_SCRIPT)
 	@$(LD) $(LD_FLAGS) -o $@ \
@@ -152,6 +159,12 @@ $(CRI_O_FILES): $(BUILD_DIR)/%.c.o: %.c
 
 $(ENC_FILES):
 	$(PYTHON) tools/funcrypt.py -d
+
+overlays/%.bin: $(AFS_DIR)/bins/%.bin
+	cp $< $@
+
+$(AFS_OVERLAYS):
+	$(PYTHON) tools/packer.py -u AFS_DATA.AFS assets/AFS/ tools/AFS_files.txt
 
 #%.s.utf: %.s
 #	cp '$<' '$@'

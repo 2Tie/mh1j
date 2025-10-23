@@ -1,5 +1,6 @@
 #original files
 SLPM_654.95
+AFS_DATA.AFS
 assets/*
 overlays/*
 
@@ -10,6 +11,7 @@ tools/*.bin
 #built objects
 build/*
 *.ld
+ctx.c
 
 bin/*
 tools/mwccgap/

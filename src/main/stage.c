@@ -1,4 +1,5 @@
 #include "common.h"
+#pragma cats off
 
 s16 flash_timer0x38a118;
 s16 flash_flag0x38a114;
