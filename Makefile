@@ -52,7 +52,7 @@ LD_FLAGS := -main ENTRYPOINT0x100008 -map -noinhibit-exec $(OVERLAY_FLAGS)
 OVERLAY_FLAGS := -overlaygroup game,0x533980 -overlay game -overlay lobby -overlay select -overlay yn -overlaygroup net,0xa06200 -overlay dnas_net -overlay dnas_ins
 
 MWGAP_FLAGS := --mwcc-path $(MWCCPS2) --macro-inc-path $(INCLUDE_DIR)/macro.inc
-MWGAP_FLAGS += --as-march r5900 --as-mabi eabi --target-encoding shift_jis --as-path $(AS) $(MWCCPS2_FLAGS)
+MWGAP_FLAGS += --as-march r5900 --as-mabi eabi --target-encoding utf-8 --as-path $(AS) $(MWCCPS2_FLAGS)
 
 # files
 
