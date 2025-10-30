@@ -4,6 +4,30 @@
 #include "types.h"
 
 typedef struct {
+    //total size: 0x18
+    u32 attack_bonus; //offset 0x0, size 0x4
+    f32 speed; //offset 0x4, size 0x4
+    f32 speed_variance; //offset 0x8, size 0x4
+    f32 horizontal_deviation; //offset 0xC, size 0x4
+    f32 vertical_deviation;   //offset 0x10, size 0x4
+    f32 pellet_scale;         //offset 0x14, size 0x4
+} GUN_GROW_UP;
+
+typedef struct {
+    //total size: 0x14
+    u8 model; //offset 0x0, size 0x1
+    u8 rarity; //offset 0x1, size 0x1
+    u8 level; //offset 0x2, size 0x1
+    u8 reload_delay; //offset 0x3, size 0x1
+    u32 price; //offset 0x4, size 0x4
+    u16 attack; //offset 0x8, size 0x2
+    u8 defense; //offset 0xA, size 0x1
+    u8 unk1; //offset 0xB, size 0x1
+    char* name; //offset 0xC, size 0x4
+    u32 ammo_types; //offset 0x10, size 0x14
+} GUN_DATA;
+
+typedef struct {
     //total size: 0x10
     u8 type; //offset 0x0, size 0x1
     u8 can_use; //offset 0x1, size 0x1
@@ -13,8 +37,7 @@ typedef struct {
     u8 icon_index; //offset 0x5, size 0x1
     u8 color_index;//offset 0x6, size 0x1
     u8 unk1; //offset 0x7, size 0x1
-    u8 ammo_sort; //offset 0x8, size 0x1
-    u8 unk2; //offset 0x9, size 0x1
+    u16 ammo_type; //offset 0x8, size 0x2
     u16 sound_effect; //offset 0xA, size 0x2
     u16 buy_price; //offset 0xC, size 0x2
     u16 sell_sprice; //offset 0xE, size 0x2
