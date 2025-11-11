@@ -4,6 +4,55 @@
 #include "types.h"
 
 typedef struct {
+    //total size: 0xC
+    f32 x; //offset 0x0, size 0x4
+    f32 y; //offset 0x4, size 0x4
+    f32 z; //offset 0x8, size 0x4
+} Vec3;
+
+typedef struct {
+    //total size: 0x64
+    u8 unk_00; //offset 0x0, size 0x1
+    u8 unk_01; //offset 0x1, size 0x1
+    u8 current_area_id; //offset 0x2, size 0x1
+    u8 unk_03;
+    u8 unk_04;
+    u8 unk_05;
+    u8 unk_06;
+    u8 unk_07;
+    u16 unk_08;
+    u8 unk_0A;
+    u8 unk_0B;
+    u8 unk_0C;
+    u8 unk_0D;
+    u8 unk_0E;
+    u8 unk_0F;
+    Vec3 origin;
+    Vec3 unk_1C;
+    Vec3 offset;
+    u16 unk_34;
+    u8 unk_36;
+    u8 unk_37;
+    u16 modelwork_index;
+    u8 unk_3A;
+    u8 unk_3B;
+    u8* modelwork_pointer;
+    u8 unk_40;
+    u8 unk_41;
+    u8 unk_42;
+    u8 unk_43;
+    u8 unk_44;
+    u8 unk_45;
+    u8 unk_46;
+    u8 unk_47;
+    u8* area_origins;
+    u8 unk_4C;
+    u8 unk_4D;
+    u8 unk_4E;
+    u8 unk_4F;
+} STAGE_WORK;
+
+typedef struct {
     //total size: 0x18
     u32 attack_bonus; //offset 0x0, size 0x4
     f32 speed; //offset 0x4, size 0x4
@@ -84,12 +133,5 @@ typedef struct {
     s16 damage_time;       //offset 0xA, size 0x2
     s16 tolerance_increase;//offset 0xC, size 0x2
 } POISON_EFFICACY;
-
-typedef struct {
-    //total size: 0xC
-    f32 x; //offset 0x0, size 0x4
-    f32 y; //offset 0x4, size 0x4
-    f32 z; //offset 0x8, size 0x4
-} Vec3;
 
 #endif

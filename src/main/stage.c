@@ -1,8 +1,11 @@
 #include "common.h"
+#include "structs.h"
 #pragma cats off
-
+extern void * memset0x19dd28(void *__s,int __c,size_t __n);
 s16 flash_timer0x38a118;
 s16 flash_flag0x38a114;
+
+extern STAGE_WORK stage_work0x3d8230;
 
 INCLUDE_ASM("asm/main/nonmatchings/stage", stage_w_init0x15bab0);
 
@@ -28,7 +31,9 @@ INCLUDE_ASM("asm/main/nonmatchings/stage", stage_set_set0x15bbe0);
 
 INCLUDE_ASM("asm/main/nonmatchings/stage", stage_mv_ck0x15c210);
 
-INCLUDE_ASM("asm/main/nonmatchings/stage", clr_stg_work0x15c490);
+void * clr_stg_work0x15c490(void) {
+    return memset0x19dd28(&stage_work0x3d8230, 0, 100);
+}
 
 void clr_flash0x15c4b0(void) {
     flash_flag0x38a114 = 0;
