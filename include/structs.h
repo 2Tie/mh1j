@@ -11,6 +11,16 @@ typedef struct {
 } Vec3;
 
 typedef struct {
+    //total size: 0xC
+    s32 x; //offset 0x0, size 0x4
+    s32 y; //offset 0x4, size 0x4
+    u8 b1; //offset 0x8, size 0x4
+    u8 b2; //offset 0x8, size 0x4
+    u8 b3; //offset 0x8, size 0x4
+    u8 b4; //offset 0x8, size 0x4
+} STAGE_FOG;
+
+typedef struct {
     //total size: 0x8
     u16 item;
     u16 quantity;

@@ -7,6 +7,7 @@ s16 flash_flag0x38a114;
 
 extern STAGE_WORK stage_work0x3d8230;
 extern GAME_WORK game_w0x3f33f0;
+extern STAGE_FOG *stage_fog_tbl0x2f3000[];
 
 void stage_w_init0x15bab0(void) {
     stage_work0x3d8230.unk_07 = 0;
@@ -27,7 +28,12 @@ void stage_w_init0x15bab0(void) {
     stage_work0x3d8230.area_origins = Stage_data_get0x226900(stage_work0x3d8230.current_area_id);
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/stage", stage_fog_set0x15bb60);
+void stage_fog_set0x15bb60(u8 arg0) {
+    STAGE_FOG * temp_s0 = stage_fog_tbl0x2f3000[arg0];
+    flSetRenderState0x177720(0xF, (temp_s0->b4 << 0x18) | (temp_s0-> b1 << 0x10) | (temp_s0->b2 << 8) | temp_s0->b3);
+    flSetRenderState0x177720(0x10, temp_s0->x);
+    flSetRenderState0x177720(0x11, temp_s0->y);
+}
 
 INCLUDE_RODATA("asm/main/nonmatchings/stage", @550x35b810);
 
