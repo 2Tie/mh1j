@@ -2,12 +2,15 @@
 #include "structs.h"
 #pragma cats off
 extern void * memset0x19dd28(void *__s,int __c,size_t __n);
+extern u8 * Stage_data_get0x226900(u8 area);
 s16 flash_timer0x38a118;
 s16 flash_flag0x38a114;
 
-extern STAGE_WORK stage_work0x3d8230;
+STAGE_WORK stage_work0x3d8230;
 extern GAME_WORK game_w0x3f33f0;
 extern STAGE_FOG *stage_fog_tbl0x2f3000[];
+extern u16 Stg_env_type0x2f6370[];
+
 
 void stage_w_init0x15bab0(void) {
     stage_work0x3d8230.unk_07 = 0;
@@ -64,7 +67,9 @@ void clr_flash0x15c4b0(void) {
     flash_timer0x38a118 = 0;
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/stage", Stage_env_ck0x15c4c0);
+s16 Stage_env_ck0x15c4c0(u8 stage) {
+    return Stg_env_type0x2f6370[stage];
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/stage", Pile_on0x15c4e0);
 

@@ -43,16 +43,16 @@ VERIFY := $(PYTHON) $(TOOLS_DIR)/verify.py
 # flags
 
 INCLUDES := -I$(INCLUDE_DIR) -I$(INCLUDE_DIR)/gcc -I$(INCLUDE_DIR)/cri -I$(INCLUDE_DIR)/cri/ee
-MWCCPS2_FLAGS := -gccinc $(INCLUDES) -sdatathreshold 128 -O3,p -c -lang c -multibyte
+MWCCPS2_FLAGS := -gccinc $(INCLUDES) -sdatathreshold 2 -O3,p -c -lang c -multibyte
 EEGCC_FLAGS := $(INCLUDES) -O2 -G0 -c
 
-AS_FLAGS += -EL -I $(INCLUDE_DIR) -G 128 -march=r5900 -mabi=eabi -no-pad-sections
+AS_FLAGS += -EL -I $(INCLUDE_DIR) -G 2 -march=r5900 -mabi=eabi -no-pad-sections -mno-pdr
 LD_FLAGS := -main ENTRYPOINT0x100008 -map -noinhibit-exec $(OVERLAY_FLAGS)
 
 OVERLAY_FLAGS := -overlaygroup game,0x533980 -overlay game -overlay lobby -overlay select -overlay yn -overlaygroup net,0xa06200 -overlay dnas_net -overlay dnas_ins
 
 MWGAP_FLAGS := --mwcc-path $(MWCCPS2) --macro-inc-path $(INCLUDE_DIR)/macro.inc
-MWGAP_FLAGS += --as-march r5900 --as-mabi eabi --target-encoding utf-8 --as-path $(AS) $(MWCCPS2_FLAGS)
+MWGAP_FLAGS += --as-march r5900 --as-mabi eabi --target-encoding SJIS --as-path $(AS) $(MWCCPS2_FLAGS)
 
 # files
 
@@ -109,6 +109,7 @@ endif
 build: $(MAIN_TARGET)
 
 split: $(ENC_FILES) $(OVERLAY_BINS)
+	@mkdir -p build/
 	$(GENERATE_LCF) $(LINKER_SCRIPT)
 	@find $(ASM_DIR)/overlay -name '*_header.s' -delete
 	@rm -r asm/main/data/elf/ # need to find a way to stop making these .s files!!!
@@ -161,6 +162,7 @@ $(ENC_FILES):
 	$(PYTHON) tools/funcrypt.py -d
 
 overlays/%.bin: $(AFS_DIR)/bins/%.bin
+	@mkdir -p $(dir $@)
 	cp $< $@
 
 $(AFS_OVERLAYS):
@@ -200,5 +202,5 @@ $(MWCCGAP):
 	git clone $(MWCCGAP_URL) $(dir $@)
 
 $(M2CTX):
-	@mkdir -b 
+	@mkdir -p $(dir $@)
 	wget -P $(TOOLS_DIR) $(M2CTX_URL)

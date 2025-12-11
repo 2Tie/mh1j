@@ -1,5 +1,5 @@
 PROGRESS:
-1 function in the main elf has been decompiled.
+5 functions in the main elf have been decompiled.
 
 GETTING SET UP:
 You will need to have Python 3.9 or higher installed. You can check current version with "python3 --version".
@@ -44,7 +44,14 @@ Then run "make split" to generate the C file in src/ and move the assembly to as
 BUILDING:
 "make build" will attempt to run the codebase through the MetroWerks PS2 tools to create the elf and overlays in build/. Currently the process is only tested in WSL2, as the assembler, compiler, and linker are all windows executables. WIBO is implemented but untested for pure linux setups.
 
-After a successful build, a byte-for-byte comparison will be ran on the built binaries, and mismatches reported to console. The main elf currently has 14 reported mismatches for a "good" build, stemming from the Sony PS2 libraries used that were instead built with EEGCC and have a different style for branching to local targets. Changing the PS2 libs to use EEGCC (or pivoting to using prebuilt libraries) will fix these in the future.
+After a successful build, a byte-for-byte comparison will be ran on the built binaries, and mismatches reported to console.
+
+KNOWN ISSUES:
+The main elf currently has 14 reported mismatches for a "good" build, stemming from the Sony PS2 libraries used that were instead built with EEGCC and have a different style for branching to local targets. Changing the PS2 libs to use EEGCC (or pivoting to using prebuilt libraries) will fix these in the future.
+
+The BSS is currently misaligned in the build, more investigation is needed to determine how to both start the bss at a X4 offset but also align later symbols to 0x10. Maybe the BSS symbol sizes need to be determined?
+
+Currently, NONMATCHING labels are omitted from the split output (configured in the .yaml files) because MWLDPS2 doesn't like them, complaining about too many symbols. In the future, we may have to filter the NONMATCHING symbols out before feeding the files to the linker; those symbols are otherwise used for progress tracking, a planned future feature.
 
 DOCUMENTATION:
 The repository's wiki will serve as the place to document file formats and game mechanics from an in-depth technical standpoint.

@@ -339,7 +339,7 @@ typedef struct {
     u8 unk_220;
     u8 unk_221;
     u8 unk_222;
-    u8 unk_223
+    u8 unk_223;
 } GAME_WORK;
 
 typedef struct {
@@ -382,6 +382,27 @@ typedef struct {
     u8 unk_4D;
     u8 unk_4E;
     u8 unk_4F;
+    u8 unk_50;
+    u8 unk_51;
+    u8 unk_52;
+    u8 unk_53;
+    u8 unk_54;
+    u8 unk_55;
+    u8 unk_56;
+    u8 unk_57;
+    u8 unk_58;
+    u8 unk_59;
+    u8 unk_5A;
+    u8 unk_5B;
+    u8 unk_5C;
+    u8 unk_5D;
+    u8 unk_5E;
+    u8 unk_5F;
+    u8 unk_60;
+    u8 unk_61;
+    u8 unk_62;
+    u8 unk_63;
+    u8 unk_64;
 } STAGE_WORK;
 
 typedef struct {

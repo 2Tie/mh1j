@@ -26,6 +26,7 @@ options:
 
   asm_function_macro: .fn
   asm_data_macro: .obj
+  asm_nonmatching_label_macro: ""
   asm_inc_header: |
     .set noat      /* allow manual use of $at */
     .set noreorder /* don't insert nops after branches */
@@ -340,7 +341,9 @@ segments:
     - {vram: 0x38a114, type: .sbss, name: stage}
     - {vram: 0x38a11c, type: sbss, name: unsorted}
 
-    - { name: bss, type: bss, vram: 0x38AA54 }
+    - { vram: 0x38AA54, type: bss, name: bss_1 }
+    - { vram: 0x3d8230, type: .bss, name: stage }
+    - { vram: 0x3d82a0, type: bss, name: bss_2 }
   - [0x28A200, databin, elf/shstrtab]
   - [0x28A320, databin, elf/strtab]
   - [0x333C30, databin, elf/symtab]

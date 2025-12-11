@@ -219,16 +219,17 @@ class LCFWriter:
         # bss
 
         self.begin_section("bss sections")
-
+        self.align(0x80)
         bss_runs = [x for x in runs if x.section == ".bss"]
 
-        self.align_all(0x4)
+        #self.align_all(0x10)
 
         for run in bss_runs:
             for entry in run.entries:
                 self.add_entry(entry, ".bss")
                 if "cri" in str(entry.object_path):
                     self.add_entry(entry, "COMMON")
+                    self.align_all(0x10)
 
         if(overlay):
             self.write_line(f"_{segment}_bss_end = .;")
