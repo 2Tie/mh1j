@@ -26,6 +26,87 @@ typedef struct {
     u16 quantity;
 } ITEM_SLOT;
 
+typedef enum {
+  INIT,
+  VIOLENCE,
+  CRI,
+  ACCESS,
+  CAPCOM,
+  OPENING,
+  TITLE
+} DEMO_SCREEN;
+
+typedef struct {
+    //total size: 0x44
+    DEMO_SCREEN screen; //offset 0x0
+    u8 state; //offset 0x1
+    u8 playing; //offset 0x2
+    u8 unk_03;
+    u8 unk_04;
+    u8 unk_05;
+    u8 unk_06;
+    u8 unk_07;
+    u8 unk_08;
+    u8 unk_09;
+    u16 timer; //offset 0xa
+    u8 unk_0c;
+    u8 unk_0d;
+    u8 unk_0e;
+    u8 unk_0f;
+    u8 initting; //offset 0x10
+    u8 unk_11;
+    u8 unk_12;
+    u8 unk_13;
+    u8 unk_14;
+    u8 unk_15;
+    u8 unk_16;
+    u8 unk_17;
+    u8 unk_18;
+    u8 unk_19;
+    u8 unk_1a;
+    u8 unk_1b;
+    u8 unk_1c;
+    u8 unk_1d;
+    u8 unk_1e;
+    u8 unk_1f;
+    u8 unk_20;
+    u8 unk_21;
+    u8 unk_22;
+    u8 unk_23;
+    u8 unk_24;
+    u8 unk_25;
+    u8 unk_26;
+    u8 unk_27;
+    u8 unk_28;
+    u8 unk_29;
+    u8 unk_2a;
+    u8 unk_2b;
+    u8 unk_2c;
+    u8 unk_2d;
+    u8 unk_2e;
+    u8 unk_2f;
+    u8 unk_30;
+    u8 unk_31;
+    u8 unk_32;
+    u8 unk_33;
+    u8 unk_34;
+    u8 unk_35;
+    u8 unk_36;
+    u8 unk_37;
+    u8 unk_38;
+    u8 unk_39;
+    u8 unk_3a;
+    u8 unk_3b;
+    u8 unk_3c;
+    u8 unk_3d;
+    u8 unk_3e;
+    u8 unk_3f;
+    u8 unk_40;
+    u8 unk_41;
+    u8 unk_42;
+    u8 unk_43;
+} DEMO_WORK;
+
 typedef struct {
     //total size:0x224
     u8 top_state; //offset 0x0
@@ -404,6 +485,261 @@ typedef struct {
     u8 unk_63;
     u8 unk_64;
 } STAGE_WORK;
+
+typedef struct {
+    //total size: 0x80
+    u8 unk_00;
+    u8 unk_01;
+    u8 unk_02;
+    u8 unk_03;
+    u8 unk_04;
+    u8 unk_05;
+    u8 unk_06;
+    u8 unk_07;
+    u8 unk_08;
+    u8 unk_09;
+    u8 unk_0a;
+    u8 unk_0b;
+    u8 unk_0c;
+    u8 unk_0d;
+    u8 unk_0e;
+    u8 unk_0f;
+    u8 online; //offset 0x10, size 0x1
+    u8 unk_11;
+    u8 unk_12;
+    u8 unk_13;
+    u8 unk_14;
+    u8 unk_15;
+    u8 unk_16;
+    u8 is_stereo; //offset 0x17, size 0x1
+    u8 unk_18;
+    u8 unk_19;
+    u8 game_region; //offset 0x1a, size 0x1
+    u8 unk_1b;
+    u8 unk_1c;
+    u8 unk_1d;
+    u8 unk_1e;
+    u8 unk_1f;
+    u8 unk_20;
+    u8 unk_21;
+    u8 unk_22;
+    u8 unk_23;
+    u8 unk_24;
+    u8 unk_25;
+    u8 unk_26;
+    u8 unk_27;
+    u8 unk_28;
+    u8 unk_29;
+    u8 unk_2a;
+    u8 unk_2b;
+    u8 unk_2c;
+    u8 unk_2d;
+    u8 filter_mode; //offset 0x2e, size 0x1
+    u8 view_projection; //offset 0x2f, size 0x1
+    u8 ope_mode; //offset 0x30, size 0x1
+    u8 aspect_ratio; //offset 0x31, size 0x1
+    u8 unk_32;
+    u8 unk_33;
+    u8 in_aq_session; //offset 0x34, size 0x1
+    u8 busy_loading; //offset 0x35, size 0x1
+    u8 bgm_volume; //offset 0x36, size 0x1
+    u8 se_volume; //offset 0x37, size 0x1
+    u8 unk_38;
+    u8 unk_39;
+    u8 unk_3a;
+    u8 unk_3b;
+    u8 mc_access; //offset 0x3c, size 0x1
+    u8 unk_3d;
+    u8 unk_3e;
+    u8 unk_3f;
+    s16 aq_load_timeout; //offset 0x40, size 0x2
+    u8 unk_42;
+    u8 unk_43;
+    u8 unk_44;
+    u8 unk_45;
+    u8 unk_46;
+    u8 unk_47;
+    u8 unk_48;
+    u8 unk_49;
+    u8 unk_4a;
+    u8 unk_4b;
+    u8 unk_4c;
+    u8 unk_4d;
+    u8 unk_4e;
+    u8 unk_4f;
+    u8 unk_50;
+    u8 unk_51;
+    u8 unk_52;
+    u8 unk_53;
+    u8 unk_54;
+    u8 unk_55;
+    u8 unk_56;
+    u8 unk_57;
+    u8 unk_58;
+    u8 unk_59;
+    u8 unk_5a;
+    u8 unk_5b;
+    u8 unk_5c;
+    u8 unk_5d;
+    u8 unk_5e;
+    u8 unk_5f;
+    u8 unk_60;
+    u8 unk_61;
+    u8 unk_62;
+    u8 unk_63;
+    u8 unk_64;
+    u8 unk_65;
+    u8 unk_66;
+    u8 unk_67;
+    u8 unk_68;
+    u8 unk_69;
+    u8 unk_6a;
+    u8 unk_6b;
+    u8 unk_6c;
+    u8 unk_6d;
+    u8 unk_6e;
+    u8 unk_6f;
+    u8 unk_70;
+    u8 unk_71;
+    u8 unk_72;
+    u8 unk_73;
+    u8 unk_74;
+    u8 unk_75;
+    u8 unk_76;
+    u8 unk_77;
+    u8 unk_78;
+    u8 unk_79;
+    u8 unk_7a;
+    u8 unk_7b;
+    u8 unk_7c;
+    u8 unk_7d;
+    u8 unk_7e;
+    u8 unk_7f;
+} SYSTEM_WORK;
+
+typedef struct {
+    //total size: 0x84
+    u8 unk_00;
+    u8 unk_01;
+    u8 unk_02;
+    u8 unk_03;
+    u16 unk_04;
+    u8 unk_06;
+    u8 unk_07;
+    u8 unk_08;
+    u8 unk_09;
+    u8 unk_0a;
+    u8 unk_0b;
+    u8 unk_0c;
+    u8 unk_0d;
+    u8 unk_0e;
+    u8 unk_0f;
+    u8 unk_10;
+    u8 unk_11;
+    u8 unk_12;
+    u8 unk_13;
+    u8 unk_14;
+    u8 unk_15;
+    u8 unk_16;
+    u8 unk_17;
+    u8 unk_18;
+    u8 unk_19;
+    u8 unk_1a;
+    u8 unk_1b;
+    u8 unk_1c;
+    u8 unk_1d;
+    u8 unk_1e;
+    u8 unk_1f;
+    u8 unk_20;
+    u8 unk_21;
+    u8 unk_22;
+    u8 unk_23;
+    u8 unk_24;
+    u8 unk_25;
+    u8 unk_26;
+    u8 unk_27;
+    u8 unk_28;
+    u8 unk_29;
+    u8 unk_2a;
+    u8 unk_2b;
+    s32 unk_2c;
+    u8 unk_30;
+    u8 unk_31;
+    u8 unk_32;
+    u8 unk_33;
+    s32 unk_34;
+    s32 unk_38;
+    u16 unk_3c;
+    u16 unk_3e;
+    u8 unk_40;
+    u8 unk_41;
+    u8 unk_42;
+    u8 unk_43;
+    u8 unk_44;
+    u8 unk_45;
+    u8 unk_46;
+    u8 unk_47;
+    u8 unk_48;
+    u8 unk_49;
+    u8 unk_4a;
+    u8 unk_4b;
+    u8 unk_4c;
+    u8 unk_4d;
+    u8 unk_4e;
+    u8 unk_4f;
+    u8 unk_50;
+    u8 unk_51;
+    u8 unk_52;
+    u8 unk_53;
+    u8 unk_54;
+    u8 unk_55;
+    u8 unk_56;
+    u8 unk_57;
+    u8 unk_58;
+    u8 unk_59;
+    u8 unk_5a;
+    u8 unk_5b;
+    u8 unk_5c;
+    u8 unk_5d;
+    u8 unk_5e;
+    u8 unk_5f;
+    u8 unk_60;
+    u8 unk_61;
+    u8 unk_62;
+    u8 unk_63;
+    u8 unk_64;
+    u8 unk_65;
+    u8 unk_66;
+    u8 unk_67;
+    u8 unk_68;
+    u8 unk_69;
+    u8 unk_6a;
+    u8 unk_6b;
+    u8 unk_6c;
+    u8 unk_6d;
+    u8 unk_6e;
+    u8 unk_6f;
+    u8 unk_70;
+    u8 unk_71;
+    u8 unk_72;
+    u8 unk_73;
+    u8 unk_74;
+    u8 unk_75;
+    u8 unk_76;
+    u8 unk_77;
+    u8 unk_78;
+    u8 unk_79;
+    u8 unk_7a;
+    u8 unk_7b;
+    u8 unk_7c;
+    u8 unk_7d;
+    u8 unk_7e;
+    u8 unk_7f;
+    u8 unk_80;
+    u8 unk_81;
+    u8 unk_82;
+    u8 unk_83;
+} CARD_WORK;
 
 typedef struct {
     //total size: 0x18

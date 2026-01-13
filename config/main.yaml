@@ -43,7 +43,7 @@ segments:
     subsegments:
     - [0x180, asm, crt0]
     - [0x3b0, asm, ../lib/cri/adx_init]
-    - [0xfa0, asm, cardinit]
+    - [0xfa0, c, cardinit]
     - [0x1010, asm, eft]
     - [0x9fb0, asm, em]
     - [0xeda0, asm, fade]
@@ -341,9 +341,15 @@ segments:
     - {vram: 0x38a114, type: .sbss, name: stage}
     - {vram: 0x38a11c, type: sbss, name: unsorted}
 
-    - { vram: 0x38AA54, type: bss, name: bss_1 }
-    - { vram: 0x3d8230, type: .bss, name: stage }
-    - { vram: 0x3d82a0, type: bss, name: bss_2 }
+    - {vram: 0x38AA54, type: bss, name: ..lib/cri/adx_init }
+    - {vram: 0x390880, type: .bss, name: cardinit}
+    - {vram: 0x390910, type: bss, name: eft}
+    - {vram: 0x392b10, type: bss, name: fade}
+    - {vram: 0x392b20, type: bss, name: bss_1}
+    - {vram: 0x3d8230, type: .bss, name: stage }
+    - {vram: 0x3d82a0, type: bss, name: bss_2 }
+    - {vram: 0x531740, type: bss, name: memcard}
+    - {vram: 0x531910, type: bss, name: bss_3}
   - [0x28A200, databin, elf/shstrtab]
   - [0x28A320, databin, elf/strtab]
   - [0x333C30, databin, elf/symtab]
