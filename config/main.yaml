@@ -51,7 +51,7 @@ segments:
     - [0x1cf70, asm, item]
     - [0x1dc90, asm, light]
     - [0x1e9e0, asm, tex]
-    - [0x1eea0, asm, load]
+    - [0x1eea0, c, load]
     - [0x1f570, asm, main]
     - [0x203c0, asm, math]
     - [0x21110, asm, parts]
