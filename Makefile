@@ -43,7 +43,7 @@ VERIFY := $(PYTHON) $(TOOLS_DIR)/verify.py
 # flags
 
 INCLUDES := -I$(INCLUDE_DIR) -I$(INCLUDE_DIR)/gcc -I$(INCLUDE_DIR)/cri -I$(INCLUDE_DIR)/cri/ee
-MWCCPS2_FLAGS := -gccinc $(INCLUDES) -sdatathreshold 2 -O3,p -c -lang c -multibyte
+MWCCPS2_FLAGS := -gccinc $(INCLUDES) -sdatathreshold 4 -O3,p -c -lang c -multibyte
 EEGCC_FLAGS := $(INCLUDES) -O2 -G0 -c
 
 AS_FLAGS += -EL -I $(INCLUDE_DIR) -G 2 -march=r5900 -mabi=eabi -no-pad-sections -mno-pdr

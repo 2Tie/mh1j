@@ -1,26 +1,45 @@
 #include "common.h"
 
-extern s32 arc_ptr0x38a23c;
-extern s32 load_bin0x1003b0(s32, s32);
+extern u8* arc_ptr0x38a23c;
+extern s32 load_bin0x1003b0(s32, u8*);
+extern int pl_motion_data0x2ebc50[];
+extern int em_motion_data0x2ec830[];
+extern int common_motion_data0x2ebc70[];
+extern u8* pl_area_top0x38a224;
+extern u8* data_load_ptr0x38a240;
+extern u8* stage_model0x38a220;
+extern int stage_model_data0x2ec950[];
 
-s32 load_file_mdl0x11ed20(s32 arg0, s32 arg1) {
-    if (arg1 < 0) {
+s32 load_file_mdl0x11ed20(u8* buff, s32 fileID) {
+    if (fileID < 0) {
         return -1;
     }
-    if (load_bin0x1003b0(arg1 | 0x20000, arc_ptr0x38a23c) == 1) {
-        Meltw0x11f230(arc_ptr0x38a23c, arg0);
+    if (load_bin0x1003b0(fileID | 0x20000, arc_ptr0x38a23c) == 1) {
+        Meltw0x11f230(arc_ptr0x38a23c, buff);
         return 1;
     }
     return 0;
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/load", load_pl_motion0x11ed90);
+int load_pl_motion0x11ed90(s32 arg1, s32 motion) {
+    return load_file_mdl0x11ed20(pl_area_top0x38a224, pl_motion_data0x2ebc50[motion]);
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/load", load_plcom_motion0x11edb0);
+int load_plcom_motion0x11edb0(s32 arg1, s32 motion) {
+    return load_file_mdl0x11ed20(pl_area_top0x38a224, common_motion_data0x2ebc70[motion]);
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/load", load_em_motion0x11edd0);
+int load_em_motion0x11edd0(s32 arg0, s32 em) {
+    return load_file_mdl0x11ed20(pl_area_top0x38a224, em_motion_data0x2ec830[em]);
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/load", load_stage_model0x11edf0);
+void load_stage_model0x11edf0(s32 stage) {
+    u8* model_ptr;
+
+    model_ptr = stage_model0x38a220;
+    load_file_mdl0x11ed20(data_load_ptr0x38a240, stage_model_data0x2ec950[stage]);
+    amo_ahi_expand0x11f350(data_load_ptr0x38a240, model_ptr, model_ptr + 0x128000); //TODO this constant?
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/load", load_eft_model0x11ee50);
 

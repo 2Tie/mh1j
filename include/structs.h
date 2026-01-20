@@ -11,6 +11,18 @@ typedef struct {
 } Vec3;
 
 typedef struct {
+    u8 state; //offset 0x0, size 0x1
+    u8 unk01;
+    u8 unk02;
+    u8 unk03;
+    s16 unk04;
+    s16 unk06;
+    s16 unk08;
+    s16 unk0a;
+    u32 unk0c;
+} FADE_WORK;
+
+typedef struct {
     //total size: 0xC
     s32 x; //offset 0x0, size 0x4
     s32 y; //offset 0x4, size 0x4
