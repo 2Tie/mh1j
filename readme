@@ -1,5 +1,5 @@
 PROGRESS:
-a handful of functions in the main elf have been decompiled - automated tracking ahs not yet been set up.
+a handful of functions in the main elf have been decompiled - automated tracking has not yet been set up.
 
 GETTING SET UP:
 You will need to have Python 3.9 or higher installed. You can check current version with "python3 --version".
@@ -10,7 +10,7 @@ You will also need SLPM_654.95 and AFS_DATA from the game disc placed in the roo
 
 The next step will be "make split", this will handle the DNAS overlays' deobfuscation and then split all of the code into labeled assembly files.
 
-Before you begin decompiling, you may want to run "make build" to confirm that the compilation tools are running correctly and that the working state of the repository results in a matching output. Note that currently the build does not work.
+Before you begin decompiling, you may want to run "make build" to confirm that the compilation tools are running correctly and that the working state of the repository results in a matching output. Note that currently the build has a handful of nonmatching output, this is normal.
 
 WORKFLOW:
 To identify unfinished C files, they will have matching-named folders in the asm/*/nonmatching folder. In the C file (in the src/ folder), functions that are yet to be decompiled will be denoted with an INCLUDE_ASM macro pointing to the assembly code file. 
@@ -49,7 +49,7 @@ After a successful build, a byte-for-byte comparison will be ran on the built bi
 KNOWN ISSUES:
 The main elf currently has 14 reported mismatches for a "good" build, stemming from the Sony PS2 libraries used that were instead built with EEGCC and have a different style for branching to local targets. Changing the PS2 libs to use EEGCC (or pivoting to using prebuilt libraries) will fix these in the future.
 
-The BSS is currently misaligned in the build, more investigation is needed to determine how to both start the bss at a X4 offset but also align later symbols to 0x10. Maybe the BSS symbol sizes need to be determined?
+The __bss_start symbol is 'early' in retail, this doesn't affect good build.
 
 Currently, NONMATCHING labels are omitted from the split output (configured in the .yaml files) because MWLDPS2 doesn't like them, complaining about too many symbols. In the future, we may have to filter the NONMATCHING symbols out before feeding the files to the linker; those symbols are otherwise used for progress tracking, a planned future feature.
 

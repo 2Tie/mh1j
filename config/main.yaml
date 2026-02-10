@@ -341,7 +341,8 @@ segments:
     - {vram: 0x38a114, type: .sbss, name: stage}
     - {vram: 0x38a11c, type: sbss, name: unsorted}
 
-    - {vram: 0x38AA54, type: bss, name: ..lib/cri/adx_init }
+    # bss starts at 38aa54, lol
+    - {vram: 0x38AA80, type: bss, name: ..lib/cri/adx_init }
     - {vram: 0x390880, type: .bss, name: cardinit}
     - {vram: 0x390910, type: bss, name: eft}
     - {vram: 0x392b10, type: bss, name: fade}

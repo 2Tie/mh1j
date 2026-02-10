@@ -15,7 +15,7 @@ extern int em_model_data0x2ec7a0[];
 extern int em_sub_model_data0x2ec8c0[];
 extern int npc_model_data0x2eced0[];
 extern int set_model_data0x2ecd70[];
-extern int edit_model_data0x386bd0[]; //actually extern, the rest should be in rodata?
+extern int edit_model_data0x386bd0[2]; //actually extern, the rest should be in rodata?
 
 s32 load_file_mdl0x11ed20(u8* buff, s32 fileID) {
     if (fileID < 0) {
@@ -98,14 +98,14 @@ void load_set_model0x11f0b0(s32 stage) {
     amo_ahi_expand0x11f350(data_load_ptr0x38a240, model_ptr, model_ptr + 0x128000); //TODO this constant?
 }
 
-/*void load_edit_model0x11f110(s32 edit) {
+void load_edit_model0x11f110(s32 edit) {
     u8* model_ptr;
 
     model_ptr = pl_area_top0x38a224;
     load_file_mdl0x11ed20(data_load_ptr0x38a240, edit_model_data0x386bd0[edit]);
     amo_ahi_expand0x11f350(data_load_ptr0x38a240, model_ptr, model_ptr + 0x128000); //TODO this constant?
-}*/
-INCLUDE_ASM("asm/main/nonmatchings/load", load_edit_model0x11f110);
+}
+//INCLUDE_ASM("asm/main/nonmatchings/load", load_edit_model0x11f110);
 
 void debug_model_load0x11f160(void) {
     return;
