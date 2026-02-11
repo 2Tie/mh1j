@@ -19,6 +19,8 @@ To work on a decompilation, i recommend the wonderful online tool https://decomp
 
 When copying finished functions to the C file, be sure to reverse the order of variables relative to their final address; this is a quirk of the metrowerks compiler's bucketing system. Also, be sure to delete the asm file from the asm/ folder (or just delete the asm folder and re-split). same goes for when migrating assembly to nonmatching, make sure the original gets removed!
 
+If you add a new struct to include/structs.c, make sure you define its size (and set the type as u8) in the config/*_symbol_addrs file it belongs to, otherwise overlay funcs will fumble accessing its members and decomp.me targets using it will have a different access detail, making it impossible to 100% match without override.
+
 To start a new C file, you'll want to open one of the .yaml files in the config/ folder, and look for an 'asm' entry. Change the "asm" to "c", and then you'll want to find the "rodata" entry lower in the segments list that matches the name of the new "c" entry, and change "rodata" to ".rodata". for example:
 ...
 - [0x1000, asm, rave]

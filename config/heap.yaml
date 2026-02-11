@@ -15,8 +15,8 @@ options:
   
   extensions_path: tools/splat_ext
   symbol_addrs_path: config/heap_symbol_addrs.txt
-  undefined_funcs_auto_path: config/undefined_funcs_auto.txt
-  undefined_syms_auto_path: config/undefined_syms_auto.txt
+  undefined_funcs_auto_path: config/heap_funcs_auto.txt
+  undefined_syms_auto_path: config/heap_syms_auto.txt
 
   find_file_boundaries: False #funcs are already aligned?
   string_encoding: SHIFT-JIS
