@@ -1,21 +1,39 @@
 #include "common.h"
 
+void amo_ahi_expand0x11f350(void * srcbuf, void * amobuf, void* ahibuf);
+
 extern u8* arc_ptr0x38a23c;
 extern s32 load_bin0x1003b0(s32, u8*);
+extern void SetCameraData0x21f470(u8*);
+extern void flReloadTexture0x189cd0(u32, void*);
+extern void * memcpy0x19db70(void *, void *, size_t);
+
 extern int pl_motion_data0x2ebc50[];
 extern int em_motion_data0x2ec830[];
 extern int common_motion_data0x2ebc70[];
+
 extern u8* data_load_ptr0x38a240;
 extern u8* stage_model0x38a220;
 extern u8* pl_area_top0x38a224;
+extern u8* cam_data_area0x38a204;
+
+extern u8* mem_tex0x3f3990[];
+
 extern int stage_model_data0x2ec950[];
 extern int effect_model_data0x2ecee0[];
+extern int camera_data_tbl0x2ecf00[];
 extern int weapon_model_data0x2ec5b0[];
 extern int em_model_data0x2ec7a0[];
 extern int em_sub_model_data0x2ec8c0[];
 extern int npc_model_data0x2eced0[];
 extern int set_model_data0x2ecd70[];
 extern int edit_model_data0x386bd0[2]; //actually extern, the rest should be in rodata?
+extern int* armor_model_f0x2ec590[];
+extern int* armor_model_m0x2ec0f0[];
+
+extern s16 reload_tex_id0x38a1b0;
+extern s16 reload_tex_num0x38a1ac;
+extern s16 reload_tex_total0x38a1a8;
 
 s32 load_file_mdl0x11ed20(u8* buff, s32 fileID) {
     if (fileID < 0) {
@@ -64,7 +82,20 @@ void load_weapon_model0x11eeb0(s32 weap) {
     amo_ahi_expand0x11f350(data_load_ptr0x38a240, model_ptr, model_ptr + 0x128000); //TODO this constant?
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/load", load_armor_model0x11ef10);
+void load_armor_model0x11ef10(s32 armorID, s32 bodypart, s32 gender) {
+    u8* buff;
+    int* file;
+
+    if (gender == 0) {
+        file = armor_model_m0x2ec0f0[bodypart];
+    } else {
+        file = armor_model_f0x2ec590[bodypart];
+    }
+    buff = pl_area_top0x38a224;
+    file += armorID;
+    load_file_mdl0x11ed20(data_load_ptr0x38a240, file[0]);
+    amo_ahi_expand0x11f350(data_load_ptr0x38a240, buff, buff + 0x128000);
+}
 
 void load_enemy_model0x11ef90(s32 enemy) {
     u8* model_ptr;
@@ -105,22 +136,52 @@ void load_edit_model0x11f110(s32 edit) {
     load_file_mdl0x11ed20(data_load_ptr0x38a240, edit_model_data0x386bd0[edit]);
     amo_ahi_expand0x11f350(data_load_ptr0x38a240, model_ptr, model_ptr + 0x128000); //TODO this constant?
 }
-//INCLUDE_ASM("asm/main/nonmatchings/load", load_edit_model0x11f110);
 
 void debug_model_load0x11f160(void) {
     return;
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/load", reload_tex0x11f170);
+void reload_tex0x11f170(u32 count, u32 id) {
+    if (count != 0) {
+        flReloadTexture0x189cd0(count, &mem_tex0x3f3990[id]);
+        reload_tex_id0x38a1b0 = id;
+        reload_tex_num0x38a1ac = count;
+        reload_tex_total0x38a1a8 += count;
+    }
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/load", LoadCameraData0x11f1e0);
+void LoadCameraData0x11f1e0(s32 map) {
+    s32 file;
+    u8* cam_data;
+
+    file = camera_data_tbl0x2ecf00[map];
+    cam_data = 0;
+    if (file != 0) {
+        load_file_mdl0x11ed20(cam_data_area0x38a204, file);
+        cam_data = cam_data_area0x38a204;
+    }
+    SetCameraData0x21f470(cam_data);
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/load", Meltw0x11f230);
 
-INCLUDE_ASM("asm/main/nonmatchings/load", GetLinkFileNum0x11f310);
+s32 GetLinkFileNum0x11f310(u8* buff) {
+    return *(s32*)buff; //first value is file count
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/load", GetLinkFileAddress0x11f320);
+u8* GetLinkFileAddress0x11f320(u8 *buf, s32 file) {
+    u8 *addr;
+    addr = buf + (file * sizeof(int)*2);//each file has a pos and size
+    return buf + *(s32*)(addr + sizeof(int)); //advance past file count to file address, then add that offset to buffer ptr
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/load", GetLinkFileSize0x11f340);
+s64 GetLinkFileSize0x11f340(u8 *buf, s32 file) {
+    u8 *size;
+    size = buf + (file * sizeof(int)*2);//each file has a pos and size
+    return *(s32 *)(size + sizeof(int) + sizeof(int)); //advance past file count and file's address
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/load", amo_ahi_expand0x11f350);
+void amo_ahi_expand0x11f350(void * srcbuf, void * amobuf, void* ahibuf) {
+    memcpy0x19db70(amobuf, GetLinkFileAddress0x11f320(srcbuf, 0), GetLinkFileSize0x11f340(srcbuf, 0));
+    memcpy0x19db70(ahibuf, GetLinkFileAddress0x11f320(srcbuf, 1), GetLinkFileSize0x11f340(srcbuf, 1));
+}
