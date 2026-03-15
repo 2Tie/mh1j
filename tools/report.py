@@ -272,6 +272,7 @@ for o in mapdata:
       rum.matched_functions += (1 if mf.fuzzy_match_percent == 100 else 0)
     if(int(rum.total_code) > 0):
       rum.matched_code_percent = int(rum.matched_code) / int(rum.total_code) * 100.0
+      ru.sections.append(Section(name = ".text", size = rum.total_code, fuzzy_match_percent = rum.matched_code_percent))
     if(rum.total_functions > 0):
       rum.matched_functions_percent = rum.matched_functions / rum.total_functions * 100
     rum.total_units = 1
