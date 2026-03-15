@@ -10,5 +10,5 @@ jobs:
       - name: Upload progress report
         uses: actions/upload-artifact@v4
         with:
-          name: SLPM_654.95_report
+          name: SLPM_654-95_report
           path: tools/report.json
