@@ -32,6 +32,10 @@ class Category:
   measures: Measure
 
 @dataclass
+class ItemMeta:
+  virtual: str | None = None
+
+@dataclass
 class Section:
   name: str = ""
   size: str = "0"
@@ -163,6 +167,7 @@ for l in file:
         if(v[2] != ".text"):
           #if new section isn't text, set up the section!
           ms = Section(name = v[2], fuzzy_match_percent = 0, parent = v[4][1:-1])
+          ms.metadata = {}
           #print("found section " + v[2])
         else:
           mu = MapUnit(name = v[4][1:-3])
@@ -189,6 +194,7 @@ for l in file:
                 mo.units.append(u)
                 #print("  created " + ms.name + " section for " + ms.parent + " (3rd)")
             ms = Section(name = v[2], fuzzy_match_percent = 0, parent = v[4][1:-1])
+            ms.metadata = {}
             #print("found section " + v[2])
         #set up a new MapUnit
         savedTU = v[4]
@@ -201,6 +207,7 @@ for l in file:
           #ms.name = ""
         #add new func entry
         func = Function(name=v[3], size = str(int(v[1], 16)), address = int(v[0], 16) - savedpos)
+        func.metadata = {}
         if(v[4].endswith(".s.o)")):
           #guaranteed unmatched, no C file yet
           func.fuzzy_match_percent = 0
@@ -272,7 +279,9 @@ for o in mapdata:
       rum.matched_functions += (1 if mf.fuzzy_match_percent == 100 else 0)
     if(int(rum.total_code) > 0):
       rum.matched_code_percent = int(rum.matched_code) / int(rum.total_code) * 100.0
-      ru.sections.append(Section(name = ".text", size = rum.total_code, fuzzy_match_percent = rum.matched_code_percent))
+      ts = Section(name = ".text", size = rum.total_code, fuzzy_match_percent = rum.matched_code_percent)
+      ts.metadata = {}
+      ru.sections.append(ts)
     if(rum.total_functions > 0):
       rum.matched_functions_percent = rum.matched_functions / rum.total_functions * 100
     rum.total_units = 1
