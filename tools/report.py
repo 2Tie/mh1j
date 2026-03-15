@@ -9,11 +9,11 @@ REPORTLOG = 0
 @dataclass
 class Measure:
   fuzzy_match_percent: float = 0
-  total_code: int = 0
-  matched_code: int = 0
+  total_code: str = "0"
+  matched_code: str = "0"
   matched_code_percent: float = 0
-  total_data: int = 0
-  matched_data: int = 0
+  total_data: str = "0"
+  matched_data: str = "0"
   matched_data_percent: float = 0
   total_functions: int = 0
   matched_functions: int = 0
@@ -34,14 +34,14 @@ class Category:
 @dataclass
 class Section:
   name: str = ""
-  size: int = 0
+  size: str = "0"
   fuzzy_match_percent: float = 0
   parent: str = ""
 
 @dataclass
 class Function:
   name: str = ""
-  size: int = 0
+  size: str = "0"
   fuzzy_match_percent: float = 0
   address: int = 0
 
@@ -136,8 +136,8 @@ for l in file:
   if(v[2].startswith(".")):
     #this is a symbol entry
     #if different from prior, save (if not text)
-    size = int(v[1], 16)
-    if(size > 0):
+    size = str(int(v[1], 16))
+    if(int(size) > 0):
       #it's a real object, add it to our MapUnit?
       if(v[2] != savedSection):
         #just changed section! save the old if applicable
@@ -174,7 +174,7 @@ for l in file:
             mu = MapUnit(name = v[4][1:-3])
             #print(" "+ mu.name)
           else:
-            if(ms.size != 0):
+            if(int(ms.size) != 0):
               matched = False
               for u in mo.units:
                 if(u.name[:-2] == ms.parent.split(".")[0]):
@@ -200,7 +200,7 @@ for l in file:
           #new section is text, clear saved section if present
           #ms.name = ""
         #add new func entry
-        func = Function(name=v[3], size = int(v[1], 16), address = int(v[0], 16) - savedpos)
+        func = Function(name=v[3], size = str(int(v[1], 16)), address = int(v[0], 16) - savedpos)
         if(v[4].endswith(".s.o)")):
           #guaranteed unmatched, no C file yet
           func.fuzzy_match_percent = 0
@@ -225,7 +225,7 @@ for l in file:
         mu.functions.append(func)
         continue
       else:
-        ms.size += size
+        ms.size = str(int(ms.size) + int(size))
         #add up size totals
         continue
       #print("  "+ v[3] + "  size: " + hex(size))
@@ -264,20 +264,24 @@ for o in mapdata:
     rum = Measure()
     for mf in tu.functions:
       ru.functions.append(mf)
-      rum.total_code += mf.size
-      rum.matched_code += int(mf.size*mf.fuzzy_match_percent/100)
+      rum.total_code = str(int(rum.total_code) + int(mf.size))
+      rum.matched_code = str(int(rum.matched_code) + int(int(mf.size)*(mf.fuzzy_match_percent/100)))
+      #if(mf.fuzzy_match_percent > 0):
+      #  pprint.pprint(mf)
       rum.total_functions += 1
       rum.matched_functions += (1 if mf.fuzzy_match_percent == 100 else 0)
+    if(int(rum.total_code) > 0):
+      rum.matched_code_percent = int(rum.matched_code) / int(rum.total_code) * 100.0
     if(rum.total_functions > 0):
       rum.matched_functions_percent = rum.matched_functions / rum.total_functions * 100
     rum.total_units = 1
     #don't forget the sections now
     for ms in tu.sections:
       ru.sections.append(ms)
-      rum.total_data += ms.size
-      rum.matched_data += int(ms.size*ms.fuzzy_match_percent/100)
-    if(rum.total_data > 0):
-      rum.matched_data_percent = rum.matched_data / rum.total_data * 100
+      rum.total_data = str(int(rum.total_data) + int(ms.size))
+      rum.matched_data = str(int(rum.matched_data) + int(int(ms.size)*ms.fuzzy_match_percent/100))
+    if(int(rum.total_data) > 0):
+      rum.matched_data_percent = int(rum.matched_data) / int(rum.total_data) * 100
     #and metadata!
     umeta = UnitMeta(source_path = o.name+"/"+tu.name, progress_categories = [o.name])
     if(rum.matched_data_percent == 100 and rum.matched_code_percent == 100):
@@ -286,36 +290,36 @@ for o in mapdata:
     ru.metadata = umeta
     report.units.append(ru)
     #now update the overlay's measures
-    om.total_code += rum.total_code
-    om.matched_code += rum.matched_code
+    om.total_code = str(int(om.total_code) + int(rum.total_code))
+    om.matched_code = str(int(om.matched_code) + int(rum.matched_code))
     om.total_functions += rum.total_functions
     om.matched_functions += rum.matched_functions
-    om.total_data += rum.total_data
-    om.matched_data += rum.matched_data
+    om.total_data = str(int(om.total_data) + int(rum.total_data))
+    om.matched_data = str(int(om.matched_data) + int(rum.matched_data))
     om.total_units += rum.total_units #always += 1
   #done with all the units in the overlay, calc final measures
   if(om.total_functions > 0):
     om.matched_functions_percent = om.matched_functions / om.total_functions * 100
-  if(om.total_code > 0):
-    om.matched_code_percent = om.matched_code / om.total_code * 100
-  if(om.total_data > 0):
-    om.matched_data_percent = om.matched_data / om.total_data * 100
+  if(int(om.total_code) > 0):
+    om.matched_code_percent = int(om.matched_code) / int(om.total_code) * 100
+  if(int(om.total_data) > 0):
+    om.matched_data_percent = int(om.matched_data) / int(om.total_data) * 100
   #then add the data to the report
   oc = Category(id=o.name, name=o.name, measures = Measure())
   oc.measures = om
   report.categories.append(oc)
   #add overlay measures to top-level report?
-  rm.total_code += om.total_code
-  rm.matched_code += om.matched_code
-  rm.total_data += om.total_data
-  rm.matched_data += om.matched_data
+  rm.total_code = str(int(rm.total_code) + int(om.total_code))
+  rm.matched_code = str(int(rm.matched_code) + int(om.matched_code))
+  rm.total_data = str(int(rm.total_data) + int(om.total_data))
+  rm.matched_data = str(int(rm.matched_data) + int(om.matched_data))
   rm.total_functions += om.total_functions
   rm.matched_functions += om.matched_functions
   rm.total_units += om.total_units
-  if(rm.total_code > 0):
-    rm.matched_code_percent = rm.matched_code / rm.total_code
-  if(rm.total_data > 0):
-    rm.matched_data_percent = rm.matched_data / rm.total_data
+  if(int(rm.total_code) > 0):
+    rm.matched_code_percent = int(rm.matched_code) / int(rm.total_code)
+  if(int(rm.total_data) > 0):
+    rm.matched_data_percent = int(rm.matched_data) / int(rm.total_data)
   if(rm.total_functions > 0):
     rm.matched_functions_percent = rm.matched_functions / rm.total_functions
 report.measures=rm
