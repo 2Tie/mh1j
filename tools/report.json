@@ -1,6 +1,6 @@
 {
   "measures": {
-    "fuzzy_match_percent": 0,
+    "fuzzy_match_percent": 0.00042291166221199714,
     "total_code": "4256208",
     "matched_code": "1800",
     "matched_code_percent": 0.00042291166221199714,
@@ -16,7 +16,7 @@
     {
       "name": "crt0.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "548",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -69,7 +69,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/crt0.s",
+        "source_path": "src/main/crt0.s",
         "progress_categories": [
           "main"
         ]
@@ -78,7 +78,7 @@
     {
       "name": "adx_init.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "2888",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -313,7 +313,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/adx_init.s",
+        "source_path": "src/main/adx_init.s",
         "progress_categories": [
           "main"
         ]
@@ -322,7 +322,7 @@
     {
       "name": "cardinit.c",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 100.0,
         "total_code": "84",
         "matched_code": "84",
         "matched_code_percent": 100.0,
@@ -375,7 +375,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/cardinit.c",
+        "source_path": "src/main/cardinit.c",
         "progress_categories": [
           "main"
         ]
@@ -384,7 +384,7 @@
     {
       "name": "eft.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "36440",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -885,7 +885,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/eft.s",
+        "source_path": "src/main/eft.s",
         "progress_categories": [
           "main"
         ]
@@ -894,7 +894,7 @@
     {
       "name": "em.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "19764",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -1164,7 +1164,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/em.s",
+        "source_path": "src/main/em.s",
         "progress_categories": [
           "main"
         ]
@@ -1173,7 +1173,7 @@
     {
       "name": "fade.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "1032",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -1240,7 +1240,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/fade.s",
+        "source_path": "src/main/fade.s",
         "progress_categories": [
           "main"
         ]
@@ -1249,7 +1249,7 @@
     {
       "name": "game.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "56180",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -1876,7 +1876,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/game.s",
+        "source_path": "src/main/game.s",
         "progress_categories": [
           "main"
         ]
@@ -1885,7 +1885,7 @@
     {
       "name": "item.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "3256",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -2050,7 +2050,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/item.s",
+        "source_path": "src/main/item.s",
         "progress_categories": [
           "main"
         ]
@@ -2059,7 +2059,7 @@
     {
       "name": "light.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "3352",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -2147,7 +2147,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/light.s",
+        "source_path": "src/main/light.s",
         "progress_categories": [
           "main"
         ]
@@ -2156,7 +2156,7 @@
     {
       "name": "tex.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "1180",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -2244,7 +2244,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/tex.s",
+        "source_path": "src/main/tex.s",
         "progress_categories": [
           "main"
         ]
@@ -2253,7 +2253,7 @@
     {
       "name": "load.c",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 85.85858585858585,
         "total_code": "1584",
         "matched_code": "1360",
         "matched_code_percent": 85.85858585858585,
@@ -2439,7 +2439,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/load.c",
+        "source_path": "src/main/load.c",
         "progress_categories": [
           "main"
         ]
@@ -2448,7 +2448,7 @@
     {
       "name": "main.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "3572",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -2571,7 +2571,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/main.s",
+        "source_path": "src/main/main.s",
         "progress_categories": [
           "main"
         ]
@@ -2580,7 +2580,7 @@
     {
       "name": "math.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "3264",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -2787,7 +2787,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/math.s",
+        "source_path": "src/main/math.s",
         "progress_categories": [
           "main"
         ]
@@ -2796,7 +2796,7 @@
     {
       "name": "parts.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "924",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -2835,7 +2835,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/parts.s",
+        "source_path": "src/main/parts.s",
         "progress_categories": [
           "main"
         ]
@@ -2844,7 +2844,7 @@
     {
       "name": "yure.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "2092",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -2904,7 +2904,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/yure.s",
+        "source_path": "src/main/yure.s",
         "progress_categories": [
           "main"
         ]
@@ -2913,7 +2913,7 @@
     {
       "name": "model.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "13296",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -3288,7 +3288,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/model.s",
+        "source_path": "src/main/model.s",
         "progress_categories": [
           "main"
         ]
@@ -3297,7 +3297,7 @@
     {
       "name": "scheduler.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "680",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -3378,7 +3378,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/scheduler.s",
+        "source_path": "src/main/scheduler.s",
         "progress_categories": [
           "main"
         ]
@@ -3387,7 +3387,7 @@
     {
       "name": "motion.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "5160",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -3538,7 +3538,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/motion.s",
+        "source_path": "src/main/motion.s",
         "progress_categories": [
           "main"
         ]
@@ -3547,7 +3547,7 @@
     {
       "name": "option.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "3136",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -3670,7 +3670,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/option.s",
+        "source_path": "src/main/option.s",
         "progress_categories": [
           "main"
         ]
@@ -3679,7 +3679,7 @@
     {
       "name": "cockpit.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "53996",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -4572,7 +4572,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/cockpit.s",
+        "source_path": "src/main/cockpit.s",
         "progress_categories": [
           "main"
         ]
@@ -4581,7 +4581,7 @@
     {
       "name": "player.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "130264",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -7154,7 +7154,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/player.s",
+        "source_path": "src/main/player.s",
         "progress_categories": [
           "main"
         ]
@@ -7163,7 +7163,7 @@
     {
       "name": "heap.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "1548",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -7272,7 +7272,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/heap.s",
+        "source_path": "src/main/heap.s",
         "progress_categories": [
           "main"
         ]
@@ -7281,7 +7281,7 @@
     {
       "name": "info.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "14652",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -7572,7 +7572,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/info.s",
+        "source_path": "src/main/info.s",
         "progress_categories": [
           "main"
         ]
@@ -7581,7 +7581,7 @@
     {
       "name": "shell.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "1164",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -7662,7 +7662,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/shell.s",
+        "source_path": "src/main/shell.s",
         "progress_categories": [
           "main"
         ]
@@ -7671,7 +7671,7 @@
     {
       "name": "softdip.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "32",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -7724,7 +7724,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/softdip.s",
+        "source_path": "src/main/softdip.s",
         "progress_categories": [
           "main"
         ]
@@ -7733,7 +7733,7 @@
     {
       "name": "sound.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "4200",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -7919,7 +7919,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/sound.s",
+        "source_path": "src/main/sound.s",
         "progress_categories": [
           "main"
         ]
@@ -7928,7 +7928,7 @@
     {
       "name": "sprite.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "5468",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -8037,7 +8037,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/sprite.s",
+        "source_path": "src/main/sprite.s",
         "progress_categories": [
           "main"
         ]
@@ -8046,7 +8046,7 @@
     {
       "name": "stage.c",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 1.595840057378519,
         "total_code": "22308",
         "matched_code": "356",
         "matched_code_percent": 1.595840057378519,
@@ -8218,7 +8218,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/stage.c",
+        "source_path": "src/main/stage.c",
         "progress_categories": [
           "main"
         ]
@@ -8227,7 +8227,7 @@
     {
       "name": "system.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "10000",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -8798,7 +8798,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/system.s",
+        "source_path": "src/main/system.s",
         "progress_categories": [
           "main"
         ]
@@ -8807,7 +8807,7 @@
     {
       "name": "trans.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "1568",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -8909,7 +8909,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/trans.s",
+        "source_path": "src/main/trans.s",
         "progress_categories": [
           "main"
         ]
@@ -8918,7 +8918,7 @@
     {
       "name": "weapon.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "14232",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -9020,7 +9020,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/weapon.s",
+        "source_path": "src/main/weapon.s",
         "progress_categories": [
           "main"
         ]
@@ -9029,7 +9029,7 @@
     {
       "name": "unk.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "6436",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -9138,7 +9138,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/unk.s",
+        "source_path": "src/main/unk.s",
         "progress_categories": [
           "main"
         ]
@@ -9147,7 +9147,7 @@
     {
       "name": "prim.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "1348",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -9263,7 +9263,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/prim.s",
+        "source_path": "src/main/prim.s",
         "progress_categories": [
           "main"
         ]
@@ -9272,7 +9272,7 @@
     {
       "name": "vib.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "452",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -9346,7 +9346,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/vib.s",
+        "source_path": "src/main/vib.s",
         "progress_categories": [
           "main"
         ]
@@ -9355,7 +9355,7 @@
     {
       "name": "view.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "1952",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -9499,7 +9499,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/view.s",
+        "source_path": "src/main/view.s",
         "progress_categories": [
           "main"
         ]
@@ -9508,7 +9508,7 @@
     {
       "name": "em_work.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "2400",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -9687,7 +9687,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/em_work.s",
+        "source_path": "src/main/em_work.s",
         "progress_categories": [
           "main"
         ]
@@ -9696,7 +9696,7 @@
     {
       "name": "fl.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "146432",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -12731,7 +12731,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/fl.s",
+        "source_path": "src/main/fl.s",
         "progress_categories": [
           "main"
         ]
@@ -12740,7 +12740,7 @@
     {
       "name": "pl.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "22316",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -13458,7 +13458,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/pl.s",
+        "source_path": "src/main/pl.s",
         "progress_categories": [
           "main"
         ]
@@ -13467,7 +13467,7 @@
     {
       "name": "ps2.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "6328",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -13639,7 +13639,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/ps2.s",
+        "source_path": "src/main/ps2.s",
         "progress_categories": [
           "main"
         ]
@@ -13648,7 +13648,7 @@
     {
       "name": "sce_hw.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "13276",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -14170,7 +14170,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/sce_hw.s",
+        "source_path": "src/main/sce_hw.s",
         "progress_categories": [
           "main"
         ]
@@ -14179,7 +14179,7 @@
     {
       "name": "util.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "64544",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -15513,7 +15513,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/util.s",
+        "source_path": "src/main/util.s",
         "progress_categories": [
           "main"
         ]
@@ -15522,7 +15522,7 @@
     {
       "name": "sceGs.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "2476",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -15617,7 +15617,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/sceGs.s",
+        "source_path": "src/main/sceGs.s",
         "progress_categories": [
           "main"
         ]
@@ -15626,7 +15626,7 @@
     {
       "name": "sceIpu.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "22024",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -15938,7 +15938,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/sceIpu.s",
+        "source_path": "src/main/sceIpu.s",
         "progress_categories": [
           "main"
         ]
@@ -15947,7 +15947,7 @@
     {
       "name": "sceMc.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "13492",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -16336,7 +16336,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/sceMc.s",
+        "source_path": "src/main/sceMc.s",
         "progress_categories": [
           "main"
         ]
@@ -16345,7 +16345,7 @@
     {
       "name": "sceMpeg.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "20764",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -17112,7 +17112,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/sceMpeg.s",
+        "source_path": "src/main/sceMpeg.s",
         "progress_categories": [
           "main"
         ]
@@ -17121,7 +17121,7 @@
     {
       "name": "scePad2.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "2260",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -17279,7 +17279,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/scePad2.s",
+        "source_path": "src/main/scePad2.s",
         "progress_categories": [
           "main"
         ]
@@ -17288,7 +17288,7 @@
     {
       "name": "sceVib.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "364",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -17327,7 +17327,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/sceVib.s",
+        "source_path": "src/main/sceVib.s",
         "progress_categories": [
           "main"
         ]
@@ -17336,7 +17336,7 @@
     {
       "name": "sceVu0.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "5864",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -17662,7 +17662,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/sceVu0.s",
+        "source_path": "src/main/sceVu0.s",
         "progress_categories": [
           "main"
         ]
@@ -17671,7 +17671,7 @@
     {
       "name": "mwInit.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "248",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -17717,7 +17717,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/mwInit.s",
+        "source_path": "src/main/mwInit.s",
         "progress_categories": [
           "main"
         ]
@@ -17726,7 +17726,7 @@
     {
       "name": "netsync.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "13952",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -17870,7 +17870,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/netsync.s",
+        "source_path": "src/main/netsync.s",
         "progress_categories": [
           "main"
         ]
@@ -17879,7 +17879,7 @@
     {
       "name": "sfd.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "1256",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -17946,7 +17946,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/sfd.s",
+        "source_path": "src/main/sfd.s",
         "progress_categories": [
           "main"
         ]
@@ -17955,7 +17955,7 @@
     {
       "name": "CFT.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "28652",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -18239,7 +18239,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/CFT.s",
+        "source_path": "src/main/CFT.s",
         "progress_categories": [
           "main"
         ]
@@ -18248,7 +18248,7 @@
     {
       "name": "M2V.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "188020",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -29032,7 +29032,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/M2V.s",
+        "source_path": "src/main/M2V.s",
         "progress_categories": [
           "main"
         ]
@@ -29041,7 +29041,7 @@
     {
       "name": "ADX.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "84732",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -34099,7 +34099,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/ADX.s",
+        "source_path": "src/main/ADX.s",
         "progress_categories": [
           "main"
         ]
@@ -34108,7 +34108,7 @@
     {
       "name": "SRD.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "4820",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -34462,7 +34462,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/SRD.s",
+        "source_path": "src/main/SRD.s",
         "progress_categories": [
           "main"
         ]
@@ -34471,7 +34471,7 @@
     {
       "name": "DTR.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "1592",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -34573,7 +34573,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/DTR.s",
+        "source_path": "src/main/DTR.s",
         "progress_categories": [
           "main"
         ]
@@ -34582,7 +34582,7 @@
     {
       "name": "UNKLIB.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "49692",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -37519,7 +37519,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/UNKLIB.s",
+        "source_path": "src/main/UNKLIB.s",
         "progress_categories": [
           "main"
         ]
@@ -37528,7 +37528,7 @@
     {
       "name": "flfnt.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "6400",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -37749,7 +37749,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/flfnt.s",
+        "source_path": "src/main/flfnt.s",
         "progress_categories": [
           "main"
         ]
@@ -37758,7 +37758,7 @@
     {
       "name": "plAPX.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "1800",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -37846,7 +37846,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/plAPX.s",
+        "source_path": "src/main/plAPX.s",
         "progress_categories": [
           "main"
         ]
@@ -37855,7 +37855,7 @@
     {
       "name": "eft20.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "20112",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -37992,7 +37992,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/eft20.s",
+        "source_path": "src/main/eft20.s",
         "progress_categories": [
           "main"
         ]
@@ -38001,7 +38001,7 @@
     {
       "name": "bgm.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "7956",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -38145,7 +38145,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/bgm.s",
+        "source_path": "src/main/bgm.s",
         "progress_categories": [
           "main"
         ]
@@ -38154,7 +38154,7 @@
     {
       "name": "camera.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "27060",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -38844,7 +38844,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/camera.s",
+        "source_path": "src/main/camera.s",
         "progress_categories": [
           "main"
         ]
@@ -38853,7 +38853,7 @@
     {
       "name": "set21.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "2032",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -38976,7 +38976,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/set21.s",
+        "source_path": "src/main/set21.s",
         "progress_categories": [
           "main"
         ]
@@ -38985,7 +38985,7 @@
     {
       "name": "quest.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "23660",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -39696,7 +39696,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/quest.s",
+        "source_path": "src/main/quest.s",
         "progress_categories": [
           "main"
         ]
@@ -39705,7 +39705,7 @@
     {
       "name": "CngInet.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "11908",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -40479,7 +40479,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/CngInet.s",
+        "source_path": "src/main/CngInet.s",
         "progress_categories": [
           "main"
         ]
@@ -40488,7 +40488,7 @@
     {
       "name": "movie.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "1512",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -40590,7 +40590,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/movie.s",
+        "source_path": "src/main/movie.s",
         "progress_categories": [
           "main"
         ]
@@ -40599,7 +40599,7 @@
     {
       "name": "entry.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "48",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -40631,7 +40631,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/entry.s",
+        "source_path": "src/main/entry.s",
         "progress_categories": [
           "main"
         ]
@@ -40640,7 +40640,7 @@
     {
       "name": "InetMcs.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "11456",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -41176,7 +41176,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/InetMcs.s",
+        "source_path": "src/main/InetMcs.s",
         "progress_categories": [
           "main"
         ]
@@ -41185,7 +41185,7 @@
     {
       "name": "sceSif.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "3692",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -41322,7 +41322,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/sceSif.s",
+        "source_path": "src/main/sceSif.s",
         "progress_categories": [
           "main"
         ]
@@ -41331,7 +41331,7 @@
     {
       "name": "Ave.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "11160",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -42126,7 +42126,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/Ave.s",
+        "source_path": "src/main/Ave.s",
         "progress_categories": [
           "main"
         ]
@@ -42135,7 +42135,7 @@
     {
       "name": "sceNetGlue.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "3736",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -42279,7 +42279,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/sceNetGlue.s",
+        "source_path": "src/main/sceNetGlue.s",
         "progress_categories": [
           "main"
         ]
@@ -42288,7 +42288,7 @@
     {
       "name": "InetDNS.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "1800",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -42390,7 +42390,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/InetDNS.s",
+        "source_path": "src/main/InetDNS.s",
         "progress_categories": [
           "main"
         ]
@@ -42399,7 +42399,7 @@
     {
       "name": "InetConnect.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "8648",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -42501,7 +42501,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/InetConnect.s",
+        "source_path": "src/main/InetConnect.s",
         "progress_categories": [
           "main"
         ]
@@ -42510,7 +42510,7 @@
     {
       "name": "modesel.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "5016",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -42647,7 +42647,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/modesel.s",
+        "source_path": "src/main/modesel.s",
         "progress_categories": [
           "main"
         ]
@@ -42656,7 +42656,7 @@
     {
       "name": "omake.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "2864",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -42744,7 +42744,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/omake.s",
+        "source_path": "src/main/omake.s",
         "progress_categories": [
           "main"
         ]
@@ -42753,7 +42753,7 @@
     {
       "name": "sceUsbKb.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "6112",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -43037,7 +43037,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/sceUsbKb.s",
+        "source_path": "src/main/sceUsbKb.s",
         "progress_categories": [
           "main"
         ]
@@ -43046,7 +43046,7 @@
     {
       "name": "npc.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "3156",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -43162,7 +43162,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/npc.s",
+        "source_path": "src/main/npc.s",
         "progress_categories": [
           "main"
         ]
@@ -43171,7 +43171,7 @@
     {
       "name": "overlays.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "300",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -43224,7 +43224,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/overlays.s",
+        "source_path": "src/main/overlays.s",
         "progress_categories": [
           "main"
         ]
@@ -43233,7 +43233,7 @@
     {
       "name": "textinput.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "46716",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -45113,7 +45113,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/textinput.s",
+        "source_path": "src/main/textinput.s",
         "progress_categories": [
           "main"
         ]
@@ -45122,7 +45122,7 @@
     {
       "name": "effect.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "41072",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -45231,7 +45231,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/effect.s",
+        "source_path": "src/main/effect.s",
         "progress_categories": [
           "main"
         ]
@@ -45240,7 +45240,7 @@
     {
       "name": "scekernel.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "46084",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -48212,7 +48212,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/scekernel.s",
+        "source_path": "src/main/scekernel.s",
         "progress_categories": [
           "main"
         ]
@@ -48221,7 +48221,7 @@
     {
       "name": "softkey.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "30024",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -49093,7 +49093,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/softkey.s",
+        "source_path": "src/main/softkey.s",
         "progress_categories": [
           "main"
         ]
@@ -49102,7 +49102,7 @@
     {
       "name": "netOverlay.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "43688",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -49855,7 +49855,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/netOverlay.s",
+        "source_path": "src/main/netOverlay.s",
         "progress_categories": [
           "main"
         ]
@@ -49864,7 +49864,7 @@
     {
       "name": "userdata.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "11848",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -50309,7 +50309,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/userdata.s",
+        "source_path": "src/main/userdata.s",
         "progress_categories": [
           "main"
         ]
@@ -50318,7 +50318,7 @@
     {
       "name": "interface.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "28824",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -50959,7 +50959,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/interface.s",
+        "source_path": "src/main/interface.s",
         "progress_categories": [
           "main"
         ]
@@ -50968,7 +50968,7 @@
     {
       "name": "sceScf.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "2428",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -51168,7 +51168,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/sceScf.s",
+        "source_path": "src/main/sceScf.s",
         "progress_categories": [
           "main"
         ]
@@ -51177,7 +51177,7 @@
     {
       "name": "eft26.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "1168",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -51258,7 +51258,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/eft26.s",
+        "source_path": "src/main/eft26.s",
         "progress_categories": [
           "main"
         ]
@@ -51267,7 +51267,7 @@
     {
       "name": "cnLBS_download.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "1952",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -51376,7 +51376,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/cnLBS_download.s",
+        "source_path": "src/main/cnLBS_download.s",
         "progress_categories": [
           "main"
         ]
@@ -51385,7 +51385,7 @@
     {
       "name": "eft02.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "6184",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -51522,7 +51522,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/eft02.s",
+        "source_path": "src/main/eft02.s",
         "progress_categories": [
           "main"
         ]
@@ -51531,7 +51531,7 @@
     {
       "name": "save.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "28896",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -52522,7 +52522,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/save.s",
+        "source_path": "src/main/save.s",
         "progress_categories": [
           "main"
         ]
@@ -52531,7 +52531,7 @@
     {
       "name": "demo.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "1688",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -52605,7 +52605,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/demo.s",
+        "source_path": "src/main/demo.s",
         "progress_categories": [
           "main"
         ]
@@ -52614,7 +52614,7 @@
     {
       "name": "netfile.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "25048",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -52842,7 +52842,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/netfile.s",
+        "source_path": "src/main/netfile.s",
         "progress_categories": [
           "main"
         ]
@@ -52851,7 +52851,7 @@
     {
       "name": "hitcoll.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "15104",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -53002,7 +53002,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/hitcoll.s",
+        "source_path": "src/main/hitcoll.s",
         "progress_categories": [
           "main"
         ]
@@ -53011,7 +53011,7 @@
     {
       "name": "staff.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "1152",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -53078,7 +53078,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/staff.s",
+        "source_path": "src/main/staff.s",
         "progress_categories": [
           "main"
         ]
@@ -53087,7 +53087,7 @@
     {
       "name": "poweroff.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "480",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -53140,7 +53140,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/poweroff.s",
+        "source_path": "src/main/poweroff.s",
         "progress_categories": [
           "main"
         ]
@@ -53149,7 +53149,7 @@
     {
       "name": "result.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "11408",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -53370,7 +53370,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "main/result.s",
+        "source_path": "src/main/result.s",
         "progress_categories": [
           "main"
         ]
@@ -53403,7 +53403,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "main/vutext",
+        "source_path": "src/main/vutext",
         "progress_categories": [
           "main"
         ]
@@ -53436,7 +53436,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "main/CVFS",
+        "source_path": "src/main/CVFS",
         "progress_categories": [
           "main"
         ]
@@ -53469,7 +53469,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "main/em_cmd",
+        "source_path": "src/main/em_cmd",
         "progress_categories": [
           "main"
         ]
@@ -53502,7 +53502,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "main/userdata2",
+        "source_path": "src/main/userdata2",
         "progress_categories": [
           "main"
         ]
@@ -53535,7 +53535,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "main/interface2",
+        "source_path": "src/main/interface2",
         "progress_categories": [
           "main"
         ]
@@ -53568,7 +53568,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "main/em_meat",
+        "source_path": "src/main/em_meat",
         "progress_categories": [
           "main"
         ]
@@ -53601,7 +53601,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "main/quest_table",
+        "source_path": "src/main/quest_table",
         "progress_categories": [
           "main"
         ]
@@ -53634,7 +53634,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "main/CVFS",
+        "source_path": "src/main/CVFS",
         "progress_categories": [
           "main"
         ]
@@ -53667,7 +53667,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "main/DVCI",
+        "source_path": "src/main/DVCI",
         "progress_categories": [
           "main"
         ]
@@ -53700,7 +53700,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "main/HTCI",
+        "source_path": "src/main/HTCI",
         "progress_categories": [
           "main"
         ]
@@ -53733,7 +53733,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "main/LSC",
+        "source_path": "src/main/LSC",
         "progress_categories": [
           "main"
         ]
@@ -53766,7 +53766,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "main/pl2",
+        "source_path": "src/main/pl2",
         "progress_categories": [
           "main"
         ]
@@ -53799,7 +53799,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "main/RNA",
+        "source_path": "src/main/RNA",
         "progress_categories": [
           "main"
         ]
@@ -53832,7 +53832,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "main/SJ",
+        "source_path": "src/main/SJ",
         "progress_categories": [
           "main"
         ]
@@ -53865,7 +53865,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "main/SVM",
+        "source_path": "src/main/SVM",
         "progress_categories": [
           "main"
         ]
@@ -53898,7 +53898,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "main/sdr",
+        "source_path": "src/main/sdr",
         "progress_categories": [
           "main"
         ]
@@ -53931,7 +53931,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "main/flsnd",
+        "source_path": "src/main/flsnd",
         "progress_categories": [
           "main"
         ]
@@ -53964,7 +53964,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "main/AQ",
+        "source_path": "src/main/AQ",
         "progress_categories": [
           "main"
         ]
@@ -53997,7 +53997,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "main/overlayoffs",
+        "source_path": "src/main/overlayoffs",
         "progress_categories": [
           "main"
         ]
@@ -54030,7 +54030,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "main/quest_table",
+        "source_path": "src/main/quest_table",
         "progress_categories": [
           "main"
         ]
@@ -54063,7 +54063,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "main/gamebin_stragglers",
+        "source_path": "src/main/gamebin_stragglers",
         "progress_categories": [
           "main"
         ]
@@ -54096,7 +54096,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "main/ynbin_stragglers",
+        "source_path": "src/main/ynbin_stragglers",
         "progress_categories": [
           "main"
         ]
@@ -54129,7 +54129,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "main/lobbybin_stragglers",
+        "source_path": "src/main/lobbybin_stragglers",
         "progress_categories": [
           "main"
         ]
@@ -54162,7 +54162,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "main/dnasbin_stragglers",
+        "source_path": "src/main/dnasbin_stragglers",
         "progress_categories": [
           "main"
         ]
@@ -54171,7 +54171,7 @@
     {
       "name": "select_code.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "19404",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -54504,7 +54504,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "select/select_code.s",
+        "source_path": "src/select/select_code.s",
         "progress_categories": [
           "select"
         ]
@@ -54537,7 +54537,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "select/select_data",
+        "source_path": "src/select/select_data",
         "progress_categories": [
           "select"
         ]
@@ -54546,7 +54546,7 @@
     {
       "name": "game_code.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "1065496",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -73051,7 +73051,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "game/game_code.s",
+        "source_path": "src/game/game_code.s",
         "progress_categories": [
           "game"
         ]
@@ -73084,7 +73084,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "game/game_data",
+        "source_path": "src/game/game_data",
         "progress_categories": [
           "game"
         ]
@@ -73093,7 +73093,7 @@
     {
       "name": "yn_code.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "35928",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -74105,7 +74105,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "yn/yn_code.s",
+        "source_path": "src/yn/yn_code.s",
         "progress_categories": [
           "yn"
         ]
@@ -74138,7 +74138,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "yn/yn_data",
+        "source_path": "src/yn/yn_data",
         "progress_categories": [
           "yn"
         ]
@@ -74147,7 +74147,7 @@
     {
       "name": "lobby_code.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "887732",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -98574,7 +98574,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "lobby/lobby_code.s",
+        "source_path": "src/lobby/lobby_code.s",
         "progress_categories": [
           "lobby"
         ]
@@ -98607,7 +98607,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "lobby/lobby_data",
+        "source_path": "src/lobby/lobby_data",
         "progress_categories": [
           "lobby"
         ]
@@ -98616,7 +98616,7 @@
     {
       "name": "dnas_net_code.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "453460",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -113117,7 +113117,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "dnas_net/dnas_net_code.s",
+        "source_path": "src/dnas_net/dnas_net_code.s",
         "progress_categories": [
           "dnas_net"
         ]
@@ -113150,7 +113150,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "dnas_net/dnas_net_data",
+        "source_path": "src/dnas_net/dnas_net_data",
         "progress_categories": [
           "dnas_net"
         ]
@@ -113159,7 +113159,7 @@
     {
       "name": "dnas_ins_code.s",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "166440",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -118112,7 +118112,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "dnas_ins/dnas_ins_code.s",
+        "source_path": "src/dnas_ins/dnas_ins_code.s",
         "progress_categories": [
           "dnas_ins"
         ]
@@ -118145,7 +118145,7 @@
       "functions": [],
       "metadata": {
         "complete": false,
-        "source_path": "dnas_ins/dnas_ins_data",
+        "source_path": "src/dnas_ins/dnas_ins_data",
         "progress_categories": [
           "dnas_ins"
         ]
@@ -118158,7 +118158,7 @@
       "id": "main",
       "name": "main",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.11058222771583806,
         "total_code": "1627748",
         "matched_code": "1800",
         "matched_code_percent": 0.11058222771583806,
@@ -118175,7 +118175,7 @@
       "id": "select",
       "name": "select",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "19404",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -118192,7 +118192,7 @@
       "id": "game",
       "name": "game",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "1065496",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -118209,7 +118209,7 @@
       "id": "yn",
       "name": "yn",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "35928",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -118226,7 +118226,7 @@
       "id": "lobby",
       "name": "lobby",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "887732",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -118243,7 +118243,7 @@
       "id": "dnas_net",
       "name": "dnas_net",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "453460",
         "matched_code": "0",
         "matched_code_percent": 0.0,
@@ -118260,7 +118260,7 @@
       "id": "dnas_ins",
       "name": "dnas_ins",
       "measures": {
-        "fuzzy_match_percent": 0,
+        "fuzzy_match_percent": 0.0,
         "total_code": "166440",
         "matched_code": "0",
         "matched_code_percent": 0.0,

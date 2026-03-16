@@ -279,6 +279,7 @@ for o in mapdata:
       rum.matched_functions += (1 if mf.fuzzy_match_percent == 100 else 0)
     if(int(rum.total_code) > 0):
       rum.matched_code_percent = int(rum.matched_code) / int(rum.total_code) * 100.0
+      rum.fuzzy_match_percent = rum.matched_code_percent
       ts = Section(name = ".text", size = rum.total_code, fuzzy_match_percent = rum.matched_code_percent)
       ts.metadata = {}
       ru.sections.append(ts)
@@ -293,7 +294,7 @@ for o in mapdata:
     if(int(rum.total_data) > 0):
       rum.matched_data_percent = int(rum.matched_data) / int(rum.total_data) * 100
     #and metadata!
-    umeta = UnitMeta(source_path = o.name+"/"+tu.name, progress_categories = [o.name])
+    umeta = UnitMeta(source_path = "src/" + o.name+"/"+tu.name, progress_categories = [o.name])
     if(rum.matched_data_percent == 100 and rum.matched_code_percent == 100):
       umeta.complete = True
     ru.measures = rum
@@ -312,6 +313,7 @@ for o in mapdata:
     om.matched_functions_percent = om.matched_functions / om.total_functions * 100
   if(int(om.total_code) > 0):
     om.matched_code_percent = int(om.matched_code) / int(om.total_code) * 100
+    om.fuzzy_match_percent = om.matched_code_percent
   if(int(om.total_data) > 0):
     om.matched_data_percent = int(om.matched_data) / int(om.total_data) * 100
   #then add the data to the report
@@ -326,12 +328,14 @@ for o in mapdata:
   rm.total_functions += om.total_functions
   rm.matched_functions += om.matched_functions
   rm.total_units += om.total_units
-  if(int(rm.total_code) > 0):
-    rm.matched_code_percent = int(rm.matched_code) / int(rm.total_code)
-  if(int(rm.total_data) > 0):
-    rm.matched_data_percent = int(rm.matched_data) / int(rm.total_data)
-  if(rm.total_functions > 0):
-    rm.matched_functions_percent = rm.matched_functions / rm.total_functions
+#calc final values
+if(int(rm.total_code) > 0):
+  rm.matched_code_percent = int(rm.matched_code) / int(rm.total_code)
+  rm.fuzzy_match_percent = rm.matched_code_percent
+if(int(rm.total_data) > 0):
+  rm.matched_data_percent = int(rm.matched_data) / int(rm.total_data)
+if(rm.total_functions > 0):
+  rm.matched_functions_percent = rm.matched_functions / rm.total_functions
 report.measures=rm
 
 if(REPORTLOG > 0):
