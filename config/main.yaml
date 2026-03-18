@@ -53,7 +53,7 @@ segments:
     - [0x1e9e0, asm, tex]
     - [0x1eea0, c, load]
     - [0x1f570, asm, main]
-    - [0x203c0, asm, math]
+    - [0x203c0, c, math]
     - [0x21110, asm, parts]
     - [0x214b0, asm, yure]
     - [0x21cf0, asm, model]

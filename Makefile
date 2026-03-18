@@ -145,7 +145,7 @@ $(MAIN_TARGET): $(ALL_O_FILES) $(LINKER_SCRIPT)
 	$(VERIFY) $(BUILD_DIR)/yn.bin overlays/yn.bin 0x00 0xDD00
 	$(VERIFY) $(DNAS_INS_VERIFY)
 	$(VERIFY) $(DNAS_NET_VERIFY)
-        $(PYTHON) tools/report.py
+	$(PYTHON) tools/report.py
 	@echo -e "\a"
 
 $(BUILD_DIR)/%.s.o: $(BUILD_DIR)/%.s.t
