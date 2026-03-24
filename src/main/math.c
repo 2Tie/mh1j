@@ -1,7 +1,28 @@
 #include "common.h"
 
+//protos
+f32 cpAng2Rad0x120240(s32 ang);
+void cpAng2Rad_all0x120270(s32 angs[], float rads[]);
+f32* cpRotMatrix0x1202c0(s32 angs[], f32 mat[]);
+f32* cpRotMatrixYXZ20x120310(s32 angs[], f32 mat[]);
+
+void RotateX0x120d40(f32*, f32);
+void RotateY0x120d90(f32*, f32);
+void RotateZ0x120de0(f32*, f32);
+
+extern void flmatInit0x171ce0(f32[]);
+extern void flmatSetXYZ330x172140(f32[], f32, f32, f32);
+extern void flvecApplyMat330x172e00(f32[], f32[], f32[]);
+extern void flvecApplyMat0x172ee0(f32[], f32[], f32[]);
+extern f32 flvecNormalize0x1731b0(f32[]);
+extern f32 flvecInnerProduct0x173220(f32[], f32[]);
+extern f32 flvecOuterProduct0x173280(f32[], f32[], f32[]);
+extern void flvecCopy0x173300(f32[], f32[]);
+extern f32 flArcTan20x1735e0(f32, f32);
+
+
+//implement
 f32 cpAng2Rad0x120240(s32 ang) {
-    //return 0.0000958738f * (f32) (arg0 & 0xFFFF);
     return (ang & 0xFFFF) * DEG2RAD;
 }
 
@@ -11,29 +32,157 @@ void cpAng2Rad_all0x120270(s32 angs[], float rads[]) {
     rads[2] = cpAng2Rad0x120240(angs[2]);
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/math", cpRotMatrix0x1202c0);
+f32* cpRotMatrix0x1202c0(s32 angs[], f32 mat[]) {
+    f32 rads[3];
 
-INCLUDE_ASM("asm/main/nonmatchings/math", cpRotMatrixYXZ20x120310);
+    cpAng2Rad_all0x120270(angs, rads);
+    flmatInit0x171ce0(mat);
+    flmatSetXYZ330x172140(mat, rads[0], rads[1], rads[2]);
+    return mat;
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/math", cpApplyMatrix0x120370);
+f32* cpRotMatrixYXZ20x120310(s32 angs[], f32 mat[]) {
+    f32 rads[3];
 
-INCLUDE_ASM("asm/main/nonmatchings/math", calc_vec_ang0x1203a0);
+    cpAng2Rad_all0x120270(angs, rads);
+    flmatInit0x171ce0(mat);
 
-INCLUDE_ASM("asm/main/nonmatchings/math", calc_vec_ang20x120430);
+    RotateY0x120d90(mat, rads[1]);
+    RotateX0x120d40(mat, rads[0]);
+    RotateZ0x120de0(mat, rads[2]);
+    return mat;
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/math", calc_mat_angY0x1204d0);
+f32* cpApplyMatrix0x120370(f32 vec[], f32 scalar[], f32 mat[]) {
+    flvecApplyMat330x172e00(mat, scalar, vec);
+    return mat;
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/math", RotMatVec0x120570);
+s32 calc_vec_ang0x1203a0(f32 v1x, f32 v1y, f32 v2x, f32 v2y) {
+    f32 angle;
+    f32 vector[3];
 
-INCLUDE_ASM("asm/main/nonmatchings/math", SetVector0x1207d0);
+    vector[0] = v1x - v2x;
+    vector[1] = 0;
+    vector[2] = v1y - v2y;
+    flvecNormalize0x1731b0(vector);
+    angle = flArcTan20x1735e0(-vector[2], vector[0]);
+    return (s32) (0.5f + ((65536.0f * angle) / 6.2831855f)) & 0xFFFF;
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/math", PointToPoint0x1207e0);
+s32 calc_vec_ang20x120430(f32 vec1[], f32 vec2[]) {
+    f32 angle;
+    f32 vector[3];
 
-INCLUDE_ASM("asm/main/nonmatchings/math", AddVector0x120820);
+    vector[0] = vec1[0] - vec2[0];
+    vector[1] = 0;
+    vector[2] = vec1[2] - vec2[2];
+    flvecNormalize0x1731b0(vector);
+    angle = flArcTan20x1735e0(-vector[2], vector[0]);
+    return  (s32) (0.5f + ((65536.0f * angle) / 6.2831855f)) & 0xFFFF;
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/math", SubVector0x120860);
+s32 calc_mat_angY0x1204d0(f32 inmat[]) {
+    f32 angle;
+    f32 scale[4];
+    f32 outmat[4];
 
-INCLUDE_ASM("asm/main/nonmatchings/math", ScaleVector0x1208a0);
+    scale[2] = 1.0;
+    scale[3] = 1.0;
+    scale[0] = 0.0;
+    scale[1] = 0.0;
+
+    flvecApplyMat0x172ee0(outmat, scale, inmat);
+    angle = flArcTan20x1735e0(-(outmat[2] - inmat[14]), outmat[0] - inmat[12]);
+    return (s32) (0.5f + ((65536.0f * angle) / 6.2831855f)) & 0xFFFF;
+}
+
+void RotMatVec0x120570(f32 inmat[], f32 outmat[], u8 axis) {
+    f32 axisvec[4];
+    f32 xmat[4];
+    f32 ymat[4];
+    f32 zmat[4];
+
+    flvecNormalize0x1731b0(inmat);
+    switch (axis) {
+    case 0:
+        axisvec[0] = 0;
+        axisvec[1] = 0;
+        axisvec[2] = 1;
+        flvecOuterProduct0x173280(ymat, axisvec, inmat); //a0 is output, a1 and a2 input?
+        if (flvecInnerProduct0x173220(ymat, ymat) < 0.001f) {
+            axisvec[2] = 0;
+            axisvec[0] = 1;
+            flvecOuterProduct0x173280(ymat, axisvec, inmat);
+        }
+        flvecNormalize0x1731b0(ymat);
+        flvecCopy0x173300(xmat, inmat);
+        flvecOuterProduct0x173280(zmat, xmat, ymat);
+        break;
+    case 1:
+        axisvec[0] = 0;
+        axisvec[1] = 0;
+        axisvec[2] = 1;
+        flvecOuterProduct0x173280(xmat, inmat, axisvec);
+        if (flvecInnerProduct0x173220(xmat, xmat) < 0.001f) {
+            axisvec[2] = 0;
+            axisvec[1] = 1;
+            flvecOuterProduct0x173280(xmat, axisvec, inmat);
+        }
+        flvecNormalize0x1731b0(xmat);
+        flvecCopy0x173300(ymat, inmat);
+        flvecOuterProduct0x173280(zmat, xmat, ymat);
+        break;
+    case 2:
+        axisvec[0] = 0;
+        axisvec[1] = 1;
+        axisvec[2] = 0;
+        flvecOuterProduct0x173280(xmat, axisvec, inmat);
+        if (flvecInnerProduct0x173220(xmat, xmat) < 0.001f) {
+            axisvec[2]= 1;
+            axisvec[1] = 0;
+            flvecOuterProduct0x173280(xmat, inmat, axisvec);
+        }
+        flvecNormalize0x1731b0(xmat);
+        flvecCopy0x173300(zmat, inmat);
+        flvecOuterProduct0x173280(ymat, zmat, xmat);
+        break;
+    }
+    flmatInit0x171ce0(outmat);
+    flvecCopy0x173300(outmat, xmat);
+    flvecCopy0x173300(&outmat[4], ymat);
+    flvecCopy0x173300(&outmat[8], zmat);
+}
+
+void SetVector0x1207d0(f32 vec[], f32 mag1, f32 mag2, f32 mag3) {
+    vec[0] = mag1;
+    vec[1] = mag2;
+    vec[2] = mag3;
+}
+
+void PointToPoint0x1207e0(f32 diff[], f32 point1[], f32 point2[]) {
+    diff[0] = point1[0] - point2[0];
+    diff[1] = point1[1] - point2[1];
+    diff[2] = point1[2] - point2[2];
+}
+
+void AddVector0x120820(f32 sum[], f32 vec1[], f32 vec2[]) {
+    sum[0] = vec1[0] - vec2[0];
+    sum[1] = vec1[1] - vec2[1];
+    sum[2] = vec1[2] - vec2[2];
+}
+
+void SubVector0x120860(f32 diff[], f32 vec1[], f32 vec2[]) {
+    diff[0] = vec1[0] - vec2[0];
+    diff[1] = vec1[1] - vec2[1];
+    diff[2] = vec1[2] - vec2[2];
+}
+
+void ScaleVector0x1208a0(f32 scale, f32 out[], f32 in[]) {
+    out[0] = in[0] * scale;
+    out[1] = in[1] * scale;
+    out[2] = in[2] * scale;
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/math", UnitNormalVectorCCW0x1208d0);
 

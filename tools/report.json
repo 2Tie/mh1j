@@ -1,15 +1,15 @@
 {
   "measures": {
-    "fuzzy_match_percent": 0.0004501520085331529,
-    "total_code": "4256340",
-    "matched_code": "1916",
-    "matched_code_percent": 0.0004501520085331529,
+    "fuzzy_match_percent": 0.0007969430467658961,
+    "total_code": "4256264",
+    "matched_code": "3392",
+    "matched_code_percent": 0.0007969430467658961,
     "total_data": "1973872",
     "matched_data": "0",
     "matched_data_percent": 0.0,
     "total_functions": 16083,
-    "matched_functions": 30,
-    "matched_functions_percent": 0.0018653236336504384,
+    "matched_functions": 42,
+    "matched_functions_percent": 0.0026114530871106136,
     "total_units": 132
   },
   "units": [
@@ -2580,23 +2580,23 @@
     {
       "name": "math.c",
       "measures": {
-        "fuzzy_match_percent": 3.415783274440518,
-        "total_code": "3396",
-        "matched_code": "116",
-        "matched_code_percent": 3.415783274440518,
+        "fuzzy_match_percent": 47.95180722891566,
+        "total_code": "3320",
+        "matched_code": "1592",
+        "matched_code_percent": 47.95180722891566,
         "total_data": "0",
         "matched_data": "0",
         "matched_data_percent": 0,
         "total_functions": 26,
-        "matched_functions": 2,
-        "matched_functions_percent": 7.6923076923076925,
+        "matched_functions": 14,
+        "matched_functions_percent": 53.84615384615385,
         "total_units": 1
       },
       "sections": [
         {
           "name": ".text",
-          "size": "3396",
-          "fuzzy_match_percent": 3.415783274440518,
+          "size": "3320",
+          "fuzzy_match_percent": 47.95180722891566,
           "parent": "",
           "metadata": {}
         }
@@ -2618,85 +2618,85 @@
         },
         {
           "name": "cpRotMatrix0x1202c0",
-          "size": "80",
-          "fuzzy_match_percent": 0,
+          "size": "72",
+          "fuzzy_match_percent": 100,
           "address": 128,
           "metadata": {}
         },
         {
           "name": "cpRotMatrixYXZ20x120310",
-          "size": "96",
-          "fuzzy_match_percent": 0,
+          "size": "88",
+          "fuzzy_match_percent": 100,
           "address": 208,
           "metadata": {}
         },
         {
           "name": "cpApplyMatrix0x120370",
           "size": "48",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 304,
           "metadata": {}
         },
         {
           "name": "calc_vec_ang0x1203a0",
-          "size": "144",
-          "fuzzy_match_percent": 0,
+          "size": "136",
+          "fuzzy_match_percent": 100,
           "address": 352,
           "metadata": {}
         },
         {
           "name": "calc_vec_ang20x120430",
-          "size": "160",
-          "fuzzy_match_percent": 0,
+          "size": "152",
+          "fuzzy_match_percent": 100,
           "address": 496,
           "metadata": {}
         },
         {
           "name": "calc_mat_angY0x1204d0",
           "size": "160",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 656,
           "metadata": {}
         },
         {
           "name": "RotMatVec0x120570",
           "size": "608",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 816,
           "metadata": {}
         },
         {
           "name": "SetVector0x1207d0",
           "size": "16",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 1424,
           "metadata": {}
         },
         {
           "name": "PointToPoint0x1207e0",
-          "size": "64",
-          "fuzzy_match_percent": 0,
+          "size": "52",
+          "fuzzy_match_percent": 100,
           "address": 1440,
           "metadata": {}
         },
         {
           "name": "AddVector0x120820",
-          "size": "64",
-          "fuzzy_match_percent": 0,
+          "size": "52",
+          "fuzzy_match_percent": 100,
           "address": 1504,
           "metadata": {}
         },
         {
           "name": "SubVector0x120860",
-          "size": "64",
-          "fuzzy_match_percent": 0,
+          "size": "52",
+          "fuzzy_match_percent": 100,
           "address": 1568,
           "metadata": {}
         },
         {
           "name": "ScaleVector0x1208a0",
-          "size": "48",
-          "fuzzy_match_percent": 0,
+          "size": "40",
+          "fuzzy_match_percent": 100,
           "address": 1632,
           "metadata": {}
         },
@@ -118158,16 +118158,16 @@
       "id": "main",
       "name": "main",
       "measures": {
-        "fuzzy_match_percent": 0.11769909329926038,
-        "total_code": "1627880",
-        "matched_code": "1916",
-        "matched_code_percent": 0.11769909329926038,
+        "fuzzy_match_percent": 0.20837889573929047,
+        "total_code": "1627804",
+        "matched_code": "3392",
+        "matched_code_percent": 0.20837889573929047,
         "total_data": "1009136",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 7000,
-        "matched_functions": 30,
-        "matched_functions_percent": 0.4285714285714286,
+        "matched_functions": 42,
+        "matched_functions_percent": 0.6,
         "total_units": 120
       }
     },
