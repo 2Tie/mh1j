@@ -14,6 +14,7 @@ extern void flmatInit0x171ce0(f32[]);
 extern void flmatSetXYZ330x172140(f32[], f32, f32, f32);
 extern void flvecApplyMat330x172e00(f32[], f32[], f32[]);
 extern void flvecApplyMat0x172ee0(f32[], f32[], f32[]);
+extern f32 flvecCalcLength0x1730f0(f32[]);
 extern f32 flvecNormalize0x1731b0(f32[]);
 extern f32 flvecInnerProduct0x173220(f32[], f32[]);
 extern f32 flvecOuterProduct0x173280(f32[], f32[], f32[]);
@@ -184,7 +185,19 @@ void ScaleVector0x1208a0(f32 scale, f32 out[], f32 in[]) {
     out[2] = in[2] * scale;
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/math", UnitNormalVectorCCW0x1208d0);
+s32 UnitNormalVectorCCW0x1208d0(f32 point1[], f32 point2[], f32 point3[], f32 result[]) {
+    f32 vector1[3];
+    f32 vector2[3];
+
+    PointToPoint0x1207e0(vector1, point1, point2);
+    PointToPoint0x1207e0(vector2, point3, point2);
+    flvecOuterProduct0x173280(result, vector2, vector1);
+    flvecNormalize0x1731b0(result);
+    if (flvecCalcLength0x1730f0(result) == 0.0f) {
+        return 0;
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/math", NormalClipF30x120960);
 
