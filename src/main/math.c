@@ -19,6 +19,7 @@ extern f32 flvecNormalize0x1731b0(f32[]);
 extern f32 flvecInnerProduct0x173220(f32[], f32[]);
 extern f32 flvecOuterProduct0x173280(f32[], f32[], f32[]);
 extern void flvecCopy0x173300(f32[], f32[]);
+extern f32 flAbs0x173540(f32);
 extern f32 flArcTan20x1735e0(f32, f32);
 
 
@@ -199,13 +200,43 @@ s32 UnitNormalVectorCCW0x1208d0(f32 point1[], f32 point2[], f32 point3[], f32 re
     return 1;
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/math", NormalClipF30x120960);
+f32 NormalClipF30x120960(f32 vert1[], f32 vert2[], f32 vert3[]) {
+    u32 v[2];
+    f32 vec[2];
+
+    vec[0] = (vert2[0] - vert1[0]) * (vert3[1] - vert1[1]);
+    vec[1] = (vert3[0] - vert1[0]) * (vert2[1] - vert1[1]);
+
+    v[0] = *(s32*)&vec[0];
+    v[1] = *(s32*)&vec[1];
+
+    if (v[0] == (v[1] + 1)) {
+        vec[0] = vec[1];
+    }
+    if (v[0] == (v[1] - 1)) {
+        vec[0] = vec[1];
+    }
+    return vec[0] - vec[1];
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/math", NormalClipCheckF30x120a00);
 
 INCLUDE_ASM("asm/main/nonmatchings/math", PointHitCheckF30x120ba0);
 
-INCLUDE_ASM("asm/main/nonmatchings/math", NvecFloatAdjust0x120c80);
+void NvecFloatAdjust0x120c80(f32 out[], f32 in[]) {
+    out[0] = in[0];
+    out[1] = in[1];
+    out[2] = in[2];
+    if (flAbs0x173540(in[0]) < 0.001f) {
+        out[0] = 0;
+    }
+    if (flAbs0x173540(in[1]) < 0.001f) {
+        out[1] = 0;
+    }
+    if (flAbs0x173540(in[2]) < 0.001f) {
+        out[2] = 0;
+    }
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/math", RotateX0x120d40);
 
