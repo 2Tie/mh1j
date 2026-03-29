@@ -1,15 +1,15 @@
 {
   "measures": {
-    "fuzzy_match_percent": 0.0007969430467658961,
-    "total_code": "4256264",
-    "matched_code": "3392",
-    "matched_code_percent": 0.0007969430467658961,
+    "fuzzy_match_percent": 0.0010563333953600273,
+    "total_code": "4256232",
+    "matched_code": "4496",
+    "matched_code_percent": 0.0010563333953600273,
     "total_data": "1973872",
     "matched_data": "0",
     "matched_data_percent": 0.0,
     "total_functions": 16083,
-    "matched_functions": 42,
-    "matched_functions_percent": 0.0026114530871106136,
+    "matched_functions": 47,
+    "matched_functions_percent": 0.002922340359385687,
     "total_units": 132
   },
   "units": [
@@ -33,7 +33,6 @@
           "name": ".text",
           "size": "548",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         }
       ],
@@ -95,29 +94,22 @@
           "name": ".text",
           "size": "2888",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "416",
-          "fuzzy_match_percent": 0,
-          "parent": "adx_init.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "64",
-          "fuzzy_match_percent": 0,
-          "parent": "adx_init.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "8",
-          "fuzzy_match_percent": 0,
-          "parent": "adx_init.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -339,15 +331,12 @@
           "name": ".text",
           "size": "84",
           "fuzzy_match_percent": 100.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".bss",
           "size": "132",
-          "fuzzy_match_percent": 0,
-          "parent": "cardinit.c.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -401,29 +390,22 @@
           "name": ".text",
           "size": "36440",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "8528",
-          "fuzzy_match_percent": 0,
-          "parent": "eft.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "992",
-          "fuzzy_match_percent": 0,
-          "parent": "eft.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "48",
-          "fuzzy_match_percent": 0,
-          "parent": "eft.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -911,22 +893,17 @@
           "name": ".text",
           "size": "19764",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "560",
-          "fuzzy_match_percent": 0,
-          "parent": "em.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "720",
-          "fuzzy_match_percent": 0,
-          "parent": "em.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -1190,15 +1167,12 @@
           "name": ".text",
           "size": "1032",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "352",
-          "fuzzy_match_percent": 0,
-          "parent": "fade.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -1266,29 +1240,22 @@
           "name": ".text",
           "size": "56180",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "480",
-          "fuzzy_match_percent": 0,
-          "parent": "game.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "880",
-          "fuzzy_match_percent": 0,
-          "parent": "game.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "8",
-          "fuzzy_match_percent": 0,
-          "parent": "game.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -1902,29 +1869,22 @@
           "name": ".text",
           "size": "3256",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "1344",
-          "fuzzy_match_percent": 0,
-          "parent": "item.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "5248",
-          "fuzzy_match_percent": 0,
-          "parent": "item.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "16",
-          "fuzzy_match_percent": 0,
-          "parent": "item.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -2076,15 +2036,12 @@
           "name": ".text",
           "size": "3352",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "12304",
-          "fuzzy_match_percent": 0,
-          "parent": "light.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -2173,22 +2130,17 @@
           "name": ".text",
           "size": "1180",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "8960",
-          "fuzzy_match_percent": 0,
-          "parent": "tex.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "28",
-          "fuzzy_match_percent": 0,
-          "parent": "tex.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -2270,22 +2222,17 @@
           "name": ".text",
           "size": "1584",
           "fuzzy_match_percent": 85.85858585858585,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "5184",
-          "fuzzy_match_percent": 0,
-          "parent": "load.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "2772",
-          "fuzzy_match_percent": 0,
-          "parent": "load.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -2465,15 +2412,12 @@
           "name": ".text",
           "size": "3572",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".sdata",
           "size": "8",
-          "fuzzy_match_percent": 0,
-          "parent": "main.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -2580,24 +2524,23 @@
     {
       "name": "math.c",
       "measures": {
-        "fuzzy_match_percent": 47.95180722891566,
-        "total_code": "3320",
-        "matched_code": "1592",
-        "matched_code_percent": 47.95180722891566,
+        "fuzzy_match_percent": 81.99513381995133,
+        "total_code": "3288",
+        "matched_code": "2696",
+        "matched_code_percent": 81.99513381995133,
         "total_data": "0",
         "matched_data": "0",
         "matched_data_percent": 0,
         "total_functions": 26,
-        "matched_functions": 14,
-        "matched_functions_percent": 53.84615384615385,
+        "matched_functions": 19,
+        "matched_functions_percent": 73.07692307692307,
         "total_units": 1
       },
       "sections": [
         {
           "name": ".text",
-          "size": "3320",
-          "fuzzy_match_percent": 47.95180722891566,
-          "parent": "",
+          "size": "3288",
+          "fuzzy_match_percent": 81.99513381995133,
           "metadata": {}
         }
       ],
@@ -2703,35 +2646,35 @@
         {
           "name": "UnitNormalVectorCCW0x1208d0",
           "size": "144",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 1680,
           "metadata": {}
         },
         {
           "name": "NormalClipF30x120960",
-          "size": "160",
-          "fuzzy_match_percent": 0,
+          "size": "148",
+          "fuzzy_match_percent": 100,
           "address": 1824,
           "metadata": {}
         },
         {
           "name": "NormalClipCheckF30x120a00",
-          "size": "416",
-          "fuzzy_match_percent": 0,
+          "size": "404",
+          "fuzzy_match_percent": 100,
           "address": 1984,
           "metadata": {}
         },
         {
           "name": "PointHitCheckF30x120ba0",
-          "size": "224",
-          "fuzzy_match_percent": 0,
+          "size": "220",
+          "fuzzy_match_percent": 100,
           "address": 2400,
           "metadata": {}
         },
         {
           "name": "NvecFloatAdjust0x120c80",
-          "size": "192",
-          "fuzzy_match_percent": 0,
+          "size": "188",
+          "fuzzy_match_percent": 100,
           "address": 2624,
           "metadata": {}
         },
@@ -2813,7 +2756,6 @@
           "name": ".text",
           "size": "924",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         }
       ],
@@ -2861,22 +2803,17 @@
           "name": ".text",
           "size": "2092",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "704",
-          "fuzzy_match_percent": 0,
-          "parent": "yure.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "8",
-          "fuzzy_match_percent": 0,
-          "parent": "yure.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -2930,29 +2867,22 @@
           "name": ".text",
           "size": "13296",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "368",
-          "fuzzy_match_percent": 0,
-          "parent": "model.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "248",
-          "fuzzy_match_percent": 0,
-          "parent": "model.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "56",
-          "fuzzy_match_percent": 0,
-          "parent": "model.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -3314,7 +3244,6 @@
           "name": ".text",
           "size": "680",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         }
       ],
@@ -3404,7 +3333,6 @@
           "name": ".text",
           "size": "5160",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         }
       ],
@@ -3564,29 +3492,22 @@
           "name": ".text",
           "size": "3136",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "128",
-          "fuzzy_match_percent": 0,
-          "parent": "option.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "728",
-          "fuzzy_match_percent": 0,
-          "parent": "option.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "24",
-          "fuzzy_match_percent": 0,
-          "parent": "option.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -3696,29 +3617,22 @@
           "name": ".text",
           "size": "53996",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "5592",
-          "fuzzy_match_percent": 0,
-          "parent": "cockpit.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "8160",
-          "fuzzy_match_percent": 0,
-          "parent": "cockpit.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "88",
-          "fuzzy_match_percent": 0,
-          "parent": "cockpit.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -4598,29 +4512,22 @@
           "name": ".text",
           "size": "130264",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "4152",
-          "fuzzy_match_percent": 0,
-          "parent": "player.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "4144",
-          "fuzzy_match_percent": 0,
-          "parent": "player.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "28",
-          "fuzzy_match_percent": 0,
-          "parent": "player.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -7180,7 +7087,6 @@
           "name": ".text",
           "size": "1548",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         }
       ],
@@ -7298,15 +7204,12 @@
           "name": ".text",
           "size": "14652",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".rodata",
           "size": "80",
-          "fuzzy_match_percent": 0,
-          "parent": "info.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -7598,7 +7501,6 @@
           "name": ".text",
           "size": "1164",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         }
       ],
@@ -7688,7 +7590,6 @@
           "name": ".text",
           "size": "32",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         }
       ],
@@ -7750,15 +7651,12 @@
           "name": ".text",
           "size": "4200",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "1968",
-          "fuzzy_match_percent": 0,
-          "parent": "sound.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -7945,7 +7843,6 @@
           "name": ".text",
           "size": "5468",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         }
       ],
@@ -8063,43 +7960,32 @@
           "name": ".text",
           "size": "22308",
           "fuzzy_match_percent": 1.595840057378519,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "57376",
-          "fuzzy_match_percent": 0,
-          "parent": "stage.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "496",
-          "fuzzy_match_percent": 0,
-          "parent": "stage.c.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "356",
-          "fuzzy_match_percent": 0,
-          "parent": "stage.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sbss",
           "size": "4",
-          "fuzzy_match_percent": 0,
-          "parent": "stage.c.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".bss",
           "size": "104",
-          "fuzzy_match_percent": 0,
-          "parent": "stage.c.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -8244,29 +8130,22 @@
           "name": ".text",
           "size": "10000",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "384",
-          "fuzzy_match_percent": 0,
-          "parent": "system.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "288",
-          "fuzzy_match_percent": 0,
-          "parent": "system.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "40",
-          "fuzzy_match_percent": 0,
-          "parent": "system.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -8824,22 +8703,17 @@
           "name": ".text",
           "size": "1568",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".rodata",
           "size": "192",
-          "fuzzy_match_percent": 0,
-          "parent": "trans.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "56",
-          "fuzzy_match_percent": 0,
-          "parent": "trans.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -8935,22 +8809,17 @@
           "name": ".text",
           "size": "14232",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "4672",
-          "fuzzy_match_percent": 0,
-          "parent": "weapon.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "112",
-          "fuzzy_match_percent": 0,
-          "parent": "weapon.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -9046,15 +8915,12 @@
           "name": ".text",
           "size": "6436",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".rodata",
           "size": "15344",
-          "fuzzy_match_percent": 0,
-          "parent": "unk.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -9164,7 +9030,6 @@
           "name": ".text",
           "size": "1348",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         }
       ],
@@ -9289,15 +9154,12 @@
           "name": ".text",
           "size": "452",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "48",
-          "fuzzy_match_percent": 0,
-          "parent": "vib.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -9372,15 +9234,12 @@
           "name": ".text",
           "size": "1952",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "48",
-          "fuzzy_match_percent": 0,
-          "parent": "view.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -9525,7 +9384,6 @@
           "name": ".text",
           "size": "2400",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         }
       ],
@@ -9713,29 +9571,22 @@
           "name": ".text",
           "size": "146432",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "19136",
-          "fuzzy_match_percent": 0,
-          "parent": "fl.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "1264",
-          "fuzzy_match_percent": 0,
-          "parent": "fl.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "8",
-          "fuzzy_match_percent": 0,
-          "parent": "fl.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -12757,15 +12608,12 @@
           "name": ".text",
           "size": "22316",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".rodata",
           "size": "80",
-          "fuzzy_match_percent": 0,
-          "parent": "pl.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -13484,29 +13332,22 @@
           "name": ".text",
           "size": "6328",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "320",
-          "fuzzy_match_percent": 0,
-          "parent": "ps2.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "232",
-          "fuzzy_match_percent": 0,
-          "parent": "ps2.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "16",
-          "fuzzy_match_percent": 0,
-          "parent": "ps2.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -13665,22 +13506,17 @@
           "name": ".text",
           "size": "13276",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "7176",
-          "fuzzy_match_percent": 0,
-          "parent": "sce_hw.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "1288",
-          "fuzzy_match_percent": 0,
-          "parent": "sce_hw.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -14196,22 +14032,17 @@
           "name": ".text",
           "size": "64544",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "1912",
-          "fuzzy_match_percent": 0,
-          "parent": "util.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "4264",
-          "fuzzy_match_percent": 0,
-          "parent": "util.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -15539,22 +15370,17 @@
           "name": ".text",
           "size": "2476",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "64",
-          "fuzzy_match_percent": 0,
-          "parent": "sceGs.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "752",
-          "fuzzy_match_percent": 0,
-          "parent": "sceGs.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -15643,22 +15469,17 @@
           "name": ".text",
           "size": "22024",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "128",
-          "fuzzy_match_percent": 0,
-          "parent": "sceIpu.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "2776",
-          "fuzzy_match_percent": 0,
-          "parent": "sceIpu.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -15964,22 +15785,17 @@
           "name": ".text",
           "size": "13492",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "96",
-          "fuzzy_match_percent": 0,
-          "parent": "sceMc.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "296",
-          "fuzzy_match_percent": 0,
-          "parent": "sceMc.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -16362,22 +16178,17 @@
           "name": ".text",
           "size": "20764",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "288",
-          "fuzzy_match_percent": 0,
-          "parent": "sceMpeg.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "1176",
-          "fuzzy_match_percent": 0,
-          "parent": "sceMpeg.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -17138,22 +16949,17 @@
           "name": ".text",
           "size": "2260",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "48",
-          "fuzzy_match_percent": 0,
-          "parent": "scePad2.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "96",
-          "fuzzy_match_percent": 0,
-          "parent": "scePad2.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -17305,7 +17111,6 @@
           "name": ".text",
           "size": "364",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         }
       ],
@@ -17353,15 +17158,12 @@
           "name": ".text",
           "size": "5864",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "64",
-          "fuzzy_match_percent": 0,
-          "parent": "sceVu0.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -17688,7 +17490,6 @@
           "name": ".text",
           "size": "248",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         }
       ],
@@ -17743,15 +17544,12 @@
           "name": ".text",
           "size": "13952",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".rodata",
           "size": "216",
-          "fuzzy_match_percent": 0,
-          "parent": "netsync.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -17896,15 +17694,12 @@
           "name": ".text",
           "size": "1256",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "7336",
-          "fuzzy_match_percent": 0,
-          "parent": "sfd.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -17972,22 +17767,17 @@
           "name": ".text",
           "size": "28652",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "12296",
-          "fuzzy_match_percent": 0,
-          "parent": "CFT.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "168",
-          "fuzzy_match_percent": 0,
-          "parent": "CFT.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -18265,22 +18055,17 @@
           "name": ".text",
           "size": "188020",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "1248",
-          "fuzzy_match_percent": 0,
-          "parent": "M2V.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "13008",
-          "fuzzy_match_percent": 0,
-          "parent": "M2V.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -29058,29 +28843,22 @@
           "name": ".text",
           "size": "84732",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "67872",
-          "fuzzy_match_percent": 0,
-          "parent": "ADX.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "9640",
-          "fuzzy_match_percent": 0,
-          "parent": "ADX.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "16",
-          "fuzzy_match_percent": 0,
-          "parent": "ADX.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -34125,22 +33903,17 @@
           "name": ".text",
           "size": "4820",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "120",
-          "fuzzy_match_percent": 0,
-          "parent": "SRD.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "912",
-          "fuzzy_match_percent": 0,
-          "parent": "SRD.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -34488,22 +34261,17 @@
           "name": ".text",
           "size": "1592",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "4056",
-          "fuzzy_match_percent": 0,
-          "parent": "DTR.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "608",
-          "fuzzy_match_percent": 0,
-          "parent": "DTR.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -34599,15 +34367,12 @@
           "name": ".text",
           "size": "49692",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "56160",
-          "fuzzy_match_percent": 0,
-          "parent": "UNKLIB.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -37545,15 +37310,12 @@
           "name": ".text",
           "size": "6400",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "400",
-          "fuzzy_match_percent": 0,
-          "parent": "flfnt.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -37775,7 +37537,6 @@
           "name": ".text",
           "size": "1800",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         }
       ],
@@ -37872,29 +37633,22 @@
           "name": ".text",
           "size": "20112",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "12432",
-          "fuzzy_match_percent": 0,
-          "parent": "eft20.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "512",
-          "fuzzy_match_percent": 0,
-          "parent": "eft20.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "112",
-          "fuzzy_match_percent": 0,
-          "parent": "eft20.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -38018,29 +37772,22 @@
           "name": ".text",
           "size": "7956",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "1424",
-          "fuzzy_match_percent": 0,
-          "parent": "bgm.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "48",
-          "fuzzy_match_percent": 0,
-          "parent": "bgm.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "8",
-          "fuzzy_match_percent": 0,
-          "parent": "bgm.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -38171,22 +37918,17 @@
           "name": ".text",
           "size": "27060",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "1384",
-          "fuzzy_match_percent": 0,
-          "parent": "camera.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "168",
-          "fuzzy_match_percent": 0,
-          "parent": "camera.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -38870,22 +38612,17 @@
           "name": ".text",
           "size": "2032",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "104",
-          "fuzzy_match_percent": 0,
-          "parent": "set21.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "16",
-          "fuzzy_match_percent": 0,
-          "parent": "set21.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -39002,29 +38739,22 @@
           "name": ".text",
           "size": "23660",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "7104",
-          "fuzzy_match_percent": 0,
-          "parent": "quest.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "672",
-          "fuzzy_match_percent": 0,
-          "parent": "quest.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "12",
-          "fuzzy_match_percent": 0,
-          "parent": "quest.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -39722,29 +39452,22 @@
           "name": ".text",
           "size": "11908",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "56784",
-          "fuzzy_match_percent": 0,
-          "parent": "CngInet.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "736",
-          "fuzzy_match_percent": 0,
-          "parent": "CngInet.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "64",
-          "fuzzy_match_percent": 0,
-          "parent": "CngInet.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -40505,22 +40228,17 @@
           "name": ".text",
           "size": "1512",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "144",
-          "fuzzy_match_percent": 0,
-          "parent": "movie.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "4",
-          "fuzzy_match_percent": 0,
-          "parent": "movie.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -40616,7 +40334,6 @@
           "name": ".text",
           "size": "48",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         }
       ],
@@ -40657,22 +40374,17 @@
           "name": ".text",
           "size": "11456",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "48",
-          "fuzzy_match_percent": 0,
-          "parent": "InetMcs.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "24",
-          "fuzzy_match_percent": 0,
-          "parent": "InetMcs.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -41202,22 +40914,17 @@
           "name": ".text",
           "size": "3692",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "272",
-          "fuzzy_match_percent": 0,
-          "parent": "sceSif.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "768",
-          "fuzzy_match_percent": 0,
-          "parent": "sceSif.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -41348,7 +41055,6 @@
           "name": ".text",
           "size": "11160",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         }
       ],
@@ -42152,7 +41858,6 @@
           "name": ".text",
           "size": "3736",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         }
       ],
@@ -42305,7 +42010,6 @@
           "name": ".text",
           "size": "1800",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         }
       ],
@@ -42416,15 +42120,12 @@
           "name": ".text",
           "size": "8648",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "528",
-          "fuzzy_match_percent": 0,
-          "parent": "InetConnect.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -42527,29 +42228,22 @@
           "name": ".text",
           "size": "5016",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "384",
-          "fuzzy_match_percent": 0,
-          "parent": "modesel.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "616",
-          "fuzzy_match_percent": 0,
-          "parent": "modesel.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "8",
-          "fuzzy_match_percent": 0,
-          "parent": "modesel.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -42673,15 +42367,12 @@
           "name": ".text",
           "size": "2864",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "56",
-          "fuzzy_match_percent": 0,
-          "parent": "omake.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -42770,22 +42461,17 @@
           "name": ".text",
           "size": "6112",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "104",
-          "fuzzy_match_percent": 0,
-          "parent": "sceUsbKb.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "3640",
-          "fuzzy_match_percent": 0,
-          "parent": "sceUsbKb.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -43063,15 +42749,12 @@
           "name": ".text",
           "size": "3156",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "208",
-          "fuzzy_match_percent": 0,
-          "parent": "npc.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -43188,22 +42871,17 @@
           "name": ".text",
           "size": "300",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "32",
-          "fuzzy_match_percent": 0,
-          "parent": "overlays.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "8",
-          "fuzzy_match_percent": 0,
-          "parent": "overlays.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -43250,29 +42928,22 @@
           "name": ".text",
           "size": "46716",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "6144",
-          "fuzzy_match_percent": 0,
-          "parent": "textinput.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "144",
-          "fuzzy_match_percent": 0,
-          "parent": "textinput.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "72",
-          "fuzzy_match_percent": 0,
-          "parent": "textinput.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -45139,15 +44810,12 @@
           "name": ".text",
           "size": "41072",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".rodata",
           "size": "72",
-          "fuzzy_match_percent": 0,
-          "parent": "effect.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -45257,22 +44925,17 @@
           "name": ".text",
           "size": "46084",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "5872",
-          "fuzzy_match_percent": 0,
-          "parent": "scekernel.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "840",
-          "fuzzy_match_percent": 0,
-          "parent": "scekernel.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -48238,22 +47901,17 @@
           "name": ".text",
           "size": "30024",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "12688",
-          "fuzzy_match_percent": 0,
-          "parent": "softkey.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "8784",
-          "fuzzy_match_percent": 0,
-          "parent": "softkey.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -49119,29 +48777,22 @@
           "name": ".text",
           "size": "43688",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "8688",
-          "fuzzy_match_percent": 0,
-          "parent": "netOverlay.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "11856",
-          "fuzzy_match_percent": 0,
-          "parent": "netOverlay.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "328",
-          "fuzzy_match_percent": 0,
-          "parent": "netOverlay.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -49881,22 +49532,17 @@
           "name": ".text",
           "size": "11848",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "10832",
-          "fuzzy_match_percent": 0,
-          "parent": "userdata.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "272",
-          "fuzzy_match_percent": 0,
-          "parent": "userdata.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -50335,29 +49981,22 @@
           "name": ".text",
           "size": "28824",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "22016",
-          "fuzzy_match_percent": 0,
-          "parent": "interface.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "68320",
-          "fuzzy_match_percent": 0,
-          "parent": "interface.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "112",
-          "fuzzy_match_percent": 0,
-          "parent": "interface.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -50985,22 +50624,17 @@
           "name": ".text",
           "size": "2428",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "320",
-          "fuzzy_match_percent": 0,
-          "parent": "sceScf.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "112",
-          "fuzzy_match_percent": 0,
-          "parent": "sceScf.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -51194,15 +50828,12 @@
           "name": ".text",
           "size": "1168",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "48",
-          "fuzzy_match_percent": 0,
-          "parent": "eft26.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -51284,15 +50915,12 @@
           "name": ".text",
           "size": "1952",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".rodata",
           "size": "32",
-          "fuzzy_match_percent": 0,
-          "parent": "cnLBS_download.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -51402,22 +51030,17 @@
           "name": ".text",
           "size": "6184",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "80",
-          "fuzzy_match_percent": 0,
-          "parent": "eft02.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "208",
-          "fuzzy_match_percent": 0,
-          "parent": "eft02.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -51548,29 +51171,22 @@
           "name": ".text",
           "size": "28896",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "1552",
-          "fuzzy_match_percent": 0,
-          "parent": "save.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "3656",
-          "fuzzy_match_percent": 0,
-          "parent": "save.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "80",
-          "fuzzy_match_percent": 0,
-          "parent": "save.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -52548,15 +52164,12 @@
           "name": ".text",
           "size": "1688",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "192",
-          "fuzzy_match_percent": 0,
-          "parent": "demo.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -52631,29 +52244,22 @@
           "name": ".text",
           "size": "25048",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "224",
-          "fuzzy_match_percent": 0,
-          "parent": "netfile.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "64",
-          "fuzzy_match_percent": 0,
-          "parent": "netfile.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "8",
-          "fuzzy_match_percent": 0,
-          "parent": "netfile.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -52868,7 +52474,6 @@
           "name": ".text",
           "size": "15104",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         }
       ],
@@ -53028,22 +52633,17 @@
           "name": ".text",
           "size": "1152",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "4880",
-          "fuzzy_match_percent": 0,
-          "parent": "staff.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "4936",
-          "fuzzy_match_percent": 0,
-          "parent": "staff.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -53104,15 +52704,12 @@
           "name": ".text",
           "size": "480",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".rodata",
           "size": "32",
-          "fuzzy_match_percent": 0,
-          "parent": "poweroff.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -53166,29 +52763,22 @@
           "name": ".text",
           "size": "11408",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         },
         {
           "name": ".data",
           "size": "168",
-          "fuzzy_match_percent": 0,
-          "parent": "result.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".rodata",
           "size": "1744",
-          "fuzzy_match_percent": 0,
-          "parent": "result.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
           "size": "16",
-          "fuzzy_match_percent": 0,
-          "parent": "result.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
@@ -53395,9 +52985,7 @@
         {
           "name": ".data",
           "size": "336672",
-          "fuzzy_match_percent": 0,
-          "parent": "vutext.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -53428,9 +53016,7 @@
         {
           "name": ".data",
           "size": "16",
-          "fuzzy_match_percent": 0,
-          "parent": "CVFS.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -53461,9 +53047,7 @@
         {
           "name": ".data",
           "size": "1008",
-          "fuzzy_match_percent": 0,
-          "parent": "em_cmd.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -53494,9 +53078,7 @@
         {
           "name": ".data",
           "size": "288",
-          "fuzzy_match_percent": 0,
-          "parent": "userdata2.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -53527,9 +53109,7 @@
         {
           "name": ".data",
           "size": "13280",
-          "fuzzy_match_percent": 0,
-          "parent": "interface2.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -53560,9 +53140,7 @@
         {
           "name": ".data",
           "size": "3328",
-          "fuzzy_match_percent": 0,
-          "parent": "em_meat.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -53593,9 +53171,7 @@
         {
           "name": ".data",
           "size": "712",
-          "fuzzy_match_percent": 0,
-          "parent": "quest_table.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -53626,9 +53202,7 @@
         {
           "name": ".rodata",
           "size": "3256",
-          "fuzzy_match_percent": 0,
-          "parent": "CVFS.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -53659,9 +53233,7 @@
         {
           "name": ".rodata",
           "size": "976",
-          "fuzzy_match_percent": 0,
-          "parent": "DVCI.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -53692,9 +53264,7 @@
         {
           "name": ".rodata",
           "size": "1304",
-          "fuzzy_match_percent": 0,
-          "parent": "HTCI.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -53725,9 +53295,7 @@
         {
           "name": ".rodata",
           "size": "1448",
-          "fuzzy_match_percent": 0,
-          "parent": "LSC.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -53758,9 +53326,7 @@
         {
           "name": ".rodata",
           "size": "520",
-          "fuzzy_match_percent": 0,
-          "parent": "pl2.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -53791,9 +53357,7 @@
         {
           "name": ".rodata",
           "size": "1368",
-          "fuzzy_match_percent": 0,
-          "parent": "RNA.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -53824,9 +53388,7 @@
         {
           "name": ".rodata",
           "size": "368",
-          "fuzzy_match_percent": 0,
-          "parent": "SJ.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -53857,9 +53419,7 @@
         {
           "name": ".rodata",
           "size": "432",
-          "fuzzy_match_percent": 0,
-          "parent": "SVM.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -53890,9 +53450,7 @@
         {
           "name": ".rodata",
           "size": "48",
-          "fuzzy_match_percent": 0,
-          "parent": "sdr.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -53923,9 +53481,7 @@
         {
           "name": ".rodata",
           "size": "192",
-          "fuzzy_match_percent": 0,
-          "parent": "flsnd.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -53956,9 +53512,7 @@
         {
           "name": ".rodata",
           "size": "280",
-          "fuzzy_match_percent": 0,
-          "parent": "AQ.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -53989,9 +53543,7 @@
         {
           "name": ".rodata",
           "size": "128",
-          "fuzzy_match_percent": 0,
-          "parent": "overlayoffs.rodata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -54022,9 +53574,7 @@
         {
           "name": ".sdata",
           "size": "80",
-          "fuzzy_match_percent": 0,
-          "parent": "quest_table.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -54055,9 +53605,7 @@
         {
           "name": ".sdata",
           "size": "8312",
-          "fuzzy_match_percent": 0,
-          "parent": "gamebin_stragglers.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -54088,9 +53636,7 @@
         {
           "name": ".sdata",
           "size": "168",
-          "fuzzy_match_percent": 0,
-          "parent": "ynbin_stragglers.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -54121,9 +53667,7 @@
         {
           "name": ".sdata",
           "size": "464",
-          "fuzzy_match_percent": 0,
-          "parent": "lobbybin_stragglers.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -54154,9 +53698,7 @@
         {
           "name": ".sdata",
           "size": "88",
-          "fuzzy_match_percent": 0,
-          "parent": "dnasbin_stragglers.sdata.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -54188,7 +53730,6 @@
           "name": ".text",
           "size": "19404",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         }
       ],
@@ -54529,9 +54070,7 @@
         {
           "name": ".data",
           "size": "12928",
-          "fuzzy_match_percent": 0,
-          "parent": "select_data.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -54563,7 +54102,6 @@
           "name": ".text",
           "size": "1065496",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         }
       ],
@@ -73076,9 +72614,7 @@
         {
           "name": ".data",
           "size": "341376",
-          "fuzzy_match_percent": 0,
-          "parent": "game_data.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -73110,7 +72646,6 @@
           "name": ".text",
           "size": "35928",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         }
       ],
@@ -74130,9 +73665,7 @@
         {
           "name": ".data",
           "size": "19840",
-          "fuzzy_match_percent": 0,
-          "parent": "yn_data.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -74164,7 +73697,6 @@
           "name": ".text",
           "size": "887732",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         }
       ],
@@ -98599,9 +98131,7 @@
         {
           "name": ".data",
           "size": "361600",
-          "fuzzy_match_percent": 0,
-          "parent": "lobby_data.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -98633,7 +98163,6 @@
           "name": ".text",
           "size": "453460",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         }
       ],
@@ -113142,9 +112671,7 @@
         {
           "name": ".data",
           "size": "196736",
-          "fuzzy_match_percent": 0,
-          "parent": "dnas_net_data.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -113176,7 +112703,6 @@
           "name": ".text",
           "size": "166440",
           "fuzzy_match_percent": 0.0,
-          "parent": "",
           "metadata": {}
         }
       ],
@@ -118137,9 +117663,7 @@
         {
           "name": ".data",
           "size": "32256",
-          "fuzzy_match_percent": 0,
-          "parent": "dnas_ins_data.data.s.o",
-          "metadata": {}
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [],
@@ -118158,16 +117682,16 @@
       "id": "main",
       "name": "main",
       "measures": {
-        "fuzzy_match_percent": 0.20837889573929047,
-        "total_code": "1627804",
-        "matched_code": "3392",
-        "matched_code_percent": 0.20837889573929047,
+        "fuzzy_match_percent": 0.2762057585460372,
+        "total_code": "1627772",
+        "matched_code": "4496",
+        "matched_code_percent": 0.2762057585460372,
         "total_data": "1009136",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 7000,
-        "matched_functions": 42,
-        "matched_functions_percent": 0.6,
+        "matched_functions": 47,
+        "matched_functions_percent": 0.6714285714285715,
         "total_units": 120
       }
     },

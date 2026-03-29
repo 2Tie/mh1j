@@ -23,7 +23,7 @@ extern f32 flAbs0x173540(f32);
 extern f32 flArcTan20x1735e0(f32, f32);
 
 
-//implement
+//implements
 f32 cpAng2Rad0x120240(s32 ang) {
     return (ang & 0xFFFF) * DEG2RAD;
 }
@@ -219,9 +219,61 @@ f32 NormalClipF30x120960(f32 vert1[], f32 vert2[], f32 vert3[]) {
     return vec[0] - vec[1];
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/math", NormalClipCheckF30x120a00);
+s32 NormalClipCheckF30x120a00(f32 point0[], f32 point1[], f32 point2[], f32 point3[]) {
+    f32 plane;
+    u8 ret;
 
-INCLUDE_ASM("asm/main/nonmatchings/math", PointHitCheckF30x120ba0);
+    plane = NormalClipF30x120960(point0, point1, point2);
+    if (plane == 0.0f) {
+        return 0;
+    }
+    if (plane < 0.0f) {
+        if (!(NormalClipF30x120960(point0, point1, point3) <= 0.0f)) {
+            return 0;
+        }
+        if (!(NormalClipF30x120960(point1, point2, point3) <= 0.0f)) {
+            return 0;
+        }
+        ret = !(NormalClipF30x120960(point2, point0, point3) > 0.0f);
+        return ret;
+    }
+    if (NormalClipF30x120960(point0, point1, point3) < 0.0f) {
+        return 0;
+    }
+    if (NormalClipF30x120960(point1, point2, point3) < 0.0f) {
+        return 0;
+    }
+    if (NormalClipF30x120960(point2, point0, point3) < 0.0f) {
+        return 0;
+    }
+    return 2;
+}
+
+s8 PointHitCheckF30x120ba0(f32 poly[], f32 point[]) {
+    s8 flag;
+    s32 plane_orient;
+    u8 point_side;
+
+    plane_orient = (s32)NormalClipF30x120960(poly, &poly[3], &poly[6]) <= 0;
+    flag = 0;
+
+    point_side = NormalClipCheckF30x120a00(poly, &poly[3], &poly[6], point);
+
+    if (point_side != 0) {
+        if (plane_orient != 0) {
+            if (point_side == 1) {
+                flag += 1;
+            } else {
+                flag -= 1;
+            }
+        } else if (point_side == 2) {
+            flag += 1;
+        } else {
+            flag -= 1;
+        }
+    }
+    return flag > 0;
+}
 
 void NvecFloatAdjust0x120c80(f32 out[], f32 in[]) {
     out[0] = in[0];

@@ -36,11 +36,17 @@ class ItemMeta:
   virtual: str | None = None
 
 @dataclass
-class Section:
+class MapSection:
   name: str = ""
   size: str = "0"
   fuzzy_match_percent: float = 0
   parent: str = ""
+
+@dataclass
+class Section:
+  name: str = ""
+  size: str = "0"
+  fuzzy_match_percent: float = 0
 
 @dataclass
 class Function:
@@ -73,7 +79,7 @@ class Report:
 @dataclass
 class MapUnit:
   name: str = ""
-  sections: list[Section] = field(default_factory=list)
+  sections: list[MapSection] = field(default_factory=list)
   functions: list[Function] = field(default_factory=list)
   datasize: int = 0
   rdatasize: int = 0
@@ -100,7 +106,7 @@ savedpos = 0
 mapdata = []
 mo = MapOverlay()
 mu = MapUnit()
-ms = Section()
+ms = MapSection()
 for l in file:
   v = l.split()
   ln = len(v)
@@ -166,7 +172,7 @@ for l in file:
           mo.units.append(mu)
         if(v[2] != ".text"):
           #if new section isn't text, set up the section!
-          ms = Section(name = v[2], fuzzy_match_percent = 0, parent = v[4][1:-1])
+          ms = MapSection(name = v[2], fuzzy_match_percent = 0, parent = v[4][1:-1])
           ms.metadata = {}
           #print("found section " + v[2])
         else:
@@ -193,7 +199,7 @@ for l in file:
                 u.sections.append(ms)
                 mo.units.append(u)
                 #print("  created " + ms.name + " section for " + ms.parent + " (3rd)")
-            ms = Section(name = v[2], fuzzy_match_percent = 0, parent = v[4][1:-1])
+            ms = MapSection(name = v[2], fuzzy_match_percent = 0, parent = v[4][1:-1])
             ms.metadata = {}
             #print("found section " + v[2])
         #set up a new MapUnit
@@ -288,7 +294,7 @@ for o in mapdata:
     rum.total_units = 1
     #don't forget the sections now
     for ms in tu.sections:
-      ru.sections.append(ms)
+      ru.sections.append(Section(name = ms.name, size = ms.size, fuzzy_match_percent = ms.fuzzy_match_percent))
       rum.total_data = str(int(rum.total_data) + int(ms.size))
       rum.matched_data = str(int(rum.matched_data) + int(int(ms.size)*ms.fuzzy_match_percent/100))
     if(int(rum.total_data) > 0):
