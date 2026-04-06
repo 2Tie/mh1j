@@ -1,15 +1,15 @@
 {
   "measures": {
-    "fuzzy_match_percent": 0.0010563333953600273,
-    "total_code": "4256232",
-    "matched_code": "4496",
-    "matched_code_percent": 0.0010563333953600273,
+    "fuzzy_match_percent": 0.0011012843305657145,
+    "total_code": "4256848",
+    "matched_code": "4688",
+    "matched_code_percent": 0.0011012843305657145,
     "total_data": "1973872",
     "matched_data": "0",
     "matched_data_percent": 0.0,
     "total_functions": 16083,
-    "matched_functions": 47,
-    "matched_functions_percent": 0.002922340359385687,
+    "matched_functions": 51,
+    "matched_functions_percent": 0.003171050177205745,
     "total_units": 132
   },
   "units": [
@@ -9011,25 +9011,25 @@
       }
     },
     {
-      "name": "prim.s",
+      "name": "prim.c",
       "measures": {
-        "fuzzy_match_percent": 0.0,
-        "total_code": "1348",
-        "matched_code": "0",
-        "matched_code_percent": 0.0,
+        "fuzzy_match_percent": 13.793103448275861,
+        "total_code": "1392",
+        "matched_code": "192",
+        "matched_code_percent": 13.793103448275861,
         "total_data": "0",
         "matched_data": "0",
         "matched_data_percent": 0,
         "total_functions": 13,
-        "matched_functions": 0,
-        "matched_functions_percent": 0.0,
+        "matched_functions": 4,
+        "matched_functions_percent": 30.76923076923077,
         "total_units": 1
       },
       "sections": [
         {
           "name": ".text",
-          "size": "1348",
-          "fuzzy_match_percent": 0.0,
+          "size": "1392",
+          "fuzzy_match_percent": 13.793103448275861,
           "metadata": {}
         }
       ],
@@ -9037,28 +9037,28 @@
         {
           "name": "prim_init_sub0x169230",
           "size": "96",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 0,
           "metadata": {}
         },
         {
           "name": "prim_init0x169290",
           "size": "40",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 96,
           "metadata": {}
         },
         {
           "name": "prim_init20x1692c0",
           "size": "40",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 144,
           "metadata": {}
         },
         {
           "name": "pit_prim_init0x1692f0",
           "size": "16",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 192,
           "metadata": {}
         },
@@ -9078,35 +9078,35 @@
         },
         {
           "name": "get_prim0x169340",
-          "size": "136",
+          "size": "144",
           "fuzzy_match_percent": 0,
           "address": 272,
           "metadata": {}
         },
         {
           "name": "get_prim20x1693d0",
-          "size": "136",
+          "size": "144",
           "fuzzy_match_percent": 0,
           "address": 416,
           "metadata": {}
         },
         {
           "name": "release_prim0x169460",
-          "size": "72",
+          "size": "80",
           "fuzzy_match_percent": 0,
           "address": 560,
           "metadata": {}
         },
         {
           "name": "release_prim20x1694b0",
-          "size": "116",
+          "size": "128",
           "fuzzy_match_percent": 0,
           "address": 640,
           "metadata": {}
         },
         {
           "name": "add_prim0x169530",
-          "size": "476",
+          "size": "480",
           "fuzzy_match_percent": 0,
           "address": 768,
           "metadata": {}
@@ -9120,7 +9120,7 @@
         },
         {
           "name": "draw_prim0x169770",
-          "size": "60",
+          "size": "64",
           "fuzzy_match_percent": 0,
           "address": 1344,
           "metadata": {}
@@ -9128,7 +9128,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "src/main/prim.s",
+        "source_path": "src/main/prim.c",
         "progress_categories": [
           "main"
         ]
@@ -37899,10 +37899,10 @@
       }
     },
     {
-      "name": "camera.s",
+      "name": "camera.c",
       "measures": {
         "fuzzy_match_percent": 0.0,
-        "total_code": "27060",
+        "total_code": "27632",
         "matched_code": "0",
         "matched_code_percent": 0.0,
         "total_data": "1552",
@@ -37916,7 +37916,7 @@
       "sections": [
         {
           "name": ".text",
-          "size": "27060",
+          "size": "27632",
           "fuzzy_match_percent": 0.0,
           "metadata": {}
         },
@@ -37934,7 +37934,7 @@
       "functions": [
         {
           "name": "CameraWorkInit0x21f3d0",
-          "size": "20",
+          "size": "32",
           "fuzzy_match_percent": 0,
           "address": 0,
           "metadata": {}
@@ -37948,7 +37948,7 @@
         },
         {
           "name": "CameraInit0x21f410",
-          "size": "84",
+          "size": "96",
           "fuzzy_match_percent": 0,
           "address": 64,
           "metadata": {}
@@ -37962,35 +37962,35 @@
         },
         {
           "name": "CameraMove0x21f590",
-          "size": "632",
+          "size": "640",
           "fuzzy_match_percent": 0,
           "address": 448,
           "metadata": {}
         },
         {
           "name": "cam_init_sub_std0x21f810",
-          "size": "408",
+          "size": "416",
           "fuzzy_match_percent": 0,
           "address": 1088,
           "metadata": {}
         },
         {
           "name": "cam_sub_std0x21f9b0",
-          "size": "2664",
+          "size": "2672",
           "fuzzy_match_percent": 0,
           "address": 1504,
           "metadata": {}
         },
         {
           "name": "WyvernFindPlayer0x220420",
-          "size": "40",
+          "size": "48",
           "fuzzy_match_percent": 0,
           "address": 4176,
           "metadata": {}
         },
         {
           "name": "BBQcamera_set0x220450",
-          "size": "56",
+          "size": "64",
           "fuzzy_match_percent": 0,
           "address": 4224,
           "metadata": {}
@@ -38011,14 +38011,14 @@
         },
         {
           "name": "set_to_std_cam0x220650",
-          "size": "56",
+          "size": "64",
           "fuzzy_match_percent": 0,
           "address": 4736,
           "metadata": {}
         },
         {
           "name": "cam_init_sub_stg0x220690",
-          "size": "20",
+          "size": "32",
           "fuzzy_match_percent": 0,
           "address": 4800,
           "metadata": {}
@@ -38032,14 +38032,14 @@
         },
         {
           "name": "cam_init_sub_pchngr0x220ee0",
-          "size": "72",
+          "size": "80",
           "fuzzy_match_percent": 0,
           "address": 6928,
           "metadata": {}
         },
         {
           "name": "cam_sub_pchngr0x220f30",
-          "size": "1220",
+          "size": "1232",
           "fuzzy_match_percent": 0,
           "address": 7008,
           "metadata": {}
@@ -38060,7 +38060,7 @@
         },
         {
           "name": "GetPachingerInfo0x221530",
-          "size": "72",
+          "size": "80",
           "fuzzy_match_percent": 0,
           "address": 8544,
           "metadata": {}
@@ -38074,14 +38074,14 @@
         },
         {
           "name": "cam_sub_playerEX0x2215a0",
-          "size": "88",
+          "size": "96",
           "fuzzy_match_percent": 0,
           "address": 8656,
           "metadata": {}
         },
         {
           "name": "cam_plEX_fishing0x221600",
-          "size": "212",
+          "size": "224",
           "fuzzy_match_percent": 0,
           "address": 8752,
           "metadata": {}
@@ -38095,21 +38095,21 @@
         },
         {
           "name": "fish_cam_sub0x221700",
-          "size": "276",
+          "size": "288",
           "fuzzy_match_percent": 0,
           "address": 9008,
           "metadata": {}
         },
         {
           "name": "NPCZoomInCameraRequest0x221820",
-          "size": "36",
+          "size": "48",
           "fuzzy_match_percent": 0,
           "address": 9296,
           "metadata": {}
         },
         {
           "name": "NPCZoomInCameraCancel0x221850",
-          "size": "12",
+          "size": "16",
           "fuzzy_match_percent": 0,
           "address": 9344,
           "metadata": {}
@@ -38123,7 +38123,7 @@
         },
         {
           "name": "cam_plEX_zoom0x221870",
-          "size": "548",
+          "size": "560",
           "fuzzy_match_percent": 0,
           "address": 9376,
           "metadata": {}
@@ -38137,63 +38137,63 @@
         },
         {
           "name": "cam_sub_demo0x221ac0",
-          "size": "188",
+          "size": "192",
           "fuzzy_match_percent": 0,
           "address": 9968,
           "metadata": {}
         },
         {
           "name": "DemoCameraRequest0x221b80",
-          "size": "20",
+          "size": "32",
           "fuzzy_match_percent": 0,
           "address": 10160,
           "metadata": {}
         },
         {
           "name": "DemoCameraCancel0x221ba0",
-          "size": "36",
+          "size": "48",
           "fuzzy_match_percent": 0,
           "address": 10192,
           "metadata": {}
         },
         {
           "name": "DemoCameraCheck0x221bd0",
-          "size": "12",
+          "size": "16",
           "fuzzy_match_percent": 0,
           "address": 10240,
           "metadata": {}
         },
         {
           "name": "point_camera0x221be0",
-          "size": "264",
+          "size": "272",
           "fuzzy_match_percent": 0,
           "address": 10256,
           "metadata": {}
         },
         {
           "name": "get_em_local0x221cf0",
-          "size": "56",
+          "size": "64",
           "fuzzy_match_percent": 0,
           "address": 10528,
           "metadata": {}
         },
         {
           "name": "cmd_set_pos0x221d30",
-          "size": "300",
+          "size": "304",
           "fuzzy_match_percent": 0,
           "address": 10592,
           "metadata": {}
         },
         {
           "name": "cmd_set_tar0x221e60",
-          "size": "292",
+          "size": "304",
           "fuzzy_match_percent": 0,
           "address": 10896,
           "metadata": {}
         },
         {
           "name": "cmd_copy0x221f90",
-          "size": "140",
+          "size": "144",
           "fuzzy_match_percent": 0,
           "address": 11200,
           "metadata": {}
@@ -38214,70 +38214,70 @@
         },
         {
           "name": "point_cam_hit0x222400",
-          "size": "8",
+          "size": "16",
           "fuzzy_match_percent": 0,
           "address": 12336,
           "metadata": {}
         },
         {
           "name": "point_cam_sub0x222410",
-          "size": "900",
+          "size": "912",
           "fuzzy_match_percent": 0,
           "address": 12352,
           "metadata": {}
         },
         {
           "name": "cam2view0x2227a0",
-          "size": "392",
+          "size": "400",
           "fuzzy_match_percent": 0,
           "address": 13264,
           "metadata": {}
         },
         {
           "name": "PachingerCamChk0x222930",
-          "size": "72",
+          "size": "80",
           "fuzzy_match_percent": 0,
           "address": 13664,
           "metadata": {}
         },
         {
           "name": "set_quake_sub0x222980",
-          "size": "72",
+          "size": "80",
           "fuzzy_match_percent": 0,
           "address": 13744,
           "metadata": {}
         },
         {
           "name": "set_quake_sub20x2229d0",
-          "size": "52",
+          "size": "64",
           "fuzzy_match_percent": 0,
           "address": 13824,
           "metadata": {}
         },
         {
           "name": "Pl_set_quake_sub0x222a10",
-          "size": "136",
+          "size": "144",
           "fuzzy_match_percent": 0,
           "address": 13888,
           "metadata": {}
         },
         {
           "name": "Em_set_quake_sub0x222aa0",
-          "size": "136",
+          "size": "144",
           "fuzzy_match_percent": 0,
           "address": 14032,
           "metadata": {}
         },
         {
           "name": "Pachinger_set_quake_sub0x222b30",
-          "size": "136",
+          "size": "144",
           "fuzzy_match_percent": 0,
           "address": 14176,
           "metadata": {}
         },
         {
           "name": "quake_sub0x222bc0",
-          "size": "444",
+          "size": "448",
           "fuzzy_match_percent": 0,
           "address": 14320,
           "metadata": {}
@@ -38291,7 +38291,7 @@
         },
         {
           "name": "default_area_data0x222e20",
-          "size": "468",
+          "size": "480",
           "fuzzy_match_percent": 0,
           "address": 14928,
           "metadata": {}
@@ -38305,21 +38305,21 @@
         },
         {
           "name": "SetAreaData0x223070",
-          "size": "284",
+          "size": "288",
           "fuzzy_match_percent": 0,
           "address": 15520,
           "metadata": {}
         },
         {
           "name": "Get_cam_grid_XZ0x223190",
-          "size": "264",
+          "size": "272",
           "fuzzy_match_percent": 0,
           "address": 15808,
           "metadata": {}
         },
         {
           "name": "CameraAreaCheck0x2232a0",
-          "size": "284",
+          "size": "288",
           "fuzzy_match_percent": 0,
           "address": 16080,
           "metadata": {}
@@ -38333,49 +38333,49 @@
         },
         {
           "name": "Area_XZ_Check0x223410",
-          "size": "232",
+          "size": "240",
           "fuzzy_match_percent": 0,
           "address": 16448,
           "metadata": {}
         },
         {
           "name": "GetPanTarget0x223500",
-          "size": "220",
+          "size": "224",
           "fuzzy_match_percent": 0,
           "address": 16688,
           "metadata": {}
         },
         {
           "name": "GetRailTarget0x2235e0",
-          "size": "232",
+          "size": "240",
           "fuzzy_match_percent": 0,
           "address": 16912,
           "metadata": {}
         },
         {
           "name": "GetRailCamPos0x2236d0",
-          "size": "132",
+          "size": "144",
           "fuzzy_match_percent": 0,
           "address": 17152,
           "metadata": {}
         },
         {
           "name": "GetNearSection0x223760",
-          "size": "268",
+          "size": "272",
           "fuzzy_match_percent": 0,
           "address": 17296,
           "metadata": {}
         },
         {
           "name": "get_near_point_sub0x223870",
-          "size": "264",
+          "size": "272",
           "fuzzy_match_percent": 0,
           "address": 17568,
           "metadata": {}
         },
         {
           "name": "GetNearPoint0x223980",
-          "size": "460",
+          "size": "464",
           "fuzzy_match_percent": 0,
           "address": 17840,
           "metadata": {}
@@ -38396,56 +38396,56 @@
         },
         {
           "name": "cam_rail_move_00x223de0",
-          "size": "172",
+          "size": "176",
           "fuzzy_match_percent": 0,
           "address": 18960,
           "metadata": {}
         },
         {
           "name": "CamRailMove0x223e90",
-          "size": "100",
+          "size": "112",
           "fuzzy_match_percent": 0,
           "address": 19136,
           "metadata": {}
         },
         {
           "name": "CamRailPoint0x223f00",
-          "size": "140",
+          "size": "144",
           "fuzzy_match_percent": 0,
           "address": 19248,
           "metadata": {}
         },
         {
           "name": "vInnerProductXZ0x223f90",
-          "size": "28",
+          "size": "32",
           "fuzzy_match_percent": 0,
           "address": 19392,
           "metadata": {}
         },
         {
           "name": "vInnerProduct0x223fb0",
-          "size": "44",
+          "size": "48",
           "fuzzy_match_percent": 0,
           "address": 19424,
           "metadata": {}
         },
         {
           "name": "GetOrthogonalPoint0x223fe0",
-          "size": "1652",
+          "size": "1664",
           "fuzzy_match_percent": 0,
           "address": 19472,
           "metadata": {}
         },
         {
           "name": "ZoomRateCalc0x224660",
-          "size": "136",
+          "size": "144",
           "fuzzy_match_percent": 0,
           "address": 21136,
           "metadata": {}
         },
         {
           "name": "ZoomBaseAngleRail0x2246f0",
-          "size": "40",
+          "size": "48",
           "fuzzy_match_percent": 0,
           "address": 21280,
           "metadata": {}
@@ -38459,56 +38459,56 @@
         },
         {
           "name": "tri_diag0x224790",
-          "size": "296",
+          "size": "304",
           "fuzzy_match_percent": 0,
           "address": 21440,
           "metadata": {}
         },
         {
           "name": "Spline0x2248c0",
-          "size": "1000",
+          "size": "1008",
           "fuzzy_match_percent": 0,
           "address": 21744,
           "metadata": {}
         },
         {
           "name": "dCnvComplex0x224cb0",
-          "size": "12",
+          "size": "16",
           "fuzzy_match_percent": 0,
           "address": 22752,
           "metadata": {}
         },
         {
           "name": "dSubComplex0x224cc0",
-          "size": "36",
+          "size": "48",
           "fuzzy_match_percent": 0,
           "address": 22768,
           "metadata": {}
         },
         {
           "name": "dMulComplex0x224cf0",
-          "size": "72",
+          "size": "80",
           "fuzzy_match_percent": 0,
           "address": 22816,
           "metadata": {}
         },
         {
           "name": "dDivComplex0x224d40",
-          "size": "136",
+          "size": "144",
           "fuzzy_match_percent": 0,
           "address": 22896,
           "metadata": {}
         },
         {
           "name": "DKA50x224dd0",
-          "size": "632",
+          "size": "640",
           "fuzzy_match_percent": 0,
           "address": 23040,
           "metadata": {}
         },
         {
           "name": "Cardano0x225050",
-          "size": "796",
+          "size": "800",
           "fuzzy_match_percent": 0,
           "address": 23680,
           "metadata": {}
@@ -38522,63 +38522,63 @@
         },
         {
           "name": "k_HitEmCamera0x225510",
-          "size": "2152",
+          "size": "2160",
           "fuzzy_match_percent": 0,
           "address": 24896,
           "metadata": {}
         },
         {
           "name": "QuestClearCameraRequest0x225d80",
-          "size": "260",
+          "size": "272",
           "fuzzy_match_percent": 0,
           "address": 27056,
           "metadata": {}
         },
         {
           "name": "RedDragonEscapeCamera0x225e90",
-          "size": "12",
+          "size": "16",
           "fuzzy_match_percent": 0,
           "address": 27328,
           "metadata": {}
         },
         {
           "name": "F_DragonEscapeCamera0x225ea0",
-          "size": "36",
+          "size": "48",
           "fuzzy_match_percent": 0,
           "address": 27344,
           "metadata": {}
         },
         {
           "name": "PlayerDieCameraRequest0x225ed0",
-          "size": "12",
+          "size": "16",
           "fuzzy_match_percent": 0,
           "address": 27392,
           "metadata": {}
         },
         {
           "name": "PlComebackCameraRequest0x225ee0",
-          "size": "12",
+          "size": "16",
           "fuzzy_match_percent": 0,
           "address": 27408,
           "metadata": {}
         },
         {
           "name": "PilebunkerCameraRequest0x225ef0",
-          "size": "92",
+          "size": "96",
           "fuzzy_match_percent": 0,
           "address": 27424,
           "metadata": {}
         },
         {
           "name": "FishWyvernCameraRequest0x225f50",
-          "size": "92",
+          "size": "96",
           "fuzzy_match_percent": 0,
           "address": 27520,
           "metadata": {}
         },
         {
           "name": "LegendSwordCameraRequest0x225fb0",
-          "size": "12",
+          "size": "16",
           "fuzzy_match_percent": 0,
           "address": 27616,
           "metadata": {}
@@ -38586,7 +38586,7 @@
       ],
       "metadata": {
         "complete": false,
-        "source_path": "src/main/camera.s",
+        "source_path": "src/main/camera.c",
         "progress_categories": [
           "main"
         ]
@@ -117682,16 +117682,16 @@
       "id": "main",
       "name": "main",
       "measures": {
-        "fuzzy_match_percent": 0.2762057585460372,
-        "total_code": "1627772",
-        "matched_code": "4496",
-        "matched_code_percent": 0.2762057585460372,
+        "fuzzy_match_percent": 0.28789207486176516,
+        "total_code": "1628388",
+        "matched_code": "4688",
+        "matched_code_percent": 0.28789207486176516,
         "total_data": "1009136",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 7000,
-        "matched_functions": 47,
-        "matched_functions_percent": 0.6714285714285715,
+        "matched_functions": 51,
+        "matched_functions_percent": 0.7285714285714286,
         "total_units": 120
       }
     },

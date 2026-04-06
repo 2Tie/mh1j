@@ -10,6 +10,8 @@ typedef struct {
     f32 z; //offset 0x8, size 0x4
 } Vec3;
 
+typedef u8 prim[0x20];
+
 typedef struct {
     u8 state; //offset 0x0, size 0x1
     u8 unk01;
