@@ -32,9 +32,21 @@ void pit_prim_init0x1692f0(void) {
     prim_init_sub0x169230(pit_prim0x3ebd70, 4);
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/prim", get_prim_ptr0x169300);
+prim* get_prim_ptr0x169300(s32 which) {
+    prim* pointer = 0;
+    if (which >= 0) {
+        pointer = prim0x3eddf0 + which;
+    }
+    return pointer;
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/prim", get_prim_ptr20x169320);
+prim* get_prim_ptr20x169320(s32 which) {
+    prim* pointer = 0;
+    if (which >= 0) {
+        pointer = prim20x3ebdf0 + which;
+    }
+    return pointer;
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/prim", get_prim0x169340);
 
