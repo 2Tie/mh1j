@@ -192,6 +192,10 @@ $(WIBO):
 $(MWCCPS2):
 	@mkdir -p $(BIN_DIR)
 	wget -O- https://github.com/decompme/compilers/releases/download/compilers/$(COMPILER_TAR) | tar xzv -C $(BIN_DIR)
+	wget -O temp.zip https://files.decomp.dev/compilers_20250812.zip
+	unzip -j temp.zip "GC/3.0a3/lmgr326b.dll"
+	mv -f lmgr326b.dll /bin/LMGR326B.dll
+	rm temp.zip
 
 $(EEGCC):
 	@mkdir -p $(BIN_DIR)
