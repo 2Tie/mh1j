@@ -1,6 +1,10 @@
 #include "common.h"
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", CameraWorkInit0x21f3d0);
+extern u16 CameraWork0x4767c0[0x2FC];
+
+void CameraWorkInit0x21f3d0(void) {
+    flMemset0x16f5f0(CameraWork0x4767c0, 0, sizeof(CameraWork0x4767c0));
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", Q_camera_init0x21f3f0);
 
