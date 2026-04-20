@@ -11,7 +11,7 @@ typedef struct {
 } Vec3;
 
 typedef struct{
-    f32 v1;
+    s32 v1;
     f32 v2;
     f32 v3;
     f32 v4;

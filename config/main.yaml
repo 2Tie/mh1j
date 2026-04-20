@@ -339,7 +339,9 @@ segments:
     - {vram: 0x38a104, type: sbss, name: trans}
     - {vram: 0x38a110, type: sbss, name: view}
     - {vram: 0x38a114, type: .sbss, name: stage}
-    - {vram: 0x38a11c, type: sbss, name: unsorted}
+    - {vram: 0x38a11c, type: sbss, name: unsorted1}
+    - {vram: 0x38a18c, type: .sbss, name: prim}
+    - {vram: 0x38a194, type: sbss, name: unsorted2}
 
     # bss starts at 38aa54, lol
     - {vram: 0x38AA80, type: bss, name: ..lib/cri/adx_init }
@@ -351,6 +353,7 @@ segments:
     - {vram: 0x3d82a0, type: bss, name: bss_2 }
     - {vram: 0x531740, type: bss, name: memcard}
     - {vram: 0x531910, type: bss, name: bss_3}
+
   - [0x28A200, databin, elf/shstrtab]
   - [0x28A320, databin, elf/strtab]
   - [0x333C30, databin, elf/symtab]

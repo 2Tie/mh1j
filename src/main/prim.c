@@ -3,17 +3,39 @@
 
 extern void flmatrLoad0x173490(f32[], s32);
 extern void flvecApplyMat0x172ee0(f32[], f32[], f32[]);
-extern void plplAdd0x194990(prim*, f32*);
+extern void plplAdd0x194990(prim*, s32*);
 extern prim* plplNext0x1949b0(prim* []);
-void plplAdd20x1691c0(prim*, f32*);
 
-extern prim prim0x3eddf0[0x200]; //migrate these when the file's done
+extern prim prim0x3eddf0[0x200]; //migrate these when the file's done?
 extern prim prim20x3ebdf0[0x100];
 extern prim pit_prim0x3ebd70[4];
-extern u32 prim_free_top0x38a190;
-extern u32 prim_free_top20x38a18c;
 
-INCLUDE_ASM("asm/main/nonmatchings/prim", plplAdd20x1691c0);
+//sbss
+u32 prim_free_top0x38a190;
+u32 prim_free_top20x38a18c;
+
+void plplAdd20x1691c0(prim* primlist, s32* order_table) {
+    s32 table_floor;
+    s32 table;
+
+    while (1) {
+        table = *order_table;
+
+        if(table == 0 || !(table & 1))
+        {
+            *order_table = (s32)primlist | 1;
+            primlist->v1 = table;
+            break;
+        }
+        table_floor = table & ~1; //mask off bottom bit?
+        if (((prim*)table_floor)->v2 <= primlist->v2) {
+            *order_table = (s32)primlist | 1; //force bottom bit?
+            primlist->v1 = table;
+            break;
+        }
+        order_table = (s32*) table_floor;
+    }
+}
 
 void prim_init_sub0x169230(prim* primptr, s32 elements) {
     s32 i = 0;
@@ -120,7 +142,7 @@ void release_prim20x1694b0(s32 which) {
     }
 }
 
-u32 add_prim0x169530(f32* order_table, prim* primlist, u32 order_table_length, s32 first) {
+u32 add_prim0x169530(s32* order_table, prim* primlist, u32 order_table_length, s32 first) {
     f32 polydat[4];
     f32 primitive[4];
     f32 mat[16]; //matrix
@@ -156,7 +178,7 @@ u32 add_prim0x169530(f32* order_table, prim* primlist, u32 order_table_length, s
 }
 
 //buflength should always be the number of elements in ot (ordering table), maybe use constants for this?
-s32 add_prim20x169710(f32* ot, prim* primlist, s32 which, s32 buflength) {
+s32 add_prim20x169710(s32* ot, prim* primlist, s32 which, s32 buflength) {
     if (which >= buflength || which < 0)
         return -1;
     plplAdd0x194990(primlist, &ot[((buflength - 1) - which)]);
