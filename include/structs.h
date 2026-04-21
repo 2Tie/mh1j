@@ -11,20 +11,20 @@ typedef struct {
 } Vec3;
 
 typedef struct{
-    f32 x1;
-    f32 y1;
-    f32 z1;
-    f32 x2;
-    f32 y2;
-    f32 z2;
-    u32 unk_18;
-    u32 unk_1C;
-    u32 unk_20;
-    f32 unk_24;
-    f32 unk_28;
-    f32 unk_2C;
-    f32 unk_30;
-    f32 unk_34;
+    f32 pos_x;
+    f32 pos_y;
+    f32 pos_z;
+    f32 target_x;
+    f32 target_y;
+    f32 target_z;
+    f32 pitch;
+    f32 yaw;
+    f32 roll;
+    f32 proj_near;
+    f32 proj_far;
+    f32 view_angle;
+    f32 view_angle_OLD;
+    f32 view_roll;
     u32 unk_38;
     u32 unk_3C;
     u32 unk_40;
