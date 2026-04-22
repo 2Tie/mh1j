@@ -11,10 +11,10 @@ typedef struct {
 } Vec3;
 
 typedef struct{
-    bool is_stereo;
+    u8 is_stereo;
     u8 BGM_vol;
     u8 SFX_vol;
-    bool vibrate;
+    u8 vibrate;
     u8 targeting_type;
     u8 screen_xoff;
     u8 screen_yoff;

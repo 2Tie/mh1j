@@ -1,6 +1,7 @@
 #include "common.h"
 
 void amo_ahi_expand0x11f350(void * srcbuf, void * amobuf, void* ahibuf);
+void Meltw0x11f230(u16* sourcebuf, u16* outbuf);
 
 extern u8* arc_ptr0x38a23c;
 extern s32 load_bin0x1003b0(s32, u8*);
@@ -40,7 +41,7 @@ s32 load_file_mdl0x11ed20(u8* buff, s32 fileID) {
         return -1;
     }
     if (load_bin0x1003b0(fileID | 0x20000, arc_ptr0x38a23c) == 1) {
-        Meltw0x11f230(arc_ptr0x38a23c, buff);
+        Meltw0x11f230((u16*)arc_ptr0x38a23c, (u16*)buff);
         return 1;
     }
     return 0;
@@ -163,7 +164,46 @@ void LoadCameraData0x11f1e0(s32 map) {
     SetCameraData0x21f470(cam_data);
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/load", Meltw0x11f230);
+void Meltw0x11f230(u16* sourcebuf, u16* outbuf) {
+    s32 srcflag;
+    s32 flag;
+
+    for ( srcflag = flag = 0; 1 ; flag >>= 1 ) {
+        if (flag == 0) {
+            srcflag = (s16)*sourcebuf++;
+            flag = 0x8000;
+        }
+        if (srcflag & flag) {
+            u32 inval = *sourcebuf++;
+            u32 run = inval / 0x800;
+
+            if (run != 0) {
+                inval = inval % 0x800;
+            } else {
+                run = *sourcebuf++;
+            }
+
+            if (!inval) {
+                if(run == 0)
+                    return;
+                do {
+                    *outbuf++ = 0;
+                    run -= 1;
+                } while (run != 0);
+            }
+            else {
+                u16* fetch = outbuf - (inval);
+                do {
+                    *outbuf++ = *fetch++;
+                    run -= 1;
+                } while (run != 0);
+            }
+        }
+        else {
+            *outbuf++ = *sourcebuf++;
+        }
+    }
+}
 
 s32 GetLinkFileNum0x11f310(u8* buff) {
     return *(s32*)buff; //first value is file count
