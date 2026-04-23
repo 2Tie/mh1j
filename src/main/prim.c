@@ -193,3 +193,5 @@ void draw_prim0x169770(prim* primi) {
         primi->trans(primi);
     }
 }
+
+INCLUDE_ASM("asm/main/nonmatchings/prim", SetDiffuseColor0x1697c0);

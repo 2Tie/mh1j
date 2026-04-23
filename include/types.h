@@ -1,7 +1,6 @@
 #ifndef TYPES_H
 #define TYPES_H
 
-
 typedef char int8_t;
 typedef short int16_t;
 typedef int int32_t;
@@ -37,5 +36,8 @@ typedef s32 strlen_t;
 
 typedef s32 ssize_t;
 
+typedef s8 bool;
+#define false 0
+#define true 1
 
 #endif

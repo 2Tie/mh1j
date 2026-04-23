@@ -75,7 +75,7 @@ segments:
     - [0x64280, asm, weapon]
     - [0x67a40, asm, unk]
     - [0x69340, c, prim]
-    - [0x69940, asm, vib]
+    - [0x69a30, c, vib]
     - [0x69b60, c, view]
     - [0x69fd0, asm, em_work]
     - [0x6ad20, asm, fl]
