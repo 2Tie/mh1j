@@ -194,4 +194,15 @@ void draw_prim0x169770(prim* primi) {
     }
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/prim", SetDiffuseColor0x1697c0);
+void SetDiffuseColor0x1697c0(RGB* swatch, u32 rgbint) {
+    f32 r;
+    f32 g;
+    f32 b;
+
+    r = (rgbint >> 0x10) & 0xFF;
+    g = (rgbint >> 8) & 0xFF;
+    b = rgbint & 0xFF;
+    swatch->diff_r = (f32) (0.003921569f * r);
+    swatch->diff_g = (f32) (0.003921569f * g);
+    swatch->diff_b = (f32) (0.003921569f * b);
+}

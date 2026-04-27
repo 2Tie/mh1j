@@ -53,6 +53,12 @@ typedef struct{
 } VIEW_WORK;
 
 typedef struct{
+    f32 diff_r;
+    f32 diff_g;
+    f32 diff_b;
+} RGB;
+
+typedef struct{
     s32 v1;
     f32 v2;
     f32 v3;
