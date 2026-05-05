@@ -37,7 +37,7 @@ typedef struct {
     u8 which;
     u8 pad1;
     u8 pad2;
-    ACTIVE_EVENT_DEMO[2] demos;
+    ACTIVE_EVENT_DEMO demos[2];
 } EVENT_DEMO;
 
 typedef struct{
