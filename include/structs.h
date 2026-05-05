@@ -10,6 +10,36 @@ typedef struct {
     f32 z; //offset 0x8, size 0x4
 } Vec3;
 
+typedef struct {
+    u8 areaID;
+    u8 flag;
+    u8 demoID;
+    u8 targetSpecies;
+    u8 bgm;
+    u8 sfx;
+    u8 tutFlag1;
+    u8 tutFlag2;
+    void *check;
+    void *event;
+} EVENT_DEMO_DATA;
+
+typedef struct {
+    u8 active;
+    u8 state;
+    u8 timer;
+    void *check;
+    void *event;
+    EVENT_DEMO_DATA *demo_data;
+} ACTIVE_EVENT_DEMO;
+
+typedef struct {
+    u8 active;
+    u8 which;
+    u8 pad1;
+    u8 pad2;
+    ACTIVE_EVENT_DEMO[2] demos;
+} EVENT_DEMO;
+
 typedef struct{
     bool is_stereo;
     u8 BGM_vol;
@@ -487,7 +517,7 @@ typedef struct {
     u8 unk_21c;
     u8 fort_damage; //offset 0x21d
     u8 unk_21e;
-    u8 unk_21f;
+    bool demo_playing;
     u8 unk_220;
     u8 unk_221;
     u8 unk_222;

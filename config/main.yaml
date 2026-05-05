@@ -134,7 +134,7 @@ segments:
     - [0x17d090, asm, cnLBS_download]
     - [0x17d860, asm, eft02]
     - [0x17f0e0, asm, save]
-    - [0x186470, asm, demo]
+    - [0x186470, c, demo]
     - [0x186b20, asm, netfile]
     - [0x18cdc0, asm, hitcoll]
     - [0x190940, asm, staff]
@@ -352,7 +352,11 @@ segments:
     - {vram: 0x3d8230, type: .bss, name: stage }
     - {vram: 0x3d82a0, type: bss, name: bss_2 }
     - {vram: 0x531740, type: bss, name: memcard}
-    - {vram: 0x531910, type: bss, name: bss_3}
+    - {vram: 0x531910, type: bss, name: demo}
+    - {vram: 0x531940, type: bss, name: staff}
+    - {vram: 0x531950, type: bss, name: poweroff}
+    - {vram: 0x533950, type: bss, name: result}
+    - {vram: 0x533960, type: bss, name: unsorted_tail}
 
   - [0x28A200, databin, elf/shstrtab]
   - [0x28A320, databin, elf/strtab]
