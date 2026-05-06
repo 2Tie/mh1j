@@ -26,7 +26,7 @@ typedef struct {
 typedef struct {
     u8 active;
     u8 state;
-    u8 timer;
+    s16 timer;
     void *check;
     void *event;
     EVENT_DEMO_DATA *demo_data;
