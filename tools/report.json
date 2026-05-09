@@ -1,15 +1,15 @@
 {
   "measures": {
-    "fuzzy_match_percent": 0.0018671319931704504,
+    "fuzzy_match_percent": 0.001994927640413118,
     "total_code": "4256796",
-    "matched_code": "7948",
-    "matched_code_percent": 0.0018671319931704504,
+    "matched_code": "8492",
+    "matched_code_percent": 0.001994927640413118,
     "total_data": "1973880",
     "matched_data": "0",
     "matched_data_percent": 0.0,
     "total_functions": 16082,
-    "matched_functions": 81,
-    "matched_functions_percent": 0.005036686979231439,
+    "matched_functions": 82,
+    "matched_functions_percent": 0.005098868299962691,
     "total_units": 132
   },
   "units": [
@@ -52145,23 +52145,23 @@
     {
       "name": "demo.c",
       "measures": {
-        "fuzzy_match_percent": 47.04491725768322,
+        "fuzzy_match_percent": 79.19621749408984,
         "total_code": "1692",
-        "matched_code": "796",
-        "matched_code_percent": 47.04491725768322,
+        "matched_code": "1340",
+        "matched_code_percent": 79.19621749408984,
         "total_data": "192",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 6,
-        "matched_functions": 3,
-        "matched_functions_percent": 50.0,
+        "matched_functions": 4,
+        "matched_functions_percent": 66.66666666666666,
         "total_units": 1
       },
       "sections": [
         {
           "name": ".text",
           "size": "1692",
-          "fuzzy_match_percent": 47.04491725768322,
+          "fuzzy_match_percent": 79.19621749408984,
           "metadata": {}
         },
         {
@@ -52174,7 +52174,7 @@
         {
           "name": "EvDemoInitialize0x2862f0",
           "size": "544",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 0,
           "metadata": {}
         },
@@ -117680,16 +117680,16 @@
       "id": "main",
       "name": "main",
       "measures": {
-        "fuzzy_match_percent": 0.48810564895697206,
+        "fuzzy_match_percent": 0.5215139872851795,
         "total_code": "1628336",
-        "matched_code": "7948",
-        "matched_code_percent": 0.48810564895697206,
+        "matched_code": "8492",
+        "matched_code_percent": 0.5215139872851795,
         "total_data": "1009144",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 6999,
-        "matched_functions": 81,
-        "matched_functions_percent": 1.1573081868838404,
+        "matched_functions": 82,
+        "matched_functions_percent": 1.1715959422774682,
         "total_units": 120
       }
     },
