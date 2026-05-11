@@ -6,6 +6,7 @@ extern void str_pause0x100ad0(s32, u8);
 extern void adx_se_set0x21da90(void*, u16);
 extern void demo_bgm_set0x21df30(u8);
 extern void stage_bgm_set0x21df80(u8);
+extern void DemoCameraRequest0x221b80(u8, MONSTER_WORK*);
 extern void DemoCameraCancel0x221ba0(void);
 extern s32 DemoCameraCheck0x221bd0();
 extern s32 Event_flag_set0x272ec0(s32);
@@ -26,6 +27,7 @@ extern EVENT_DEMO_DATA evdemo_200x3554f0;
 extern EVENT_DEMO_DATA evdemo_230x355500;
 extern EVENT_DEMO_DATA evdemo_240x355510;
 extern EVENT_DEMO event_demo0x531910;
+extern MONSTER_WORK em_work0x3d82a0[20];
 extern u8 player_work0x3e4bf0[];
 extern GAME_WORK game_w0x3f33f0;
 
@@ -33,7 +35,8 @@ extern GAME_WORK game_w0x3f33f0;
 
 //protos
 s32 evdemo_init_sub0x286510(ACTIVE_EVENT_DEMO* arg0, EVENT_DEMO_DATA* arg1);
-void evdemo_camera_request0x286920(u8, u8);
+void evdemo_camera_request0x286920(s32, s32);
+
 
 void EvDemoInitialize0x2862f0(void) {
     u16 quest;
@@ -181,4 +184,24 @@ s32 event0000x2866c0(ACTIVE_EVENT_DEMO* demo) {
     return 0;
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/demo", evdemo_camera_request0x286920);
+void evdemo_camera_request0x286920(s32 demo, s32 species) {
+    MONSTER_WORK* mon;
+    s32 counter;
+    s32 sp;
+
+    sp = species & 0xFF;
+    if (sp == 0) {
+        DemoCameraRequest0x221b80(demo, 0);
+        return;
+    }
+    mon = em_work0x3d82a0;
+    counter = 20;
+    do {
+    if ((mon[0].exists != false) && (mon[0].species == sp)) {
+        DemoCameraRequest0x221b80(demo, mon);
+        return;
+    }
+    counter -= 1;
+    mon++;
+    } while (counter != 0);
+}

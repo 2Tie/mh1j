@@ -209,6 +209,13 @@ typedef struct {
 } DEMO_WORK;
 
 typedef struct {
+    u8 exists;
+    u8 unk;
+    u8 species;
+    u8 todo[0xA0D];
+} MONSTER_WORK;
+
+typedef struct {
     //total size:0x224
     u8 top_state; //offset 0x0
     u8 sub_state; //offset 0x1
