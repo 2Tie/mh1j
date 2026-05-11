@@ -11,6 +11,20 @@ typedef struct {
 } Vec3;
 
 typedef struct {
+    // total size: 0x18
+    u8* memoryblock;   // offset 0x0, size 0x4
+    u8* baseandcap[2]; // offset 0x4, size 0x8
+    u8* frame[2];      // offset 0xC, size 0x8
+    s32 align;         // offset 0x14, size 0x4
+} FL_FMS;
+
+typedef struct {
+    // total size: 0x8
+    u8* pFrame;  // offset 0x0, size 0x4
+    s32 heapnum; // offset 0x4, size 0x4
+} FMS_FRAME;
+
+typedef struct {
     u8 areaID;
     u8 flag;
     u8 demoID;
