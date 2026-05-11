@@ -9,14 +9,14 @@ typedef enum {
 } CAM_DATA_ENTRY_AXES;
 
 typedef enum {
-  NONE,
+  NO_MOVE_TYPE,
   PAN,
   RAIL,
   PAN_WITH_PLAYER
 }CAM_DATA_ENTRY_MOVE_TYPE;
 
 typedef enum {
-  NONE,
+  NO_TARGET,
   PLAYER_UNK,
   PLAYER
 }CAM_DATA_ENTRY_TARGET_TYPE;
