@@ -104,7 +104,36 @@ s32 evdemo_init_sub0x286510(ACTIVE_EVENT_DEMO* demo, EVENT_DEMO_DATA* data) {
     return -1;
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/demo", EvDemoMove0x286580);
+void EvDemoMove0x286580(void) {
+    s32 i;
+    EVENT_DEMO* demo;
+    ACTIVE_EVENT_DEMO* active_demo;
+
+    demo = &event_demo0x531910;
+    
+    switch (demo->active) {
+    case 1:
+        active_demo = &demo->demos[demo->which];
+
+        if (active_demo->event(active_demo) != 0) {
+            game_w0x3f33f0.demo_playing = false;
+            demo->active = false;
+        
+        case 0:
+                active_demo = &demo->demos[0];
+    
+                for (i = 0; i < 3; i++) {
+                    if (active_demo->active != 0 && active_demo->check(active_demo) > 0) {
+                        demo->active = 1;
+                        demo->which = i;
+                        active_demo->event(active_demo);
+                        return;
+                    }
+                    active_demo++;
+                }
+        }
+    }
+}
 
 s32 check0000x286660(ACTIVE_EVENT_DEMO* demo) {
     if (Event_flag_ck0x272f50(demo->demo_data->flag) == 1) {

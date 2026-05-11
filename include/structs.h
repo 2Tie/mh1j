@@ -19,16 +19,16 @@ typedef struct {
     u8 sfx;
     u8 tutFlag1;
     u8 tutFlag2;
-    void *check;
-    void *event;
+    s32 (*check)(void* demo);
+    s32 (*event)(void* demo);
 } EVENT_DEMO_DATA;
 
 typedef struct {
     u8 active;
     u8 state;
     s16 timer;
-    void *check;
-    void *event;
+    s32 (*check)(void* demo);
+    s32 (*event)(void* demo);
     EVENT_DEMO_DATA *demo_data;
 } ACTIVE_EVENT_DEMO;
 
