@@ -919,7 +919,8 @@ typedef struct {
     //total size: 0x14
     u8 model; //offset 0x0, size 0x1
     u8 rarity; //offset 0x1, size 0x1
-    u16 sharpness; //offset 0x2, size 0x2
+    u8 sharp_curve; //offset 0x2, size 0x1
+    u8 sharp_max;  //offset 0x3, size 0x1
     u32 price;     //offset 0x4, size 0x4
     u16 raw_attack;//offset 0x8, size 0x2
     u8 defense;    //offset 0xA, size 0x1

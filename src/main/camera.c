@@ -1,12 +1,17 @@
 #include "common.h"
+#include "main/camera.h"
 
-extern u16 CameraWork0x4767c0[0x2FC];
+extern CAMERA_WORK CameraWork0x4767c0;
 
 void CameraWorkInit0x21f3d0(void) {
     flMemset0x16f5f0(CameraWork0x4767c0, 0, sizeof(CameraWork0x4767c0));
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", Q_camera_init0x21f3f0);
+void Q_camera_init0x21f3f0(void) {
+    CameraWork0x4767c0.demo_play = 0;
+    CameraWork0x4767c0.wyvern_ptr = 0;
+    CameraWork0x4767c0.player_cam_height_level = 2;
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", CameraInit0x21f410);
 
