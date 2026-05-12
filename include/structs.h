@@ -223,6 +223,10 @@ typedef struct {
 } DEMO_WORK;
 
 typedef struct {
+    u8 todo[0xa00];
+} PLAYER_WORK;
+
+typedef struct {
     u8 exists;
     u8 unk;
     u8 species;

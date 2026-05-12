@@ -24,8 +24,7 @@ typedef enum {
 typedef struct{
   u8 unk_0;
   u8 unk_1;
-  u8 entry_count;
-  u8 unk_3;
+  u16 entry_count;
   u16 x_count;
   u16 y_count;
   u16 unk_8;

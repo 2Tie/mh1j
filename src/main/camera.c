@@ -1,7 +1,17 @@
 #include "common.h"
+#include "structs.h"
 #include "main/camera.h"
 
+//externs
+extern GAME_WORK game_w0x3f33f0;
+extern PLAYER_WORK player_work0x3e4bf0[8];
+
+//bss
 extern CAMERA_WORK CameraWork0x4767c0;
+
+//protos
+void StageCamInit0x223000(CAMERA_WORK*);
+
 
 void CameraWorkInit0x21f3d0(void) {
     flMemset0x16f5f0(CameraWork0x4767c0, 0, sizeof(CameraWork0x4767c0));
@@ -13,7 +23,14 @@ void Q_camera_init0x21f3f0(void) {
     CameraWork0x4767c0.player_cam_height_level = 2;
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", CameraInit0x21f410);
+void CameraInit0x21f410(void) {
+    CameraWork0x4767c0.initialized = 0;
+    CameraWork0x4767c0.quaking = 0;
+    CameraWork0x4767c0.quakingsub = 0;
+    CameraWork0x4767c0.wyvern_target = 0;
+    CameraWork0x4767c0.player_ptr = &player_work0x3e4bf0[game_w0x3f33f0.my_player_number];
+    StageCamInit0x223000(&CameraWork0x4767c0);
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", SetCameraData0x21f470);
 
