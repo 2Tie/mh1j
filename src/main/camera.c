@@ -40,15 +40,41 @@ INCLUDE_ASM("asm/main/nonmatchings/camera", cam_init_sub_std0x21f810);
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", cam_sub_std0x21f9b0);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", WyvernFindPlayer0x220420);
+void WyvernFindPlayer0x220420(PLAYER_WORK* player) {
+    CAMERA_WORK* camera_work = &CameraWork0x4767c0;
+    
+    if (player->player_num == game_w0x3f33f0.my_player_number) {
+        camera_work->wyvern_target = player;
+    }
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", BBQcamera_set0x220450);
+void BBQcamera_set0x220450(PLAYER_WORK* player) {
+    CAMERA_WORK* camera_work = &CameraWork0x4767c0;
+
+    if (player->player_num == game_w0x3f33f0.my_player_number) {
+        camera_work->views[0].hit_wall = 0;
+        camera_work->views[0].next_rot = (s16) (player->angle + 0x2000);
+        camera_work->player_cam_height_level = 2;
+    }
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", manual_cam_chk0x220490);
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", std_cam_sw_set_sub0x220570);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", set_to_std_cam0x220650);
+void set_to_std_cam0x220650(s32 view) {
+    CAM_W_VIEW* cam_w_view = &CameraWork0x4767c0.views[0];
+    s32 tmp = view;
+
+    if (tmp == 4) {
+        tmp = -1;
+    }
+    if (tmp >= 0) {
+        cam_w_view->which_view = tmp;
+        return;
+    }
+    cam_w_view->which_view = -1;
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", cam_init_sub_stg0x220690);
 

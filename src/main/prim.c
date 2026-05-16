@@ -11,8 +11,8 @@ extern prim prim20x3ebdf0[0x100];
 extern prim pit_prim0x3ebd70[4];
 
 //sbss
-u32 prim_free_top0x38a190;
-u32 prim_free_top20x38a18c;
+s32 prim_free_top0x38a190;
+s32 prim_free_top20x38a18c;
 
 void plplAdd20x1691c0(prim* primlist, s32* order_table) {
     s32 table_floor;

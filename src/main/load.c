@@ -51,7 +51,7 @@ int load_pl_motion0x11ed90(s32 arg1, s32 motion) {
     return load_file_mdl0x11ed20(pl_area_top0x38a224, pl_motion_data0x2ebc50[motion]);
 }
 
-int load_plcom_motion0x11edb0(s32 arg1, s32 motion) {
+int load_plcom_motion0x11edb0(s32 motion) {
     return load_file_mdl0x11ed20(pl_area_top0x38a224, common_motion_data0x2ebc70[motion]);
 }
 

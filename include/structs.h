@@ -223,7 +223,11 @@ typedef struct {
 } DEMO_WORK;
 
 typedef struct {
-    u8 todo[0xa00];
+    u8 todo[0xc];
+    u16 player_num; //0x0c
+    u8 todo2[0x96];
+    u32 angle; //0xa4
+    u8 todo3[0x958];
 } PLAYER_WORK;
 
 typedef struct {

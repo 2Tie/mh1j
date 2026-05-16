@@ -44,19 +44,28 @@ typedef struct{
 typedef struct{
   u8 unk_0;
   u8 index;
-  CAM_DATA_ENTRY_MOVE_TYPE* move_type;
-  CAM_DATA_ENTRY_AXES* axes;
-  CAM_DATA_ENTRY_TARGET_TYPE* target_type;
+  u8 move_type; //CAM_DATA_ENTRY_MOVE_TYPE
+  u8 axes; //CAM_DATA_ENTRY_AXES
+  u8 target_type; //CAM_DATA_ENTRY_TARGET_TYPE
   u8 float_chunk_count;
   u8 attribute;
   u8 unk_7;
-  f32 unk_8;
-  f32 unk_c;
-  f32 unk_10;
-  f32 unk_14;
+  f32 min_distance;
+  f32 max_distance;
+  f32 near_zoom;
+  f32 far_zoom;
   void* float_chunks_ptr;
   void* bytepairs_ptr;
 }CAM_DATA_ENTRY_HEADER;
+
+typedef struct{
+    u8 todo[0x72];
+    u8 which_view; //0x72
+    u8 todo2[0x85];
+    u16 next_rot; //0xF8
+    u8 todo3[0x5];
+    u8 hit_wall; //0xFF
+}CAM_W_VIEW;
 
 typedef struct{
   f32 pos[3];
@@ -66,7 +75,7 @@ typedef struct{
   u8 unk2[0x4]; //0x64 - 0x67
   f32 unk3;
   u8 unk4[0x14]; //0x6c - 0c7f
-  u8 views[5][0x100];
+  CAM_W_VIEW views[5];
   u32 initialized;
   void* player_ptr; //TODO PLAYER_WORK*
   CAM_DATA_HEADER* CamDataBuffer;

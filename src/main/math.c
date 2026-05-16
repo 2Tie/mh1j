@@ -169,9 +169,9 @@ void PointToPoint0x1207e0(f32 diff[], f32 point1[], f32 point2[]) {
 }
 
 void AddVector0x120820(f32 sum[], f32 vec1[], f32 vec2[]) {
-    sum[0] = vec1[0] - vec2[0];
-    sum[1] = vec1[1] - vec2[1];
-    sum[2] = vec1[2] - vec2[2];
+    sum[0] = vec1[0] + vec2[0];
+    sum[1] = vec1[1] + vec2[1];
+    sum[2] = vec1[2] + vec2[2];
 }
 
 void SubVector0x120860(f32 diff[], f32 vec1[], f32 vec2[]) {
