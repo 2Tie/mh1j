@@ -21,6 +21,13 @@ typedef enum {
   PLAYER
 }CAM_DATA_ENTRY_TARGET_TYPE;
 
+typedef struct {
+    f32 pos[3];
+    bool active;
+    u8 type;
+    u16 timer;
+} QUAKE;
+
 typedef struct{
   u8 unk_0;
   u8 unk_1;
@@ -59,7 +66,8 @@ typedef struct{
 }CAM_DATA_ENTRY_HEADER;
 
 typedef struct{
-    u8 todo[0x72];
+    u8 todo[0x71];
+    u8 this_view_active; //0x71
     u8 which_view; //0x72
     u8 todo2[0x85];
     u16 next_rot; //0xF8
@@ -94,18 +102,8 @@ typedef struct{
   f32 rail_zoom;
   u8 rail_spline;
   u8 unk5[7];
-  f32 sub_quake_x;
-  f32 sub_quake_y;
-  f32 sub_quake_z;
-  u8 quakingsub;
-  u8 sub_quake_type;
-  u16 sub_quake_timer;
-  f32 quake_x;
-  f32 quake_y;
-  f32 quake_z;
-  u8 quaking;
-  u8 quake_type;
-  u16 quake_timer;
+  QUAKE sub_quake;
+  QUAKE quake;
   u8 cam_grid_returnval;
   u8 cam_entry_index;
   u8 prev_cam_entry_index;

@@ -227,14 +227,20 @@ typedef struct {
     u16 player_num; //0x0c
     u8 todo2[0x96];
     u32 angle; //0xa4
-    u8 todo3[0x958];
+    u8 todo3[0x4]; //a8 - ab
+    f32 pos[3]; //ac - b7
+    u8 todo4[0x6AB]; //b8 - 762
+    u8 sight_timer; //0x763
+    u8 todo5[0x29C];
 } PLAYER_WORK;
 
 typedef struct {
     u8 exists;
     u8 unk;
-    u8 species;
-    u8 todo[0xA0D];
+    u8 species; //0x2
+    u8 todo[0xa9]; //3 - ab
+    f32 pos[3];//ac - b7
+    u8 todo2[0x958];
 } MONSTER_WORK;
 
 typedef struct {

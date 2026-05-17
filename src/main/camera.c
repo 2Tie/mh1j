@@ -5,6 +5,11 @@
 //externs
 extern GAME_WORK game_w0x3f33f0;
 extern PLAYER_WORK player_work0x3e4bf0[8];
+extern u32 Pl_stg_ck0x151ff0(PLAYER_WORK*);
+extern s32 Em_stg_ck0x152010(MONSTER_WORK*);
+
+//rodata
+extern s16 quake_time_tbl0x338ed0[6];
 
 //bss
 extern CAMERA_WORK CameraWork0x4767c0;
@@ -25,8 +30,8 @@ void Q_camera_init0x21f3f0(void) {
 
 void CameraInit0x21f410(void) {
     CameraWork0x4767c0.initialized = 0;
-    CameraWork0x4767c0.quaking = 0;
-    CameraWork0x4767c0.quakingsub = 0;
+    CameraWork0x4767c0.quake.active = false;
+    CameraWork0x4767c0.sub_quake.active = false;
     CameraWork0x4767c0.wyvern_target = 0;
     CameraWork0x4767c0.player_ptr = &player_work0x3e4bf0[game_w0x3f33f0.my_player_number];
     StageCamInit0x223000(&CameraWork0x4767c0);
@@ -138,17 +143,70 @@ INCLUDE_ASM("asm/main/nonmatchings/camera", point_cam_sub0x222410);
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", cam2view0x2227a0);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", PachingerCamChk0x222930);
+s32 PachingerCamChk0x222930(PLAYER_WORK* ply) {
+    CAMERA_WORK* cam = &CameraWork0x4767c0;
+    if (cam->views[4].this_view_active != 0) {
+        return 0;
+    }
+    if (ply->sight_timer != 0) {
+        return 1;
+    } else {
+        return cam->views[2].this_view_active != 0;
+    }
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", set_quake_sub0x222980);
+void set_quake_sub0x222980(u32 which, float* pos) {
+    QUAKE* quake = &CameraWork0x4767c0.sub_quake;
+    quake->active = 1;
+    quake->type = which;
+    quake->timer = quake_time_tbl0x338ed0[which];
+    quake->pos[0] = pos[0];
+    quake->pos[1] = pos[1];
+    quake->pos[2] = pos[2];
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", set_quake_sub20x2229d0);
+void set_quake_sub20x2229d0(u32 which) {
+    QUAKE* quake = &CameraWork0x4767c0.sub_quake;
+    quake -> active = true;
+    quake->type = which | 0x80;
+    quake->timer = quake_time_tbl0x338ed0[which];
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", Pl_set_quake_sub0x222a10);
+void Pl_set_quake_sub0x222a10(PLAYER_WORK* ply, u32 which) {
+    QUAKE* quake = &CameraWork0x4767c0.sub_quake;
+    if ((u8)Pl_stg_ck0x151ff0(ply)) {
+        quake->active = true;
+        quake->type = which;
+        quake->timer = quake_time_tbl0x338ed0[which];
+        quake->pos[0] = ply->pos[0];
+        quake->pos[1] = ply->pos[1];
+        quake->pos[2] = ply->pos[2];
+    }
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", Em_set_quake_sub0x222aa0);
+void Em_set_quake_sub0x222aa0(MONSTER_WORK* mon, u32 which) {
+    QUAKE* quake = &CameraWork0x4767c0.sub_quake;
+    if ((u8)Em_stg_ck0x152010(mon)) {
+        quake->active = true;
+        quake->type = which;
+        quake->timer = quake_time_tbl0x338ed0[which];
+        quake->pos[0] = mon->pos[0];
+        quake->pos[1] = mon->pos[1];
+        quake->pos[2] = mon->pos[2];
+    }
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", Pachinger_set_quake_sub0x222b30);
+void Pachinger_set_quake_sub0x222b30(PLAYER_WORK* ply, u32 which) {
+    QUAKE* quake = &CameraWork0x4767c0.quake;
+    if ((u8)Pl_stg_ck0x151ff0(ply)) {
+        quake->active = true;
+        quake->type = which;
+        quake->timer = quake_time_tbl0x338ed0[which];
+        quake->pos[0] = ply->pos[0];
+        quake->pos[1] = ply->pos[1];
+        quake->pos[2] = ply->pos[2];
+    }
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", quake_sub0x222bc0);
 
