@@ -85,7 +85,7 @@ typedef struct{
   u8 unk4[0x14]; //0x6c - 0c7f
   CAM_W_VIEW views[5];
   u32 initialized;
-  void* player_ptr; //TODO PLAYER_WORK*
+  PLAYER_WORK* player_ptr;
   CAM_DATA_HEADER* CamDataBuffer;
   CAM_DATA_ENTRY_HEADER* CamAreaPtr;
   u16 map_area_count_x;

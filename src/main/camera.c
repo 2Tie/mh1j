@@ -3,8 +3,11 @@
 #include "main/camera.h"
 
 //externs
+extern PSW Psw0x3f3710[2];
 extern GAME_WORK game_w0x3f33f0;
 extern PLAYER_WORK player_work0x3e4bf0[8];
+extern MONSTER_WORK em_work0x3d82a0[20];
+extern s32 Game_clear_ck0x162db0(s32);
 extern u32 Pl_stg_ck0x151ff0(PLAYER_WORK*);
 extern s32 Em_stg_ck0x152010(MONSTER_WORK*);
 
@@ -117,7 +120,10 @@ INCLUDE_ASM("asm/main/nonmatchings/camera", cam_init_sub_demo0x221aa0);
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", cam_sub_demo0x221ac0);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", DemoCameraRequest0x221b80);
+void DemoCameraRequest0x221b80(s8 demo, void* ptr) {
+    CameraWork0x4767c0.demo_play = demo;
+    CameraWork0x4767c0.wyvern_ptr = ptr;
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", DemoCameraCancel0x221ba0);
 
@@ -210,7 +216,21 @@ void Pachinger_set_quake_sub0x222b30(PLAYER_WORK* ply, u32 which) {
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", quake_sub0x222bc0);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", cam_sw_set_sub0x222d80);
+void cam_sw_set_sub0x222d80(CAMERA_WORK* cam) {
+    if (Game_clear_ck0x162db0(1) == 1 || cam->player_ptr->ojiisan_timer != 0) {
+        cam->pad_sticks = 0U;
+        cam->pad_new = 0U;
+        cam->pad_state = 0U;
+        cam->pad_right_stick_power = 0U;
+        cam->pad_right_stick_angle = 0U;
+    } else {
+        cam->pad_state = Psw0x3f3710[0].current_state;
+        cam->pad_new = Psw0x3f3710[0].just_pressed;
+        cam->pad_sticks = Psw0x3f3710[0].current_sticks;
+        cam->pad_right_stick_angle = Psw0x3f3710[0].right_stick_angle;
+        cam->pad_right_stick_power = Psw0x3f3710[0].right_stick_power;
+    }
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", default_area_data0x222e20);
 
@@ -254,7 +274,27 @@ INCLUDE_ASM("asm/main/nonmatchings/camera", vInnerProduct0x223fb0);
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", GetOrthogonalPoint0x223fe0);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", ZoomRateCalc0x224660);
+f32 ZoomRateCalc0x224660(f32 distance, CAM_DATA_ENTRY_HEADER* header) {
+    f32 max;
+    f32 min;
+    f32 zoom;
+
+    min = header->min_distance;
+    if (distance <= min) {
+        return header->near_zoom; //if too close, return minimum
+    }
+    max = header->max_distance;
+    if (distance >= max) {
+        return header->far_zoom; //if too far, return maximum
+    }
+    if (max == min) {
+        return 0.5f * (header->near_zoom + header->far_zoom); //if no range defined, average the settings
+    }
+    zoom = (header->far_zoom - header->near_zoom) * (distance - min);
+    zoom /= (max - min);
+    zoom += header->near_zoom;
+    return zoom; //otherwise linear scale between the two values
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", ZoomBaseAngleRail0x2246f0);
 
@@ -286,12 +326,44 @@ INCLUDE_ASM("asm/main/nonmatchings/camera", RedDragonEscapeCamera0x225e90);
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", F_DragonEscapeCamera0x225ea0);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", PlayerDieCameraRequest0x225ed0);
+void PlayerDieCameraRequest0x225ed0(void) {
+    DemoCameraRequest0x221b80(0x1A, 0);
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", PlComebackCameraRequest0x225ee0);
+void PlComebackCameraRequest0x225ee0(void) {
+    DemoCameraRequest0x221b80(2, 0);
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", PilebunkerCameraRequest0x225ef0);
+void PilebunkerCameraRequest0x225ef0(void) {
+    s8 demo_id;
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", FishWyvernCameraRequest0x225f50);
+    switch (game_w0x3f33f0.current_area_id) {
+        case 12:
+            demo_id = 3;
+            break;
+        case 25:
+            demo_id = 4;
+            break;
+        default:
+            return;
+    }
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", LegendSwordCameraRequest0x225fb0);
+    DemoCameraRequest0x221b80(demo_id, 0);
+}
+
+void FishWyvernCameraRequest0x225f50(void) {
+    MONSTER_WORK* em = &em_work0x3d82a0[0];
+    s32 count;
+
+    for (count = 20; count != 0; count--) {
+        if (em->exists != 0 && em->species == 0x15) {
+            DemoCameraRequest0x221b80(0x11, em);
+            return;
+        }
+        em++; 
+    }
+}
+
+void LegendSwordCameraRequest0x225fb0(void) {
+    DemoCameraRequest0x221b80(0x19, 0);
+}

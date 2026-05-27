@@ -11,6 +11,26 @@ typedef struct {
 } Vec3;
 
 typedef struct {
+    u16 current_state;
+    u16 previous_state;
+    u16 just_pressed;
+    u16 just_released;
+    u16 current_sticks;
+    u16 last_sticks;
+    u16 just_pressed_dir;
+    u16 just_released_dir;
+    u16 left_stick_angle;
+    u16 right_stick_angle;
+    u16 left_stick_power;
+    u16 right_stick_power;
+    u16 held_state;
+    u16 held_length;
+    u16 connected;
+    u16 prior_connected;
+    u16 unk;
+} PSW;
+
+typedef struct {
     // total size: 0x18
     u8* memoryblock;   // offset 0x0, size 0x4
     u8* baseandcap[2]; // offset 0x4, size 0x8
@@ -231,7 +251,9 @@ typedef struct {
     f32 pos[3]; //ac - b7
     u8 todo4[0x6AB]; //b8 - 762
     u8 sight_timer; //0x763
-    u8 todo5[0x29C];
+    u8 todo5[0x162]; //764 - 8c5
+    u8 ojiisan_timer;
+    u8 todo6[0x139];
 } PLAYER_WORK;
 
 typedef struct {
