@@ -35,7 +35,7 @@ options:
   global_vram_start: 0x1000000
   global_vram_end: 0xe000000
 
-  dump_symbols: true
+  #dump_symbols: true
 
   section_order: [".text", ".vutext", ".data", ".vudata", ".rodata", ".init", ".ctor", ".vtables", ".sbss", ".bss", ".common", ".vubss"]
 

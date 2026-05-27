@@ -4,20 +4,21 @@ a handful of functions in the main elf have been decompiled - automated tracking
 GETTING SET UP:
 You will need to have Python 3.9 or higher installed. You can check current version with "python3 --version".
 
-Next, you will need the splat scripts installed and configured for mips, done by running "python3 -m pip install -U splat64[mips]". This will also handle dependencies on spimdisasm and rabbitizer. Tested on splat version 0.36.3 (current at time of writing).
+Next, you will need the splat scripts installed and configured for mips, done by running "python3 -m pip install -r requirements.txt". This will ensure supported versions are used, as newer versions of spim break the injector script. Dependencies will also be handled.
 
 You will also need SLPM_654.95 and AFS_DATA from the game disc placed in the root directory. Run "make setup" to extract the needed files and install the rest of the needed tooling.
 
 The next step will be "make split", this will handle the DNAS overlays' deobfuscation and then split all of the code into labeled assembly files.
 
-Before you begin decompiling, you may want to run "make build" to confirm that the compilation tools are running correctly and that the working state of the repository results in a matching output. Note that currently the build has a handful of nonmatching output, this is normal.
+Before you begin decompiling, you may want to run "make build" to confirm that the compilation tools are running correctly and that the working state of the repository results in a matching output. Note that currently the build has a handful of nonmatching output in main and a ton in the overlays, this is normal.
+
 
 WORKFLOW:
 To identify unfinished C files, they will have matching-named folders in the asm/*/nonmatching folder. In the C file (in the src/ folder), functions that are yet to be decompiled will be denoted with an INCLUDE_ASM macro pointing to the assembly code file. 
 
 To work on a decompilation, i recommend the wonderful online tool https://decomp.me. Work-in-progress functions are called "scratches", and when you start a new one select PS2 and select the Monster Hunter (JP) preset. Target Assembly is where you place the nonmatching assembly code (from asm/*.s). Context requires a little more work, go ahead and run "python3 tools/m2ctx.py path", where path is the C file containing the function we're about to scratch. This will output the file "ctx.c" in the root, and you will copy out everything between the #defines and the finished code/semicolons into the Context field. (for larger C files, you may want to prune definitions you don't need.) Once the scratch is started, the Source Code tab is where you'll be writing C code to try and match the assembly. If you'd like a head start on getting the function to be "c-like" then the emotionengine-reloaded plugin for Ghidra is a great help, though decomp.me does a decent job guessing a starting point.
 
-When copying finished functions to the C file, be sure to reverse the order of variables relative to their final address; this is a quirk of the metrowerks compiler's bucketing system. Also, be sure to delete the asm file from the asm/ folder (or just delete the asm folder and re-split). same goes for when migrating assembly to nonmatching, make sure the original gets removed!
+When migrating TU variables to the C files, be sure to reverse the order of variables relative to their final address; this is a quirk of the metrowerks compiler's bucketing system. Also, be sure to delete decomped asm files from the asm/ folder (or just delete the asm folder and re-split). same goes for when migrating assembly to nonmatching, make sure the original gets removed!
 
 If you add a new struct to include/structs.c, make sure you define its size (and set the type as u8) in the config/*_symbol_addrs file it belongs to, otherwise overlay funcs will fumble accessing its members and decomp.me targets using it will have a different access detail, making it impossible to 100% match without override.
 
@@ -44,16 +45,18 @@ should become this when changing "party":
 Then run "make split", this will generate the C file in src/ and move the assembly to asm/*/nonmatching/.
 
 BUILDING:
-"make build" will attempt to run the codebase through the MetroWerks PS2 tools to create the elf and overlays in build/. Currently the process is only tested in WSL2, as the assembler, compiler, and linker are all windows executables. WIBO is implemented but untested for pure linux setups.
+"make build" will attempt to run the codebase through the MetroWerks PS2 tools to create the elf and overlays in build/. Currently the process is set up for WSL2 or WIBO, as the assembler, compiler, and linker are all windows executables. WIBO is used for pure linux setups, and automatically disabled by the Makefile if WSL2 is detected. 
 
-After a successful build, a byte-for-byte comparison will be ran on the built binaries, and mismatches reported to console.
+After a successful build, a byte-for-byte comparison will be ran on the built binaries, and the first few mismatches reported to console (offset from file start, not vram addresses).
 
 KNOWN ISSUES:
-The main elf currently has 14 reported mismatches for a "good" build, stemming from the Sony PS2 libraries used that were instead built with EEGCC and have a different style for branching to local targets. Changing the PS2 libs to use EEGCC (or pivoting to using prebuilt libraries) will fix these in the future.
+The main elf currently has a few reported mismatches for a "good" build, stemming from the Sony PS2 libraries used that were instead built with EEGCC and have a different style for branching to local targets. Changing the PS2 libs to use EEGCC (or pivoting to using prebuilt libraries) will fix these in the future.
+
+Overlays are currently unable to see struct members from the main elf's symbol_addrs file, leading to mismatches in the build due to missing addresses.
 
 The __bss_start symbol is 'early' in retail, this doesn't affect good build.
 
-Currently, NONMATCHING labels are omitted from the split output (configured in the .yaml files) because MWLDPS2 doesn't like them, complaining about too many symbols. In the future, we may have to filter the NONMATCHING symbols out before feeding the files to the linker; those symbols are otherwise used for progress tracking, a planned future feature.
+NONMATCHING labels are omitted from the split output (configured in the .yaml files) because MWLDPS2 doesn't like them, complaining about too many symbols. A custom report script has been made to interface with https://decomp.dev instead, which is updated upon successful build... but it currently assumes any function present is fully matched.
 
 DOCUMENTATION:
 The repository's wiki will serve as the place to document file formats and game mechanics from an in-depth technical standpoint.
