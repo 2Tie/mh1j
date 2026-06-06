@@ -22,11 +22,11 @@ typedef enum {
 }CAM_DATA_ENTRY_TARGET_TYPE;
 
 typedef struct {
-    f32 pos[3];
-    u8 active;
-    u8 type;
-    s16 timer;
-} QUAKE;
+    /* 0x00 */ f32 pos[3];
+    /* 0x0C */ u8 active;
+    /* 0x0D */ u8 type;
+    /* 0x0E */ s16 timer;
+} QUAKE; // size: 0x10
 
 typedef struct {
     /* 0x00 */ u8 vertices[0x20];
@@ -38,46 +38,46 @@ typedef struct {
 } CAM_GEOMETRY_ZONE; // size: 0x40
 
 typedef struct{
-  u8 unk_0;
-  u8 index;
-  u8 move_type; //CAM_DATA_ENTRY_MOVE_TYPE
-  u8 axes; //CAM_DATA_ENTRY_AXES
-  u8 target_type; //CAM_DATA_ENTRY_TARGET_TYPE
-  u8 zone_count;
-  u8 attribute;
-  u8 unk_7;
-  f32 min_distance;
-  f32 max_distance;
-  f32 near_zoom;
-  f32 far_zoom;
-  union { u32 zones_offset; CAM_GEOMETRY_ZONE* zones_ptr;};
-  union { u32 bytepairs_offset; void* bytepairs_ptr;};
-}CAM_DATA_ENTRY_HEADER;
+    /* 0x00 */ u8 unk_0;
+    /* 0x01 */ u8 index;
+    /* 0x02 */ u8 move_type; //CAM_DATA_ENTRY_MOVE_TYPE
+    /* 0x03 */ u8 axes; //CAM_DATA_ENTRY_AXES
+    /* 0x04 */ u8 target_type; //CAM_DATA_ENTRY_TARGET_TYPE
+    /* 0x05 */ u8 zone_count;
+    /* 0x06 */ u8 attribute;
+    /* 0x07 */ u8 unk_7;
+    /* 0x08 */ f32 min_distance;
+    /* 0x0C */ f32 max_distance;
+    /* 0x10 */ f32 near_zoom;
+    /* 0x14 */ f32 far_zoom;
+    /* 0x18 */ union { u32 zones_offset; CAM_GEOMETRY_ZONE* zones_ptr;};
+    /* 0x1C */ union { u32 bytepairs_offset; void* bytepairs_ptr;};
+}CAM_DATA_ENTRY_HEADER; // size: 0x20
 
 typedef struct {
     /* 0x00 */ s32 entry_count;
-    /* 0x04 */  union {u32 entries_offset; CAM_DATA_ENTRY_HEADER** entries_ptr;};
-} CAM_GRID_CELL; // Size: 0x08
+    /* 0x04 */ union {u32 entries_offset; CAM_DATA_ENTRY_HEADER** entries_ptr;};
+} CAM_GRID_CELL; // size: 0x08
 
 typedef struct{
-  u8 unk_0;
-  u8 unk_1;
-  u16 entry_count;
-  u16 x_count;
-  u16 y_count;
-  u16 area_width;
-  u16 area_length;
-  u32 unk_c;
-  u32 unk_10;
-  u32 area_width32;
-  u32 area_length32;
-  union { u32 cam_grid_offset; CAM_GRID_CELL* cam_grid_ptr;};
-  union { u32 entry_list_offset; CAM_DATA_ENTRY_HEADER** entry_list_ptr;};
-  void* eof;
-  union { u32 first_entry_offset; CAM_DATA_ENTRY_HEADER* first_entry_ptr;};
-  f32 unk_2c;
-  CAM_DATA_ENTRY_HEADER entries[];
-}CAM_DATA_HEADER;
+    /* 0x00 */ u8 unk_0;
+    /* 0x01 */ u8 unk_1;
+    /* 0x02 */ u16 entry_count;
+    /* 0x04 */ u16 x_count;
+    /* 0x06 */ u16 y_count;
+    /* 0x08 */ u16 area_width;
+    /* 0x0A */ u16 area_length;
+    /* 0x0C */ u32 unk_c;
+    /* 0x10 */ u32 unk_10;
+    /* 0x14 */ u32 area_width32;
+    /* 0x18 */ u32 area_length32;
+    /* 0x1C */ union { u32 cam_grid_offset; CAM_GRID_CELL* cam_grid_ptr;};
+    /* 0x20 */ union { u32 entry_list_offset; CAM_DATA_ENTRY_HEADER** entry_list_ptr;};
+    /* 0x24 */ void* eof;
+    /* 0x28 */ union { u32 first_entry_offset; CAM_DATA_ENTRY_HEADER* first_entry_ptr;};
+    /* 0x2C */ f32 unk_2c;
+    /* 0x30 */ CAM_DATA_ENTRY_HEADER entries[];
+}CAM_DATA_HEADER; // size: 0x30 plus entries
 
 typedef struct{
     /* 0x00 */ u8 unk_0[0x70];
@@ -92,55 +92,55 @@ typedef struct{
     /* 0xF8 */ u16 next_rot;
     /* 0xFA */ u8 unk_FA[0x5];
     /* 0xFF */ u8 hit_wall;
-}CAM_W_VIEW;
+}CAM_W_VIEW; // size: 0x100
 
 typedef struct{
-  f32 pos[3];
-  f32 target[3];
-  u8 unk_18[0x48];//0x18 - 0x5f
-  f32 roll;
-  u8 unk_64[0x4]; //0x64 - 0x67
-  f32 unk_68;
-  u8 unk_6C[0x14]; //0x6c - 0c7f
-  CAM_W_VIEW views[5];
-  u8 initialized;
-  u8 padding[0x3];
-  PLAYER_WORK* player_ptr;
-  CAM_DATA_HEADER* CamDataBuffer;
-  CAM_DATA_ENTRY_HEADER* CamAreaPtr;
-  u16 map_area_count_x;
-  u16 map_area_count_y;
-  u16 map_area_width;
-  u16 map_area_length;
-  u32 unk_header_1;
-  u32 unk_header_2;
-  u32 map_area_width_u32;
-  u32 map_area_length_u32;
-  u16 cam_grid_x;
-  u16 cam_grid_y;
-  f32 rail_scale;
-  f32 rail_zoom;
-  u8 rail_spline;
-  u8 unk_5B5[7];
-  QUAKE sub_quake;
-  QUAKE quake;
-  u8 cam_grid_returnval;
-  u8 cam_entry_index;
-  u8 prev_cam_entry_index;
-  u8 has_active_view;
-  u8 prev_has_active_view;
-  u8 active_view;
-  u16 pad_state;
-  u16 pad_new;
-  u16 pad_sticks;
-  u16 pad_right_stick_angle;
-  u16 pad_right_stick_power;
-  void* wyvern_target;
-  void* wyvern_ptr;
-  u8 demo_play;
-  u8 unk_5F5;
-  u8 player_cam_height_level;
-  u8 unk_5F7;
-} CAMERA_WORK;
+    /* 0x000 */ f32 pos[3];
+    /* 0x00C */ f32 target[3];
+    /* 0x018 */ u8 unk_18[0x48];//0x18 - 0x5f
+    /* 0x060 */ f32 roll;
+    /* 0x064 */ u8 unk_64[0x4]; //0x64 - 0x67
+    /* 0x068 */ f32 unk_68;
+    /* 0x06C */ u8 unk_6C[0x14]; //0x6c - 0c7f
+    /* 0x080 */ CAM_W_VIEW views[5];
+    /* 0x580 */ u8 initialized;
+                u8 padding[0x3];
+    /* 0x584 */ PLAYER_WORK* player_ptr;
+    /* 0x588 */ CAM_DATA_HEADER* CamDataBuffer;
+    /* 0x58C */ CAM_DATA_ENTRY_HEADER* CamAreaPtr;
+    /* 0x590 */ u16 map_area_count_x;
+    /* 0x592 */ u16 map_area_count_y;
+    /* 0x594 */ u16 map_area_width;
+    /* 0x596 */ u16 map_area_length;
+    /* 0x598 */ u32 unk_header_1;
+    /* 0x59C */ u32 unk_header_2;
+    /* 0x5A0 */ u32 map_area_width_u32;
+    /* 0x5A4 */ u32 map_area_length_u32;
+    /* 0x5A8 */ u16 cam_grid_x;
+    /* 0x5AA */ u16 cam_grid_y;
+    /* 0x5AC */ f32 rail_scale;
+    /* 0x5B0 */ f32 rail_zoom;
+    /* 0x5B4 */ u8 rail_spline;
+    /* 0x5B5 */ u8 unk_5B5[7];
+    /* 0x5BC */ QUAKE sub_quake;
+    /* 0x5CC */ QUAKE quake;
+    /* 0x5DC */ u8 cam_grid_returnval;
+    /* 0x5DD */ u8 cam_entry_index;
+    /* 0x5DE */ u8 prev_cam_entry_index;
+    /* 0x5DF */ u8 has_active_view;
+    /* 0x5E0 */ u8 prev_has_active_view;
+    /* 0x5E1 */ u8 active_view;
+    /* 0x5E2 */ u16 pad_state;
+    /* 0x5E4 */ u16 pad_new;
+    /* 0x5E6 */ u16 pad_sticks;
+    /* 0x5E8 */ u16 pad_right_stick_angle;
+    /* 0x5EA */ u16 pad_right_stick_power;
+    /* 0x5EC */ void* wyvern_target;
+    /* 0x5F0 */ void* wyvern_ptr;
+    /* 0x5F4 */ u8 demo_play;
+    /* 0x5F5 */ u8 unk_5F5;
+    /* 0x5F6 */ u8 player_cam_height_level;
+    /* 0x5F7 */ u8 unk_5F7;
+} CAMERA_WORK; // size: 0x5F8
 
 #endif
