@@ -7,19 +7,34 @@ extern PSW Psw0x3f3710[2];
 extern GAME_WORK game_w0x3f33f0;
 extern PLAYER_WORK player_work0x3e4bf0[8];
 extern MONSTER_WORK em_work0x3d82a0[20];
+extern VIEW_WORK* lpView0x38a110;
+
+extern f32 flSin0x173600(f32);
+extern f32 flvecInnerProduct0x173220(f32*, f32*);
+extern f32 flvecCalcDistance0x173140(void*, void*);
+extern void View_move0x169a80();
 extern s32 Game_clear_ck0x162db0(s32);
 extern u32 Pl_stg_ck0x151ff0(PLAYER_WORK*);
 extern s32 Em_stg_ck0x152010(MONSTER_WORK*);
 
 //rodata
 extern s16 quake_time_tbl0x338ed0[6];
+extern void (*cam_init_sub_jmp0x3391f0[5])(CAMERA_WORK*, CAM_W_VIEW*);
+extern void (*cam_sub_jmp0x339210[5])(CAMERA_WORK*, CAM_W_VIEW*);
 
 //bss
 extern CAMERA_WORK CameraWork0x4767c0;
 
 //protos
+void cam2view0x2227a0(CAMERA_WORK*);
+void cam_sw_set_sub0x222d80(CAMERA_WORK*);
+static void default_area_data0x222e20(CAMERA_WORK*);
 void StageCamInit0x223000(CAMERA_WORK*);
-
+s32 SetAreaData0x223070(CAMERA_WORK*);
+u8 Get_cam_grid_XZ0x223190(u16*, u16*, f32*, u16*);
+s32 CameraAreaCheck0x2232a0(CAM_DATA_ENTRY_HEADER*, PLAYER_WORK*, u8);
+s32 CamAreaAttribChk0x2233c0(CAM_DATA_ENTRY_HEADER*, PLAYER_WORK*);
+s32 Area_XZ_Check0x223410(CAM_GEOMETRY_ZONE*, f32*);
 
 void CameraWorkInit0x21f3d0(void) {
     flMemset0x16f5f0(CameraWork0x4767c0, 0, sizeof(CameraWork0x4767c0));
@@ -32,7 +47,7 @@ void Q_camera_init0x21f3f0(void) {
 }
 
 void CameraInit0x21f410(void) {
-    CameraWork0x4767c0.initialized = 0;
+    *(u32*)&CameraWork0x4767c0.initialized = 0;
     CameraWork0x4767c0.quake.active = false;
     CameraWork0x4767c0.sub_quake.active = false;
     CameraWork0x4767c0.wyvern_target = 0;
@@ -40,9 +55,152 @@ void CameraInit0x21f410(void) {
     StageCamInit0x223000(&CameraWork0x4767c0);
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", SetCameraData0x21f470);
+void SetCameraData0x21f470(CAM_DATA_HEADER* data) {
+    CAM_DATA_ENTRY_HEADER* entry;
+    u8* next_offset;
+    CAM_GRID_CELL* grid;
+    CAM_DATA_ENTRY_HEADER** entry_ptrs;
+    s32 count;
+    s32 cell_count;
+    s32 total_ptrs;
+    
+    CameraWork0x4767c0.CamDataBuffer = data;
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", CameraMove0x21f590);
+    if (data != 0) {
+        entry = data->entries;
+        data->first_entry_ptr = entry;
+
+        for(count = data->entry_count; count != 0;count--) {
+            next_offset = (void*) entry;
+
+            if (entry->bytepairs_ptr != 0) {
+                entry->zones_ptr = (CAM_GEOMETRY_ZONE*)(next_offset + entry->zones_offset);
+                entry->bytepairs_ptr = (u8*)next_offset + entry->bytepairs_offset;
+                entry = (CAM_DATA_ENTRY_HEADER*) ((u32) entry + 0x300 + entry->zone_count  * 0x40) + 1;
+            } else {
+                entry->zones_ptr = (CAM_GEOMETRY_ZONE*)(next_offset + entry->zones_offset);
+                entry = (CAM_DATA_ENTRY_HEADER*) ((u32) entry + 0x300 + entry->zone_count * 0x40);
+            }
+        }        
+
+        grid = (CAM_GRID_CELL*)((u8*) data + data->cam_grid_offset);
+        data->cam_grid_ptr = grid;
+
+        entry_ptrs = (CAM_DATA_ENTRY_HEADER**) ((u8*) data + data->entry_list_offset);
+        data->entry_list_ptr = entry_ptrs;
+
+        cell_count = data->x_count * data->y_count;
+        total_ptrs = 0;
+
+        for(count = cell_count;count != 0;count--) {
+            if (grid->entry_count != 0) {
+                grid->entries_ptr = (CAM_DATA_ENTRY_HEADER**)((u8*)data + grid->entries_offset);
+                total_ptrs += grid->entry_count;
+            }
+            grid ++;
+        }
+
+        for(count = total_ptrs;count != 0;count--) {
+            *entry_ptrs = (CAM_DATA_ENTRY_HEADER*)((u8*)data + (u32)*entry_ptrs);
+            entry_ptrs++;
+        }
+    }
+}
+
+void CameraMove0x21f590(void) {
+    PLAYER_WORK* player;
+    CAMERA_WORK* cam_work;
+    CAM_W_VIEW* cam_view;
+    u32 count;
+    
+    player = CameraWork0x4767c0.player_ptr;
+    
+    cam_work = &CameraWork0x4767c0;
+
+    cam_sw_set_sub0x222d80(cam_work);
+    
+    cam_work->cam_grid_returnval = Get_cam_grid_XZ0x223190(
+        &cam_work->cam_grid_x, &cam_work->cam_grid_y, player->pos, &cam_work->map_area_count_x
+    );
+    
+    cam_work->has_active_view = 0;
+    
+    if (cam_work->initialized == 0) {
+        cam_work->initialized++;
+        cam_work->CamAreaPtr = NULL;
+        cam_work->prev_cam_entry_index = -1;
+        cam_work->cam_entry_index = -1;
+
+        if (SetAreaData0x223070(cam_work) >= 0) {
+            cam_work->cam_entry_index = cam_work->CamAreaPtr->index;
+        }
+
+        cam_view = &cam_work->views[0];
+        
+        count = 0;
+        while (count < 5) {
+            cam_view->which_sub = count;
+            cam_view->unk_78 = 0;
+            cam_init_sub_jmp0x3391f0[count](cam_work, cam_view);
+            count++;
+            cam_view++;
+        }
+
+        cam_work->active_view = 0;
+
+        if (cam_work->CamAreaPtr != NULL) {
+            if (cam_work->CamAreaPtr->move_type == NO_MOVE_TYPE) {
+                cam_work->active_view = 0;
+            } else {
+                cam_work->active_view = 1;
+            }
+        }
+        
+        cam_work->prev_has_active_view = cam_work->active_view;
+    }
+
+    if (cam_work->cam_entry_index == 0) {
+        if (SetAreaData0x223070(cam_work) > 0) {
+            cam_work->prev_cam_entry_index = cam_work->cam_entry_index;
+            cam_work->cam_entry_index = cam_work->CamAreaPtr->index;
+            cam_work->has_active_view = 1;
+        }
+    } else if (CameraAreaCheck0x2232a0(cam_work->CamAreaPtr, player, 2) != 0) {
+        cam_work->prev_cam_entry_index = cam_work->cam_entry_index;
+        cam_work->has_active_view = 1;
+
+        if (SetAreaData0x223070(cam_work) >= 0) {
+            cam_work->cam_entry_index = cam_work->CamAreaPtr->index;
+        }
+    }
+    
+    cam_work->prev_has_active_view = cam_work->active_view;
+    
+    if (cam_work->CamAreaPtr != NULL) {
+        switch (cam_work->CamAreaPtr->move_type) {
+            case NO_MOVE_TYPE:
+                cam_work->active_view = 0;
+                break;
+            case PAN:
+            case RAIL:
+            case PAN_WITH_PLAYER:
+                cam_work->active_view = 1;
+                break;
+        }
+    } else {
+        cam_work->active_view = 0;
+    }
+
+    cam_view = &cam_work->views[0];
+    for (count = 5; count != 0; count--) {
+        cam_sub_jmp0x339210[cam_view->which_sub](cam_work, cam_view);
+        cam_view++;
+    }
+
+    cam2view0x2227a0(cam_work);
+    cam_work->wyvern_target = NULL;
+    View_move0x169a80();
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", cam_init_sub_std0x21f810);
 
@@ -214,7 +372,40 @@ void Pachinger_set_quake_sub0x222b30(PLAYER_WORK* ply, u32 which) {
     }
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", quake_sub0x222bc0);
+void quake_sub0x222bc0(QUAKE* quake) {
+    f32 shake_offset;
+    f32 intensity;
+    
+    if (quake->active == 0) {
+        return;
+    }
+    
+    shake_offset = 90.0f * ((f32)quake->timer / quake_time_tbl0x338ed0[quake->type & 0x7F]); //timing
+    
+    if ((quake->type & 0x7F) < 2) {
+        shake_offset = 10.0f * flSin0x173600(shake_offset / 360.0f * PI * 2.0f);
+    } else {
+        shake_offset = 12.0f * flSin0x173600(shake_offset / 360.0f * PI * 2.0f);
+    }
+    
+    if (quake->type & 0x80) {
+        intensity = 1.0f;
+    } else {
+        intensity = flvecCalcDistance0x173140(quake->pos, lpView0x38a110->pos);
+        if (intensity > 2000.0f) {
+            intensity = 0.0f;
+        } else {
+            intensity = 1.0f - (intensity / 2000.0f);
+        }
+    }
+    
+    shake_offset = shake_offset * intensity;
+    if (( quake->timer >> 1) & 1) {
+        shake_offset *= -1.0f;
+    }
+    lpView0x38a110->pos[1] += shake_offset;
+    lpView0x38a110->target[1] += shake_offset;
+}
 
 void cam_sw_set_sub0x222d80(CAMERA_WORK* cam) {
     if (Game_clear_ck0x162db0(1) == 1 || cam->player_ptr->ojiisan_timer != 0) {
@@ -234,15 +425,118 @@ void cam_sw_set_sub0x222d80(CAMERA_WORK* cam) {
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", default_area_data0x222e20);
 
+//this match requires default_area_data match as static
 INCLUDE_ASM("asm/main/nonmatchings/camera", StageCamInit0x223000);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", SetAreaData0x223070);
+//void StageCamInit0x223000(CAMERA_WORK* cam) {
+//    CAM_DATA_HEADER* dataBuff;
+//
+//    if (cam->CamDataBuffer == 0) {
+//        default_area_data0x222e20(cam);
+//    }
+//    dataBuff = cam->CamDataBuffer;
+//    cam->map_area_count_x = dataBuff->x_count;
+//    cam->map_area_count_y =  dataBuff->y_count;
+//    cam->map_area_width = dataBuff->area_width;
+//    cam->map_area_length = dataBuff->area_length;
+//    cam->unk_header_1 = dataBuff->unk_c;
+//    cam->unk_header_2 = dataBuff->unk_10;
+//    cam->map_area_width_u32 = dataBuff->area_width32;
+//    cam->map_area_length_u32 = dataBuff->area_length32;
+//}
+
+s32 SetAreaData0x223070(CAMERA_WORK* cam) {
+    CAM_DATA_HEADER* data;
+    PLAYER_WORK* player;
+    CAM_GRID_CELL* grid;
+    s32 grid_index;
+    CAM_GRID_CELL* cell;
+    CAM_DATA_ENTRY_HEADER** cell_entries;
+    s32 count;
+
+    data = cam->CamDataBuffer;
+    player = &player_work0x3e4bf0[game_w0x3f33f0.my_player_number];
+
+    if (data == 0) {
+        cam->CamAreaPtr = 0;
+        return -1;
+    }
+    
+    cam->CamAreaPtr = data->first_entry_ptr;
+
+    if (cam->cam_grid_returnval != 0) {
+        return 0;
+    }
+    
+    grid = data->cam_grid_ptr;
+    if (grid == 0) {
+        return 0;
+    }
+
+    grid_index = cam->cam_grid_x + (cam->map_area_count_x * cam->cam_grid_y);
+    cell = &grid[grid_index];
+
+    count = cell->entry_count;
+    if (count == 0) {
+        return 0;
+    }
+     
+    cell_entries = cell->entries_ptr;
+    for(;count !=0; count--){
+        if (CameraAreaCheck0x2232a0(*cell_entries, player, 1) == 0) {
+            cam->CamAreaPtr = *cell_entries;
+            return 1;
+        }
+        cell_entries++;
+    }
+
+    return 0;
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", Get_cam_grid_XZ0x223190);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", CameraAreaCheck0x2232a0);
+s32 CameraAreaCheck0x2232a0(CAM_DATA_ENTRY_HEADER* entry, PLAYER_WORK* player, u8 mask) {
+    CAM_GEOMETRY_ZONE* zone;
+    s32 zone_count;
+    f32 player_dir[3];
+    f32 proj;
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", CamAreaAttribChk0x2233c0);
+    if (CamAreaAttribChk0x2233c0(entry, player) == 0) {
+        return 2;
+    }
+    
+    zone_count = entry->zone_count;
+    zone =  entry->zones_ptr;
+
+    for (;zone_count != 0;zone_count--) {
+        if (!(zone->flags & mask)) {
+            player_dir[0] = player->pos[0] - zone->origin[0];
+            player_dir[1] = player->pos[1] - zone->origin[1];
+            player_dir[2] = player->pos[2] - zone->origin[2];
+    
+            proj = flvecInnerProduct0x173220(zone->axis_normal, player_dir);
+
+            if ((proj >= 0.0f) &&
+                (proj <= zone->max_extent) &&
+                (Area_XZ_Check0x223410(zone, player->pos) == 0)) {
+                return 0;
+            }
+        }
+        zone++;
+    }
+
+    return 2;
+}
+
+s32 CamAreaAttribChk0x2233c0(CAM_DATA_ENTRY_HEADER* entry, PLAYER_WORK* player) {
+    if (entry->attribute & 0x80) {
+        if (player->todo[0x14] || player->todo[0x15] < 0x27 || player->todo[0x15] > 0x2B) {
+            return 0;
+        }
+    }
+    
+    return 1;
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", Area_XZ_Check0x223410);
 
@@ -268,9 +562,20 @@ INCLUDE_ASM("asm/main/nonmatchings/camera", CamRailMove0x223e90);
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", CamRailPoint0x223f00);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", vInnerProductXZ0x223f90);
+f32 vInnerProductXZ0x223f90(f32* arg0, f32* arg1) {
+    f32 x = arg0[0] * arg1[0];
+    f32 z = arg0[2] * arg1[2];
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", vInnerProduct0x223fb0);
+    return x + z;
+}
+
+f32 vInnerProduct0x223fb0(f32* arg0, f32* arg1) {
+    f32 x = arg0[0] * arg1[0];
+    f32 y = arg0[1] * arg1[1];
+    f32 z = arg0[2] * arg1[2];
+
+    return x + y + z; 
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", GetOrthogonalPoint0x223fe0);
 

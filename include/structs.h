@@ -94,12 +94,8 @@ typedef struct{
 } OPTIONS_WORK;
 
 typedef struct{
-    f32 pos_x;
-    f32 pos_y;
-    f32 pos_z;
-    f32 target_x;
-    f32 target_y;
-    f32 target_z;
+    f32 pos[3];
+    f32 target[3];
     f32 pitch;
     f32 yaw;
     f32 roll;

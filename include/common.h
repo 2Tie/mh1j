@@ -7,6 +7,8 @@
 #define INCLUDE_ASM(FOLDER, NAME)
 #define INCLUDE_RODATA(FOLDER, NAME)
 
+#define NULL 0
+
 #define PI 3.1415927f
 #define TAU 6.2831855f //2pi
 #define USHORT_MAX_FLOAT 65536.0f

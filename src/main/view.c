@@ -61,9 +61,9 @@ void SetAngleOfView0x169db0(f32 angle) {
 }
 
 void Get_dist_to_view0x169dc0(f32* vec) {
-    flvecCalcDistance0x173140(vec, &lpView0x38a110->pos_x);
+    flvecCalcDistance0x173140(vec, lpView0x38a110->pos);
 }
 
 s32 Get_view_dir0x169dd0(void) {
-    return (s32) (0.5f + ((USHORT_MAX_FLOAT * flArcTan20x1735e0(-(lpView0x38a110->target_z - lpView0x38a110->pos_z), lpView0x38a110->target_x - lpView0x38a110->pos_x)) / TAU)) & 0xFFFF;
+    return (s32) (0.5f + ((USHORT_MAX_FLOAT * flArcTan20x1735e0(-(lpView0x38a110->target[2] - lpView0x38a110->pos[2]), lpView0x38a110->target[0] - lpView0x38a110->pos[0])) / TAU)) & 0xFFFF;
 }
