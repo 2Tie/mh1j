@@ -40,9 +40,9 @@ typedef struct {
 typedef struct{
     /* 0x00 */ u8 unk_0;
     /* 0x01 */ u8 index;
-    /* 0x02 */ u8 move_type; //CAM_DATA_ENTRY_MOVE_TYPE
-    /* 0x03 */ u8 axes; //CAM_DATA_ENTRY_AXES
-    /* 0x04 */ u8 target_type; //CAM_DATA_ENTRY_TARGET_TYPE
+    /* 0x02 */ CAM_DATA_ENTRY_MOVE_TYPE move_type;
+    /* 0x03 */ CAM_DATA_ENTRY_AXES axes;
+    /* 0x04 */ CAM_DATA_ENTRY_TARGET_TYPE target_type;
     /* 0x05 */ u8 zone_count;
     /* 0x06 */ u8 attribute;
     /* 0x07 */ u8 unk_7;
