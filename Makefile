@@ -43,7 +43,7 @@ VERIFY := $(PYTHON) $(TOOLS_DIR)/verify.py
 # flags
 
 INCLUDES := -I$(INCLUDE_DIR) -I$(INCLUDE_DIR)/gcc -I$(INCLUDE_DIR)/cri -I$(INCLUDE_DIR)/cri/ee
-MWCCPS2_FLAGS := -gccinc $(INCLUDES) -sdatathreshold 8 -O4,p -c -lang c -multibyte
+MWCCPS2_FLAGS := -gccinc $(INCLUDES) -sdatathreshold 8 -O4,p -c -lang c -multibyte -enum min
 EEGCC_FLAGS := $(INCLUDES) -O2 -G0 -c
 
 AS_FLAGS += -EL -I $(INCLUDE_DIR) -G 2 -march=r5900 -mabi=eabi -no-pad-sections -mno-pdr
@@ -197,7 +197,7 @@ $(MWCCPS2):
 	wget -O- https://github.com/decompme/compilers/releases/download/compilers/$(COMPILER_TAR) | tar xzv -C $(BIN_DIR)
 	wget -O temp.zip https://files.decomp.dev/compilers_20250812.zip
 	unzip -j temp.zip "GC/3.0a3/lmgr326b.dll"
-	mv -f lmgr326b.dll /bin/LMGR326B.dll
+	mv -f lmgr326b.dll bin/LMGR326B.dll
 	rm temp.zip
 
 $(EEGCC):
