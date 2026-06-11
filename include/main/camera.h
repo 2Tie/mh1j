@@ -2,6 +2,7 @@
 #define CAMERA_H
 
 #include "types.h"
+#include "common.h"
 
 typedef enum {
   Y,
@@ -79,20 +80,43 @@ typedef struct{
     /* 0x30 */ CAM_DATA_ENTRY_HEADER entries[];
 }CAM_DATA_HEADER; // size: 0x30 plus entries
 
-typedef struct{
-    /* 0x00 */ u8 unk_0[0x70];
+typedef struct {
+    /* 0x00 */ MATRIX matrix;
+    /* 0x40 */ f32 pos[3];
+    /* 0x4C */ f32 angle_min;
+    /* 0x50 */ f32 angle_max;
+    /* 0x54 */ f32 angle_delta;
+    /* 0x58 */ f32 angle_cur;
+    /* 0x5C */ f32 angle_pan;
+    /* 0x60 */ s16 unk_60;
+    /* 0x62 */ s8 pachi_type;
+    /* 0x63 */ u8 unk_63;  
+    /* 0x64 */ u8 unk_64;
+    /* 0x65 */ u8 unk_65[0x9];
+    /* 0x6E */ u8 unk_6E;
+    /* 0x6F */ u8 unk_6F;
+} CAM_VIEW_STATE_PACHINGER; // size: 0x70
+
+typedef struct {
+    /* 0x00 */ f32 cam_pos[3];
+    /* 0x0C */ f32 target_pos[3];
+    /* 0x18 */ f32 prev_cam_pos[3];
+    /* 0x24 */ u8  unk_24[0x3C];
+    /* 0x60 */ s32 unk_60;
+    /* 0x64 */ u8 unk_64[0x4];
+    /* 0x68 */ f32 unk_68;
+    /* 0x6C */ u8 unk_6C[0x4];
     /* 0x70 */ u8 which_sub;
     /* 0x71 */ u8 this_view_active;
     /* 0x72 */ u8 which_view;
-    /* 0x73 */ u8 unk_73[0x5];
+    /* 0x73 */ u8  unk_73[0x5];
     /* 0x78 */ s32 unk_78;
-    /* 0x7C */ u8 unk_7C[0x64];
-    /* 0xE0 */ s32 unk_E0;         // used in function DemoCameraCancel
-    /* 0xE4 */ u8 unk_E4[0x14];
-    /* 0xF8 */ u16 next_rot;
-    /* 0xFA */ u8 unk_FA[0x5];
-    /* 0xFF */ u8 hit_wall;
-}CAM_W_VIEW; // size: 0x100
+    /* 0x7C */ s32 unk_7C;
+    /* 0x80 */ u8 unk_80[0x8];
+    /* 0x88 */ s16 unk_88;
+    /* 0x8A */ u8  unk_8A[0x6];
+    /* 0x90 */ union { CAM_VIEW_STATE_PACHINGER state_pchngr; };
+} CAM_W_VIEW; // size: 0x100
 
 typedef struct{
     /* 0x000 */ f32 pos[3];
