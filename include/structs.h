@@ -249,7 +249,10 @@ typedef struct {
     /* 0x002 */ u8 unk_2;
     /* 0x003 */ u8 unk_3[0x9];
     /* 0x00C */ u16 player_num;
-    /* 0x00E */ u8 unk_E[0x96];
+    /* 0x00E */ u8 unk_E[0x6];
+    /* 0x014 */ u8 unk_14;
+    /* 0x015 */ u8 unk_15;
+    /* 0x016 */ u8 unk_16[0x8E];
     /* 0x0A4 */ s32 angle;
     /* 0x0A8 */ u8 unk_A8[0x4];
     /* 0x0AC */ f32 pos[3];

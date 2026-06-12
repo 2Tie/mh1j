@@ -81,6 +81,13 @@ typedef struct{
 }CAM_DATA_HEADER; // size: 0x30 plus entries
 
 typedef struct {
+    /* 0x00 */ u8 unk_0[0x68];
+    /* 0x68 */ s16 next_rot;
+    /* 0x6A */ u8 unk_6A[0x5];
+    /* 0x6F */ u8 hit_wall;
+} CAM_VIEW_STATE; // size: 0x70
+
+typedef struct {
     /* 0x00 */ MATRIX matrix;
     /* 0x40 */ f32 pos[3];
     /* 0x4C */ f32 angle_min;
@@ -110,12 +117,12 @@ typedef struct {
     /* 0x71 */ u8 this_view_active;
     /* 0x72 */ u8 which_view;
     /* 0x73 */ u8  unk_73[0x5];
-    /* 0x78 */ s32 unk_78;
+    /* 0x78 */ union {s32 unk_78_s32; u8 unk_78_u8;};
     /* 0x7C */ s32 unk_7C;
     /* 0x80 */ u8 unk_80[0x8];
     /* 0x88 */ s16 unk_88;
     /* 0x8A */ u8  unk_8A[0x6];
-    /* 0x90 */ union { CAM_VIEW_STATE_PACHINGER state_pchngr; };
+    /* 0x90 */ union { CAM_VIEW_STATE state; CAM_VIEW_STATE_PACHINGER state_pchngr; };
 } CAM_W_VIEW; // size: 0x100
 
 typedef struct{
