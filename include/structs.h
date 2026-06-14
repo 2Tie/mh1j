@@ -4,75 +4,72 @@
 #include "types.h"
 
 typedef struct {
-    //total size: 0xC
-    f32 x; //offset 0x0, size 0x4
-    f32 y; //offset 0x4, size 0x4
-    f32 z; //offset 0x8, size 0x4
-} Vec3;
+    /* 0x00 */ f32 x;
+    /* 0x04 */ f32 y;
+    /* 0x08 */ f32 z;
+} Vec3; // Size: 0x0C
 
 typedef struct {
-    u16 current_state;
-    u16 previous_state;
-    u16 just_pressed;
-    u16 just_released;
-    u16 current_sticks;
-    u16 last_sticks;
-    u16 just_pressed_dir;
-    u16 just_released_dir;
-    u16 left_stick_angle;
-    u16 right_stick_angle;
-    u16 left_stick_power;
-    u16 right_stick_power;
-    u16 held_state;
-    u16 held_length;
-    u16 connected;
-    u16 prior_connected;
-    u16 unk;
-} PSW;
+    /* 0x00 */ u16 current_state;
+    /* 0x02 */ u16 previous_state;
+    /* 0x04 */ u16 just_pressed;
+    /* 0x06 */ u16 just_released;
+    /* 0x08 */ u16 current_sticks;
+    /* 0x0A */ u16 last_sticks;
+    /* 0x0C */ u16 just_pressed_dir;
+    /* 0x0E */ u16 just_released_dir;
+    /* 0x10 */ u16 left_stick_angle;
+    /* 0x12 */ u16 right_stick_angle;
+    /* 0x14 */ u16 left_stick_power;
+    /* 0x16 */ u16 right_stick_power;
+    /* 0x18 */ u16 held_state;
+    /* 0x1A */ u16 held_length;
+    /* 0x1C */ u16 connected;
+    /* 0x1E */ u16 prior_connected;
+    /* 0x20 */ u16 unk;
+} PSW; // Size: 0x22
 
 typedef struct {
-    // total size: 0x18
-    u8* memoryblock;   // offset 0x0, size 0x4
-    u8* baseandcap[2]; // offset 0x4, size 0x8
-    u8* frame[2];      // offset 0xC, size 0x8
-    s32 align;         // offset 0x14, size 0x4
-} FL_FMS;
+    /* 0x00 */ u8* memoryblock;
+    /* 0x04 */ u8* baseandcap[2];
+    /* 0x0C */ u8* frame[2];
+    /* 0x14 */ s32 align;
+} FL_FMS; // Size: 0x18
 
 typedef struct {
-    // total size: 0x8
-    u8* pFrame;  // offset 0x0, size 0x4
-    s32 heapnum; // offset 0x4, size 0x4
-} FMS_FRAME;
+    /* 0x00 */ u8* pFrame;
+    /* 0x04 */ s32 heapnum;
+} FMS_FRAME; // Size: 0x8
 
 typedef struct {
-    u8 areaID;
-    u8 flag;
-    u8 demoID;
-    u8 targetSpecies;
-    u8 bgm;
-    u8 sfx;
-    u8 tutFlag1;
-    u8 tutFlag2;
-    s32 (*check)(void* demo);
-    s32 (*event)(void* demo);
-} EVENT_DEMO_DATA;
+    /* 0x00 */ u8 areaID;
+    /* 0x01 */ u8 flag;
+    /* 0x02 */ u8 demoID;
+    /* 0x03 */ u8 targetSpecies;
+    /* 0x04 */ u8 bgm;
+    /* 0x05 */ u8 sfx;
+    /* 0x06 */ u8 tutFlag1;
+    /* 0x07 */ u8 tutFlag2;
+    /* 0x08 */ s32 (*check)(void* demo);
+    /* 0x0C */ s32 (*event)(void* demo);
+} EVENT_DEMO_DATA; // Size: 0x10
 
 typedef struct {
-    u8 active;
-    u8 state;
-    s16 timer;
-    s32 (*check)(void* demo);
-    s32 (*event)(void* demo);
-    EVENT_DEMO_DATA *demo_data;
-} ACTIVE_EVENT_DEMO;
+    /* 0x00 */ u8 active;
+    /* 0x01 */ u8 state;
+    /* 0x02 */ s16 timer;
+    /* 0x04 */ s32 (*check)(void* demo);
+    /* 0x08 */ s32 (*event)(void* demo);
+    /* 0x0C */ EVENT_DEMO_DATA *demo_data;
+} ACTIVE_EVENT_DEMO; // Size: 0x10
 
 typedef struct {
-    u8 active;
-    u8 which;
-    u8 pad1;
-    u8 pad2;
-    ACTIVE_EVENT_DEMO demos[2];
-} EVENT_DEMO;
+    /* 0x00 */ u8 active;
+    /* 0x01 */ u8 which;
+    /* 0x02 */ u8 pad1;
+    /* 0x03 */ u8 pad2;
+    /* 0x04 */ ACTIVE_EVENT_DEMO demos[2];
+} EVENT_DEMO; // Size: 0x24
 
 typedef struct{
     bool is_stereo;
@@ -113,10 +110,10 @@ typedef struct{
 } VIEW_WORK;
 
 typedef struct{
-    f32 diff_r;
-    f32 diff_g;
-    f32 diff_b;
-} RGB;
+    /* 0x00 */ f32 diff_r;
+    /* 0x04 */ f32 diff_g;
+    /* 0x08 */ f32 diff_b;
+} RGB; // Size:0x0C
 
 typedef struct{
     s32 v1;
@@ -142,20 +139,18 @@ typedef struct {
 } FADE_WORK;
 
 typedef struct {
-    //total size: 0xC
-    s32 x; //offset 0x0, size 0x4
-    s32 y; //offset 0x4, size 0x4
-    u8 b1; //offset 0x8, size 0x4
-    u8 b2; //offset 0x8, size 0x4
-    u8 b3; //offset 0x8, size 0x4
-    u8 b4; //offset 0x8, size 0x4
-} STAGE_FOG;
+    /* 0x00 */ s32 x;
+    /* 0x04 */ s32 y;
+    /* 0x08 */ u8 b1;
+    /* 0x09 */ u8 b2;
+    /* 0x0A */ u8 b3;
+    /* 0x0B */ u8 b4;
+} STAGE_FOG; // Size: 0x0C
 
 typedef struct {
-    //total size: 0x8
-    u16 item;
-    u16 quantity;
-} ITEM_SLOT;
+    /* 0x00 */ u16 item;
+    /* 0x02 */ u16 quantity;
+} ITEM_SLOT; // Size:0x04
 
 typedef enum {
   INIT,
@@ -896,86 +891,80 @@ typedef struct {
 } CARD_WORK;
 
 typedef struct {
-    //total size: 0x18
-    u32 attack_bonus; //offset 0x0, size 0x4
-    f32 speed; //offset 0x4, size 0x4
-    f32 speed_variance; //offset 0x8, size 0x4
-    f32 horizontal_deviation; //offset 0xC, size 0x4
-    f32 vertical_deviation;   //offset 0x10, size 0x4
-    f32 pellet_scale;         //offset 0x14, size 0x4
-} GUN_GROW_UP;
+    /* 0x00 */ u32 attack_bonus;
+    /* 0x04 */ f32 speed;
+    /* 0x08 */ f32 speed_variance;
+    /* 0x0C */ f32 horizontal_deviation;
+    /* 0x10 */ f32 vertical_deviation;
+    /* 0x14 */ f32 pellet_scale;
+} GUN_GROW_UP; // size: 0x18
 
 typedef struct {
-    //total size: 0x14
-    u8 model; //offset 0x0, size 0x1
-    u8 rarity; //offset 0x1, size 0x1
-    u8 level; //offset 0x2, size 0x1
-    u8 reload_delay; //offset 0x3, size 0x1
-    u32 price; //offset 0x4, size 0x4
-    u16 attack; //offset 0x8, size 0x2
-    u8 defense; //offset 0xA, size 0x1
-    u8 unk1; //offset 0xB, size 0x1
-    char* name; //offset 0xC, size 0x4
-    u32 ammo_types; //offset 0x10, size 0x14
-} GUN_DATA;
+    /* 0x00 */ u8 model;
+    /* 0x01 */ u8 rarity;
+    /* 0x02 */ u8 level;
+    /* 0x03 */ u8 reload_delay;
+    /* 0x04 */ u32 price;
+    /* 0x08 */ u16 attack;
+    /* 0x0A */ u8 defense;
+    /* 0x0B */ u8 unk_0B;
+    /* 0x0C */ char* name;
+    /* 0x10 */ u32 ammo_types;
+} GUN_DATA; // size: 0x14
 
 typedef struct {
-    //total size: 0x10
-    u8 type; //offset 0x0, size 0x1
-    u8 can_use; //offset 0x1, size 0x1
-    u8 rarity;  //offset 0x2, size 0x1
-    u8 max_stack; //offset 0x3, size 0x1
-    u8 flags;     //offset 0x4, size 0x1
-    u8 icon_index; //offset 0x5, size 0x1
-    u8 color_index;//offset 0x6, size 0x1
-    u8 unk1; //offset 0x7, size 0x1
-    u16 ammo_type; //offset 0x8, size 0x2
-    u16 sound_effect; //offset 0xA, size 0x2
-    u16 buy_price; //offset 0xC, size 0x2
-    u16 sell_sprice; //offset 0xE, size 0x2
-} ITEM_DATA;
+    /* 0x00 */ u8 type;
+    /* 0x01 */ u8 can_use;
+    /* 0x02 */ u8 rarity;
+    /* 0x03 */ u8 max_stack;
+    /* 0x04 */ u8 flags;
+    /* 0x05 */ u8 icon_index;
+    /* 0x06 */ u8 color_index;
+    /* 0x07 */ u8 unk_07;
+    /* 0x08 */ u16 ammo_type;
+    /* 0x0A */ u16 sound_effect;
+    /* 0x0C */ u16 buy_price;
+    /* 0x0E */ u16 sell_sprice;
+} ITEM_DATA; // size: 0x10
 
 typedef struct {
-    //total size: 0x28
-    s16 parent_bone; //offset 0x0, size 0x2
-    s16 is_capsule;  //offset 0x2, size 0x2
-    s16 meat_zone;   //offset 0x4, size 0x2
-    s16 body_group;  //offset 0x6, size 0x2
-    s32 unk;         //offset 0x8, size 0x4
-    f32 radius;      //offset 0xC, size 0x4
-    Vec3 point1;     //offset 0x10, size 0xC
-    Vec3 point2;     //offset 0x1C, size 0xC
-} HITCAPSULE_DATA;
+    /* 0x00 */ s16 parent_bone;
+    /* 0x02 */ s16 is_capsule;
+    /* 0x04 */ s16 meat_zone;
+    /* 0x06 */ s16 body_group;
+    /* 0x08 */ s32 unk_08;
+    /* 0x0C */ f32 radius;
+    /* 0x10 */ f32 point1[3];
+    /* 0x1C */ f32 point2[3];
+} HITCAPSULE_DATA; // size: 0x28
 
 typedef struct {
-    //total size: 0x14
-    u8 model; //offset 0x0, size 0x1
-    u8 rarity; //offset 0x1, size 0x1
-    u8 sharp_curve; //offset 0x2, size 0x1
-    u8 sharp_max;  //offset 0x3, size 0x1
-    u32 price;     //offset 0x4, size 0x4
-    u16 raw_attack;//offset 0x8, size 0x2
-    u8 defense;    //offset 0xA, size 0x1
-    u8 fire;       //offset 0xB, size 0x1
-    u8 water;      //offset 0xC, size 0x1
-    u8 thunder;    //offset 0xD, size 0x1
-    u8 dragon;     //offset 0xE, size 0x1
-    u8 poison;     //offset 0xF, size 0x1
-    u8 paralysis;  //offset 0x10, size 0x1
-    u8 sleep;      //offset 0x11, size 0x1
-    u16 sort_order;//offset 0x12, size 0x2
-    char* name;    //offset 0x14, size 0x4
-} KEN_DATA;
+    /* 0x00 */ u8 model;
+    /* 0x01 */ u8 rarity;
+    /* 0x02 */ u8 sharp_curve;
+    /* 0x03 */ u8 sharp_max;
+    /* 0x04 */ u32 price;
+    /* 0x08 */ u16 raw_attack;
+    /* 0x0A */ u8 defense;
+    /* 0x0B */ u8 fire;
+    /* 0x0C */ u8 water;
+    /* 0x0D */ u8 thunder;
+    /* 0x0E */ u8 dragon;
+    /* 0x0F */ u8 poison;
+    /* 0x10 */ u8 paralysis;
+    /* 0x11 */ u8 sleep;
+    /* 0x12 */ u16 sort_order;
+    /* 0x14 */ char* name;
+} KEN_DATA; // size: 0x18
 
 typedef struct {
-    //total size: 0xE
-    s16 initial_tolerance; //offset 0x0, size 0x2
-    s16 recover_time;      //offset 0x2, size 0x2
-    s16 recover_amount;    //offset 0x4, size 0x2
-    s16 damage_amount;     //offset 0x6, size 0x2
-    s16 duration;          //offset 0x8, size 0x2
-    s16 damage_time;       //offset 0xA, size 0x2
-    s16 tolerance_increase;//offset 0xC, size 0x2
-} POISON_EFFICACY;
+    /* 0x00 */ s16 initial_tolerance;
+    /* 0x02 */ s16 recover_time;
+    /* 0x04 */ s16 recover_amount;
+    /* 0x06 */ s16 damage_amount;
+    /* 0x08 */ s16 duration;
+    /* 0x0A */ s16 damage_time;
+    /* 0x0C */ s16 tolerance_increase;
+} POISON_EFFICACY; // Size:0x0E
 
 #endif
