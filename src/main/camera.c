@@ -16,11 +16,22 @@ extern void View_move0x169a80();
 extern s32 Game_clear_ck0x162db0(s32);
 extern u32 Pl_stg_ck0x151ff0(PLAYER_WORK*);
 extern s32 Em_stg_ck0x152010(MONSTER_WORK*);
+extern void flmatInit0x171ce0(MATRIX); 
+extern void flmatCopy0x172cb0(MATRIX, MATRIX);
+extern void flmatRotXYZ330x1724e0(MATRIX, f32, f32, f32);
+extern void flmatGetTrans0x171ee0(f32*, MATRIX);
+extern void SubVector0x120860(f32*, f32*, f32*);
+extern void AddVector0x120820(f32*, f32*, f32*);  
+extern void flvecApplyMat330x172e00(f32*, f32*, MATRIX);
+extern void flvecCopy0x173300(f32*, f32*);
+extern s32 Pl_scope_ck0x154d00(PLAYER_WORK*);
+extern s16 act_ck0x14ef20(PLAYER_WORK*, s8, s8);
 
 //rodata
 extern s16 quake_time_tbl0x338ed0[6];
 extern void (*cam_init_sub_jmp0x3391f0[5])(CAMERA_WORK*, CAM_W_VIEW*);
 extern void (*cam_sub_jmp0x339210[5])(CAMERA_WORK*, CAM_W_VIEW*);
+extern f32 pch_pos0x339350[3][6];
 
 //bss
 extern CAMERA_WORK CameraWork0x4767c0;
@@ -35,6 +46,8 @@ u8 Get_cam_grid_XZ0x223190(u16*, u16*, f32*, u16*);
 s32 CameraAreaCheck0x2232a0(CAM_DATA_ENTRY_HEADER*, PLAYER_WORK*, u8);
 s32 CamAreaAttribChk0x2233c0(CAM_DATA_ENTRY_HEADER*, PLAYER_WORK*);
 s32 Area_XZ_Check0x223410(CAM_GEOMETRY_ZONE*, f32*);
+s8 PachiTypeCheck0x221460(PLAYER_WORK*);
+s32 pch_lock_chk0x221400(PLAYER_WORK*);
 
 void CameraWorkInit0x21f3d0(void) {
     flMemset0x16f5f0(CameraWork0x4767c0, 0, sizeof(CameraWork0x4767c0));
@@ -140,7 +153,7 @@ void CameraMove0x21f590(void) {
         count = 0;
         while (count < 5) {
             cam_view->which_sub = count;
-            cam_view->unk_78 = 0;
+            cam_view->unk_78_s32 = 0;
             cam_init_sub_jmp0x3391f0[count](cam_work, cam_view);
             count++;
             cam_view++;
@@ -218,8 +231,8 @@ void BBQcamera_set0x220450(PLAYER_WORK* player) {
     CAMERA_WORK* camera_work = &CameraWork0x4767c0;
 
     if (player->player_num == game_w0x3f33f0.my_player_number) {
-        camera_work->views[0].hit_wall = 0;
-        camera_work->views[0].next_rot = (s16) (player->angle + 0x2000);
+        camera_work->views[0].state.hit_wall = 0;
+        camera_work->views[0].state.next_rot = player->angle + 0x2000;
         camera_work->player_cam_height_level = 2;
     }
 }
@@ -246,15 +259,234 @@ INCLUDE_ASM("asm/main/nonmatchings/camera", cam_init_sub_stg0x220690);
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", cam_sub_stg0x2206b0);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", cam_init_sub_pchngr0x220ee0);
+void cam_init_sub_pchngr0x220ee0(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view) {
+    CAM_VIEW_STATE_PACHINGER* view_state;
+    f32 loaded_unk_68;
+    
+    view_state = &cam_view->state_pchngr;
+    
+    cam_view->unk_68 = DEG_45_RAD;
+    cam_view->unk_60 = 0;
+    view_state->angle_min = DEG_10_RAD;
+    view_state->angle_max = DEG_60_RAD;
+    view_state->angle_delta = view_state->angle_max - view_state->angle_min;
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", cam_sub_pchngr0x220f30);
+    loaded_unk_68 = cam_view->unk_68;
+    
+    view_state->angle_pan = loaded_unk_68;
+    view_state->angle_cur = loaded_unk_68;
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", pch_lock_chk0x221400);
+void cam_sub_pchngr0x220f30(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view) {
+    f32 tmp_vec1[3];
+    f32 tmp_vec2[3];
+    f32 tmp_vec3[3];
+    
+    f32* tmp_angle;
+                
+    CAM_VIEW_STATE_PACHINGER* view_state;
+    PLAYER_WORK* player;
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", PachiTypeCheck0x221460);
+    player = cam_work->player_ptr;
+    cam_view->this_view_active = 0;
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", GetPachingerInfo0x221530);
+    if (player->unk_764 == 0) {
+        cam_view->unk_78_s32 = 0;
+        return;
+    }
+
+    view_state = &cam_view->state_pchngr;                    
+    view_state->pachi_type = PachiTypeCheck0x221460(player);
+    
+    switch (view_state->pachi_type) {
+        case 0:
+            view_state->unk_63 = 1;
+
+            if (Pl_scope_ck0x154d00(player) == 1) {
+                view_state->unk_64 = 1;
+                view_state->angle_min = DEG_10_RAD;
+                view_state->angle_max = DEG_60_RAD;
+                view_state->angle_delta = view_state->angle_max - view_state->angle_min;
+            } else {
+                view_state->unk_64 = 0;
+            }
+            break;
+
+        case 1:
+            view_state->unk_63 = 0;
+            view_state->unk_64 = 1;
+            view_state->angle_min = DEG_10_RAD;
+            view_state->angle_max = DEG_60_RAD;
+            view_state->angle_delta = view_state->angle_max - view_state->angle_min;
+            break;
+
+        case 2:
+            view_state->unk_63 = 17;
+            view_state->unk_64 = 0;
+            break;
+
+        default:
+            break;
+    }
+    
+    switch (cam_view->unk_78_u8) {
+        case 0:
+            switch (view_state->pachi_type) {
+                case 0:
+                    if (pch_lock_chk0x221400(player) == 1) {
+                        return; 
+                    }
+
+                case 1:
+                    break;
+
+                case 2:
+                    cam_view->unk_68 = DEG_45_RAD;
+                    break;
+
+                default:
+                    break;
+            }
+
+            cam_view->unk_78_u8++;
+
+        case 1:
+            if ((view_state->unk_64 != 0) && (cam_work->pad_right_stick_power > 0x60)) {
+                tmp_angle = (view_state->pachi_type == 0) ? &view_state->angle_cur : &view_state->angle_pan;
+
+                if (((cam_work->pad_right_stick_angle - 0x4000) & 0xFFFF) < 0x6001) {
+                    *tmp_angle -= PCH_ANGLE_STEP;
+                    if (*tmp_angle < view_state->angle_min) {
+                        *tmp_angle = view_state->angle_min;
+                    }
+                }
+                
+                if ((((cam_work->pad_right_stick_angle - 0x8000) - 0x6000) & 0xFFFF) < 0x6001) {
+                    *tmp_angle += PCH_ANGLE_STEP;
+                    if (*tmp_angle > view_state->angle_max) {
+                        *tmp_angle = view_state->angle_max;
+                    }
+                }
+            }
+
+            switch (view_state->pachi_type) {
+                case 0:
+                    cam_view->unk_68 = view_state->angle_cur;
+                    break;
+
+                case 1:
+                    cam_view->unk_68 = view_state->angle_pan;
+                    break;
+
+                case 2:
+                    break;
+
+                default:
+                    break;
+            }
+            
+            switch (view_state->pachi_type) {
+                case 0:
+                    if (pch_lock_chk0x221400(player) == 0) {
+                        flvecCopy0x173300(view_state->pos, player->pos);
+                        flmatCopy0x172cb0(view_state->matrix, player->unk_148_ptr->matrix);
+                    } else {
+                        SubVector0x120860(tmp_vec1, player->pos, view_state->pos);
+                        flvecCopy0x173300(view_state->pos, player->pos);
+                        AddVector0x120820(view_state->matrix[3], view_state->matrix[3], tmp_vec1);
+                    }
+
+                    cam_view->unk_68 = view_state->angle_cur;
+                    break;
+                
+                case 1:
+                    flmatInit0x171ce0(view_state->matrix);
+                    flmatRotXYZ330x1724e0(
+                        view_state->matrix,
+                        DEG2RAD * player->unk_8EE,
+                        DEG2RAD * ((player->angle + 0x8000) & 0xFFFF),
+                        0.0f
+                    );
+                    flvecCopy0x173300(view_state->matrix[3], player->pos);
+                    cam_view->unk_68 = view_state->angle_pan;
+                    break;
+                
+                case 2:
+                    flmatInit0x171ce0(view_state->matrix);
+                    flmatRotXYZ330x1724e0(
+                        view_state->matrix,
+                        0.0f,
+                        DEG2RAD * ((player->angle + 0x8000) & 0xFFFF),
+                        0.0f
+                    );
+                    flvecCopy0x173300(view_state->matrix[3], player->pos);
+                    break;
+
+                default:
+                    break;
+            }
+
+        default:
+            flmatGetTrans0x171ee0(tmp_vec3, view_state->matrix);
+            flvecApplyMat330x172e00(tmp_vec2, &pch_pos0x339350[view_state->pachi_type][0], view_state->matrix);
+            AddVector0x120820(cam_view->cam_pos, tmp_vec3, tmp_vec2);
+            flvecApplyMat330x172e00(tmp_vec2, &pch_pos0x339350[view_state->pachi_type][3], view_state->matrix);
+            AddVector0x120820(cam_view->target_pos, tmp_vec3, tmp_vec2);
+
+            cam_view->unk_88 = player->angle + 0x8000;
+            view_state->unk_60 = player->angle + 0x8000;
+            cam_view->this_view_active= 1;
+    }
+}
+
+s32 pch_lock_chk0x221400(PLAYER_WORK* player) {
+    switch(player->unk_2DC) {
+        case 0x3EA:
+        case 0x579:
+        case 0x57C:
+        case 0x583:
+        case 0x57D:
+        case 0x580:
+            return 1;
+        
+        default:
+            return 0;
+    }
+}
+
+s8 PachiTypeCheck0x221460(PLAYER_WORK* player) {
+    if (act_ck0x14ef20(player, 0, 0x65) != 0 || act_ck0x14ef20(player, 0, 0x66) != 0) {
+        return 1;
+    }
+
+    if (act_ck0x14ef20(player, 0, 0x36) != 0 || act_ck0x14ef20(player, 0, 0x48) != 0) {
+        return 2;
+    }
+
+    if (player->unk_2 == 1 || player->unk_2 == 5) {
+        return 0;
+    }
+    
+    return -1;
+}
+
+s8 GetPachingerInfo0x221530(void* arg0, u8* arg1, u8* arg2, f32* arg3) {
+    CAM_W_VIEW* cam_view;
+    CAM_VIEW_STATE_PACHINGER* view_state;
+
+    cam_view = &CameraWork0x4767c0.views[2];
+    view_state = &cam_view->state_pchngr;
+
+    *arg1 = view_state->unk_63;
+    *arg2 = view_state->unk_64;
+
+    if (view_state->unk_64 != 0) {
+        *arg3 = cam_view->unk_68 - view_state->angle_min;
+        *arg3 /= view_state->angle_delta;
+    }
+
+    return view_state->pachi_type;
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", cam_init_sub_playerEX0x221580);
 
@@ -530,7 +762,7 @@ s32 CameraAreaCheck0x2232a0(CAM_DATA_ENTRY_HEADER* entry, PLAYER_WORK* player, u
 
 s32 CamAreaAttribChk0x2233c0(CAM_DATA_ENTRY_HEADER* entry, PLAYER_WORK* player) {
     if (entry->attribute & 0x80) {
-        if (player->todo[0x14] || player->todo[0x15] < 0x27 || player->todo[0x15] > 0x2B) {
+        if (player->unk_14 || player->unk_15 < 0x27 || player->unk_15 > 0x2B) {
             return 0;
         }
     }

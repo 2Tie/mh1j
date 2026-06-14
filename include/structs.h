@@ -2,6 +2,7 @@
 #define STRUCTS_H
 
 #include "types.h"
+#include "common.h"
 
 typedef struct {
     /* 0x00 */ f32 x;
@@ -234,18 +235,35 @@ typedef struct {
 } DEMO_WORK;
 
 typedef struct {
-    u8 todo[0xc];
-    u16 player_num; //0x0c
-    u8 todo2[0x96];
-    u32 angle; //0xa4
-    u8 todo3[0x4]; //a8 - ab
-    f32 pos[3]; //ac - b7
-    u8 todo4[0x6AB]; //b8 - 762
-    u8 sight_timer; //0x763
-    u8 todo5[0x162]; //764 - 8c5
-    u8 ojiisan_timer;
-    u8 todo6[0x139];
-} PLAYER_WORK;
+    /* 0x00 */ u8 unk_0[0x40];
+    /* 0x40 */ MATRIX matrix;
+} UNK_PLAYER_STRUCT; // size: unk
+
+typedef struct {
+    /* 0x000 */ u8 unk_0[0x2];
+    /* 0x002 */ u8 unk_2;
+    /* 0x003 */ u8 unk_3[0x9];
+    /* 0x00C */ u16 player_num;
+    /* 0x00E */ u8 unk_E[0x6];
+    /* 0x014 */ u8 unk_14;
+    /* 0x015 */ u8 unk_15;
+    /* 0x016 */ u8 unk_16[0x8E];
+    /* 0x0A4 */ s32 angle;
+    /* 0x0A8 */ u8 unk_A8[0x4];
+    /* 0x0AC */ f32 pos[3];
+    /* 0x0B8 */ u8 unk_B8[0x90];
+    /* 0x148 */ UNK_PLAYER_STRUCT* unk_148_ptr;
+    /* 0x14C */ u8 unk_14C[0x190];
+    /* 0x2DC */ u16 unk_2DC;
+    /* 0x2DE */ u8 unk_2DE[0x485];
+    /* 0x763 */ u8 sight_timer;
+    /* 0x764 */ u8 unk_764;
+    /* 0x765 */ u8 unk_765[0x161];
+    /* 0x8C6 */ u8 ojiisan_timer;
+    /* 0x8C7 */ u8 unk_8C7[0x27];
+    /* 0x8EE */ s16 unk_8EE;
+    /* 0x8F0 */ u8  unk_8F0[0x110];
+} PLAYER_WORK; // size: 0xA00
 
 typedef struct {
     u8 exists;
