@@ -68,8 +68,8 @@ typedef struct{
     /* 0x06 */ u16 y_count;
     /* 0x08 */ u16 area_width;
     /* 0x0A */ u16 area_length;
-    /* 0x0C */ u32 unk_c;
-    /* 0x10 */ u32 unk_10;
+    /* 0x0C */ u32 base_offset_x;
+    /* 0x10 */ u32 base_offset_y;
     /* 0x14 */ u32 area_width32;
     /* 0x18 */ u32 area_length32;
     /* 0x1C */ union { u32 cam_grid_offset; CAM_GRID_CELL* cam_grid_ptr;};
@@ -126,6 +126,15 @@ typedef struct {
 } CAM_W_VIEW; // size: 0x100
 
 typedef struct{
+    /* 0x590 */ u16 map_area_count_x;
+    /* 0x592 */ u16 map_area_count_z;
+    /* 0x594 */ u16 map_area_width;
+    /* 0x596 */ u16 map_area_length;
+    /* 0x598 */ u32 map_area_offset_x;
+    /* 0x59C */ u32 map_area_offset_z;
+} CAM_AREA_XZ; //size: 0x10
+
+typedef struct{
     /* 0x000 */ f32 pos[3];
     /* 0x00C */ f32 target[3];
     /* 0x018 */ u8 unk_18[0x48];//0x18 - 0x5f
@@ -139,12 +148,7 @@ typedef struct{
     /* 0x584 */ PLAYER_WORK* player_ptr;
     /* 0x588 */ CAM_DATA_HEADER* CamDataBuffer;
     /* 0x58C */ CAM_DATA_ENTRY_HEADER* CamAreaPtr;
-    /* 0x590 */ u16 map_area_count_x;
-    /* 0x592 */ u16 map_area_count_y;
-    /* 0x594 */ u16 map_area_width;
-    /* 0x596 */ u16 map_area_length;
-    /* 0x598 */ u32 unk_header_1;
-    /* 0x59C */ u32 unk_header_2;
+    /* 0x590 */ CAM_AREA_XZ area_xz;
     /* 0x5A0 */ u32 map_area_width_u32;
     /* 0x5A4 */ u32 map_area_length_u32;
     /* 0x5A8 */ u16 cam_grid_x;

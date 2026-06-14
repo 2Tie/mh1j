@@ -42,7 +42,7 @@ void cam_sw_set_sub0x222d80(CAMERA_WORK*);
 static void default_area_data0x222e20(CAMERA_WORK*);
 void StageCamInit0x223000(CAMERA_WORK*);
 s32 SetAreaData0x223070(CAMERA_WORK*);
-u8 Get_cam_grid_XZ0x223190(u16*, u16*, f32*, u16*);
+u8 Get_cam_grid_XZ0x223190(u16*, u16*, f32*, CAM_AREA_XZ*);
 s32 CameraAreaCheck0x2232a0(CAM_DATA_ENTRY_HEADER*, PLAYER_WORK*, u8);
 s32 CamAreaAttribChk0x2233c0(CAM_DATA_ENTRY_HEADER*, PLAYER_WORK*);
 s32 Area_XZ_Check0x223410(CAM_GEOMETRY_ZONE*, f32*);
@@ -133,7 +133,7 @@ void CameraMove0x21f590(void) {
     cam_sw_set_sub0x222d80(cam_work);
     
     cam_work->cam_grid_returnval = Get_cam_grid_XZ0x223190(
-        &cam_work->cam_grid_x, &cam_work->cam_grid_y, player->pos, &cam_work->map_area_count_x
+        &cam_work->cam_grid_x, &cam_work->cam_grid_y, player->pos, &cam_work->area_xz
     );
     
     cam_work->has_active_view = 0;
@@ -667,12 +667,12 @@ INCLUDE_ASM("asm/main/nonmatchings/camera", StageCamInit0x223000);
 //        default_area_data0x222e20(cam);
 //    }
 //    dataBuff = cam->CamDataBuffer;
-//    cam->map_area_count_x = dataBuff->x_count;
-//    cam->map_area_count_y =  dataBuff->y_count;
-//    cam->map_area_width = dataBuff->area_width;
-//    cam->map_area_length = dataBuff->area_length;
-//    cam->unk_header_1 = dataBuff->unk_c;
-//    cam->unk_header_2 = dataBuff->unk_10;
+//    cam->area_xz.map_area_count_x = dataBuff->x_count;
+//    cam->area_xz.map_area_count_z =  dataBuff->y_count;
+//    cam->area_xz.map_area_width = dataBuff->area_width;
+//    cam->area_xz.map_area_length = dataBuff->area_length;
+//    cam->area_xz.map_area_offset_x = dataBuff->base_offset_x;
+//    cam->area_xz.map_area_offset_z = dataBuff->base_offset_y;
 //    cam->map_area_width_u32 = dataBuff->area_width32;
 //    cam->map_area_length_u32 = dataBuff->area_length32;
 //}
@@ -705,7 +705,7 @@ s32 SetAreaData0x223070(CAMERA_WORK* cam) {
         return 0;
     }
 
-    grid_index = cam->cam_grid_x + (cam->map_area_count_x * cam->cam_grid_y);
+    grid_index = cam->cam_grid_x + (cam->area_xz.map_area_count_x * cam->cam_grid_y);
     cell = &grid[grid_index];
 
     count = cell->entry_count;
@@ -725,7 +725,37 @@ s32 SetAreaData0x223070(CAMERA_WORK* cam) {
     return 0;
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", Get_cam_grid_XZ0x223190);
+u8 Get_cam_grid_XZ0x223190(u16* cam_x, u16* cam_z, f32* pos, CAM_AREA_XZ* area_count) {
+    f32 offset;
+    u32 z_norm;
+    u32 x_norm;
+    u8 boundsflag;
+    u16 z_count;
+    u16 x_count;
+
+    offset = pos[0];
+    boundsflag = 0;
+    x_norm = offset;
+    x_count = area_count->map_area_count_x;
+    x_norm = (x_norm - area_count->map_area_offset_x) / area_count->map_area_width;
+    if (x_norm >= x_count) {
+        x_norm = x_count - 1;
+        boundsflag |= 1;
+    }
+    *cam_x = x_norm;
+    
+    offset = pos[2];
+    z_norm = offset;
+    z_count = area_count->map_area_count_z;
+    z_norm = (z_norm - area_count->map_area_offset_z) / area_count->map_area_length;
+    if (z_norm >= z_count) {
+        z_norm = z_count - 1;
+        boundsflag = 0x10;
+    }
+    *cam_z = z_norm;
+    
+    return boundsflag;
+}
 
 s32 CameraAreaCheck0x2232a0(CAM_DATA_ENTRY_HEADER* entry, PLAYER_WORK* player, u8 mask) {
     CAM_GEOMETRY_ZONE* zone;

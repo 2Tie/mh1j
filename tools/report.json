@@ -1,15 +1,15 @@
 {
   "measures": {
-    "fuzzy_match_percent": 0.0032890038265210235,
-    "total_code": "4256608",
-    "matched_code": "14000",
-    "matched_code_percent": 0.0032890038265210235,
+    "fuzzy_match_percent": 0.0033510313395667905,
+    "total_code": "4256600",
+    "matched_code": "14264",
+    "matched_code_percent": 0.0033510313395667905,
     "total_data": "1973880",
     "matched_data": "0",
     "matched_data_percent": 0.0,
     "total_functions": 16080,
-    "matched_functions": 116,
-    "matched_functions_percent": 0.007213930348258706,
+    "matched_functions": 117,
+    "matched_functions_percent": 0.007276119402985074,
     "total_units": 162
   },
   "units": [
@@ -38609,23 +38609,23 @@
     {
       "name": "camera.c",
       "measures": {
-        "fuzzy_match_percent": 18.880303251202797,
-        "total_code": "27436",
-        "matched_code": "5180",
-        "matched_code_percent": 18.880303251202797,
+        "fuzzy_match_percent": 19.848330173545282,
+        "total_code": "27428",
+        "matched_code": "5444",
+        "matched_code_percent": 19.848330173545282,
         "total_data": "1552",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 93,
-        "matched_functions": 33,
-        "matched_functions_percent": 35.483870967741936,
+        "matched_functions": 34,
+        "matched_functions_percent": 36.55913978494624,
         "total_units": 1
       },
       "sections": [
         {
           "name": ".text",
-          "size": "27436",
-          "fuzzy_match_percent": 18.880303251202797,
+          "size": "27428",
+          "fuzzy_match_percent": 19.848330173545282,
           "metadata": {}
         },
         {
@@ -39020,8 +39020,8 @@
         },
         {
           "name": "Get_cam_grid_XZ0x223190",
-          "size": "272",
-          "fuzzy_match_percent": 0,
+          "size": "264",
+          "fuzzy_match_percent": 100,
           "address": 15808,
           "metadata": {}
         },
@@ -118607,16 +118607,16 @@
       "id": "main",
       "name": "main",
       "measures": {
-        "fuzzy_match_percent": 0.8598726897063412,
-        "total_code": "1628148",
-        "matched_code": "14000",
-        "matched_code_percent": 0.8598726897063412,
+        "fuzzy_match_percent": 0.8760917365828491,
+        "total_code": "1628140",
+        "matched_code": "14264",
+        "matched_code_percent": 0.8760917365828491,
         "total_data": "1009144",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 6997,
-        "matched_functions": 116,
-        "matched_functions_percent": 1.6578533657281693,
+        "matched_functions": 117,
+        "matched_functions_percent": 1.6721452050878949,
         "total_units": 150
       }
     },
