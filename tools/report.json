@@ -1,15 +1,15 @@
 {
   "measures": {
-    "fuzzy_match_percent": 0.003411198881352301,
+    "fuzzy_match_percent": 0.3411198881352301,
     "total_code": "4256568",
     "matched_code": "14520",
-    "matched_code_percent": 0.003411198881352301,
+    "matched_code_percent": 0.3411198881352301,
     "total_data": "1973880",
     "matched_data": "0",
     "matched_data_percent": 0.0,
     "total_functions": 16080,
     "matched_functions": 121,
-    "matched_functions_percent": 0.007524875621890547,
+    "matched_functions_percent": 0.7524875621890548,
     "total_units": 162
   },
   "units": [

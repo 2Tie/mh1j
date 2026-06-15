@@ -336,12 +336,12 @@ for o in mapdata:
   rm.total_units += om.total_units
 #calc final values
 if(int(rm.total_code) > 0):
-  rm.matched_code_percent = int(rm.matched_code) / int(rm.total_code)
+  rm.matched_code_percent = int(rm.matched_code) / int(rm.total_code) * 100
   rm.fuzzy_match_percent = rm.matched_code_percent
 if(int(rm.total_data) > 0):
-  rm.matched_data_percent = int(rm.matched_data) / int(rm.total_data)
+  rm.matched_data_percent = int(rm.matched_data) / int(rm.total_data) * 100
 if(rm.total_functions > 0):
-  rm.matched_functions_percent = rm.matched_functions / rm.total_functions
+  rm.matched_functions_percent = rm.matched_functions / rm.total_functions * 100
 report.measures=rm
 
 if(REPORTLOG > 0):
