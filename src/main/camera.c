@@ -562,9 +562,9 @@ void cam_sub_demo0x221ac0(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view) {
     }
 }
 
-void DemoCameraRequest0x221b80(s8 demo, void* ptr) {
+void DemoCameraRequest0x221b80(s32 demo, void* target_ptr) {
     CameraWork0x4767c0.demo_play = demo;
-    CameraWork0x4767c0.wyvern_ptr = ptr;
+    CameraWork0x4767c0.wyvern_ptr = target_ptr;
 }
 
 void DemoCameraCancel0x221ba0(void) {
@@ -993,28 +993,30 @@ INCLUDE_ASM("asm/main/nonmatchings/camera", RedDragonEscapeCamera0x225e90);
 INCLUDE_ASM("asm/main/nonmatchings/camera", F_DragonEscapeCamera0x225ea0);
 
 void PlayerDieCameraRequest0x225ed0(void) {
-    DemoCameraRequest0x221b80(0x1A, 0);
+    DemoCameraRequest0x221b80(0x1A, NULL);
 }
 
 void PlComebackCameraRequest0x225ee0(void) {
-    DemoCameraRequest0x221b80(2, 0);
+    DemoCameraRequest0x221b80(2, NULL);
 }
 
 void PilebunkerCameraRequest0x225ef0(void) {
-    s8 demo_id;
+    s32 demo_id;
 
     switch (game_w0x3f33f0.current_area_id) {
         case 12:
             demo_id = 3;
             break;
+
         case 25:
             demo_id = 4;
             break;
+
         default:
             return;
     }
 
-    DemoCameraRequest0x221b80(demo_id, 0);
+    DemoCameraRequest0x221b80(demo_id, NULL);
 }
 
 void FishWyvernCameraRequest0x225f50(void) {
@@ -1031,5 +1033,5 @@ void FishWyvernCameraRequest0x225f50(void) {
 }
 
 void LegendSwordCameraRequest0x225fb0(void) {
-    DemoCameraRequest0x221b80(0x19, 0);
+    DemoCameraRequest0x221b80(0x19, NULL);
 }
