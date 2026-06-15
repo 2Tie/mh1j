@@ -23,6 +23,11 @@ typedef enum {
 }CAM_DATA_ENTRY_TARGET_TYPE;
 
 typedef struct {
+    /* 0x00 */ f32 a;
+    /* 0x04 */ f32 b;
+} COMPLEX; // size: 0x08
+
+typedef struct {
     /* 0x00 */ f32 pos[3];
     /* 0x0C */ u8 active;
     /* 0x0D */ u8 type;

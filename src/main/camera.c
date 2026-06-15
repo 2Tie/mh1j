@@ -32,6 +32,8 @@ extern s16 quake_time_tbl0x338ed0[6];
 extern void (*cam_init_sub_jmp0x3391f0[5])(CAMERA_WORK*, CAM_W_VIEW*);
 extern void (*cam_sub_jmp0x339210[5])(CAMERA_WORK*, CAM_W_VIEW*);
 extern f32 pch_pos0x339350[3][6];
+extern f32 dka_j_tbl0x3393D0[6];
+extern f32 dka_init_tbl0x3393a0[10];
 
 //bss
 extern CAMERA_WORK CameraWork0x4767c0;
@@ -871,13 +873,48 @@ INCLUDE_ASM("asm/main/nonmatchings/camera", tri_diag0x224790);
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", Spline0x2248c0);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", dCnvComplex0x224cb0);
+void dCnvComplex0x224cb0(COMPLEX* arg0, f32 fparg0, f32 fparg1) {
+    arg0->a = fparg0;
+    arg0->b = fparg1;
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", dSubComplex0x224cc0);
+void dSubComplex0x224cc0(COMPLEX* arg0, COMPLEX* arg1, COMPLEX* arg2) {
+    arg0->a = arg1->a - arg2->a;
+    arg0->b = arg1->b - arg2->b;
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", dMulComplex0x224cf0);
+void dMulComplex0x224cf0(COMPLEX* res, COMPLEX* arg1, COMPLEX* arg2) {
+    COMPLEX tmp;
+    f32 v3 = arg2->a;
+    f32 v2 = arg1->b;
+    f32 v4 = arg2->b;
+    f32 v1 = arg1->a;
+    
+    tmp.a = v1 * v3 - v2 * v4;
+    tmp.b = v1 * v4 + v2 * v3;
+    *res = tmp;
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", dDivComplex0x224d40);
+void dDivComplex0x224d40(COMPLEX* res, COMPLEX* arg1, COMPLEX* arg2) {
+    f32 power;
+    COMPLEX tmp;
+    f32 v2;
+    f32 v1;
+    f32 v3 = arg2->b;
+    f32 v4 = arg2->a;
+
+    power = v4*v4 + v3*v3;
+    if (power != 0.0f) {
+        power = 1.0f / power;
+        v1 = arg1->b;
+        v2 = arg1->a;
+        tmp.a = power * (v2 * v4 + v1 * v3);
+        tmp.b = power * (v1 * v4 - v2 * v3);
+        *res = tmp;
+    } else {
+        *res = *arg1;
+    }
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", DKA50x224dd0);
 
