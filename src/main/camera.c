@@ -50,6 +50,7 @@ s32 CamAreaAttribChk0x2233c0(CAM_DATA_ENTRY_HEADER*, PLAYER_WORK*);
 s32 Area_XZ_Check0x223410(CAM_GEOMETRY_ZONE*, f32*);
 s8 PachiTypeCheck0x221460(PLAYER_WORK*);
 s32 pch_lock_chk0x221400(PLAYER_WORK*);
+s32 point_camera0x221be0(CAMERA_WORK*, CAM_W_VIEW*);
 
 void CameraWorkInit0x21f3d0(void) {
     flMemset0x16f5f0(CameraWork0x4767c0, 0, sizeof(CameraWork0x4767c0));
@@ -508,18 +509,79 @@ INCLUDE_ASM("asm/main/nonmatchings/camera", NPCZoomInCameraCheck0x221860);
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", cam_plEX_zoom0x221870);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", cam_init_sub_demo0x221aa0);
+void cam_init_sub_demo0x221aa0(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view) {
+    cam_view->unk_60 = 0;
+    cam_view->unk_68 = DEG_55_RAD;
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", cam_sub_demo0x221ac0);
+    cam_view->state_demo.demo_id = 0;
+    cam_view->state_demo.demo_status = 0;
+    cam_view->state_demo.target_ptr = NULL;
+}
+
+void cam_sub_demo0x221ac0(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view) {
+    CAM_VIEW_STATE_DEMO* view_state;
+    s32 result;
+
+    view_state = &cam_view->state_demo;
+    cam_view->this_view_active = 0;
+    
+    switch (cam_view->unk_78_u8) { 
+        case 0:
+            if (cam_work->demo_play == 0) {
+                break;
+            }
+            
+            view_state->demo_id = cam_work->demo_play;
+            view_state->target_ptr = cam_work->wyvern_ptr;
+            cam_view->unk_78_u8 += 1;
+            cam_view->unk_7C = 0;
+
+        case 1:
+            cam_work->demo_play = 0;
+            result = point_camera0x221be0(cam_work, cam_view);
+            
+            if (result <= 0) {
+                cam_view->this_view_active = 1;
+                
+                if (result == 0) {
+                    view_state->demo_status = 1;
+                } else {
+                    view_state->demo_status = -1;
+                }
+                break;
+            }
+            
+            cam_view->unk_78_u8 = 0;
+            view_state->demo_id = 0;
+            view_state->demo_status = 0;
+            view_state->target_ptr = NULL;
+            break;
+
+        default:
+            break;
+    }
+}
 
 void DemoCameraRequest0x221b80(s8 demo, void* ptr) {
     CameraWork0x4767c0.demo_play = demo;
     CameraWork0x4767c0.wyvern_ptr = ptr;
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", DemoCameraCancel0x221ba0);
+void DemoCameraCancel0x221ba0(void) {
+    CAM_W_VIEW* view = &CameraWork0x4767c0.views[4];
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", DemoCameraCheck0x221bd0);
+    view->unk_78_u8 = 0;
+
+    view->state_demo.demo_id = 0;
+    view->state_demo.demo_status = 0;
+    view->state_demo.target_ptr = NULL;
+
+    CameraWork0x4767c0.demo_play = 0;
+}
+
+s8 DemoCameraCheck0x221bd0(void) {
+    return CameraWork0x4767c0.views[4].state_demo.demo_status;
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", point_camera0x221be0);
 
