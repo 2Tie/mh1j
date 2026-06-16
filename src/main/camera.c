@@ -597,7 +597,9 @@ INCLUDE_ASM("asm/main/nonmatchings/camera", get_angle0x222020);
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", cmd_cam_move0x2220c0);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", point_cam_hit0x222400);
+s32 point_cam_hit0x222400(CAMERA_WORK *a1, CAM_W_VIEW *a2, CAM_VIEW_STATE *a3) {
+    return 0;
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", point_cam_sub0x222410);
 
