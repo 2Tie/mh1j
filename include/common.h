@@ -16,9 +16,10 @@
 
 #define SCREEN_RATIO 1.4285715 //640/448, used in projections
 
-#define DEG_10_RAD 0.17453294f // 10º (PI/18)
-#define DEG_45_RAD 0.78539820f // 45º (PI/4)
-#define DEG_60_RAD 1.04719760f // 60º (PI/3)
+#define DEG_10_RAD 0.17453294f // 10º 0x3E32B8C3
+#define DEG_45_RAD 0.78539820f // 45º 0x3F490FDB
+#define DEG_55_RAD 0.95993110f // 55º 0x3F75BE0B
+#define DEG_60_RAD 1.04719760f // 60º 0x3F860A92
 
 #define PCH_ANGLE_STEP  0.022340214f // ~1.28° per frame
 
