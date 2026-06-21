@@ -122,9 +122,9 @@ typedef struct {
     /* 0x0C */ f32 target_pos[3];
     /* 0x18 */ f32 prev_cam_pos[3];
     /* 0x24 */ u8  unk_24[0x3C];
-    /* 0x60 */ s32 unk_60;
-    /* 0x64 */ u8 unk_64[0x4];
-    /* 0x68 */ f32 unk_68;
+    /* 0x60 */ f32 yaw;
+    /* 0x64 */ f32 roll;
+    /* 0x68 */ f32 pitch;
     /* 0x6C */ u8 unk_6C[0x4];
     /* 0x70 */ u8 which_sub;
     /* 0x71 */ u8 this_view_active;
@@ -156,8 +156,8 @@ typedef struct{
     /* 0x00C */ f32 target[3];
     /* 0x018 */ u8 unk_18[0x48];//0x18 - 0x5f
     /* 0x060 */ f32 roll;
-    /* 0x064 */ u8 unk_64[0x4]; //0x64 - 0x67
-    /* 0x068 */ f32 unk_68;
+    /* 0x064 */ f32 yaw;
+    /* 0x068 */ f32 pitch;
     /* 0x06C */ u8 unk_6C[0x14]; //0x6c - 0c7f
     /* 0x080 */ CAM_W_VIEW views[5];
     /* 0x580 */ u8 initialized;

@@ -13,6 +13,8 @@ extern f32 flSin0x173600(f32);
 extern f32 flvecInnerProduct0x173220(f32*, f32*);
 extern f32 flvecCalcDistance0x173140(void*, void*);
 extern void View_move0x169a80();
+extern void RollView0x169da0(f32);
+extern void SetAngleOfView0x169db0(f32);
 extern s32 Game_clear_ck0x162db0(s32);
 extern u32 Pl_stg_ck0x151ff0(PLAYER_WORK*);
 extern s32 Em_stg_ck0x152010(MONSTER_WORK*);
@@ -51,6 +53,7 @@ s32 Area_XZ_Check0x223410(CAM_GEOMETRY_ZONE*, f32*);
 s8 PachiTypeCheck0x221460(PLAYER_WORK*);
 s32 pch_lock_chk0x221400(PLAYER_WORK*);
 s32 point_camera0x221be0(CAMERA_WORK*, CAM_W_VIEW*);
+void quake_sub0x222bc0(QUAKE*);
 
 void CameraWorkInit0x21f3d0(void) {
     flMemset0x16f5f0(CameraWork0x4767c0, 0, sizeof(CameraWork0x4767c0));
@@ -268,13 +271,13 @@ void cam_init_sub_pchngr0x220ee0(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view) {
     
     view_state = &cam_view->state_pchngr;
     
-    cam_view->unk_68 = DEG_45_RAD;
-    cam_view->unk_60 = 0;
+    cam_view->pitch = DEG_45_RAD;
+    cam_view->yaw = 0;
     view_state->angle_min = DEG_10_RAD;
     view_state->angle_max = DEG_60_RAD;
     view_state->angle_delta = view_state->angle_max - view_state->angle_min;
 
-    loaded_unk_68 = cam_view->unk_68;
+    loaded_unk_68 = cam_view->pitch;
     
     view_state->angle_pan = loaded_unk_68;
     view_state->angle_cur = loaded_unk_68;
@@ -344,7 +347,7 @@ void cam_sub_pchngr0x220f30(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view) {
                     break;
 
                 case 2:
-                    cam_view->unk_68 = DEG_45_RAD;
+                    cam_view->pitch = DEG_45_RAD;
                     break;
 
                 default:
@@ -374,11 +377,11 @@ void cam_sub_pchngr0x220f30(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view) {
 
             switch (view_state->pachi_type) {
                 case 0:
-                    cam_view->unk_68 = view_state->angle_cur;
+                    cam_view->pitch = view_state->angle_cur;
                     break;
 
                 case 1:
-                    cam_view->unk_68 = view_state->angle_pan;
+                    cam_view->pitch = view_state->angle_pan;
                     break;
 
                 case 2:
@@ -399,7 +402,7 @@ void cam_sub_pchngr0x220f30(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view) {
                         AddVector0x120820(view_state->matrix[3], view_state->matrix[3], tmp_vec1);
                     }
 
-                    cam_view->unk_68 = view_state->angle_cur;
+                    cam_view->pitch = view_state->angle_cur;
                     break;
                 
                 case 1:
@@ -411,7 +414,7 @@ void cam_sub_pchngr0x220f30(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view) {
                         0.0f
                     );
                     flvecCopy0x173300(view_state->matrix[3], player->pos);
-                    cam_view->unk_68 = view_state->angle_pan;
+                    cam_view->pitch = view_state->angle_pan;
                     break;
                 
                 case 2:
@@ -484,7 +487,7 @@ s8 GetPachingerInfo0x221530(void* arg0, u8* arg1, u8* arg2, f32* arg3) {
     *arg2 = view_state->unk_64;
 
     if (view_state->unk_64 != 0) {
-        *arg3 = cam_view->unk_68 - view_state->angle_min;
+        *arg3 = cam_view->pitch - view_state->angle_min;
         *arg3 /= view_state->angle_delta;
     }
 
@@ -510,8 +513,8 @@ INCLUDE_ASM("asm/main/nonmatchings/camera", NPCZoomInCameraCheck0x221860);
 INCLUDE_ASM("asm/main/nonmatchings/camera", cam_plEX_zoom0x221870);
 
 void cam_init_sub_demo0x221aa0(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view) {
-    cam_view->unk_60 = 0;
-    cam_view->unk_68 = DEG_55_RAD;
+    cam_view->yaw = 0;
+    cam_view->pitch = DEG_55_RAD;
 
     cam_view->state_demo.demo_id = 0;
     cam_view->state_demo.demo_status = 0;
@@ -603,7 +606,55 @@ s32 point_cam_hit0x222400(CAMERA_WORK *a1, CAM_W_VIEW *a2, CAM_VIEW_STATE *a3) {
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", point_cam_sub0x222410);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", cam2view0x2227a0);
+void cam2view0x2227a0(CAMERA_WORK* cam) {
+    QUAKE* quake;
+    s16 qtime;
+    s32 active;
+    s32 q;
+    CAM_W_VIEW* view;
+
+    quake = &cam->sub_quake;
+    for(q = 2; q > 0; q -= 1) {
+        if (quake->active != false) {
+            qtime = quake->timer - 1;
+            quake->timer = qtime;
+            if (qtime  <= 0) {
+                quake->active = false;
+            }
+        }
+        quake++;
+    }
+    view = &cam->views[cam->active_view];
+    flvecCopy0x173300(cam->pos, view->cam_pos);
+    flvecCopy0x173300(cam->target, view->target_pos);
+    cam->roll = view->yaw;
+    cam->pitch = view->pitch;
+    active = -1;
+    if (cam->views[4].this_view_active != 0) {
+        active = 4;
+    } else if (cam->views[2].this_view_active != 0) {
+        active = 2;
+    } else if (cam->views[3].this_view_active != 0) {
+        active = 3;
+    }
+    if (active > 0) {
+        view = &cam->views[active];
+        flvecCopy0x173300(lpView0x38a110->pos, view->cam_pos);
+        flvecCopy0x173300(lpView0x38a110->target, view->target_pos);
+        if (active == 2) {
+            quake_sub0x222bc0(&cam->quake);
+        }
+        RollView0x169da0(view->yaw);
+        SetAngleOfView0x169db0(view->pitch);
+    } else {
+        flvecCopy0x173300(lpView0x38a110->pos, cam->pos);
+        flvecCopy0x173300(lpView0x38a110->target, cam->target);
+        quake_sub0x222bc0(&cam->sub_quake);
+        RollView0x169da0(cam->roll);
+        SetAngleOfView0x169db0(cam->pitch);
+    }
+    set_to_std_cam0x220650(active);
+}
 
 s32 PachingerCamChk0x222930(PLAYER_WORK* ply) {
     CAMERA_WORK* cam = &CameraWork0x4767c0;
