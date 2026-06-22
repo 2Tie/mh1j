@@ -18,12 +18,12 @@ extern void SetAngleOfView0x169db0(f32);
 extern s32 Game_clear_ck0x162db0(s32);
 extern u32 Pl_stg_ck0x151ff0(PLAYER_WORK*);
 extern s32 Em_stg_ck0x152010(MONSTER_WORK*);
-extern void flmatInit0x171ce0(MATRIX); 
+extern void flmatInit0x171ce0(MATRIX);
 extern void flmatCopy0x172cb0(MATRIX, MATRIX);
 extern void flmatRotXYZ330x1724e0(MATRIX, f32, f32, f32);
 extern void flmatGetTrans0x171ee0(f32*, MATRIX);
 extern void SubVector0x120860(f32*, f32*, f32*);
-extern void AddVector0x120820(f32*, f32*, f32*);  
+extern void AddVector0x120820(f32*, f32*, f32*);
 extern void flvecApplyMat330x172e00(f32*, f32*, MATRIX);
 extern void flvecCopy0x173300(f32*, f32*);
 extern s32 Pl_scope_ck0x154d00(PLAYER_WORK*);
@@ -41,6 +41,10 @@ extern f32 dka_init_tbl0x3393a0[10];
 extern CAMERA_WORK CameraWork0x4767c0;
 
 //protos
+void cmd_set_pos0x221d30(f32*, POINT_CAM_STATE*, f32*);
+void cmd_set_tar0x221e60(f32*, POINT_CAM_STATE*, f32*);
+void cmd_copy0x221f90(f32*, s8);
+void cmd_cam_move0x2220c0(CAMERA_WORK*, CAM_W_VIEW*, void*);
 void cam2view0x2227a0(CAMERA_WORK*);
 void cam_sw_set_sub0x222d80(CAMERA_WORK*);
 static void default_area_data0x222e20(CAMERA_WORK*);
@@ -600,11 +604,136 @@ INCLUDE_ASM("asm/main/nonmatchings/camera", get_angle0x222020);
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", cmd_cam_move0x2220c0);
 
-s32 point_cam_hit0x222400(CAMERA_WORK *a1, CAM_W_VIEW *a2, CAM_VIEW_STATE *a3) {
+s32 point_cam_hit0x222400(CAMERA_WORK *a1, CAM_W_VIEW *a2, POINT_CAM_STATE *a3, void *a4) {
     return 0;
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", point_cam_sub0x222410);
+s32 point_cam_sub0x222410(CAMERA_WORK* cam_w, CAM_W_VIEW* view, POINT_CAM_STATE* arg2) {
+    s32 move_amt;
+    POINT_CAM_OP* op_ptr; //next unprocessed op
+    s32 running; //looping
+    s32 retval;
+    POINT_CAM_OP* op;
+    s32* opdata; //current op
+
+    running = 1;
+    arg2->point.halt_logic = 0U;
+    op_ptr = arg2->point.logic_pos;
+    
+    while(true) {
+    op = op_ptr;
+    opdata = (s32*)op_ptr;
+    op_ptr += op->size;
+    switch (op->op) {
+    case 0:
+        arg2->point.simple = op->argb[0];
+        break;
+    case 1:
+        arg2->point.target_type = op->argb[0];
+        arg2->point.cam_part = op->argb[1];
+        break;
+    case 2:
+        cmd_set_pos0x221d30(arg2->pos, arg2, (f32*)opdata);
+        break;
+    case 3:
+        cmd_set_pos0x221d30(arg2->unk_c, arg2, (f32*)opdata);
+        break;
+    case 4:
+        arg2->point.player_target_type = op->argb[0];
+        arg2->point.target_part = op->argb[1];
+        break;
+    case 5:
+        cmd_set_tar0x221e60(arg2->tar, arg2, (f32*)opdata);
+        break;
+    case 6:
+        cmd_set_tar0x221e60(arg2->unk_24, arg2, (f32*)opdata);
+        break;
+    case 7:
+        arg2->point.follow_target = op->argb[0];
+        break;
+    case 8:
+        view->target_yaw = op->args;
+        break;
+    case 9:
+        view->current_yaw = op->args;
+        break;
+    case 10:
+        view->target_pitch = op->args;
+        break;
+    case 11:
+        view->current_pitch = op->args;
+        break;
+    case 12:
+        arg2->point.cam_offset_target = 0.0625f * opdata[1]; //1/16?
+        break;
+    case 13:
+        arg2->point.cam_offset_start = 0.0625f * opdata[1];
+        break;
+    case 14:
+        arg2->yaw_end = DEG2RAD * opdata[1];
+        break;
+    case 15:
+        arg2->yaw_start = DEG2RAD * opdata[1];
+        break;
+    case 16:
+        arg2->pitch_end = DEG2RAD * opdata[1];
+        break;
+    case 17:
+        arg2->pitch_start = DEG2RAD * opdata[1];
+        break;
+    case 18:
+        move_amt = opdata[1];
+        view->move_total = move_amt;
+        view->move_cur = move_amt;
+        break;
+    case 19:
+        cmd_copy0x221f90(arg2->pos, op->args);
+        break;
+    case 20:
+        arg2->point.logic_loop = op_ptr;
+        break;
+    case 21:
+        view->move_cur = (s16) (view->move_cur - 1);
+        if (view->move_total <= 0 || view->move_cur >= 0 ) {
+            op_ptr = arg2->point.logic_loop;
+            running = 0;
+            retval = 0;
+        } else {
+            flvecCopy0x173300(arg2->pos, view->cam_pos);
+            flvecCopy0x173300(arg2->tar, view->target_pos);
+            view->target_yaw = view->current_yaw;
+            view->target_pitch = view->current_pitch;
+            arg2->yaw_end = view->yaw;
+            arg2->pitch_end = view->pitch;
+            view->move_cur = -1;
+            view->move_total = -1;
+        }
+        break;
+    case 22:
+        cmd_cam_move0x2220c0(cam_w, view, arg2);
+        break;
+    case 25:
+        if (point_cam_hit0x222400(cam_w, view, arg2, opdata) != 0) {
+        default:
+            return 1;
+        }
+        break;
+    case 24:
+        running = 0;
+        retval = -1;
+        break;
+    }
+    
+    if (arg2->point.halt_logic != 0) {
+        return 1;
+    }
+    arg2->point.logic_pos = op_ptr;
+    if (running == 0) {
+        return retval;
+    }
+        
+    }//while end
+}
 
 void cam2view0x2227a0(CAMERA_WORK* cam) {
     QUAKE* quake;

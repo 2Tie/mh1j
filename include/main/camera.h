@@ -86,9 +86,40 @@ typedef struct{
 }CAM_DATA_HEADER; // size: 0x30 plus entries
 
 typedef struct {
-    /* 0x00 */ u8 unk_0[0x68];
+    /* 0x00 */ f32 unk_0;
+    /* 0x04 */ f32 unk_4;
+    /* 0x08 */ f32 unk_8;
+    /* 0x0C */ u8 unk_C[0x4];
+    /* 0x10 */ f32 height;
+    /* 0x14 */ u8 unk_14[0xC];
+} CAM_HEIGHT_ENTRY; // size: 0x20
+
+typedef struct {
+    /* 0x00 */ f32 min_distance;
+    /* 0x04 */ f32 max_distance;
+    /* 0x08 */ u8 unk_8[0x18];
+    /* 0x20 */ CAM_HEIGHT_ENTRY entries[];
+} CAM_CNF; // size: 0x24 
+
+typedef struct {
+    /* 0x00 */ f32 cam_pos[3];
+    /* 0x0C */ f32 target_pos[3];
+    /* 0x18 */ f32 prev_cam_pos[3];
+    /* 0x24 */ f32 ground_y;
+    /* 0x28 */ s8 ground_hit;
+    /* 0x29 */ u8 unk_29[0x07];
+    /* 0x30 */ union { s16 rot_something[6]; f32 prev_target_a[3];};
+    /* 0x3C */ f32 prev_target_b[3];
+    /* 0x48 */ f32 min_dist_save;
+    /* 0x4C */ union { s32 angle_min ; f32 min_dist_prev; s8 flags[4];};
+    /* 0x50 */ union { s32 angle_max ; f32 max_dist_save;};
+    /* 0x54 */ union { s32 angle_delta ; f32 max_dist_prev;};
+    /* 0x58 */ union { f32 angle_cur; CAM_CNF* cfg_entry;};
+    /* 0x5C */ union { f32 angle_something; CAM_HEIGHT_ENTRY* cfg_height;};
+    /* 0x60 */ u8 unk_60[0x8];
     /* 0x68 */ s16 next_rot;
-    /* 0x6A */ u8 unk_6A[0x5];
+    /* 0x6A */ u8 unk_6A[0x4];
+    /* 0x6E */ u8 unk_6E;
     /* 0x6F */ u8 hit_wall;
 } CAM_VIEW_STATE; // size: 0x70
 
@@ -112,10 +143,46 @@ typedef struct {
     /* 0x62 */ s8 pachi_type;
     /* 0x63 */ u8 unk_63;  
     /* 0x64 */ u8 unk_64;
-    /* 0x65 */ u8 unk_65[0x9];
+    /* 0x65 */ u8 unk_65[0x3];
+    /* 0x68 */ s16 next_rot;
+    /* 0x6A */ u8 unk_6A[0x4];
     /* 0x6E */ u8 unk_6E;
-    /* 0x6F */ u8 unk_6F;
+    /* 0x6F */ u8 hit_wall;
 } CAM_VIEW_STATE_PACHINGER; // size: 0x70
+
+typedef struct {
+    /* 0x00 */ s8 op;
+    /* 0x01 */ s8 size;
+    /* 0x02 */ union {s8 argb[2]; s16 args;};
+} POINT_CAM_OP; // size: 0x04
+
+typedef struct {
+    /* 0x00 */ POINT_CAM_OP* logic_pos;
+    /* 0x04 */ POINT_CAM_OP* logic_loop;
+    /* 0x08 */ u8 simple;
+    /* 0x09 */ u8 target_type;
+    /* 0x0A */ u8 player_target_type;
+    /* 0x0B */ u8 cam_part;
+    /* 0x0C */ u8 target_part;
+    /* 0x0D */ u8 follow_target;
+    /* 0x0E */ u8 unk_e[2];
+    /* 0x10 */ void* unk_10;
+    /* 0x14 */ f32 cam_offset_target;
+    /* 0x18 */ f32 cam_offset_start;
+    /* 0x1C */ u8 halt_logic;
+} POINT_CAM_POINT; //size: 0x30
+
+typedef struct {
+    /* 0x00 */ f32 pos[3];
+    /* 0x0C */ f32 unk_c[3];
+    /* 0x18 */ f32 tar[3];
+    /* 0x24 */ f32 unk_24[3];
+    /* 0x30 */ f32 yaw_end;
+    /* 0x34 */ f32 yaw_start;
+    /* 0x38 */ f32 pitch_end;
+    /* 0x3C */ f32 pitch_start;
+    /* 0x40 */ POINT_CAM_POINT point;
+} POINT_CAM_STATE; //size: 0x70
 
 typedef struct {
     /* 0x00 */ f32 cam_pos[3];
@@ -129,16 +196,22 @@ typedef struct {
     /* 0x70 */ u8 which_sub;
     /* 0x71 */ u8 this_view_active;
     /* 0x72 */ u8 which_view;
-    /* 0x73 */ u8  unk_73[0x5];
+    /* 0x73 */ u8  unk_73;
+    /* 0x74 */ s16 move_cur;
+    /* 0x76 */ s16 move_total;
     /* 0x78 */ union {s32 unk_78_s32; u8 unk_78_u8;};
     /* 0x7C */ s32 unk_7C;
-    /* 0x80 */ u8 unk_80[0x8];
+    /* 0x80 */ u16 target_yaw;
+    /* 0x82 */ u16 target_pitch;
+    /* 0x84 */ s16 current_yaw;
+    /* 0x86 */ s16 current_pitch;
     /* 0x88 */ s16 unk_88;
     /* 0x8A */ u8  unk_8A[0x6];
     /* 0x90 */ union { 
                     CAM_VIEW_STATE state;
                     CAM_VIEW_STATE_DEMO state_demo;
                     CAM_VIEW_STATE_PACHINGER state_pchngr;
+                    POINT_CAM_STATE state_point;
                 };
 } CAM_W_VIEW; // size: 0x100
 
