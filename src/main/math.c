@@ -24,6 +24,7 @@ extern f32 flArcTan20x1735e0(f32, f32);
 extern void flmatRotX330x171f70(f32[], f32);
 extern void flmatRotY330x172010(f32[], f32);
 extern void flmatRotZ330x1720b0(f32[], f32);
+extern void flmatMul330x172b30(f32[], f32[], f32[]);
 
 
 //implements
@@ -298,7 +299,7 @@ void RotateX0x120d40(f32 vec[], f32 angle) {
 
     flmatInit0x171ce0(mat);
     flmatRotX330x171f70(mat, angle);
-    flmatMul330x172b30(vec, &mat, vec);
+    flmatMul330x172b30(vec, mat, vec);
 }
 
 void RotateY0x120d90(f32 vec[], f32 angle) {
@@ -306,7 +307,7 @@ void RotateY0x120d90(f32 vec[], f32 angle) {
 
     flmatInit0x171ce0(mat);
     flmatRotY330x172010(mat, angle);
-    flmatMul330x172b30(vec, &mat, vec);
+    flmatMul330x172b30(vec, mat, vec);
 }
 
 void RotateZ0x120de0(f32 vec[], f32 angle) {
@@ -314,7 +315,7 @@ void RotateZ0x120de0(f32 vec[], f32 angle) {
 
     flmatInit0x171ce0(mat);
     flmatRotZ330x1720b0(mat, angle);
-    flmatMul330x172b30(vec, &mat, vec);
+    flmatMul330x172b30(vec, mat, vec);
 }
 
 void cpInterVector0x120e30(f32 out[], f32 vec0[], f32 vec1[], f32 t) {
