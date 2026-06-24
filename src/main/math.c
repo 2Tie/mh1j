@@ -21,6 +21,9 @@ extern f32 flvecOuterProduct0x173280(f32[], f32[], f32[]);
 extern void flvecCopy0x173300(f32[], f32[]);
 extern f32 flAbs0x173540(f32);
 extern f32 flArcTan20x1735e0(f32, f32);
+extern void flmatRotX330x171f70(f32[], f32);
+extern void flmatRotY330x172010(f32[], f32);
+extern void flmatRotZ330x1720b0(f32[], f32);
 
 
 //implements
@@ -290,15 +293,39 @@ void NvecFloatAdjust0x120c80(f32 out[], f32 in[]) {
     }
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/math", RotateX0x120d40);
+void RotateX0x120d40(f32 vec[], f32 angle) {
+    f32 mat[16];
 
-INCLUDE_ASM("asm/main/nonmatchings/math", RotateY0x120d90);
+    flmatInit0x171ce0(mat);
+    flmatRotX330x171f70(mat, angle);
+    flmatMul330x172b30(vec, &mat, vec);
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/math", RotateZ0x120de0);
+void RotateY0x120d90(f32 vec[], f32 angle) {
+    f32 mat[16];
 
-INCLUDE_ASM("asm/main/nonmatchings/math", cpInterVector0x120e30);
+    flmatInit0x171ce0(mat);
+    flmatRotY330x172010(mat, angle);
+    flmatMul330x172b30(vec, &mat, vec);
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/math", AarcTan20x120e80);
+void RotateZ0x120de0(f32 vec[], f32 angle) {
+    f32 mat[16];
+
+    flmatInit0x171ce0(mat);
+    flmatRotZ330x1720b0(mat, angle);
+    flmatMul330x172b30(vec, &mat, vec);
+}
+
+void cpInterVector0x120e30(f32 out[], f32 vec0[], f32 vec1[], f32 t) {
+    out[0] = vec0[0] * t + vec1[0] * (1.0f - t);
+    out[1] = vec0[1] * t + vec1[1] * (1.0f - t);
+    out[2] = vec0[2] * t + vec1[2] * (1.0f - t);
+}
+
+s32 AarcTan20x120e80(f32 y, f32 x) {
+    return (65536.0f / (2.0f * PI)) * flArcTan20x1735e0(y, x);
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/math", nlCalcPoint0x120ec0);
 
