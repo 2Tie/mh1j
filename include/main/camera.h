@@ -166,7 +166,7 @@ typedef struct {
     /* 0x0C */ u8 target_part;
     /* 0x0D */ u8 follow_target;
     /* 0x0E */ u8 unk_e[2];
-    /* 0x10 */ void* unk_10;
+    /* 0x10 */ MONSTER_WORK* ent_ptr;
     /* 0x14 */ f32 cam_offset_target;
     /* 0x18 */ f32 cam_offset_start;
     /* 0x1C */ u8 halt_logic;

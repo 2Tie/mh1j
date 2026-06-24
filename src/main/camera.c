@@ -22,6 +22,7 @@ extern void flmatInit0x171ce0(MATRIX);
 extern void flmatCopy0x172cb0(MATRIX, MATRIX);
 extern void flmatRotXYZ330x1724e0(MATRIX, f32, f32, f32);
 extern void flmatGetTrans0x171ee0(f32*, MATRIX);
+extern void nlCalcPoint0x120ec0(f32*, f32*, MATRIX);
 extern void SubVector0x120860(f32*, f32*, f32*);
 extern void AddVector0x120820(f32*, f32*, f32*);
 extern void flvecApplyMat330x172e00(f32*, f32*, MATRIX);
@@ -41,8 +42,8 @@ extern f32 dka_init_tbl0x3393a0[10];
 extern CAMERA_WORK CameraWork0x4767c0;
 
 //protos
-void cmd_set_pos0x221d30(f32*, POINT_CAM_STATE*, f32*);
-void cmd_set_tar0x221e60(f32*, POINT_CAM_STATE*, f32*);
+void cmd_set_pos0x221d30(f32*, POINT_CAM_STATE*, s32*);
+void cmd_set_tar0x221e60(f32*, POINT_CAM_STATE*, s32*);
 void cmd_copy0x221f90(f32*, s8);
 void cmd_cam_move0x2220c0(CAMERA_WORK*, CAM_W_VIEW*, void*);
 void cam2view0x2227a0(CAMERA_WORK*);
@@ -399,7 +400,7 @@ void cam_sub_pchngr0x220f30(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view) {
                 case 0:
                     if (pch_lock_chk0x221400(player) == 0) {
                         flvecCopy0x173300(view_state->pos, player->pos);
-                        flmatCopy0x172cb0(view_state->matrix, player->unk_148_ptr->matrix);
+                        flmatCopy0x172cb0(view_state->matrix, player->part_ptrs[14]->matrix);
                     } else {
                         SubVector0x120860(tmp_vec1, player->pos, view_state->pos);
                         flvecCopy0x173300(view_state->pos, player->pos);
@@ -592,15 +593,95 @@ s8 DemoCameraCheck0x221bd0(void) {
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", point_camera0x221be0);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", get_em_local0x221cf0);
+static MATRIX* get_em_local0x221cf0(POINT_CAM_STATE* ptcam) {
+    MONSTER_WORK* mon;
+    MATRIX* retval;
+
+    mon = ptcam->point.ent_ptr;
+    if ((mon != 0)) {
+        if((mon->exists != 0)){
+            retval = &mon->matrix;
+            return retval;
+        }
+    }
+    ptcam->point.halt_logic = true;
+    retval = 0;
+    return retval;
+}
+
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", cmd_set_pos0x221d30);
+//mismatches rodata right now, todo investigate
+/*void cmd_set_pos0x221d30(f32* result, POINT_CAM_STATE* pcam, s32* opargs) {
+    PLAYER_WORK* player;
+    MATRIX* em_mat;
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", cmd_set_tar0x221e60);
+    player = &player_work0x3e4bf0[game_w0x3f33f0.my_player_number];
+    result[0] = 0.00024414062f * opargs[1]; //constant is 1/4096
+    result[1] = 0.00024414062f * opargs[2];
+    result[2] = 0.00024414062f * opargs[3];
+    switch (pcam->point.target_type) { 
+    case 2:
+        nlCalcPoint0x120ec0(result, result, player->part_ptrs[pcam->point.cam_part]->matrix);
+        return;
+    case 0:
+        nlCalcPoint0x120ec0(result, result, player->matrix);
+        return;
+    case 1:
+        AddVector0x120820(result, result, player->pos);
+        return;
+    case 3:
+        em_mat = get_em_local0x221cf0(pcam);
+        if (em_mat != NULL) {
+            nlCalcPoint0x120ec0(result, result, *em_mat);
+            return;
+        }
+    case 5: //this was needed to generate a jumptable
+    default:
+        break;
+    case 4:
+        AddVector0x120820(result, result, pcam->tar);
+        break;
+    }
+    return;
+}*/
+
+void cmd_set_tar0x221e60(f32* result, POINT_CAM_STATE* pcam, s32* opargs) {
+    PLAYER_WORK* player;
+    MATRIX* em_mat;
+
+    player = &player_work0x3e4bf0[game_w0x3f33f0.my_player_number];
+    result[0] = 0.00024414062f * opargs[1];
+    result[1] = 0.00024414062f * opargs[2];
+    result[2] = 0.00024414062f * opargs[3];
+    switch (pcam->point.player_target_type) {
+    case 2:
+        nlCalcPoint0x120ec0(result, result, player->part_ptrs[pcam->point.target_part]->matrix);
+        break;
+    case 0:
+        nlCalcPoint0x120ec0(result, result, player->matrix);
+        break;
+    case 1:
+        AddVector0x120820(result, result, player->pos);
+        break;
+    case 3:
+        em_mat = get_em_local0x221cf0(pcam);
+        if (em_mat != NULL) {
+            nlCalcPoint0x120ec0(result, result, *em_mat);
+        }
+        /* fallthrough */
+    case 4:
+        break;
+    }
+    return;
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", cmd_copy0x221f90);
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", get_angle0x222020);
+
+//temp rodata padding to keep alignment, move/remove as needed?
+const char __pad_cam_01[] = "\5\5\5\5"; //does nothing atm...
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", cmd_cam_move0x2220c0);
 
@@ -633,20 +714,20 @@ s32 point_cam_sub0x222410(CAMERA_WORK* cam_w, CAM_W_VIEW* view, POINT_CAM_STATE*
         arg2->point.cam_part = op->argb[1];
         break;
     case 2:
-        cmd_set_pos0x221d30(arg2->pos, arg2, (f32*)opdata);
+        cmd_set_pos0x221d30(arg2->pos, arg2, opdata);
         break;
     case 3:
-        cmd_set_pos0x221d30(arg2->unk_c, arg2, (f32*)opdata);
+        cmd_set_pos0x221d30(arg2->unk_c, arg2, opdata);
         break;
     case 4:
         arg2->point.player_target_type = op->argb[0];
         arg2->point.target_part = op->argb[1];
         break;
     case 5:
-        cmd_set_tar0x221e60(arg2->tar, arg2, (f32*)opdata);
+        cmd_set_tar0x221e60(arg2->tar, arg2, opdata);
         break;
     case 6:
-        cmd_set_tar0x221e60(arg2->unk_24, arg2, (f32*)opdata);
+        cmd_set_tar0x221e60(arg2->unk_24, arg2, opdata);
         break;
     case 7:
         arg2->point.follow_target = op->argb[0];

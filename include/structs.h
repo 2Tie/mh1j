@@ -237,7 +237,7 @@ typedef struct {
 typedef struct {
     /* 0x00 */ u8 unk_0[0x40];
     /* 0x40 */ MATRIX matrix;
-} UNK_PLAYER_STRUCT; // size: unk
+} PART_WORK; // size: 0x80
 
 typedef struct {
     /* 0x000 */ u8 unk_0[0x2];
@@ -247,13 +247,15 @@ typedef struct {
     /* 0x00E */ u8 unk_E[0x6];
     /* 0x014 */ u8 unk_14;
     /* 0x015 */ u8 unk_15;
-    /* 0x016 */ u8 unk_16[0x8E];
+    /* 0x016 */ u8 unk_16[0x4A];
+    /* 0x060 */ MATRIX matrix;
+    /* 0x0A0 */ u8 unk_A0[0x4];
     /* 0x0A4 */ s32 angle;
     /* 0x0A8 */ u8 unk_A8[0x4];
     /* 0x0AC */ f32 pos[3];
-    /* 0x0B8 */ u8 unk_B8[0x90];
-    /* 0x148 */ UNK_PLAYER_STRUCT* unk_148_ptr;
-    /* 0x14C */ u8 unk_14C[0x190];
+    /* 0x0B8 */ u8 unk_B8[0x58];
+    /* 0x110 */ PART_WORK* part_ptrs[32];
+    /* 0x190 */ u8 unk_190[0x14C];
     /* 0x2DC */ u16 unk_2DC;
     /* 0x2DE */ u8 unk_2DE[0x485];
     /* 0x763 */ u8 sight_timer;
@@ -266,13 +268,15 @@ typedef struct {
 } PLAYER_WORK; // size: 0xA00
 
 typedef struct {
-    u8 exists;
-    u8 unk;
-    u8 species; //0x2
-    u8 todo[0xa9]; //3 - ab
-    f32 pos[3];//ac - b7
-    u8 todo2[0x958];
-} MONSTER_WORK;
+    /* 0x000 */ u8 exists;
+    /* 0x001 */ u8 unk_1;
+    /* 0x002 */ u8 species;
+    /* 0x003 */ u8 unk_3[0x5D];
+    /* 0x060 */ MATRIX matrix;
+    /* 0x0A0 */ u8 unk_a0 [0xC];
+    /* 0x0AC */ f32 pos[3];
+    /* 0x0B8 */ u8 todo2[0x958];
+} MONSTER_WORK; // size: 0xa10?
 
 typedef struct {
     //total size:0x224

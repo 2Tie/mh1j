@@ -1,15 +1,15 @@
 {
   "measures": {
-    "fuzzy_match_percent": 0.3779613393100467,
-    "total_code": "4256520",
-    "matched_code": "16088",
-    "matched_code_percent": 0.3779613393100467,
-    "total_data": "1973880",
+    "fuzzy_match_percent": 0.38613884647010455,
+    "total_code": "4256500",
+    "matched_code": "16436",
+    "matched_code_percent": 0.38613884647010455,
+    "total_data": "1973872",
     "matched_data": "0",
     "matched_data_percent": 0.0,
     "total_functions": 16080,
-    "matched_functions": 128,
-    "matched_functions_percent": 0.7960199004975124,
+    "matched_functions": 130,
+    "matched_functions_percent": 0.808457711442786,
     "total_units": 162
   },
   "units": [
@@ -38609,23 +38609,23 @@
     {
       "name": "camera.c",
       "measures": {
-        "fuzzy_match_percent": 26.575983618546147,
-        "total_code": "27348",
-        "matched_code": "7268",
-        "matched_code_percent": 26.575983618546147,
-        "total_data": "1552",
+        "fuzzy_match_percent": 27.86885245901639,
+        "total_code": "27328",
+        "matched_code": "7616",
+        "matched_code_percent": 27.86885245901639,
+        "total_data": "1544",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 93,
-        "matched_functions": 45,
-        "matched_functions_percent": 48.38709677419355,
+        "matched_functions": 47,
+        "matched_functions_percent": 50.53763440860215,
         "total_units": 1
       },
       "sections": [
         {
           "name": ".text",
-          "size": "27348",
-          "fuzzy_match_percent": 26.575983618546147,
+          "size": "27328",
+          "fuzzy_match_percent": 27.86885245901639,
           "metadata": {}
         },
         {
@@ -38635,7 +38635,7 @@
         },
         {
           "name": ".rodata",
-          "size": "168",
+          "size": "160",
           "fuzzy_match_percent": 0
         }
       ],
@@ -38880,8 +38880,8 @@
         },
         {
           "name": "get_em_local0x221cf0",
-          "size": "64",
-          "fuzzy_match_percent": 0,
+          "size": "56",
+          "fuzzy_match_percent": 100,
           "address": 10528,
           "metadata": {}
         },
@@ -38894,8 +38894,8 @@
         },
         {
           "name": "cmd_set_tar0x221e60",
-          "size": "304",
-          "fuzzy_match_percent": 0,
+          "size": "292",
+          "fuzzy_match_percent": 100,
           "address": 10896,
           "metadata": {}
         },
@@ -118607,16 +118607,16 @@
       "id": "main",
       "name": "main",
       "measures": {
-        "fuzzy_match_percent": 0.9881699691657555,
-        "total_code": "1628060",
-        "matched_code": "16088",
-        "matched_code_percent": 0.9881699691657555,
-        "total_data": "1009144",
+        "fuzzy_match_percent": 1.0095575047296135,
+        "total_code": "1628040",
+        "matched_code": "16436",
+        "matched_code_percent": 1.0095575047296135,
+        "total_data": "1009136",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 6997,
-        "matched_functions": 128,
-        "matched_functions_percent": 1.8293554380448762,
+        "matched_functions": 130,
+        "matched_functions_percent": 1.8579391167643275,
         "total_units": 150
       }
     },

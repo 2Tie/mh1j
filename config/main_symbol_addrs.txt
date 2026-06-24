@@ -28831,6 +28831,9 @@ D_63FF90 = 0x63FF90; //ignore:true
 //func_535310 = 0x535310; //ignore:true
 //func_53B080 = 0x5B3080; //ignore:true
 
+//padding symbols
+__pad_cam_01 = 0x36b0e8;
+
 //em02_init0x57efa0 = 0x57EFA0; // allow_duplicated:True
 //em03_init0x5873d0 = 0x5873D0; // allow_duplicated:True
 //em04_init0x58b850 = 0x58B850; // allow_duplicated:True
