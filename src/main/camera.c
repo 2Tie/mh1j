@@ -609,10 +609,7 @@ static MATRIX* get_em_local0x221cf0(POINT_CAM_STATE* ptcam) {
     return retval;
 }
 
-
-INCLUDE_ASM("asm/main/nonmatchings/camera", cmd_set_pos0x221d30);
-//mismatches rodata right now, todo investigate
-/*void cmd_set_pos0x221d30(f32* result, POINT_CAM_STATE* pcam, s32* opargs) {
+void cmd_set_pos0x221d30(f32* result, POINT_CAM_STATE* pcam, s32* opargs) {
     PLAYER_WORK* player;
     MATRIX* em_mat;
 
@@ -644,7 +641,7 @@ INCLUDE_ASM("asm/main/nonmatchings/camera", cmd_set_pos0x221d30);
         break;
     }
     return;
-}*/
+}
 
 void cmd_set_tar0x221e60(f32* result, POINT_CAM_STATE* pcam, s32* opargs) {
     PLAYER_WORK* player;
@@ -681,7 +678,7 @@ INCLUDE_ASM("asm/main/nonmatchings/camera", cmd_copy0x221f90);
 INCLUDE_ASM("asm/main/nonmatchings/camera", get_angle0x222020);
 
 //temp rodata padding to keep alignment, move/remove as needed?
-const char __pad_cam_01[] = "\5\5\5\5"; //does nothing atm...
+const char __pad_cam_0x36B0E8[] = "\0\0\0\0"; //shunts cmd_cam_move jumptable to next 0x10
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", cmd_cam_move0x2220c0);
 

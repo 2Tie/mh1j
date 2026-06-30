@@ -13,6 +13,7 @@ MEMORY
 
 KEEP_SECTION
 {
+	.rodata,
 	.vutext,
 	.vudata,
 	.vubss,
