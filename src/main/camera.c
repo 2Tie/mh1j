@@ -9,7 +9,9 @@ extern PLAYER_WORK player_work0x3e4bf0[8];
 extern MONSTER_WORK em_work0x3d82a0[20];
 extern VIEW_WORK* lpView0x38a110;
 
+extern f32 flPow0x173670(f32, f32);
 extern f32 flSin0x173600(f32);
+extern f32 flAbs0x173540(f32);
 extern f32 flvecInnerProduct0x173220(f32*, f32*);
 extern f32 flvecCalcDistance0x173140(void*, void*);
 extern void View_move0x169a80();
@@ -35,8 +37,16 @@ extern s16 quake_time_tbl0x338ed0[6];
 extern void (*cam_init_sub_jmp0x3391f0[5])(CAMERA_WORK*, CAM_W_VIEW*);
 extern void (*cam_sub_jmp0x339210[5])(CAMERA_WORK*, CAM_W_VIEW*);
 extern f32 pch_pos0x339350[3][6];
-extern f32 dka_j_tbl0x3393D0[6];
-extern f32 dka_init_tbl0x3393a0[10];
+extern f32 dka_j_tbl0x3393D0[];
+/*f32 dka_j_tbl0x3393D0[6] = {
+    0.0f,
+    1.0f,
+    0.5f,
+    0.33333334f,
+    0.25f,
+    0.2f
+};*/
+extern f32 dka_init_tbl0x3393a0[5][2];
 
 //bss
 extern CAMERA_WORK CameraWork0x4767c0;
@@ -1195,17 +1205,17 @@ INCLUDE_ASM("asm/main/nonmatchings/camera", tri_diag0x224790);
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", Spline0x2248c0);
 
-void dCnvComplex0x224cb0(COMPLEX* arg0, f32 fparg0, f32 fparg1) {
+static void dCnvComplex0x224cb0(COMPLEX* arg0, f32 fparg0, f32 fparg1) {
     arg0->a = fparg0;
     arg0->b = fparg1;
 }
 
-void dSubComplex0x224cc0(COMPLEX* arg0, COMPLEX* arg1, COMPLEX* arg2) {
+static void dSubComplex0x224cc0(COMPLEX* arg0, COMPLEX* arg1, COMPLEX* arg2) {
     arg0->a = arg1->a - arg2->a;
     arg0->b = arg1->b - arg2->b;
 }
 
-void dMulComplex0x224cf0(COMPLEX* res, COMPLEX* arg1, COMPLEX* arg2) {
+static void dMulComplex0x224cf0(COMPLEX* res, COMPLEX* arg1, COMPLEX* arg2) {
     COMPLEX tmp;
     f32 v3 = arg2->a;
     f32 v2 = arg1->b;
@@ -1217,7 +1227,7 @@ void dMulComplex0x224cf0(COMPLEX* res, COMPLEX* arg1, COMPLEX* arg2) {
     *res = tmp;
 }
 
-void dDivComplex0x224d40(COMPLEX* res, COMPLEX* arg1, COMPLEX* arg2) {
+static void dDivComplex0x224d40(COMPLEX* res, COMPLEX* arg1, COMPLEX* arg2) {
     f32 power;
     COMPLEX tmp;
     f32 v2;
@@ -1238,7 +1248,77 @@ void dDivComplex0x224d40(COMPLEX* res, COMPLEX* arg1, COMPLEX* arg2) {
     }
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", DKA50x224dd0);
+//arg0 is a 5-size array of COMPLEX
+//arg1 has six floats? a scalar and then five vals?
+void DKA50x224dd0(COMPLEX* out, f32* products) {
+    COMPLEX diffprod, totalprod, tempout, ratio, difference;
+    f32 scaledproducts[6];
+    f32 scalar;
+    f32 invscale;
+    s32 innest;
+    s32 i;
+    s32 window_left;
+    COMPLEX* out_window;
+    f32* in_scale;
+    COMPLEX* in_window;
+    s32 inner;
+
+    scalar = 0.0f;
+    invscale = 1.0f / products[0];
+
+    for (i = 1;i <= 5;i++) {
+        scaledproducts[i] = invscale * products[i]; //scale vals
+    }
+    
+    for (i = 2;i <= 5;i++) {
+        invscale = flPow0x173670(flAbs0x173540(scaledproducts[i]), dka_j_tbl0x3393D0[i]); //raise values by powers
+        if (invscale > scalar) {
+            scalar = invscale; //save the largest
+        }
+    }
+    
+    scalar *= 5.0f; //multiply by five, new scalar
+
+    for (i = 0;i < 5;i++) {
+        out[i].a = scalar * dka_init_tbl0x3393a0[i][0]; //save the table vals to the complex array
+        out[i].b = scalar * dka_init_tbl0x3393a0[i][1]; //scaled of course
+    }
+    
+    for (window_left = 25;window_left >= 0;window_left--) {
+        inner = 0;
+        out_window = out;
+        
+        for (; inner < 5; inner++) {
+            dCnvComplex0x224cb0(&diffprod, 1.0f, 0.0f); //make a complex identity? (not imaginary mask!)
+            dCnvComplex0x224cb0(&totalprod, 1.0f, 0.0f); //and another!
+            
+            tempout = *out_window;
+            
+            innest = 0;
+            in_scale = &scaledproducts[0];
+            in_window = out;
+            
+            for (;innest < 5;innest++) {
+                dMulComplex0x224cf0(&totalprod, &totalprod, &tempout); //total kept in &90
+                
+                totalprod.a += in_scale[1];
+                
+                if (innest != inner) {
+                    dSubComplex0x224cc0(&difference, &tempout, in_window); //difference
+                    dMulComplex0x224cf0(&diffprod, &diffprod, &difference); //keep it in &98
+                }
+                
+                in_scale++;
+                in_window++;
+            }
+            dDivComplex0x224d40(&ratio, &totalprod, &diffprod); //ratio of total product over difference product
+            dSubComplex0x224cc0(out_window, &tempout, &ratio); //subtract ratio from table, save it out
+            
+            out_window++;
+        }
+    }
+}
+
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", Cardano0x225050);
 
