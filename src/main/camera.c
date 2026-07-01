@@ -521,7 +521,9 @@ INCLUDE_ASM("asm/main/nonmatchings/camera", fish_cam_sub0x221700);
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", NPCZoomInCameraRequest0x221820);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", NPCZoomInCameraCancel0x221850);
+void NPCZoomInCameraCancel0x221850(void) {
+       *(s16*)((u8*)&CameraWork0x4767c0 + 0x440) = 0;
+   }
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", NPCZoomInCameraCheck0x221860);
 
