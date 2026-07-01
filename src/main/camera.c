@@ -525,7 +525,9 @@ void NPCZoomInCameraCancel0x221850(void) {
        *(s16*)((u8*)&CameraWork0x4767c0 + 0x440) = 0;
    }
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", NPCZoomInCameraCheck0x221860);
+s32 NPCZoomInCameraCheck0x221860(void) {
+    return (u16) CameraWork0x4767c0.views[3].state.rot_something[0] != 0;
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", cam_plEX_zoom0x221870);
 
