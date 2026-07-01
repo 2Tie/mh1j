@@ -1332,7 +1332,12 @@ INCLUDE_ASM("asm/main/nonmatchings/camera", k_HitEmCamera0x225510);
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", QuestClearCameraRequest0x225d80);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", RedDragonEscapeCamera0x225e90);
+void DemoCameraRequest0x221b80(s32 , void*);
+
+void RedDragonEscapeCamera0x225e90(void* target_ptr) {
+    DemoCameraRequest0x221b80(0x1C, target_ptr);
+}
+
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", F_DragonEscapeCamera0x225ea0);
 
