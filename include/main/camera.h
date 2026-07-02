@@ -201,8 +201,8 @@ typedef struct {
     /* 0x76 */ s16 move_total;
     /* 0x78 */ union {s32 unk_78_s32; u8 unk_78_u8;};
     /* 0x7C */ s32 unk_7C;
-    /* 0x80 */ u16 target_yaw;
-    /* 0x82 */ u16 target_pitch;
+    /* 0x80 */ s16 target_yaw;
+    /* 0x82 */ s16 target_pitch;
     /* 0x84 */ s16 current_yaw;
     /* 0x86 */ s16 current_pitch;
     /* 0x88 */ s16 unk_88;

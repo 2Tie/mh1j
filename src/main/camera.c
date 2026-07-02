@@ -689,7 +689,17 @@ void cmd_set_tar0x221e60(f32* result, POINT_CAM_STATE* pcam, s32* opargs) {
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", cmd_copy0x221f90);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", get_angle0x222020);
+void get_angle0x222020(s16* arg0, CAM_W_VIEW* arg1) {
+    if (arg1->move_total > 0) {
+        arg0[0] = arg1->target_yaw - arg1->current_yaw;
+        arg0[0] = arg1->current_yaw + arg0[0] * arg1->move_cur / arg1->move_total;
+        arg0[1] = arg1->target_pitch - arg1->current_pitch;
+        arg0[1] = arg1->current_pitch + arg0[1] * arg1->move_cur / arg1->move_total;
+    } else {
+        arg0[0] = arg1->target_yaw;
+        arg0[1] = arg1->target_pitch;
+    }
+}
 
 //temp rodata padding to keep alignment, move/remove as needed?
 const char __pad_cam_0x36B0E8[] = "\0\0\0\0"; //shunts cmd_cam_move jumptable to next 0x10
