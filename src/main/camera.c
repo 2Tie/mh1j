@@ -1339,7 +1339,24 @@ void RedDragonEscapeCamera0x225e90(void* target_ptr) {
 }
 
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", F_DragonEscapeCamera0x225ea0);
+void DemoCameraRequest0x221b80(s32, void*);
+
+typedef struct {
+    /* 0x000 */ u8 unk_0[0x388];
+    /* 0x388 */ u8 unk_388;
+} UNK_STRUCT; // size: unk
+
+void F_DragonEscapeCamera0x225ea0(UNK_STRUCT* arg0) {
+    s32 demo_id;
+
+    if (arg0->unk_388 != 2) {
+        demo_id = 0x1F;
+    } else {
+        demo_id = 0xA;
+    }
+
+    DemoCameraRequest0x221b80(demo_id, arg0);
+}
 
 void PlayerDieCameraRequest0x225ed0(void) {
     DemoCameraRequest0x221b80(0x1A, NULL);
