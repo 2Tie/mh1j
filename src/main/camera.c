@@ -68,6 +68,7 @@ s32 Area_XZ_Check0x223410(CAM_GEOMETRY_ZONE*, f32*);
 s8 PachiTypeCheck0x221460(PLAYER_WORK*);
 s32 pch_lock_chk0x221400(PLAYER_WORK*);
 s32 point_camera0x221be0(CAMERA_WORK*, CAM_W_VIEW*);
+void DemoCameraRequest0x221b80(s32, void*);
 void quake_sub0x222bc0(QUAKE*);
 
 void CameraWorkInit0x21f3d0(void) {
@@ -1343,14 +1344,9 @@ INCLUDE_ASM("asm/main/nonmatchings/camera", k_HitEmCamera0x225510);
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", QuestClearCameraRequest0x225d80);
 
-void DemoCameraRequest0x221b80(s32 , void*);
-
 void RedDragonEscapeCamera0x225e90(void* target_ptr) {
     DemoCameraRequest0x221b80(0x1C, target_ptr);
 }
-
-
-void DemoCameraRequest0x221b80(s32, void*);
 
 typedef struct {
     /* 0x000 */ u8 unk_0[0x388];
