@@ -1348,12 +1348,7 @@ void RedDragonEscapeCamera0x225e90(void* target_ptr) {
     DemoCameraRequest0x221b80(0x1C, target_ptr);
 }
 
-typedef struct {
-    /* 0x000 */ u8 unk_0[0x388];
-    /* 0x388 */ u8 unk_388;
-} UNK_STRUCT; // size: unk
-
-void F_DragonEscapeCamera0x225ea0(UNK_STRUCT* arg0) {
+void F_DragonEscapeCamera0x225ea0(MONSTER_WORK* arg0) {
     s32 demo_id;
 
     if (arg0->unk_388 != 2) {
