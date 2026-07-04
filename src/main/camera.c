@@ -276,7 +276,10 @@ void set_to_std_cam0x220650(s32 view) {
     cam_w_view->which_view = -1;
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", cam_init_sub_stg0x220690);
+void cam_init_sub_stg0x220690(void* arg1) {
+    *(int*)((char*)arg1 + 0x60) = 0;
+    *(int*)((char*)arg1 + 0x68) = 0x3F75BE0B;
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", cam_sub_stg0x2206b0);
 
