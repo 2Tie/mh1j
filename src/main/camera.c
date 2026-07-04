@@ -522,8 +522,9 @@ INCLUDE_ASM("asm/main/nonmatchings/camera", fish_cam_sub0x221700);
 INCLUDE_ASM("asm/main/nonmatchings/camera", NPCZoomInCameraRequest0x221820);
 
 void NPCZoomInCameraCancel0x221850(void) {
-       *(s16*)((u8*)&CameraWork0x4767c0 + 0x440) = 0;
-   }
+   CameraWork0x4767c0.views[3].state.rot_something[0] = 0;
+}
+
 
 s32 NPCZoomInCameraCheck0x221860(void) {
     return (u16) CameraWork0x4767c0.views[3].state.rot_something[0] != 0;
