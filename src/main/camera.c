@@ -70,6 +70,8 @@ s32 pch_lock_chk0x221400(PLAYER_WORK*);
 s32 point_camera0x221be0(CAMERA_WORK*, CAM_W_VIEW*);
 void DemoCameraRequest0x221b80(s32, void*);
 void quake_sub0x222bc0(QUAKE*);
+void DKA50x224dd0(COMPLEX*, f32*);
+s32 Cardano0x225050(f32*, f32*);
 
 void CameraWorkInit0x21f3d0(void) {
     flMemset0x16f5f0(CameraWork0x4767c0, 0, sizeof(CameraWork0x4767c0));
@@ -1174,14 +1176,14 @@ INCLUDE_ASM("asm/main/nonmatchings/camera", CamRailMove0x223e90);
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", CamRailPoint0x223f00);
 
-f32 vInnerProductXZ0x223f90(f32* arg0, f32* arg1) {
+static f32 vInnerProductXZ0x223f90(f32* arg0, f32* arg1) {
     f32 x = arg0[0] * arg1[0];
     f32 z = arg0[2] * arg1[2];
 
     return x + z;
 }
 
-f32 vInnerProduct0x223fb0(f32* arg0, f32* arg1) {
+static f32 vInnerProduct0x223fb0(f32* arg0, f32* arg1) {
     f32 x = arg0[0] * arg1[0];
     f32 y = arg0[1] * arg1[1];
     f32 z = arg0[2] * arg1[2];
@@ -1189,7 +1191,93 @@ f32 vInnerProduct0x223fb0(f32* arg0, f32* arg1) {
     return x + y + z; 
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", GetOrthogonalPoint0x223fe0);
+//arg1 is one chunk of a series populated by Spline()
+//arg2 is an offset coord?
+//arg3 is a bool passed from a struct.. offset 0x20 of CamAreaPtr
+s32 GetOrthogonalPoint0x223fe0(f32* arg0, f32 arg1[4][3], f32* arg2, s32 arg3) {
+    f32 spB0[3];
+    f32 spA0[3];
+    f32 sp80[6];
+    COMPLEX sp50[5];
+    s32 retval;
+    s32 counter;
+
+    flvecCopy0x173300(spA0, arg2);
+    if (arg3 == 0) {
+        spA0[1] = 0;
+        SubVector0x120860(spB0, arg1[3], spA0);
+        if (!((arg1[0][0]*arg1[0][0] + arg1[0][1]*arg1[0][1] + arg1[0][2]*arg1[0][2]) > 0.0000000001)) {
+            if (!((arg1[1][0]*arg1[1][0] + arg1[1][1]*arg1[1][1] + arg1[1][2]*arg1[1][2]) > 0.0000000001)) {
+                if (!((arg1[2][0]*arg1[2][0] + arg1[2][1]*arg1[2][1] + arg1[2][2]*arg1[2][2]) > 0.0000000001)) {
+                    return 0;
+                }
+                *arg0 = -(vInnerProductXZ0x223f90(arg1[2], spB0) / vInnerProductXZ0x223f90(arg1[2], arg1[2]));
+                return 1;
+            }
+            sp80[0] = 2.0f * vInnerProductXZ0x223f90(arg1[1], arg1[1]);
+            sp80[1] = 3.0f * vInnerProductXZ0x223f90(arg1[1], arg1[2]);
+            sp80[2] = 2.0f * vInnerProductXZ0x223f90(arg1[1], spB0) + 
+                    vInnerProductXZ0x223f90(arg1[2], arg1[2]);
+            sp80[3] = vInnerProductXZ0x223f90(arg1[2], spB0);
+            return Cardano0x225050(arg0, sp80);
+        }
+        sp80[0] = 3.0f * vInnerProductXZ0x223f90(arg1[0], arg1[0]);
+        sp80[1] = 5.0f * vInnerProductXZ0x223f90(arg1[0], arg1[1]);
+        sp80[2] = 4.0f * vInnerProductXZ0x223f90(arg1[0], arg1[2]) + 
+                (2.0f * vInnerProductXZ0x223f90(arg1[1], arg1[1]));
+        
+        sp80[3] = 3.0f * (vInnerProductXZ0x223f90(arg1[0], spB0) + vInnerProductXZ0x223f90(arg1[1], arg1[2]));
+        sp80[4] = 2.0f * vInnerProductXZ0x223f90(arg1[1], spB0) + 
+                vInnerProductXZ0x223f90(arg1[2], arg1[2]);
+        sp80[5] = vInnerProductXZ0x223f90(arg1[2], spB0);
+        DKA50x224dd0(sp50, sp80);
+        
+        counter = retval = 0;
+        for (; counter < 5U; counter++) {
+            if (flAbs0x173540(sp50[counter].b) < 0.001f) {
+                retval++;
+                *arg0++ = sp50[counter].a;
+            }
+        }
+    } else {
+    SubVector0x120860(spB0, arg1[3], spA0);
+    if (!((arg1[0][0]*arg1[0][0] + arg1[0][1]*arg1[0][1] + arg1[0][2]*arg1[0][2]) > 0.0000000001)) {
+        if (!((arg1[1][0]*arg1[1][0] + arg1[1][1]*arg1[1][1] + arg1[1][2]*arg1[1][2]) > 0.0000000001)) {
+            if (!((arg1[2][0]*arg1[2][0] + arg1[2][1]*arg1[2][1] + arg1[2][2]*arg1[2][2]) > 0.0000000001)) {
+                return 0;
+            }
+            *arg0 = -(vInnerProduct0x223fb0(arg1[2], spB0) / 
+                      vInnerProduct0x223fb0(arg1[2], arg1[2]));
+            return 1;
+        }
+        sp80[0] = 2.0f * vInnerProduct0x223fb0(arg1[1], arg1[1]);
+        sp80[1] = 3.0f * vInnerProduct0x223fb0(arg1[1], arg1[2]);
+        sp80[2] = 2.0f * vInnerProduct0x223fb0(arg1[1], spB0) + 
+                vInnerProduct0x223fb0(arg1[2], arg1[2]);
+        sp80[3] = vInnerProduct0x223fb0(arg1[2], spB0);
+        return Cardano0x225050(arg0, sp80);
+    }
+    sp80[0] = 3.0f * vInnerProduct0x223fb0(arg1[0], arg1[0]);
+    sp80[1] = 5.0f * vInnerProduct0x223fb0(arg1[0], arg1[1]);
+    sp80[2] = 4.0f * vInnerProduct0x223fb0(arg1[0], arg1[2]) + 
+            (2.0f * vInnerProduct0x223fb0(arg1[1], arg1[1]));
+    sp80[3] = 3.0f * (vInnerProduct0x223fb0(arg1[0], spB0) + 
+                      vInnerProduct0x223fb0(arg1[1], arg1[2]));
+    sp80[4] = 2.0f * vInnerProduct0x223fb0(arg1[1], spB0) + 
+            vInnerProduct0x223fb0(arg1[2], arg1[2]);
+    sp80[5] = vInnerProduct0x223fb0(arg1[2], spB0);
+    DKA50x224dd0(sp50, sp80);
+        
+    counter = retval = 0;
+    for(;counter < 5u;counter++){
+        if (flAbs0x173540(sp50[counter].b) < 0.001f) {
+            retval++;
+            *arg0++ = sp50[counter].a;
+        }
+    }
+    }
+    return retval;
+}
 
 f32 ZoomRateCalc0x224660(f32 distance, CAM_DATA_ENTRY_HEADER* header) {
     f32 max;
