@@ -1,5 +1,8 @@
+AI DISCLOSURE:
+This project does not knowingly contain nor accept any code produced in any capacity by "AI" or LLMs. Likewise, the indexing or modification of the code in this repository by agents is strictly forbidden. If you want to make something cool, enrich yourself with the skills to do so! Don't ask autocomplete to do it for you!
+
 PROGRESS:
-a handful of functions in the main elf have been decompiled - automated tracking has not yet been set up.
+We are now past 1% match for the main ELF, with the total code including overlays resting at about 0.5% completion. For an interactive look at the current progress, take a look at https://decomp.dev/2Tie/mh1j.
 
 GETTING SET UP:
 You will need to have Python 3.9 or higher installed. You can check current version with "python3 --version".
