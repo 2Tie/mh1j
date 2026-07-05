@@ -1,15 +1,15 @@
 {
   "measures": {
-    "fuzzy_match_percent": 0.41677669508767345,
-    "total_code": "4256476",
-    "matched_code": "17740",
-    "matched_code_percent": 0.41677669508767345,
+    "fuzzy_match_percent": 0.42232317214133075,
+    "total_code": "4256456",
+    "matched_code": "17976",
+    "matched_code_percent": 0.42232317214133075,
     "total_data": "1973877",
     "matched_data": "0",
     "matched_data_percent": 0.0,
     "total_functions": 16080,
-    "matched_functions": 137,
-    "matched_functions_percent": 0.8519900497512438,
+    "matched_functions": 142,
+    "matched_functions_percent": 0.8830845771144279,
     "total_units": 162
   },
   "units": [
@@ -38609,23 +38609,23 @@
     {
       "name": "camera.c",
       "measures": {
-        "fuzzy_match_percent": 31.293015082735394,
-        "total_code": "27316",
-        "matched_code": "8548",
-        "matched_code_percent": 31.293015082735394,
+        "fuzzy_match_percent": 32.18053927315358,
+        "total_code": "27296",
+        "matched_code": "8784",
+        "matched_code_percent": 32.18053927315358,
         "total_data": "1549",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 93,
-        "matched_functions": 49,
-        "matched_functions_percent": 52.68817204301075,
+        "matched_functions": 54,
+        "matched_functions_percent": 58.06451612903226,
         "total_units": 1
       },
       "sections": [
         {
           "name": ".text",
-          "size": "27316",
-          "fuzzy_match_percent": 31.293015082735394,
+          "size": "27296",
+          "fuzzy_match_percent": 32.18053927315358,
           "metadata": {}
         },
         {
@@ -38817,15 +38817,15 @@
         },
         {
           "name": "NPCZoomInCameraCancel0x221850",
-          "size": "16",
-          "fuzzy_match_percent": 0,
+          "size": "12",
+          "fuzzy_match_percent": 100,
           "address": 9344,
           "metadata": {}
         },
         {
           "name": "NPCZoomInCameraCheck0x221860",
           "size": "16",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 9360,
           "metadata": {}
         },
@@ -38909,7 +38909,7 @@
         {
           "name": "get_angle0x222020",
           "size": "160",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 11344,
           "metadata": {}
         },
@@ -39244,15 +39244,15 @@
         },
         {
           "name": "RedDragonEscapeCamera0x225e90",
-          "size": "16",
-          "fuzzy_match_percent": 0,
+          "size": "12",
+          "fuzzy_match_percent": 100,
           "address": 27328,
           "metadata": {}
         },
         {
           "name": "F_DragonEscapeCamera0x225ea0",
-          "size": "48",
-          "fuzzy_match_percent": 0,
+          "size": "36",
+          "fuzzy_match_percent": 100,
           "address": 27344,
           "metadata": {}
         },
@@ -118607,16 +118607,16 @@
       "id": "main",
       "name": "main",
       "measures": {
-        "fuzzy_match_percent": 1.089669880394296,
-        "total_code": "1628016",
-        "matched_code": "17740",
-        "matched_code_percent": 1.089669880394296,
+        "fuzzy_match_percent": 1.1041796171489366,
+        "total_code": "1627996",
+        "matched_code": "17976",
+        "matched_code_percent": 1.1041796171489366,
         "total_data": "1009141",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 6997,
-        "matched_functions": 137,
-        "matched_functions_percent": 1.9579819922824069,
+        "matched_functions": 142,
+        "matched_functions_percent": 2.0294411890810347,
         "total_units": 150
       }
     },
