@@ -68,6 +68,7 @@ s32 Area_XZ_Check0x223410(CAM_GEOMETRY_ZONE*, f32*);
 s8 PachiTypeCheck0x221460(PLAYER_WORK*);
 s32 pch_lock_chk0x221400(PLAYER_WORK*);
 s32 point_camera0x221be0(CAMERA_WORK*, CAM_W_VIEW*);
+void DemoCameraRequest0x221b80(s32, void*);
 void quake_sub0x222bc0(QUAKE*);
 
 void CameraWorkInit0x21f3d0(void) {
@@ -521,9 +522,14 @@ INCLUDE_ASM("asm/main/nonmatchings/camera", fish_cam_sub0x221700);
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", NPCZoomInCameraRequest0x221820);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", NPCZoomInCameraCancel0x221850);
+void NPCZoomInCameraCancel0x221850(void) {
+   CameraWork0x4767c0.views[3].state.rot_something[0] = 0;
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", NPCZoomInCameraCheck0x221860);
+
+s32 NPCZoomInCameraCheck0x221860(void) {
+    return (u16) CameraWork0x4767c0.views[3].state.rot_something[0] != 0;
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", cam_plEX_zoom0x221870);
 
@@ -685,7 +691,17 @@ void cmd_set_tar0x221e60(f32* result, POINT_CAM_STATE* pcam, s32* opargs) {
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", cmd_copy0x221f90);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", get_angle0x222020);
+void get_angle0x222020(s16* arg0, CAM_W_VIEW* arg1) {
+    if (arg1->move_total > 0) {
+        arg0[0] = arg1->target_yaw - arg1->current_yaw;
+        arg0[0] = arg1->current_yaw + arg0[0] * arg1->move_cur / arg1->move_total;
+        arg0[1] = arg1->target_pitch - arg1->current_pitch;
+        arg0[1] = arg1->current_pitch + arg0[1] * arg1->move_cur / arg1->move_total;
+    } else {
+        arg0[0] = arg1->target_yaw;
+        arg0[1] = arg1->target_pitch;
+    }
+}
 
 //temp rodata padding to keep alignment, move/remove as needed?
 const char __pad_cam_0x36B0E8[] = "\0\0\0\0"; //shunts cmd_cam_move jumptable to next 0x10
@@ -1328,9 +1344,21 @@ INCLUDE_ASM("asm/main/nonmatchings/camera", k_HitEmCamera0x225510);
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", QuestClearCameraRequest0x225d80);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", RedDragonEscapeCamera0x225e90);
+void RedDragonEscapeCamera0x225e90(void* target_ptr) {
+    DemoCameraRequest0x221b80(0x1C, target_ptr);
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", F_DragonEscapeCamera0x225ea0);
+void F_DragonEscapeCamera0x225ea0(MONSTER_WORK* arg0) {
+    s32 demo_id;
+
+    if (arg0->unk_388 != 2) {
+        demo_id = 0x1F;
+    } else {
+        demo_id = 0xA;
+    }
+
+    DemoCameraRequest0x221b80(demo_id, arg0);
+}
 
 void PlayerDieCameraRequest0x225ed0(void) {
     DemoCameraRequest0x221b80(0x1A, NULL);

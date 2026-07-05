@@ -275,7 +275,9 @@ typedef struct {
     /* 0x060 */ MATRIX matrix;
     /* 0x0A0 */ u8 unk_a0 [0xC];
     /* 0x0AC */ f32 pos[3];
-    /* 0x0B8 */ u8 todo2[0x958];
+    /* 0x0B8 */ u8 unk_0B8[0x2D0];
+    /* 0x388 */ u8 unk_388; // read in F_DragonEscapeCamera
+    /* 0x389 */ u8 unk_389[0x687];
 } MONSTER_WORK; // size: 0xa10?
 
 typedef struct {
