@@ -260,7 +260,9 @@ typedef struct {
     /* 0x2DE */ u8 unk_2DE[0x485];
     /* 0x763 */ u8 sight_timer;
     /* 0x764 */ u8 unk_764;
-    /* 0x765 */ u8 unk_765[0x161];
+    /* 0x765 */ u8 unk_765[0x113];
+    /* 0x878 */ void* unk_878_ptr;
+    /* 0x87C */ u8 unk_87C[0x4A];
     /* 0x8C6 */ u8 ojiisan_timer;
     /* 0x8C7 */ u8 unk_8C7[0x27];
     /* 0x8EE */ s16 unk_8EE;

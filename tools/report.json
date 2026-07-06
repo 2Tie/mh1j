@@ -1,15 +1,15 @@
 {
   "measures": {
-    "fuzzy_match_percent": 0.47062892112454746,
-    "total_code": "4256432",
-    "matched_code": "20032",
-    "matched_code_percent": 0.47062892112454746,
+    "fuzzy_match_percent": 0.498544775523284,
+    "total_code": "4256388",
+    "matched_code": "21220",
+    "matched_code_percent": 0.498544775523284,
     "total_data": "1973877",
     "matched_data": "0",
     "matched_data_percent": 0.0,
     "total_functions": 16080,
-    "matched_functions": 145,
-    "matched_functions_percent": 0.9017412935323383,
+    "matched_functions": 151,
+    "matched_functions_percent": 0.9390547263681591,
     "total_units": 162
   },
   "units": [
@@ -38609,23 +38609,23 @@
     {
       "name": "camera.c",
       "measures": {
-        "fuzzy_match_percent": 39.747726606042825,
-        "total_code": "27272",
-        "matched_code": "10840",
-        "matched_code_percent": 39.747726606042825,
+        "fuzzy_match_percent": 44.17511385338622,
+        "total_code": "27228",
+        "matched_code": "12028",
+        "matched_code_percent": 44.17511385338622,
         "total_data": "1549",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 93,
-        "matched_functions": 57,
-        "matched_functions_percent": 61.29032258064516,
+        "matched_functions": 63,
+        "matched_functions_percent": 67.74193548387096,
         "total_units": 1
       },
       "sections": [
         {
           "name": ".text",
-          "size": "27272",
-          "fuzzy_match_percent": 39.747726606042825,
+          "size": "27228",
+          "fuzzy_match_percent": 44.17511385338622,
           "metadata": {}
         },
         {
@@ -38776,35 +38776,35 @@
         {
           "name": "cam_init_sub_playerEX0x221580",
           "size": "32",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 8624,
           "metadata": {}
         },
         {
           "name": "cam_sub_playerEX0x2215a0",
-          "size": "96",
-          "fuzzy_match_percent": 0,
+          "size": "88",
+          "fuzzy_match_percent": 100,
           "address": 8656,
           "metadata": {}
         },
         {
           "name": "cam_plEX_fishing0x221600",
-          "size": "224",
-          "fuzzy_match_percent": 0,
+          "size": "212",
+          "fuzzy_match_percent": 100,
           "address": 8752,
           "metadata": {}
         },
         {
           "name": "fishing_cam_chk0x2216e0",
           "size": "32",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 8976,
           "metadata": {}
         },
         {
           "name": "fish_cam_sub0x221700",
-          "size": "288",
-          "fuzzy_match_percent": 0,
+          "size": "276",
+          "fuzzy_match_percent": 100,
           "address": 9008,
           "metadata": {}
         },
@@ -38831,8 +38831,8 @@
         },
         {
           "name": "cam_plEX_zoom0x221870",
-          "size": "560",
-          "fuzzy_match_percent": 0,
+          "size": "548",
+          "fuzzy_match_percent": 100,
           "address": 9376,
           "metadata": {}
         },
@@ -118607,16 +118607,16 @@
       "id": "main",
       "name": "main",
       "measures": {
-        "fuzzy_match_percent": 1.2304879936509965,
-        "total_code": "1627972",
-        "matched_code": "20032",
-        "matched_code_percent": 1.2304879936509965,
+        "fuzzy_match_percent": 1.3034974519757632,
+        "total_code": "1627928",
+        "matched_code": "21220",
+        "matched_code_percent": 1.3034974519757632,
         "total_data": "1009141",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 6997,
-        "matched_functions": 145,
-        "matched_functions_percent": 2.0723167071602115,
+        "matched_functions": 151,
+        "matched_functions_percent": 2.158067743318565,
         "total_units": 150
       }
     },
