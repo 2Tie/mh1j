@@ -47,6 +47,7 @@ extern f32 dka_j_tbl0x3393D0[];
     0.2f
 };*/
 extern f32 dka_init_tbl0x3393a0[5][2];
+extern void* Demo_cam_tbl0x348d70[35];
 
 //bss
 extern CAMERA_WORK CameraWork0x4767c0;
@@ -54,7 +55,7 @@ extern CAMERA_WORK CameraWork0x4767c0;
 //protos
 void cmd_set_pos0x221d30(f32*, POINT_CAM_STATE*, s32*);
 void cmd_set_tar0x221e60(f32*, POINT_CAM_STATE*, s32*);
-void cmd_copy0x221f90(f32*, s8);
+void cmd_copy0x221f90(f32*, s32);
 void cmd_cam_move0x2220c0(CAMERA_WORK*, CAM_W_VIEW*, void*);
 void cam2view0x2227a0(CAMERA_WORK*);
 void cam_sw_set_sub0x222d80(CAMERA_WORK*);
@@ -67,7 +68,8 @@ s32 CamAreaAttribChk0x2233c0(CAM_DATA_ENTRY_HEADER*, PLAYER_WORK*);
 s32 Area_XZ_Check0x223410(CAM_GEOMETRY_ZONE*, f32*);
 s8 PachiTypeCheck0x221460(PLAYER_WORK*);
 s32 pch_lock_chk0x221400(PLAYER_WORK*);
-s32 point_camera0x221be0(CAMERA_WORK*, CAM_W_VIEW*);
+u32 point_camera0x221be0(CAMERA_WORK*, CAM_W_VIEW*);
+s32 point_cam_sub0x222410(CAMERA_WORK*, CAM_W_VIEW*, POINT_CAM_STATE*);
 void DemoCameraRequest0x221b80(s32, void*);
 void quake_sub0x222bc0(QUAKE*);
 void DKA50x224dd0(COMPLEX*, f32*);
@@ -609,7 +611,43 @@ s8 DemoCameraCheck0x221bd0(void) {
     return CameraWork0x4767c0.views[4].state_demo.demo_status;
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", point_camera0x221be0);
+u32 point_camera0x221be0(CAMERA_WORK* cam, CAM_W_VIEW* view) {
+    f32 temp_f;
+    u8 status;
+    s32 ret;
+    POINT_CAM_STATE* state;
+
+    status = view->cmd_status;
+    state = &view->state_point;
+    switch (status) {
+    case 0:
+        view->cmd_status = status + 1;
+        state->point.logic_pos = Demo_cam_tbl0x348d70[state->point.unk_e[0]];
+        flvecCopy0x173300(view->cam_pos, cam->pos);
+        flvecCopy0x173300(state->pos, cam->pos);
+        flvecCopy0x173300(view->target_pos, cam->target);
+        flvecCopy0x173300(state->tar, cam->target);
+        temp_f = cam->roll;
+        view->yaw = temp_f;
+        state->yaw_end = temp_f;
+        temp_f = cam->pitch;
+        view->pitch = temp_f;
+        state->pitch_end = temp_f;
+        view->move_total = -1;
+        view->move_cur = -1;
+        /* fallthrough */
+    case 1:
+        ret = point_cam_sub0x222410(cam, view, state);
+        if (ret > 0) {
+            ret = view->cmd_status + 1;
+            view->cmd_status = view->cmd_status + 1;
+    case 2:
+            ret = 1;
+            return ret; //?
+        }
+    }
+    return;
+}
 
 static MATRIX* get_em_local0x221cf0(POINT_CAM_STATE* ptcam) {
     MONSTER_WORK* mon;
@@ -691,7 +729,22 @@ void cmd_set_tar0x221e60(f32* result, POINT_CAM_STATE* pcam, s32* opargs) {
     return;
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", cmd_copy0x221f90);
+void cmd_copy0x221f90(f32* vals, s32 what) {
+    switch (what) {
+    case 0:
+        flvecCopy0x173300(&vals[3], &vals[0]);
+        break;
+    case 1:
+        flvecCopy0x173300(&vals[9], &vals[6]);
+        break;
+    case 2:
+        vals[13] = vals[12];
+        break;
+    case 3:
+        vals[15] = vals[14];
+        break;
+    }
+}
 
 void get_angle0x222020(s16* arg0, CAM_W_VIEW* arg1) {
     if (arg1->move_total > 0) {
@@ -793,7 +846,7 @@ s32 point_cam_sub0x222410(CAMERA_WORK* cam_w, CAM_W_VIEW* view, POINT_CAM_STATE*
         view->move_cur = move_amt;
         break;
     case 19:
-        cmd_copy0x221f90(arg2->pos, op->args);
+        cmd_copy0x221f90(arg2->pos, op->argb[0]);
         break;
     case 20:
         arg2->point.logic_loop = op_ptr;
