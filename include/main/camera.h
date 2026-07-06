@@ -185,6 +185,46 @@ typedef struct {
 } POINT_CAM_STATE; //size: 0x70
 
 typedef struct {
+    /* 0x00 */ f32 cam_offset[3];
+    /* 0x0C */ f32 target_offset[3];
+    /* 0x18 */ u8 padding[0x8];
+} FISH_CAM_OFFSET; // size: 0x20
+
+typedef struct {
+    /* 0x00 */ u8 unk_0[0x14];
+    /* 0x14 */ u16 unk_14;
+} FISHING_DATA;
+
+typedef struct {
+    /* 0x00 */ union {u8 active; s32 active_s32;}; // Had to use int to match cam_init_sub_playerEX
+    /* 0x04 */ s32 is_fishing;
+    /* 0x08 */ FISHING_DATA* data;
+} CAM_FISHING_CONTROL; // size: 0xC
+
+typedef struct {
+    /* 0x00 */ u8 unk_0[0x2];
+    /* 0x02 */ u8 unk_2;
+    /* 0x03 */ u8 unk_6[0xA9];
+    /* 0xAC */ f32 unk_AC[3];
+} UNK_ZOOM_STRUCT; // size: unk
+
+typedef struct {
+    /* 0x00 */ union {u8 state; s32 state_s32;}; // Had to use int to match cam_init_sub_playerEX
+    /* 0x04 */ UNK_ZOOM_STRUCT* unk_4;
+    /* 0x08 */ f32 unk_8[3];
+    /* 0x14 */ f32 unk_14[3];
+    /* 0x20 */ u16 unk_20;
+    /* 0x22 */ s16 unk_22;
+} CAM_ZOOM_CONTROL; // size: 0x24
+
+typedef struct {
+    /* 0x00 */ u8 unk_0[0x4];
+    /* 0x04 */ CAM_FISHING_CONTROL fishing_control;
+    /* 0x10 */ CAM_ZOOM_CONTROL zoom_control;
+    /* 0x34 */ u8 unk_34[0x3C];
+} CAM_VIEW_STATE_PLAYER; // size: 0x70
+
+typedef struct {
     /* 0x00 */ f32 cam_pos[3];
     /* 0x0C */ f32 target_pos[3];
     /* 0x18 */ f32 prev_cam_pos[3];
@@ -211,6 +251,7 @@ typedef struct {
                     CAM_VIEW_STATE state;
                     CAM_VIEW_STATE_DEMO state_demo;
                     CAM_VIEW_STATE_PACHINGER state_pchngr;
+                    CAM_VIEW_STATE_PLAYER state_player;
                     POINT_CAM_STATE state_point;
                 };
 } CAM_W_VIEW; // size: 0x100

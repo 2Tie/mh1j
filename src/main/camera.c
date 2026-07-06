@@ -29,8 +29,11 @@ extern void SubVector0x120860(f32*, f32*, f32*);
 extern void AddVector0x120820(f32*, f32*, f32*);
 extern void flvecApplyMat330x172e00(f32*, f32*, MATRIX);
 extern void flvecCopy0x173300(f32*, f32*);
+extern void flvecRotY0x173070(f32*, f32);
+extern void cpInterVector0x120e30(f32, f32*, f32*, f32*);
 extern s32 Pl_scope_ck0x154d00(PLAYER_WORK*);
 extern s16 act_ck0x14ef20(PLAYER_WORK*, s8, s8);
+extern s32 pl_flag_ck0x14ef60(PLAYER_WORK*, u32);
 
 //rodata
 extern s16 quake_time_tbl0x338ed0[6];
@@ -48,6 +51,7 @@ extern f32 dka_j_tbl0x3393D0[];
 };*/
 extern f32 dka_init_tbl0x3393a0[5][2];
 extern void* Demo_cam_tbl0x348d70[35];
+extern FISH_CAM_OFFSET* fishcam_ofs_tbl0x339080[90];
 
 //bss
 extern CAMERA_WORK CameraWork0x4767c0;
@@ -74,6 +78,10 @@ void DemoCameraRequest0x221b80(s32, void*);
 void quake_sub0x222bc0(QUAKE*);
 void DKA50x224dd0(COMPLEX*, f32*);
 s32 Cardano0x225050(f32*, f32*);
+void cam_plEX_fishing0x221600(CAMERA_WORK*, CAM_W_VIEW*, CAM_FISHING_CONTROL*);
+void cam_plEX_zoom0x221870(CAMERA_WORK*, CAM_W_VIEW*, CAM_ZOOM_CONTROL*);
+s32 fish_cam_sub0x221700(CAMERA_WORK*, CAM_W_VIEW*, CAM_FISHING_CONTROL*);
+s32 fishing_cam_chk0x2216e0(PLAYER_WORK*);
 
 void CameraWorkInit0x21f3d0(void) {
     flMemset0x16f5f0(CameraWork0x4767c0, 0, sizeof(CameraWork0x4767c0));
@@ -514,15 +522,96 @@ s8 GetPachingerInfo0x221530(void* arg0, u8* arg1, u8* arg2, f32* arg3) {
     return view_state->pachi_type;
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", cam_init_sub_playerEX0x221580);
+void cam_init_sub_playerEX0x221580(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view) {
+    cam_view->pitch = DEG_55_RAD;
+    cam_view->yaw = 0.0f;
+    
+    cam_view->state_player.fishing_control.active_s32 = 0;
+    cam_view->state_player.zoom_control.state_s32 = 0;
+    cam_view->state_player.zoom_control.unk_20 = 0;  
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", cam_sub_playerEX0x2215a0);
+void cam_sub_playerEX0x2215a0(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view) {
+    CAM_VIEW_STATE_PLAYER* view_state;
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", cam_plEX_fishing0x221600);
+    view_state = &cam_view->state_player;
+    
+    cam_plEX_fishing0x221600(cam_work, cam_view, &view_state->fishing_control);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", fishing_cam_chk0x2216e0);
+    if (cam_view->this_view_active == false) {
+        cam_plEX_zoom0x221870(cam_work, cam_view, &view_state->zoom_control);
+    }
+}
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", fish_cam_sub0x221700);
+void cam_plEX_fishing0x221600(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view, CAM_FISHING_CONTROL* cam_fish) {
+    PLAYER_WORK* player;
+    s32 is_fishing_active;
+    
+    cam_view->this_view_active = false;
+    player = cam_work->player_ptr;
+
+    is_fishing_active = fishing_cam_chk0x2216e0(player);
+    cam_fish->is_fishing = is_fishing_active;
+
+    if (is_fishing_active == false) {
+        cam_fish->active = 0;
+        return;
+    }
+
+    if (cam_fish->active == false) {
+        cam_fish->active += 1;
+        cam_fish->data = player->unk_878_ptr;
+
+        if (game_w0x3f33f0.current_area_id != 0x4B) {
+            cam_view->pitch = DEG_55_RAD;
+        } else {
+            cam_view->pitch = DEG_50_RAD;
+        }
+        
+        cam_view->yaw = 0.0f;
+    }
+
+    if (fish_cam_sub0x221700(cam_work, cam_view, cam_fish) >= 0) {
+        cam_view->this_view_active = true;
+    }
+}
+
+s32 fishing_cam_chk0x2216e0(PLAYER_WORK* player) {
+    return pl_flag_ck0x14ef60(player, 0x80000) != 0;
+}
+
+s32 fish_cam_sub0x221700(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view, CAM_FISHING_CONTROL* cam_fish) {
+    f32 tmp_vec[3];
+    f32 angle_rad;
+
+    PLAYER_WORK* player;
+    FISHING_DATA* fish_data;
+    FISH_CAM_OFFSET* fish_offsets;
+        
+    player = cam_work->player_ptr;
+    
+    fish_data = cam_fish->data;
+    if (fish_data == NULL) {
+        return -1;
+    }
+
+    fish_offsets = fishcam_ofs_tbl0x339080[game_w0x3f33f0.current_area_id];
+    if (fish_offsets == NULL) {
+        return -1;
+    }
+
+    angle_rad = DEG2RAD * fish_data->unk_14;
+
+    flvecCopy0x173300(tmp_vec, fish_offsets->cam_offset);
+    flvecRotY0x173070(tmp_vec, angle_rad);
+    AddVector0x120820(cam_view->cam_pos, player->pos, tmp_vec);
+    
+    flvecCopy0x173300(tmp_vec, fish_offsets->target_offset);
+    flvecRotY0x173070(tmp_vec, angle_rad);
+    AddVector0x120820(cam_view->target_pos, player->pos, tmp_vec);
+
+    return 0;
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", NPCZoomInCameraRequest0x221820);
 
@@ -535,7 +624,70 @@ s32 NPCZoomInCameraCheck0x221860(void) {
     return (u16) CameraWork0x4767c0.views[3].state.rot_something[0] != 0;
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", cam_plEX_zoom0x221870);
+void cam_plEX_zoom0x221870(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view, CAM_ZOOM_CONTROL* cam_zoom) {
+    PLAYER_WORK* player;
+    CAM_W_VIEW* active_view;
+    UNK_ZOOM_STRUCT* unk;
+    f32 tmp;
+
+    cam_view->this_view_active = false;
+
+    switch (cam_zoom->state) {
+        case 0:
+            if (cam_zoom->unk_20 != 0) {
+                cam_zoom->unk_22 = 0;
+                cam_zoom->state += 1;
+            } 
+            return;
+
+        case 1:
+            if (cam_zoom->unk_22 < 15) {
+                cam_zoom->unk_22 += 1;
+            }
+            if (cam_zoom->unk_20 == 0) {
+                cam_zoom->state += 1;
+            }
+            break;
+
+        case 2:
+            if (cam_zoom->unk_22 > 0) {
+                cam_zoom->unk_22 -= 1;
+            }
+            if (cam_zoom->unk_20 != 0) {
+                cam_zoom->state = 1;
+            } else if (cam_zoom->unk_22 == 0) {
+                cam_zoom->state = 0;
+                return;
+            }
+            break;
+
+        default:
+            break;
+    }
+   
+    player = cam_work->player_ptr;
+    active_view = &cam_work->views[cam_work->active_view];
+    unk = cam_zoom->unk_4;
+    
+    if (unk->unk_2 == 3) {
+        cpInterVector0x120e30(0.5f, cam_zoom->unk_14, player->pos, unk->unk_AC);
+        cam_zoom->unk_14[1] += 64.0f;
+    } else {
+        cpInterVector0x120e30(0.2f, cam_zoom->unk_14, player->pos, cam_zoom->unk_8);
+        cam_zoom->unk_14[1] += 150.0f;
+    }
+
+    tmp = 0.06666667f * cam_zoom->unk_22;
+
+    cpInterVector0x120e30(tmp, cam_view->target_pos, cam_zoom->unk_14, active_view->target_pos);
+
+    cam_view->pitch = (active_view->pitch * (1.0f - tmp)) + (DEG_30_RAD * tmp);
+
+    flvecCopy0x173300(cam_view->cam_pos, active_view->cam_pos);
+
+    cam_view->yaw = active_view->yaw;
+    cam_view->this_view_active = true;
+}
 
 void cam_init_sub_demo0x221aa0(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view) {
     cam_view->yaw = 0;
