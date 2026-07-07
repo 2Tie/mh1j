@@ -12,7 +12,7 @@ void RotateZ0x120de0(MATRIX, f32);
 
 extern void flmatInit0x171ce0(MATRIX);
 extern void flmatSetXYZ330x172140(MATRIX, f32, f32, f32);
-extern void flvecApplyMat330x172e00(f32[], f32[], f32[]);
+extern void flvecApplyMat330x172e00(f32[], f32[], MATRIX);
 extern void flvecApplyMat0x172ee0(f32[], f32[], f32[]);
 extern f32 flvecCalcLength0x1730f0(f32[]);
 extern f32 flvecNormalize0x1731b0(f32[]);
@@ -59,9 +59,9 @@ f32 (*cpRotMatrixYXZ20x120310(s32 angs[], MATRIX mat))[4] {
     return mat;
 }
 
-f32* cpApplyMatrix0x120370(f32 vec[], f32 scalar[], f32 mat[]) {
-    flvecApplyMat330x172e00(mat, scalar, vec);
-    return mat;
+f32* cpApplyMatrix0x120370(MATRIX mat, f32 scalar[], f32 vec[]) {
+    flvecApplyMat330x172e00(vec, scalar, mat);
+    return vec;
 }
 
 s32 calc_vec_ang0x1203a0(f32 v1x, f32 v1y, f32 v2x, f32 v2y) {
@@ -328,6 +328,11 @@ s32 AarcTan20x120e80(f32 y, f32 x) {
     return (65536.0f / (2.0f * PI)) * flArcTan20x1735e0(y, x);
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/math", nlCalcPoint0x120ec0);
+void nlCalcPoint0x120ec0(f32* arg0, f32* arg1, MATRIX arg2) {
+    flvecApplyMat330x172e00(arg0, arg1, arg2);
+    arg0[0] = (arg0[0] + arg2[3][0]);
+    arg0[1] = (arg0[1] + arg2[3][1]);
+    arg0[2] = (arg0[2] + arg2[3][2]);
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/math", CalcDistanceXZ0x120f20);
