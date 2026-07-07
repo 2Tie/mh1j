@@ -289,7 +289,11 @@ void set_to_std_cam0x220650(s32 view) {
     cam_w_view->which_view = -1;
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", cam_init_sub_stg0x220690);
+void cam_init_sub_stg0x220690(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view)
+{
+    cam_view->yaw = 0;
+    cam_view->pitch = DEG_55_RAD;
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", cam_sub_stg0x2206b0);
 
