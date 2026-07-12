@@ -189,7 +189,7 @@ $(AFS_OVERLAYS):
 
 $(WIBO):
 	@mkdir -p $(BIN_DIR)
-	wget -O $@ https://github.com/decompals/wibo/releases/download/0.6.13/wibo
+	wget -O $@ https://github.com/decompals/wibo/releases/download/1.2.0/wibo-i686
 	chmod +x $(WIBO)
 
 $(MWCCPS2):
