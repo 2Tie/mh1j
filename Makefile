@@ -137,6 +137,15 @@ tools: $(MWCCPS2) $(WIBO) $(EEGCC) $(AS) $(MWCCGAP) $(M2CTX)
 
 setup: $(OVERLAY_BINS) tools
 
+.PHONY: format
+format:
+	@if ! command -v clang-format >/dev/null 2>&1; then \
+		echo "'clang-format' not installed."; \
+		exit 1; \
+	fi
+	@find . -type f \( -name "*.c" -o -name "*.h" \) -exec clang-format -i {} +
+	@echo "Files formatted."
+
 $(MAIN_TARGET): $(ALL_O_FILES) $(LINKER_SCRIPT)
 	@$(LD) $(LD_FLAGS) -o $@ \
 		$(LINKER_SCRIPT) \

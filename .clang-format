@@ -1,0 +1,39 @@
+---
+Language: C
+AlignEscapedNewlines: LeftWithLastLine
+AlignTrailingComments:
+  Kind: Always
+  OverEmptyLines: 0
+AllowShortBlocksOnASingleLine: Empty
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Empty
+BreakBeforeBraces: Attach
+BreakBeforeCloseBracketBracedList: true
+ColumnLimit: 0
+IndentCaseLabels: true
+IndentWidth: 4
+KeepEmptyLines:
+  AtEndOfFile: false
+  AtStartOfBlock: false
+  AtStartOfFile: false
+MaxEmptyLinesToKeep: 1
+NumericLiteralCase:
+  ExponentLetter: Leave
+  HexDigit: Upper
+  Prefix: Leave
+  Suffix: Leave
+PointerAlignment: Left
+ReferenceAlignment: Right
+RemoveEmptyLinesInUnwrappedLines: true
+SeparateDefinitionBlocks: Leave
+SkipMacroDefinitionBody: true
+SpaceAfterCStyleCast: true
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeParens: ControlStatements
+SpaceInEmptyBraces: Never
+SpacesInLineCommentPrefix:
+  Minimum: 1
+  Maximum: 1
+SortIncludes: false
+TabWidth: 4
+UseTab: Never
