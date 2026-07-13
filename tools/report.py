@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from pathlib import Path
 import pprint
 import json
 
@@ -220,9 +221,16 @@ for l in file:
         elif(v[4].endswith(".c.o)")):
           #open the src/ c file and check if it's got an INCLUDE_ASM line that ends with v[3] plus );
           tulines = []
-          fname = "src/" + mo.name + "/" + v[4][1:-3]
+          #fname = "src/" + mo.name + "/" + v[4][1:-3]
+          flist = list(Path("src/" + mo.name).rglob(v[4][1:-3]))
+          if(len(flist) == 0):
+            print("REPORT.PY ERROR: did not find " + v[4][1:-3])
+            break
+          if(len(flist) > 1):
+            print("REPORT.PY ERROR: multiple matches for " + v[4][1:-3])
+            break
           #print("  opening " + fname)
-          with open(fname, 'r') as tu:
+          with open(flist[0], 'r') as tu:
             tulines = tu.readlines()
           func.fuzzy_match_percent = 100 #so far i've only been inserting "done" funcs
           for line in tulines:

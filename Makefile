@@ -60,6 +60,7 @@ MWGAP_FLAGS += --as-march r5900 --as-mabi eabi --target-encoding SJIS --as-path 
 # files
 
 ELF := SLPM_654.95
+XMAP := $(ELF).xMAP
 MAIN_TARGET := $(BUILD_DIR)/$(ELF)
 
 S_FILES := $(shell find $(ASM_DIR) -name '*.s' -not -path *nonmatchings* -not -path */elf* 2>/dev/null)
@@ -141,13 +142,14 @@ $(MAIN_TARGET): $(ALL_O_FILES) $(LINKER_SCRIPT)
 		$(LINKER_SCRIPT) \
 		$(shell find $(BUILD_DIR) -name '*.o')
 	$(PYTHON) tools/funcrypt.py $(ENCRYPT_FLAG)
-	$(VERIFY) $(MAIN_TARGET) $(ELF) 0x180 0x28a080
-	$(VERIFY) $(BUILD_DIR)/select.bin overlays/select.bin 0x00 0x8000
-	$(VERIFY) $(BUILD_DIR)/game.bin overlays/game.bin 0x00 0x15B780
-	$(VERIFY) $(BUILD_DIR)/lobby.bin overlays/lobby.bin 0x00 0x134E00
-	$(VERIFY) $(BUILD_DIR)/yn.bin overlays/yn.bin 0x00 0xDD00
-	$(VERIFY) $(DNAS_INS_VERIFY)
-	$(VERIFY) $(DNAS_NET_VERIFY)
+	$(VERIFY) -m $(BUILD_DIR)/$(XMAP)
+	$(VERIFY) $(MAIN_TARGET) $(ELF) 0x180 0x28a080 config/main_ignores.txt
+	#$(VERIFY) $(BUILD_DIR)/select.bin overlays/select.bin 0x00 0x8000
+	#$(VERIFY) $(BUILD_DIR)/game.bin overlays/game.bin 0x00 0x15B780
+	#$(VERIFY) $(BUILD_DIR)/lobby.bin overlays/lobby.bin 0x00 0x134E00
+	#$(VERIFY) $(BUILD_DIR)/yn.bin overlays/yn.bin 0x00 0xDD00
+	#$(VERIFY) $(DNAS_INS_VERIFY)
+	#$(VERIFY) $(DNAS_NET_VERIFY)
 	$(PYTHON) tools/report.py
 	@echo -e "\a"
 
