@@ -1,15 +1,15 @@
 {
   "measures": {
-    "fuzzy_match_percent": 0.5012715042092146,
+    "fuzzy_match_percent": 0.5435610011897445,
     "total_code": "4256376",
-    "matched_code": "21336",
-    "matched_code_percent": 0.5012715042092146,
+    "matched_code": "23136",
+    "matched_code_percent": 0.5435610011897445,
     "total_data": "1973877",
     "matched_data": "0",
     "matched_data_percent": 0.0,
     "total_functions": 16080,
-    "matched_functions": 153,
-    "matched_functions_percent": 0.9514925373134328,
+    "matched_functions": 162,
+    "matched_functions_percent": 1.007462686567164,
     "total_units": 162
   },
   "units": [
@@ -38226,25 +38226,25 @@
       }
     },
     {
-      "name": "plAPX.s",
+      "name": "plAPX.c",
       "measures": {
-        "fuzzy_match_percent": 0.0,
+        "fuzzy_match_percent": 100.0,
         "total_code": "1800",
-        "matched_code": "0",
-        "matched_code_percent": 0.0,
+        "matched_code": "1800",
+        "matched_code_percent": 100.0,
         "total_data": "0",
         "matched_data": "0",
         "matched_data_percent": 0,
         "total_functions": 9,
-        "matched_functions": 0,
-        "matched_functions_percent": 0.0,
+        "matched_functions": 9,
+        "matched_functions_percent": 100.0,
         "total_units": 1
       },
       "sections": [
         {
           "name": ".text",
           "size": "1800",
-          "fuzzy_match_percent": 0.0,
+          "fuzzy_match_percent": 100.0,
           "metadata": {}
         }
       ],
@@ -38252,70 +38252,70 @@
         {
           "name": "plAPXGetMipmapTextureNum0x217e50",
           "size": "32",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 0,
           "metadata": {}
         },
         {
           "name": "plAPXGetPaletteNum0x217e70",
           "size": "32",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 32,
           "metadata": {}
         },
         {
           "name": "plAPXSetContextFromImage0x217e90",
           "size": "660",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 64,
           "metadata": {}
         },
         {
           "name": "plAPXSetPaletteContextFromImage0x218130",
           "size": "512",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 736,
           "metadata": {}
         },
         {
           "name": "plAPXGetPixelAddressFromImage0x218330",
           "size": "8",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 1248,
           "metadata": {}
         },
         {
           "name": "plAPXGetPaletteAddressFromImage0x218340",
           "size": "8",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 1264,
           "metadata": {}
         },
         {
           "name": "GetAPXFileHeader0x218350",
           "size": "8",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 1280,
           "metadata": {}
         },
         {
           "name": "GetAPXPixelMipmapAdrs0x218360",
           "size": "308",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 1296,
           "metadata": {}
         },
         {
           "name": "GetAPXPaletteAdrs0x2184a0",
           "size": "232",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 1616,
           "metadata": {}
         }
       ],
       "metadata": {
         "complete": false,
-        "source_path": "src/main/plAPX.s",
+        "source_path": "src/main/plAPX.c",
         "progress_categories": [
           "main"
         ]
@@ -118607,16 +118607,16 @@
       "id": "main",
       "name": "main",
       "measures": {
-        "fuzzy_match_percent": 1.3106327353499811,
+        "fuzzy_match_percent": 1.4212035510431742,
         "total_code": "1627916",
-        "matched_code": "21336",
-        "matched_code_percent": 1.3106327353499811,
+        "matched_code": "23136",
+        "matched_code_percent": 1.4212035510431742,
         "total_data": "1009141",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 6997,
-        "matched_functions": 153,
-        "matched_functions_percent": 2.1866514220380164,
+        "matched_functions": 162,
+        "matched_functions_percent": 2.3152779762755467,
         "total_units": 150
       }
     },
