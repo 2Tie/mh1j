@@ -1,15 +1,15 @@
 {
   "measures": {
-    "fuzzy_match_percent": 0.5012715042092146,
-    "total_code": "4256376",
-    "matched_code": "21336",
-    "matched_code_percent": 0.5012715042092146,
+    "fuzzy_match_percent": 0.5036223405704963,
+    "total_code": "4256364",
+    "matched_code": "21436",
+    "matched_code_percent": 0.5036223405704963,
     "total_data": "1973877",
     "matched_data": "0",
     "matched_data_percent": 0.0,
     "total_functions": 16080,
-    "matched_functions": 153,
-    "matched_functions_percent": 0.9514925373134328,
+    "matched_functions": 154,
+    "matched_functions_percent": 0.9577114427860696,
     "total_units": 162
   },
   "units": [
@@ -2524,23 +2524,23 @@
     {
       "name": "math.c",
       "measures": {
-        "fuzzy_match_percent": 96.58119658119658,
-        "total_code": "3276",
-        "matched_code": "3164",
-        "matched_code_percent": 96.58119658119658,
+        "fuzzy_match_percent": 100.0,
+        "total_code": "3264",
+        "matched_code": "3264",
+        "matched_code_percent": 100.0,
         "total_data": "0",
         "matched_data": "0",
         "matched_data_percent": 0,
         "total_functions": 26,
-        "matched_functions": 25,
-        "matched_functions_percent": 96.15384615384616,
+        "matched_functions": 26,
+        "matched_functions_percent": 100.0,
         "total_units": 1
       },
       "sections": [
         {
           "name": ".text",
-          "size": "3276",
-          "fuzzy_match_percent": 96.58119658119658,
+          "size": "3264",
+          "fuzzy_match_percent": 100.0,
           "metadata": {}
         }
       ],
@@ -2722,8 +2722,8 @@
         },
         {
           "name": "CalcDistanceXZ0x120f20",
-          "size": "112",
-          "fuzzy_match_percent": 0,
+          "size": "100",
+          "fuzzy_match_percent": 100,
           "address": 3296,
           "metadata": {}
         }
@@ -118607,16 +118607,16 @@
       "id": "main",
       "name": "main",
       "measures": {
-        "fuzzy_match_percent": 1.3106327353499811,
-        "total_code": "1627916",
-        "matched_code": "21336",
-        "matched_code_percent": 1.3106327353499811,
+        "fuzzy_match_percent": 1.3167852649787701,
+        "total_code": "1627904",
+        "matched_code": "21436",
+        "matched_code_percent": 1.3167852649787701,
         "total_data": "1009141",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 6997,
-        "matched_functions": 153,
-        "matched_functions_percent": 2.1866514220380164,
+        "matched_functions": 154,
+        "matched_functions_percent": 2.200943261397742,
         "total_units": 150
       }
     },
