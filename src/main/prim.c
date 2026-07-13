@@ -4,13 +4,13 @@
 extern void flmatrLoad0x173490(f32[], s32);
 extern void flvecApplyMat0x172ee0(f32[], f32[], f32[]);
 extern void plplAdd0x194990(prim*, s32*);
-extern prim* plplNext0x1949b0(prim* []);
+extern prim* plplNext0x1949b0(prim*[]);
 
-extern prim prim0x3eddf0[0x200]; //migrate these when the file's done?
+extern prim prim0x3eddf0[0x200]; // migrate these when the file's done?
 extern prim prim20x3ebdf0[0x100];
 extern prim pit_prim0x3ebd70[4];
 
-//sbss
+// sbss
 s32 prim_free_top0x38a190;
 s32 prim_free_top20x38a18c;
 
@@ -21,15 +21,14 @@ void plplAdd20x1691c0(prim* primlist, s32* order_table) {
     while (1) {
         table = *order_table;
 
-        if(table == 0 || !(table & 1))
-        {
-            *order_table = (s32)primlist | 1;
+        if (table == 0 || !(table & 1)) {
+            *order_table = (s32) primlist | 1;
             primlist->v1 = table;
             break;
         }
-        table_floor = table & ~1; //mask off bottom bit?
-        if (((prim*)table_floor)->v2 <= primlist->v2) {
-            *order_table = (s32)primlist | 1; //force bottom bit?
+        table_floor = table & ~1; // mask off bottom bit?
+        if (((prim*) table_floor)->v2 <= primlist->v2) {
+            *order_table = (s32) primlist | 1; // force bottom bit?
             primlist->v1 = table;
             break;
         }
@@ -79,7 +78,7 @@ prim* get_prim_ptr20x169320(s32 which) {
 }
 
 s16 get_prim0x169340(void) {
-    prim *ptr;
+    prim* ptr;
     s32 top;
     s32 saved;
 
@@ -88,7 +87,7 @@ s16 get_prim0x169340(void) {
         return -1;
     ptr = get_prim_ptr0x169300(saved + 1);
     top = prim_free_top0x38a190 + 1;
-    while(top < 0x200) {
+    while (top < 0x200) {
         if (ptr->trans == 0) {
             break;
         }
@@ -109,7 +108,7 @@ s16 get_prim20x1693d0(void) {
         return -1;
     ptr = get_prim_ptr20x169320(saved + 1);
     top = prim_free_top20x38a18c + 1;
-    while(top < 0x100) {
+    while (top < 0x100) {
         if (ptr->trans == 0)
             break;
         top += 1;
@@ -145,24 +144,22 @@ void release_prim20x1694b0(s32 which) {
 u32 add_prim0x169530(s32* order_table, prim* primlist, u32 order_table_length, s32 first) {
     f32 polydat[4];
     f32 primitive[4];
-    f32 mat[16]; //matrix
+    f32 mat[16]; // matrix
     u32 which;
 
     polydat[0] = primlist->v3;
     polydat[1] = primlist->v4;
     polydat[2] = primlist->v5;
     polydat[3] = 1;
-    flmatrLoad0x173490(mat, 0x21); //prep a matrix
-    flvecApplyMat0x172ee0(primitive, polydat, mat); //apply the transform matrix to primitive, save
+    flmatrLoad0x173490(mat, 0x21);                  // prep a matrix
+    flvecApplyMat0x172ee0(primitive, polydat, mat); // apply the transform matrix to primitive, save
     primitive[2] = primitive[2] * -1.0f;
     if (primitive[2] < 0.0f) {
-        if (first != 0){ 
+        if (first != 0) {
             primitive[2] = 0.0f;
-        }
-        else if(primitive[2] < -1600.0f) {
+        } else if (primitive[2] < -1600.0f) {
             return -1;
-        }
-        else
+        } else
             primitive[2] = 0.0f;
     }
     primlist->v2 = primitive[2];
@@ -177,7 +174,7 @@ u32 add_prim0x169530(s32* order_table, prim* primlist, u32 order_table_length, s
     return which;
 }
 
-//buflength should always be the number of elements in ot (ordering table), maybe use constants for this?
+// buflength should always be the number of elements in ot (ordering table), maybe use constants for this?
 s32 add_prim20x169710(s32* ot, prim* primlist, s32 which, s32 buflength) {
     if (which >= buflength || which < 0)
         return -1;
@@ -186,9 +183,9 @@ s32 add_prim20x169710(s32* ot, prim* primlist, s32 which, s32 buflength) {
 }
 
 void draw_prim0x169770(prim* primi) {
-    while(1){
+    while (1) {
         primi = plplNext0x1949b0(&primi);
-        if (primi == 0) 
+        if (primi == 0)
             break;
         primi->trans(primi);
     }

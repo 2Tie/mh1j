@@ -61,7 +61,7 @@ typedef struct {
     /* 0x02 */ s16 timer;
     /* 0x04 */ s32 (*check)(void* demo);
     /* 0x08 */ s32 (*event)(void* demo);
-    /* 0x0C */ EVENT_DEMO_DATA *demo_data;
+    /* 0x0C */ EVENT_DEMO_DATA* demo_data;
 } ACTIVE_EVENT_DEMO; // Size: 0x10
 
 typedef struct {
@@ -72,7 +72,7 @@ typedef struct {
     /* 0x04 */ ACTIVE_EVENT_DEMO demos[2];
 } EVENT_DEMO; // Size: 0x24
 
-typedef struct{
+typedef struct {
     bool is_stereo;
     u8 BGM_vol;
     u8 SFX_vol;
@@ -91,7 +91,7 @@ typedef struct{
     u8 unk_F;
 } OPTIONS_WORK;
 
-typedef struct{
+typedef struct {
     f32 pos[3];
     f32 target[3];
     f32 pitch;
@@ -110,13 +110,13 @@ typedef struct{
     f32 unk_4C;
 } VIEW_WORK;
 
-typedef struct{
+typedef struct {
     /* 0x00 */ f32 diff_r;
     /* 0x04 */ f32 diff_g;
     /* 0x08 */ f32 diff_b;
 } RGB; // Size:0x0C
 
-typedef struct{
+typedef struct {
     s32 v1;
     f32 v2;
     f32 v3;
@@ -128,7 +128,7 @@ typedef struct{
 } prim;
 
 typedef struct {
-    u8 state; //offset 0x0, size 0x1
+    u8 state; // offset 0x0, size 0x1
     u8 unk01;
     u8 unk02;
     u8 unk03;
@@ -154,20 +154,20 @@ typedef struct {
 } ITEM_SLOT; // Size:0x04
 
 typedef enum {
-  INIT,
-  VIOLENCE,
-  CRI,
-  ACCESS,
-  CAPCOM,
-  OPENING,
-  TITLE
+    INIT,
+    VIOLENCE,
+    CRI,
+    ACCESS,
+    CAPCOM,
+    OPENING,
+    TITLE
 } DEMO_SCREEN;
 
 typedef struct {
-    //total size: 0x44
-    DEMO_SCREEN screen; //offset 0x0
-    u8 state; //offset 0x1
-    u8 playing; //offset 0x2
+    // total size: 0x44
+    DEMO_SCREEN screen; // offset 0x0
+    u8 state;           // offset 0x1
+    u8 playing;         // offset 0x2
     u8 unk_03;
     u8 unk_04;
     u8 unk_05;
@@ -175,12 +175,12 @@ typedef struct {
     u8 unk_07;
     u8 unk_08;
     u8 unk_09;
-    u16 timer; //offset 0xa
+    u16 timer; // offset 0xa
     u8 unk_0c;
     u8 unk_0d;
     u8 unk_0e;
     u8 unk_0f;
-    u8 initting; //offset 0x10
+    u8 initting; // offset 0x10
     u8 unk_11;
     u8 unk_12;
     u8 unk_13;
@@ -266,7 +266,7 @@ typedef struct {
     /* 0x8C6 */ u8 ojiisan_timer;
     /* 0x8C7 */ u8 unk_8C7[0x27];
     /* 0x8EE */ s16 unk_8EE;
-    /* 0x8F0 */ u8  unk_8F0[0x110];
+    /* 0x8F0 */ u8 unk_8F0[0x110];
 } PLAYER_WORK; // size: 0xA00
 
 typedef struct {
@@ -275,7 +275,7 @@ typedef struct {
     /* 0x002 */ u8 species;
     /* 0x003 */ u8 unk_3[0x5D];
     /* 0x060 */ MATRIX matrix;
-    /* 0x0A0 */ u8 unk_a0 [0xC];
+    /* 0x0A0 */ u8 unk_a0[0xC];
     /* 0x0AC */ f32 pos[3];
     /* 0x0B8 */ u8 unk_0B8[0x2D0];
     /* 0x388 */ u8 unk_388; // read in F_DragonEscapeCamera
@@ -283,11 +283,11 @@ typedef struct {
 } MONSTER_WORK; // size: 0xa10?
 
 typedef struct {
-    //total size:0x224
-    u8 top_state; //offset 0x0
-    u8 sub_state; //offset 0x1
-    u8 game_top_state; //offset 0x2
-    u8 game_sub_state; //offset 0x3
+    // total size:0x224
+    u8 top_state;      // offset 0x0
+    u8 sub_state;      // offset 0x1
+    u8 game_top_state; // offset 0x2
+    u8 game_sub_state; // offset 0x3
     u16 unk_04;
     u16 unk_06;
     u8 unk_08;
@@ -297,12 +297,12 @@ typedef struct {
     u8 unk_0d;
     u8 unk_0e;
     u8 unk_0f;
-    u8 BGM_flags; //offset 0x10
-    u8 BGM; //offset 0x11
+    u8 BGM_flags; // offset 0x10
+    u8 BGM;       // offset 0x11
     u8 unk_12;
     u8 unk_13;
-    u8 current_area_id; //offset 0x14
-    u8 area_model; //offset 0x15
+    u8 current_area_id; // offset 0x14
+    u8 area_model;      // offset 0x15
     u8 unk_16;
     u8 unk_17;
     u8 unk_18;
@@ -311,18 +311,18 @@ typedef struct {
     u8 unk_1b;
     u8 unk_1c;
     u8 unk_1d;
-    u16 tick_count; //offset 0x1e
-    u8 pad_0_ack; //offset 0x20
-    u8 pad_1_ack; //offset 0x21
+    u16 tick_count; // offset 0x1e
+    u8 pad_0_ack;   // offset 0x20
+    u8 pad_1_ack;   // offset 0x21
     u8 unk_22;
     u8 unk_23;
     u8 unk_24;
-    u8 current_music; //offset 0x25
-    s16 music_timer; //offset 0x26
-    u8 load_monsters[4]; //offset 0x28
-    u16 selected_quest_id; //offset 0x2c
-    u8 fight_music_index; //offset 0x2e
-    u8 camp_area_id; //offset 0x2f
+    u8 current_music;      // offset 0x25
+    s16 music_timer;       // offset 0x26
+    u8 load_monsters[4];   // offset 0x28
+    u16 selected_quest_id; // offset 0x2c
+    u8 fight_music_index;  // offset 0x2e
+    u8 camp_area_id;       // offset 0x2f
     u8 unk_30;
     u8 unk_31;
     u8 unk_32;
@@ -403,29 +403,29 @@ typedef struct {
     u8 unk_7d;
     u8 unk_7e;
     u8 unk_7f;
-    u8 player_items[4]; //offset 0x80
+    u8 player_items[4]; // offset 0x80
     u8 unk_84;
     u8 unk_85;
     u8 unk_86;
     u8 unk_87;
-    u32 mdl_ptrs[4]; //offset 0x88
-    u16 mdl_status[4]; //offset 0x98
-    u16 mdl_starts[4]; //offset 0xa0
-    u32 sub_mdl_ptrs[4]; //offset 0xa8
-    u16 sub_mdl_status[4]; //offset 0xb8
-    u16 sub_mdl_starts[4]; //offset 0xc0
+    u32 mdl_ptrs[4];       // offset 0x88
+    u16 mdl_status[4];     // offset 0x98
+    u16 mdl_starts[4];     // offset 0xa0
+    u32 sub_mdl_ptrs[4];   // offset 0xa8
+    u16 sub_mdl_status[4]; // offset 0xb8
+    u16 sub_mdl_starts[4]; // offset 0xc0
     u8 unk_c8;
     u8 unk_c9;
     u8 unk_ca;
     u8 unk_cb;
-    u16 stolen_item_id; //offset 0xcc
-    u16 stolen_item_quantity; //offset 0xce
-    u8 stolen_item_flag; //offset 0xd0
-    u8 my_player_number; //offset 0xd1
-    u8 address_id; //offset 0xd2
-    u8 number_of_players; //offset 0xd3
-    u8 hit_id; //offset 0xd4
-    u8 mission_state; //offset 0xd5
+    u16 stolen_item_id;       // offset 0xcc
+    u16 stolen_item_quantity; // offset 0xce
+    u8 stolen_item_flag;      // offset 0xd0
+    u8 my_player_number;      // offset 0xd1
+    u8 address_id;            // offset 0xd2
+    u8 number_of_players;     // offset 0xd3
+    u8 hit_id;                // offset 0xd4
+    u8 mission_state;         // offset 0xd5
     u8 unk_d6;
     u8 unk_d7;
     u8 unk_d8;
@@ -508,8 +508,8 @@ typedef struct {
     u8 unk_125;
     u8 unk_126;
     u8 unk_127;
-    ITEM_SLOT quest_item_box[32]; //offset 0x128
-    u32 quest_item_box_taken_flags[2]; //offset 0x1a8
+    ITEM_SLOT quest_item_box[32];      // offset 0x128
+    u32 quest_item_box_taken_flags[2]; // offset 0x1a8
     u8 unk_1b0;
     u8 unk_1b1;
     u8 unk_1b2;
@@ -558,38 +558,38 @@ typedef struct {
     u8 unk_1dd;
     u8 unk_1de;
     u8 unk_1df;
-    u16 current_sound_effect; //offset 0x1e0
+    u16 current_sound_effect; // offset 0x1e0
     u8 unk_1e2;
     u8 unk_1e3;
     u8 unk_1e4;
     u8 unk_1e5;
     u8 unk_1e6;
-    u8 in_tutorial; //offset 0x1e7
-    char user_id_1[8]; //offset 0x1e8
-    char user_id_2[8]; //offset 0x1f0
-    char user_id_3[8]; //offset 0x1f8
-    char user_id_4[8]; //offset 0x200
-    u8 hunter_1_present; //offset 0x208
-    u8 hunter_2_present; //offset 0x209
-    u8 hunter_3_present; //offset 0x20a
-    u8 hunter_4_present; //offset 0x20b
+    u8 in_tutorial;      // offset 0x1e7
+    char user_id_1[8];   // offset 0x1e8
+    char user_id_2[8];   // offset 0x1f0
+    char user_id_3[8];   // offset 0x1f8
+    char user_id_4[8];   // offset 0x200
+    u8 hunter_1_present; // offset 0x208
+    u8 hunter_2_present; // offset 0x209
+    u8 hunter_3_present; // offset 0x20a
+    u8 hunter_4_present; // offset 0x20b
     u8 unk_20c;
     u8 unk_20d;
     u8 unk_20e;
     u8 unk_20f;
-    u8 number_bombs_placed; //offset 0x210
-    u8 number_meats_placed; //offset 0x211
-    u8 number_traps_placed; //offset 0x212
+    u8 number_bombs_placed; // offset 0x210
+    u8 number_meats_placed; // offset 0x211
+    u8 number_traps_placed; // offset 0x212
     u8 unk_213;
     u8 unk_214;
     u8 unk_215;
     u8 unk_216;
     u8 unk_217;
-    u16 fatalis_health; //offset 0x218
+    u16 fatalis_health; // offset 0x218
     u8 unk_21a;
     u8 unk_21b;
     u8 unk_21c;
-    u8 fort_damage; //offset 0x21d
+    u8 fort_damage; // offset 0x21d
     u8 unk_21e;
     bool demo_playing;
     u8 unk_220;
@@ -599,10 +599,10 @@ typedef struct {
 } GAME_WORK;
 
 typedef struct {
-    //total size: 0x64
-    u8 unk_00; //offset 0x0, size 0x1
-    u8 unk_01; //offset 0x1, size 0x1
-    u8 current_area_id; //offset 0x2, size 0x1
+    // total size: 0x64
+    u8 unk_00;          // offset 0x0, size 0x1
+    u8 unk_01;          // offset 0x1, size 0x1
+    u8 current_area_id; // offset 0x2, size 0x1
     u8 unk_03;
     u8 unk_04;
     u8 unk_05;
@@ -662,7 +662,7 @@ typedef struct {
 } STAGE_WORK;
 
 typedef struct {
-    //total size: 0x80
+    // total size: 0x80
     u8 unk_00;
     u8 unk_01;
     u8 unk_02;
@@ -679,17 +679,17 @@ typedef struct {
     u8 unk_0d;
     u8 unk_0e;
     u8 unk_0f;
-    u8 online; //offset 0x10, size 0x1
+    u8 online; // offset 0x10, size 0x1
     u8 unk_11;
     u8 unk_12;
     u8 unk_13;
     u8 unk_14;
     u8 unk_15;
     u8 unk_16;
-    u8 is_stereo; //offset 0x17, size 0x1
+    u8 is_stereo; // offset 0x17, size 0x1
     u8 unk_18;
     u8 unk_19;
-    u8 game_region; //offset 0x1a, size 0x1
+    u8 game_region; // offset 0x1a, size 0x1
     u8 unk_1b;
     u8 unk_1c;
     u8 unk_1d;
@@ -709,25 +709,25 @@ typedef struct {
     u8 unk_2b;
     u8 unk_2c;
     u8 unk_2d;
-    u8 filter_mode; //offset 0x2e, size 0x1
-    u8 view_projection; //offset 0x2f, size 0x1
-    u8 ope_mode; //offset 0x30, size 0x1
-    u8 aspect_ratio; //offset 0x31, size 0x1
+    u8 filter_mode;     // offset 0x2e, size 0x1
+    u8 view_projection; // offset 0x2f, size 0x1
+    u8 ope_mode;        // offset 0x30, size 0x1
+    u8 aspect_ratio;    // offset 0x31, size 0x1
     u8 unk_32;
     u8 unk_33;
-    u8 in_aq_session; //offset 0x34, size 0x1
-    u8 busy_loading; //offset 0x35, size 0x1
-    u8 bgm_volume; //offset 0x36, size 0x1
-    u8 se_volume; //offset 0x37, size 0x1
+    u8 in_aq_session; // offset 0x34, size 0x1
+    u8 busy_loading;  // offset 0x35, size 0x1
+    u8 bgm_volume;    // offset 0x36, size 0x1
+    u8 se_volume;     // offset 0x37, size 0x1
     u8 unk_38;
     u8 unk_39;
     u8 unk_3a;
     u8 unk_3b;
-    u8 mc_access; //offset 0x3c, size 0x1
+    u8 mc_access; // offset 0x3c, size 0x1
     u8 unk_3d;
     u8 unk_3e;
     u8 unk_3f;
-    s16 aq_load_timeout; //offset 0x40, size 0x2
+    s16 aq_load_timeout; // offset 0x40, size 0x2
     u8 unk_42;
     u8 unk_43;
     u8 unk_44;
@@ -793,7 +793,7 @@ typedef struct {
 } SYSTEM_WORK;
 
 typedef struct {
-    //total size: 0x84
+    // total size: 0x84
     u8 unk_00;
     u8 unk_01;
     u8 unk_02;

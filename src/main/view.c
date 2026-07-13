@@ -15,7 +15,6 @@ extern f32 flvecCalcDistance0x173140(f32*, f32*);
 
 void View_init0x169a50(void);
 
-
 void View_initialize0x1699e0(void) {
     lpView0x38a110 = &view_work0x39da70;
     lpView0x38a110->unk_38 = 0;
@@ -33,7 +32,7 @@ void view_reset0x169a30(void) {
 }
 
 void View_init0x169a50(void) {
-    lpView0x38a110->view_angle = 0.87266465; //TODO constant
+    lpView0x38a110->view_angle = 0.87266465; // TODO constant
     lpView0x38a110->view_angle_OLD = -999.0;
     lpView0x38a110->view_roll = 0.0;
 }

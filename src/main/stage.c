@@ -1,16 +1,15 @@
 #include "common.h"
 #include "structs.h"
 #pragma cats off
-extern void * memset0x19dd28(void *__s,int __c,size_t __n);
-extern u8 * Stage_data_get0x226900(u8 area);
+extern void* memset0x19dd28(void* __s, int __c, size_t __n);
+extern u8* Stage_data_get0x226900(u8 area);
 s16 flash_timer0x38a118;
 s16 flash_flag0x38a114;
 
 STAGE_WORK stage_work0x3d8230;
 extern GAME_WORK game_w0x3f33f0;
-extern STAGE_FOG *stage_fog_tbl0x2f3000[];
+extern STAGE_FOG* stage_fog_tbl0x2f3000[];
 extern u16 Stg_env_type0x2f6370[];
-
 
 void stage_w_init0x15bab0(void) {
     stage_work0x3d8230.unk_07 = 0;
@@ -32,8 +31,8 @@ void stage_w_init0x15bab0(void) {
 }
 
 void stage_fog_set0x15bb60(u8 arg0) {
-    STAGE_FOG * temp_s0 = stage_fog_tbl0x2f3000[arg0];
-    flSetRenderState0x177720(0xF, (temp_s0->b4 << 0x18) | (temp_s0-> b1 << 0x10) | (temp_s0->b2 << 8) | temp_s0->b3);
+    STAGE_FOG* temp_s0 = stage_fog_tbl0x2f3000[arg0];
+    flSetRenderState0x177720(0xF, (temp_s0->b4 << 0x18) | (temp_s0->b1 << 0x10) | (temp_s0->b2 << 8) | temp_s0->b3);
     flSetRenderState0x177720(0x10, temp_s0->x);
     flSetRenderState0x177720(0x11, temp_s0->y);
 }
@@ -58,7 +57,7 @@ INCLUDE_ASM("asm/main/nonmatchings/stage", stage_set_set0x15bbe0);
 
 INCLUDE_ASM("asm/main/nonmatchings/stage", stage_mv_ck0x15c210);
 
-void * clr_stg_work0x15c490(void) {
+void* clr_stg_work0x15c490(void) {
     return memset0x19dd28(&stage_work0x3d8230, 0, 100);
 }
 

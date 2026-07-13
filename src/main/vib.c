@@ -7,8 +7,7 @@ extern s32 vib_tbl0x3019e0[5][2];
 extern void flPADShockSet0x196200(s32, s32, s32);
 extern s32 Pl_master_ck0x14fc20(void*);
 
-
-//funcs
+// funcs
 static s32 vib_check0x1698b0(void) {
     return option_w0x3f20e0.vibrate == false;
 }
