@@ -124,7 +124,7 @@ segments:
     - [0x109ff8, asm, ../lib/UNKLIB]
     # DTX, [...], pl2(pro logic 2), RNA, SJMEM, SJRBF, SJUNI, SVM, sdr(1142e0), flsnd
     - [0x116610, asm, flfnt]
-    - [0x117fd0, asm, plAPX]
+    - [0x117fd0, c, plAPX]
     - [0x118710, asm, eft20]
     - [0x11d5f0, asm, bgm]
     - [0x11f550, c, camera]
