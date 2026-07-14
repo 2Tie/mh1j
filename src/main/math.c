@@ -25,6 +25,7 @@ extern void flmatRotX330x171f70(MATRIX, f32);
 extern void flmatRotY330x172010(MATRIX, f32);
 extern void flmatRotZ330x1720b0(MATRIX, f32);
 extern void flmatMul330x172b30(MATRIX, MATRIX, MATRIX);
+extern f32 flvecCalcDistance0x173140(f32[], f32[]);
 
 
 //implements
@@ -335,4 +336,11 @@ void nlCalcPoint0x120ec0(f32* arg0, f32* arg1, MATRIX arg2) {
     arg0[2] = (arg0[2] + arg2[3][2]);
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/math", CalcDistanceXZ0x120f20);
+f32 CalcDistanceXZ0x120f20(f32 vecA[], f32 vecB[]) {
+    f32 tmp_vecs[2][3];
+
+    SetVector0x1207d0(tmp_vecs[0], vecA[0], 0.0f, vecA[2]);
+    SetVector0x1207d0(tmp_vecs[1], vecB[0], 0.0f, vecB[2]);
+
+    return flvecCalcDistance0x173140(tmp_vecs[0], tmp_vecs[1]);
+}
