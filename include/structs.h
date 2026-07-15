@@ -234,10 +234,20 @@ typedef struct {
     u8 unk_43;
 } DEMO_WORK;
 
-typedef struct {
-    /* 0x00 */ u8 unk_0[0x40];
-    /* 0x40 */ MATRIX matrix;
-} PART_WORK; // size: 0x80
+// Have to add this typedef otherwise compiler complains
+// from the recursive typing in PART_WORK
+typedef struct PART_WORK PART_WORK;
+
+typedef struct PART_WORK {
+    MATRIX unk0;
+    MATRIX matrix;
+    MATRIX unk80;
+    u8 pad1[0xC4 - 0xC0];
+    short unkC4;
+    u8 pad2[0xCC - 0xC6];
+    PART_WORK* unkCC;
+    PART_WORK* unkD0;
+} PART_WORK; // size: unk
 
 typedef struct {
     /* 0x000 */ u8 unk_0[0x2];
