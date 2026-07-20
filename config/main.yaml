@@ -252,7 +252,6 @@ segments:
     - [0x25b940, rodata, info]
     - [0x25b990, .rodata, stage]
     - [0x25bb80, rodata, system]
-    - [0x25bca0, rodata, trans]
     - [0x25bd60, rodata, weapon]
     - [0x25bdd0, rodata, fl]
     - [0x25c2c0, rodata, pl]
@@ -322,7 +321,6 @@ segments:
     - [0x2878f8, sdata, player]
     - [0x287914, sdata, stage]
     - [0x287a78, sdata, system]
-    - [0x287aa0, sdata, trans]
     - [0x287ad8, sdata, fl]
     - [0x287ae0, sdata, ../lib/ps2]
     - [0x287af0, sdata, ../lib/ADX]
@@ -359,27 +357,114 @@ segments:
     - {vram: 0x38a0e4, type: sbss, name: shell}
     - {vram: 0x38a0f0, type: sbss, name: sound}
     - {vram: 0x38a0f8, type: sbss, name: sprite}
-    - {vram: 0x38a104, type: sbss, name: trans}
+    - {vram: 0x38a108, type: sbss, name: trans}
     - {vram: 0x38a110, type: sbss, name: view}
     - {vram: 0x38a114, type: .sbss, name: stage}
     - {vram: 0x38a11c, type: sbss, name: unsorted1}
     - {vram: 0x38a18c, type: .sbss, name: prim}
     - {vram: 0x38a194, type: sbss, name: unsorted2}
 
-    # bss starts at 38aa54, lol
+    # bss start symbol is at 38aa54, that's a linker quirk
     - {vram: 0x38AA80, type: bss, name: ..lib/cri/adx_init }
     - {vram: 0x390880, type: .bss, name: cardinit}
     - {vram: 0x390910, type: bss, name: eft}
     - {vram: 0x392b10, type: bss, name: fade}
-    - {vram: 0x392b20, type: bss, name: bss_1}
-    - {vram: 0x3d8230, type: .bss, name: stage }
-    - {vram: 0x3d82a0, type: bss, name: bss_2 }
+    - {vram: 0x392b20, type: bss, name: sortme_coll}
+    - {vram: 0x3936f0, type: bss, name: item}
+    - {vram: 0x394cf0, type: bss, name: light}
+    - {vram: 0x395590, type: bss, name: sortme_mediaver}
+    - {vram: 0x3955a0, type: bss, name: sortme_plshader}
+    - {vram: 0x3955b0, type: bss, name: sortme_hierarchy}
+    - {vram: 0x395db0, type: bss, name: material}
+    - {vram: 0x396330, type: bss, name: model}
+    - {vram: 0x3963b0, type: bss, name: scheduler}
+    - {vram: 0x3965b0, type: bss, name: cockpit}
+    - {vram: 0x396700, type: bss, name: heap}
+    - {vram: 0x398a00, type: bss, name: info}
+    - {vram: 0x398d70, type: bss, name: shell}
+    - {vram: 0x39c370, type: bss, name: sprite}
+    - {vram: 0x39c470, type: bss, name: system}
+    - {vram: 0x39d870, type: bss, name: trans}
+    - {vram: 0x39d970, type: bss, name: view}
+    - {vram: 0x39dac0, type: bss, name: interface} #?
+    - {vram: 0x39f230, type: bss, name: sortme_lb}
+    - {vram: 0x39f250, type: bss, name: sortme_lobby}
+    - {vram: 0x39f720, type: bss, name: sortme_lbs}
+    - {vram: 0x3a6e90, type: bss, name: sortme_net}
+    - {vram: 0x3a6f80, type: bss, name: patch}
+    - {vram: 0x3c6fc0, type: bss, name: userdata}
+    - {vram: 0x3c7440, type: bss, name: quest}
+    - {vram: 0x3c75d0, type: bss, name: em}
+    - {vram: 0x3c8d80, type: bss, name: game} #collision?
+    - {vram: 0x3c8dc0, type: bss, name: eft}
+    - {vram: 0x3c8de0, type: bss, name: motion}
+    - {vram: 0x3ccfa0, type: bss, name: parts}
+    - {vram: 0x3d7fa0, type: bss, name: light_2} #?
+    - {vram: 0x3d8230, type: .bss, name: stage}
+    - {vram: 0x3d82a0, type: bss, name: em_2 } #?
+    - {vram: 0x3e4be0, type: bss, name: player}
+    - {vram: 0x3e9bf0, type: bss, name: material_2} #?
+    - {vram: 0x3ebc70, type: bss, name: lbc}
+    - {vram: 0x3ebcf0, type: bss, name: prim}
+    - {vram: 0x3f1fd0, type: bss, name: view_2} #?
+    - {vram: 0x3f20e0, type: bss, name: option}
+    - {vram: 0x3f20f0, type: bss, name: save}
+    - {vram: 0x3f2e90, type: bss, name: sortme_reibun} #?
+    - {vram: 0x3f32e0, type: bss, name: edit_task}
+    - {vram: 0x3f3330, type: bss, name: select_task}
+    - {vram: 0x3f33f0, type: bss, name: game_task}
+    - {vram: 0x3f3620, type: bss, name: demo_task}
+    - {vram: 0x3f3670, type: bss, name: system_task}
+    - {vram: 0x3f3990, type: bss, name: tex} #? part of system_task?
+    - {vram: 0x3f3e00, type: bss, name: sortme_mmbb} #? misc?
+    - {vram: 0x3f3f00, type: bss, name: st}
+    - {vram: 0x3f4150, type: bss, name: flps2clay}
+    - {vram: 0x418170, type: bss, name: flps2shader}
+    - {vram: 0x4182c0, type: bss, name: flps2render}
+    - {vram: 0x418c40, type: bss, name: flps2math}
+    - {vram: 0x4196e0, type: bss, name: flps2vram}
+    - {vram: 0x423f00, type: bss, name: flps2dma}
+    - {vram: 0x423f40, type: bss, name: flps2init}
+    #- {vram: 0x424560, type: bss, name: flps2ps} #?
+    #- {vram: 0x424630, type: bss, name: flfms} #?
+    - {vram: 0x4246a0, type: bss, name: memfl}
+    - {vram: 0x4546d0, type: bss, name: mlpad}
+    - {vram: 0x454950, type: bss, name: plaan}
+    - {vram: 0x454970, type: bss, name: plutil}
+    - {vram: 0x455170, type: bss, name: mcmodule}
+    - {vram: 0x455200, type: bss, name: tarpadmodule}
+    - {vram: 0x455680, type: bss, name: crt0}
+    - {vram: 0x455800, type: bss, name: sortme_sce_stuff} #need to split this up
+    - {vram: 0x45dc00, type: bss, name: netgame}
+    - {vram: 0x45dca0, type: bss, name: sortme_cri_stuff} #eventually...
+    - {vram: 0x472180, type: bss, name: flsnd}
+    - {vram: 0x476280, type: bss, name: sortme_silencer}
+    - {vram: 0x4762a0, type: bss, name: flsnd_2}
+    - {vram: 0x4764c0, type: bss, name: camera}
+    - {vram: 0x476dc0, type: bss, name: stiem} #quest?
+    - {vram: 0x476dd0, type: bss, name: CngInet} #and AQ stuff, plus all the packetbuffers lol
+    - {vram: 0x4e36c0, type: bss, name: Ave}
+    - {vram: 0x4e4720, type: bss, name: InetGame} #?
+    - {vram: 0x4e4740, type: bss, name: sortme_InetConnect} #?
+    - {vram: 0x4ef130, type: bss, name: movie}
+    - {vram: 0x4ef1d0, type: bss, name: InetMcs}
+    - {vram: 0x4f9a80, type: bss, name: sceSif}
+    - {vram: 0x4f9ac0, type: bss, name: ave_sif}
+    - {vram: 0x4fa180, type: bss, name: sortme_ave}
+    - {vram: 0x4fa190, type: bss, name: sceNetGlue}
+    - {vram: 0x4fab70, type: bss, name: InetDNS}
+    - {vram: 0x4fb390, type: bss, name: InetConnect}
+    - {vram: 0x4fb400, type: bss, name: sceUsbKb}
+    - {vram: 0x4fd360, type: bss, name: textinput}
+    - {vram: 0x5171c0, type: bss, name: scekernel}
+    - {vram: 0x51ee90, type: bss, name: softkey}
+    - {vram: 0x52fa00, type: bss, name: netOverlay}
     - {vram: 0x531740, type: bss, name: memcard}
     - {vram: 0x531910, type: bss, name: demo}
     - {vram: 0x531940, type: bss, name: staff}
     - {vram: 0x531950, type: bss, name: poweroff}
     - {vram: 0x533950, type: bss, name: result}
-    - {vram: 0x533960, type: bss, name: unsorted_tail}
+    - {vram: 0x533960, type: bss, name: util}
 
   - [0x28A200, databin, elf/shstrtab]
   - [0x28A320, databin, elf/strtab]
