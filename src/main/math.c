@@ -1,6 +1,6 @@
 #include "common.h"
 
-//protos
+// protos
 f32 cpAng2Rad0x120240(s32 ang);
 void cpAng2Rad_all0x120270(s32 angs[], float rads[]);
 f32 (*cpRotMatrix0x1202c0(s32 angs[], MATRIX mat))[4];
@@ -27,8 +27,7 @@ extern void flmatRotZ330x1720b0(MATRIX, f32);
 extern void flmatMul330x172b30(MATRIX, MATRIX, MATRIX);
 extern f32 flvecCalcDistance0x173140(f32[], f32[]);
 
-
-//implements
+// implements
 f32 cpAng2Rad0x120240(s32 ang) {
     return (ang & 0xFFFF) * DEG2RAD;
 }
@@ -86,7 +85,7 @@ s32 calc_vec_ang20x120430(f32 vec1[], f32 vec2[]) {
     vector[2] = vec1[2] - vec2[2];
     flvecNormalize0x1731b0(vector);
     angle = flArcTan20x1735e0(-vector[2], vector[0]);
-    return  (s32) (0.5f + ((65536.0f * angle) / 6.2831855f)) & 0xFFFF;
+    return (s32) (0.5f + ((65536.0f * angle) / 6.2831855f)) & 0xFFFF;
 }
 
 s32 calc_mat_angY0x1204d0(f32 inmat[]) {
@@ -112,48 +111,48 @@ void RotMatVec0x120570(f32 inmat[], MATRIX outmat, u8 axis) {
 
     flvecNormalize0x1731b0(inmat);
     switch (axis) {
-    case 0:
-        axisvec[0] = 0;
-        axisvec[1] = 0;
-        axisvec[2] = 1;
-        flvecOuterProduct0x173280(ymat, axisvec, inmat); //a0 is output, a1 and a2 input?
-        if (flvecInnerProduct0x173220(ymat, ymat) < 0.001f) {
-            axisvec[2] = 0;
-            axisvec[0] = 1;
-            flvecOuterProduct0x173280(ymat, axisvec, inmat);
-        }
-        flvecNormalize0x1731b0(ymat);
-        flvecCopy0x173300(xmat, inmat);
-        flvecOuterProduct0x173280(zmat, xmat, ymat);
-        break;
-    case 1:
-        axisvec[0] = 0;
-        axisvec[1] = 0;
-        axisvec[2] = 1;
-        flvecOuterProduct0x173280(xmat, inmat, axisvec);
-        if (flvecInnerProduct0x173220(xmat, xmat) < 0.001f) {
-            axisvec[2] = 0;
-            axisvec[1] = 1;
-            flvecOuterProduct0x173280(xmat, axisvec, inmat);
-        }
-        flvecNormalize0x1731b0(xmat);
-        flvecCopy0x173300(ymat, inmat);
-        flvecOuterProduct0x173280(zmat, xmat, ymat);
-        break;
-    case 2:
-        axisvec[0] = 0;
-        axisvec[1] = 1;
-        axisvec[2] = 0;
-        flvecOuterProduct0x173280(xmat, axisvec, inmat);
-        if (flvecInnerProduct0x173220(xmat, xmat) < 0.001f) {
-            axisvec[2]= 1;
+        case 0:
+            axisvec[0] = 0;
             axisvec[1] = 0;
+            axisvec[2] = 1;
+            flvecOuterProduct0x173280(ymat, axisvec, inmat); // a0 is output, a1 and a2 input?
+            if (flvecInnerProduct0x173220(ymat, ymat) < 0.001f) {
+                axisvec[2] = 0;
+                axisvec[0] = 1;
+                flvecOuterProduct0x173280(ymat, axisvec, inmat);
+            }
+            flvecNormalize0x1731b0(ymat);
+            flvecCopy0x173300(xmat, inmat);
+            flvecOuterProduct0x173280(zmat, xmat, ymat);
+            break;
+        case 1:
+            axisvec[0] = 0;
+            axisvec[1] = 0;
+            axisvec[2] = 1;
             flvecOuterProduct0x173280(xmat, inmat, axisvec);
-        }
-        flvecNormalize0x1731b0(xmat);
-        flvecCopy0x173300(zmat, inmat);
-        flvecOuterProduct0x173280(ymat, zmat, xmat);
-        break;
+            if (flvecInnerProduct0x173220(xmat, xmat) < 0.001f) {
+                axisvec[2] = 0;
+                axisvec[1] = 1;
+                flvecOuterProduct0x173280(xmat, axisvec, inmat);
+            }
+            flvecNormalize0x1731b0(xmat);
+            flvecCopy0x173300(ymat, inmat);
+            flvecOuterProduct0x173280(zmat, xmat, ymat);
+            break;
+        case 2:
+            axisvec[0] = 0;
+            axisvec[1] = 1;
+            axisvec[2] = 0;
+            flvecOuterProduct0x173280(xmat, axisvec, inmat);
+            if (flvecInnerProduct0x173220(xmat, xmat) < 0.001f) {
+                axisvec[2] = 1;
+                axisvec[1] = 0;
+                flvecOuterProduct0x173280(xmat, inmat, axisvec);
+            }
+            flvecNormalize0x1731b0(xmat);
+            flvecCopy0x173300(zmat, inmat);
+            flvecOuterProduct0x173280(ymat, zmat, xmat);
+            break;
     }
     flmatInit0x171ce0(outmat);
     flvecCopy0x173300(outmat[0], xmat);
@@ -212,8 +211,8 @@ f32 NormalClipF30x120960(f32 vert1[], f32 vert2[], f32 vert3[]) {
     vec[0] = (vert2[0] - vert1[0]) * (vert3[1] - vert1[1]);
     vec[1] = (vert3[0] - vert1[0]) * (vert2[1] - vert1[1]);
 
-    v[0] = *(s32*)&vec[0];
-    v[1] = *(s32*)&vec[1];
+    v[0] = *(s32*) &vec[0];
+    v[1] = *(s32*) &vec[1];
 
     if (v[0] == (v[1] + 1)) {
         vec[0] = vec[1];
@@ -259,7 +258,7 @@ s8 PointHitCheckF30x120ba0(f32 poly[], f32 point[]) {
     s32 plane_orient;
     u8 point_side;
 
-    plane_orient = (s32)NormalClipF30x120960(poly, &poly[3], &poly[6]) <= 0;
+    plane_orient = (s32) NormalClipF30x120960(poly, &poly[3], &poly[6]) <= 0;
     flag = 0;
 
     point_side = NormalClipCheckF30x120a00(poly, &poly[3], &poly[6], point);
