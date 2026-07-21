@@ -8117,7 +8117,7 @@
         "total_code": "10000",
         "matched_code": "0",
         "matched_code_percent": 0.0,
-        "total_data": "712",
+        "total_data": "960",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 75,
@@ -8139,12 +8139,12 @@
         },
         {
           "name": ".rodata",
-          "size": "288",
+          "size": "480",
           "fuzzy_match_percent": 0
         },
         {
           "name": ".sdata",
-          "size": "40",
+          "size": "96",
           "fuzzy_match_percent": 0
         }
       ],
@@ -8690,9 +8690,9 @@
         "total_code": "1568",
         "matched_code": "0",
         "matched_code_percent": 0.0,
-        "total_data": "248",
+        "total_data": "0",
         "matched_data": "0",
-        "matched_data_percent": 0.0,
+        "matched_data_percent": 0,
         "total_functions": 9,
         "matched_functions": 0,
         "matched_functions_percent": 0.0,
@@ -8704,16 +8704,6 @@
           "size": "1568",
           "fuzzy_match_percent": 0.0,
           "metadata": {}
-        },
-        {
-          "name": ".rodata",
-          "size": "192",
-          "fuzzy_match_percent": 0
-        },
-        {
-          "name": ".sdata",
-          "size": "56",
-          "fuzzy_match_percent": 0
         }
       ],
       "functions": [

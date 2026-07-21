@@ -396,7 +396,7 @@ segments:
     - {vram: 0x3c7440, type: bss, name: quest}
     - {vram: 0x3c75d0, type: bss, name: em}
     - {vram: 0x3c8d80, type: bss, name: game} #collision?
-    - {vram: 0x3c8dc0, type: bss, name: eft}
+    - {vram: 0x3c8dc0, type: bss, name: eft_2}
     - {vram: 0x3c8de0, type: bss, name: motion}
     - {vram: 0x3ccfa0, type: bss, name: parts}
     - {vram: 0x3d7fa0, type: bss, name: light_2} #?
