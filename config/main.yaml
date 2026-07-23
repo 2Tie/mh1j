@@ -71,7 +71,7 @@ segments:
     - [0x5bc30, c, stage]
     - [0x61370, asm, system]
     # - [0x, asm, tex]
-    - [0x63c30, asm, trans]
+    - [0x63c30, c, trans]
     - [0x64280, asm, weapon]
     - [0x67a40, asm, unk]
     - [0x69340, c, prim]
@@ -357,7 +357,7 @@ segments:
     - {vram: 0x38a0e4, type: sbss, name: shell}
     - {vram: 0x38a0f0, type: sbss, name: sound}
     - {vram: 0x38a0f8, type: sbss, name: sprite}
-    - {vram: 0x38a108, type: sbss, name: trans}
+    - {vram: 0x38a108, type: .sbss, name: trans}
     - {vram: 0x38a110, type: sbss, name: view}
     - {vram: 0x38a114, type: .sbss, name: stage}
     - {vram: 0x38a11c, type: sbss, name: unsorted1}
@@ -384,7 +384,7 @@ segments:
     - {vram: 0x398d70, type: bss, name: shell}
     - {vram: 0x39c370, type: bss, name: sprite}
     - {vram: 0x39c470, type: bss, name: system}
-    - {vram: 0x39d870, type: bss, name: trans}
+    - {vram: 0x39d870, type: .bss, name: trans}
     - {vram: 0x39d970, type: bss, name: view}
     - {vram: 0x39dac0, type: bss, name: interface} #?
     - {vram: 0x39f230, type: bss, name: sortme_lb}
