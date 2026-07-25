@@ -1,15 +1,15 @@
 {
   "measures": {
-    "fuzzy_match_percent": 0.5036223405704963,
+    "fuzzy_match_percent": 0.5827509113412292,
     "total_code": "4256364",
-    "matched_code": "21436",
-    "matched_code_percent": 0.5036223405704963,
-    "total_data": "1973877",
+    "matched_code": "24804",
+    "matched_code_percent": 0.5827509113412292,
+    "total_data": "1974141",
     "matched_data": "0",
     "matched_data_percent": 0.0,
     "total_functions": 16080,
-    "matched_functions": 154,
-    "matched_functions_percent": 0.9577114427860696,
+    "matched_functions": 172,
+    "matched_functions_percent": 1.0696517412935325,
     "total_units": 162
   },
   "units": [
@@ -8684,96 +8684,106 @@
       }
     },
     {
-      "name": "trans.s",
+      "name": "trans.c",
       "measures": {
-        "fuzzy_match_percent": 0.0,
+        "fuzzy_match_percent": 100.0,
         "total_code": "1568",
-        "matched_code": "0",
-        "matched_code_percent": 0.0,
-        "total_data": "0",
+        "matched_code": "1568",
+        "matched_code_percent": 100.0,
+        "total_data": "264",
         "matched_data": "0",
-        "matched_data_percent": 0,
+        "matched_data_percent": 0.0,
         "total_functions": 9,
-        "matched_functions": 0,
-        "matched_functions_percent": 0.0,
+        "matched_functions": 9,
+        "matched_functions_percent": 100.0,
         "total_units": 1
       },
       "sections": [
         {
           "name": ".text",
           "size": "1568",
-          "fuzzy_match_percent": 0.0,
+          "fuzzy_match_percent": 100.0,
           "metadata": {}
+        },
+        {
+          "name": ".sbss",
+          "size": "8",
+          "fuzzy_match_percent": 0
+        },
+        {
+          "name": ".bss",
+          "size": "256",
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
         {
           "name": "TransReset0x163ab0",
           "size": "72",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 0,
           "metadata": {}
         },
         {
           "name": "TransSet0x163b00",
           "size": "96",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 80,
           "metadata": {}
         },
         {
           "name": "GameTrans0x163b60",
           "size": "84",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 176,
           "metadata": {}
         },
         {
           "name": "trans0x163bc0",
           "size": "352",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 272,
           "metadata": {}
         },
         {
           "name": "trans_pl_sub0x163d20",
           "size": "92",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 624,
           "metadata": {}
         },
         {
           "name": "Lb_trans_pl0x163d80",
           "size": "92",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 720,
           "metadata": {}
         },
         {
           "name": "Ed_trans_pl0x163de0",
           "size": "92",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 816,
           "metadata": {}
         },
         {
           "name": "SetPartsTrans0x163e40",
           "size": "360",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 912,
           "metadata": {}
         },
         {
           "name": "SetPartsTrans20x163fb0",
           "size": "328",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 1280,
           "metadata": {}
         }
       ],
       "metadata": {
         "complete": false,
-        "source_path": "src/main/trans.s",
+        "source_path": "src/main/trans.c",
         "progress_categories": [
           "main"
         ]
@@ -38216,25 +38226,25 @@
       }
     },
     {
-      "name": "plAPX.s",
+      "name": "plAPX.c",
       "measures": {
-        "fuzzy_match_percent": 0.0,
+        "fuzzy_match_percent": 100.0,
         "total_code": "1800",
-        "matched_code": "0",
-        "matched_code_percent": 0.0,
+        "matched_code": "1800",
+        "matched_code_percent": 100.0,
         "total_data": "0",
         "matched_data": "0",
         "matched_data_percent": 0,
         "total_functions": 9,
-        "matched_functions": 0,
-        "matched_functions_percent": 0.0,
+        "matched_functions": 9,
+        "matched_functions_percent": 100.0,
         "total_units": 1
       },
       "sections": [
         {
           "name": ".text",
           "size": "1800",
-          "fuzzy_match_percent": 0.0,
+          "fuzzy_match_percent": 100.0,
           "metadata": {}
         }
       ],
@@ -38242,70 +38252,70 @@
         {
           "name": "plAPXGetMipmapTextureNum0x217e50",
           "size": "32",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 0,
           "metadata": {}
         },
         {
           "name": "plAPXGetPaletteNum0x217e70",
           "size": "32",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 32,
           "metadata": {}
         },
         {
           "name": "plAPXSetContextFromImage0x217e90",
           "size": "660",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 64,
           "metadata": {}
         },
         {
           "name": "plAPXSetPaletteContextFromImage0x218130",
           "size": "512",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 736,
           "metadata": {}
         },
         {
           "name": "plAPXGetPixelAddressFromImage0x218330",
           "size": "8",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 1248,
           "metadata": {}
         },
         {
           "name": "plAPXGetPaletteAddressFromImage0x218340",
           "size": "8",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 1264,
           "metadata": {}
         },
         {
           "name": "GetAPXFileHeader0x218350",
           "size": "8",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 1280,
           "metadata": {}
         },
         {
           "name": "GetAPXPixelMipmapAdrs0x218360",
           "size": "308",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 1296,
           "metadata": {}
         },
         {
           "name": "GetAPXPaletteAdrs0x2184a0",
           "size": "232",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 1616,
           "metadata": {}
         }
       ],
       "metadata": {
         "complete": false,
-        "source_path": "src/main/plAPX.s",
+        "source_path": "src/main/plAPX.c",
         "progress_categories": [
           "main"
         ]
@@ -118597,16 +118607,16 @@
       "id": "main",
       "name": "main",
       "measures": {
-        "fuzzy_match_percent": 1.3167852649787701,
+        "fuzzy_match_percent": 1.5236770718666457,
         "total_code": "1627904",
-        "matched_code": "21436",
-        "matched_code_percent": 1.3167852649787701,
-        "total_data": "1009141",
+        "matched_code": "24804",
+        "matched_code_percent": 1.5236770718666457,
+        "total_data": "1009405",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 6997,
-        "matched_functions": 154,
-        "matched_functions_percent": 2.200943261397742,
+        "matched_functions": 172,
+        "matched_functions_percent": 2.4581963698728027,
         "total_units": 150
       }
     },
