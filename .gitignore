@@ -18,3 +18,6 @@ tools/mwccgap/
 tools/m2ctx.py
 .splache
 .splat
+
+# editor files
+compile_flags.txt
