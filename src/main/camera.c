@@ -1509,7 +1509,34 @@ INCLUDE_ASM("asm/main/nonmatchings/camera", ZoomBaseAngleRail0x2246f0);
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", RollAngleRail0x224720);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", tri_diag0x224790);
+static void tri_diag0x224790(f32* out, f32* subdiag, f32* diag, f32* superdiag, f32* in, s32 equations) {
+    //Thomas Algorithm, aka tridiagonal matrix algorithm
+    f32 scratch[64];
+    f32 divisor; //b-a*scratch
+    s32 idx;
+    
+    divisor = diag[0];
+    
+    if (divisor != 0.0f) {
+        divisor = 1.0f / divisor;
+    }
+    out[0] = in[0] * divisor;
+
+    for (idx = 1; idx < equations; idx++) {
+        scratch[idx - 1] = divisor * superdiag[idx - 1];
+        divisor = diag[idx] - (subdiag[idx] * scratch[idx - 1]);
+        if (divisor != 0.0f) {
+            divisor = 1.0f / divisor;
+        }
+        out[idx] = divisor * (in[idx] - (subdiag[idx] * out[idx + - 1]));
+    }
+
+    idx = equations - 2;
+    while (idx >= 0) {
+        out[idx] -= (scratch[idx] * out[idx + 1]);
+        idx--;
+    }
+}
 
 INCLUDE_ASM("asm/main/nonmatchings/camera", Spline0x2248c0);
 
