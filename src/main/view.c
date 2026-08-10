@@ -10,8 +10,7 @@ extern MATRIX rview_mat0x3f2060;
 extern MATRIX rview_matY0x3f2020;
 extern MATRIX view_mat0x3f20a0;
 extern f32 proj_tbl0x301a10[12];
-extern SYSTEM_WORK system_w;
-extern u8 D_003F36BF[]; // system_w.view_projection
+extern SYSTEM_WORK system_w0x3f3690;
 
 extern void plSetupFOVClipPlanes0x193350(f32, f32, f32, f32, f32*);
 extern void flmatrMakeProjection0x1715e0(u8, f32, f32, f32, f32);
@@ -102,8 +101,8 @@ void set_viewproj0x169c20(u32 which) {
         set_aov0x169d20();
         return;
     }
-    if (*D_003F36BF != which) {
-        *D_003F36BF = which;
+    if (system_w0x3f3690.view_projection != which) {
+        system_w0x3f3690.view_projection = which;
 
         for (i = 0; i < 4; i++) {
             tbl[i] = proj_tbl0x301a10[which * 4 + i];
