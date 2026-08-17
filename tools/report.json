@@ -1,15 +1,15 @@
 {
   "measures": {
-    "fuzzy_match_percent": 0.6042733307771538,
-    "total_code": "4256352",
-    "matched_code": "25720",
-    "matched_code_percent": 0.6042733307771538,
-    "total_data": "1974141",
+    "fuzzy_match_percent": 0.6095349077615615,
+    "total_code": "4256360",
+    "matched_code": "25944",
+    "matched_code_percent": 0.6095349077615615,
+    "total_data": "1974653",
     "matched_data": "0",
     "matched_data_percent": 0.0,
     "total_functions": 16080,
-    "matched_functions": 175,
-    "matched_functions_percent": 1.0883084577114428,
+    "matched_functions": 181,
+    "matched_functions_percent": 1.1256218905472637,
     "total_units": 162
   },
   "units": [
@@ -3225,39 +3225,44 @@
       }
     },
     {
-      "name": "scheduler.s",
+      "name": "scheduler.c",
       "measures": {
-        "fuzzy_match_percent": 0.0,
-        "total_code": "680",
-        "matched_code": "0",
-        "matched_code_percent": 0.0,
-        "total_data": "0",
+        "fuzzy_match_percent": 32.55813953488372,
+        "total_code": "688",
+        "matched_code": "224",
+        "matched_code_percent": 32.55813953488372,
+        "total_data": "512",
         "matched_data": "0",
-        "matched_data_percent": 0,
+        "matched_data_percent": 0.0,
         "total_functions": 8,
-        "matched_functions": 0,
-        "matched_functions_percent": 0.0,
+        "matched_functions": 6,
+        "matched_functions_percent": 75.0,
         "total_units": 1
       },
       "sections": [
         {
           "name": ".text",
-          "size": "680",
-          "fuzzy_match_percent": 0.0,
+          "size": "688",
+          "fuzzy_match_percent": 32.55813953488372,
           "metadata": {}
+        },
+        {
+          "name": ".bss",
+          "size": "512",
+          "fuzzy_match_percent": 0
         }
       ],
       "functions": [
         {
           "name": "SchedulerInit0x125060",
           "size": "20",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 0,
           "metadata": {}
         },
         {
           "name": "Scheduler0x125080",
-          "size": "376",
+          "size": "384",
           "fuzzy_match_percent": 0,
           "address": 32,
           "metadata": {}
@@ -3265,7 +3270,7 @@
         {
           "name": "Tsk_Execute0x125200",
           "size": "92",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 416,
           "metadata": {}
         },
@@ -3279,35 +3284,35 @@
         {
           "name": "Tsk_Exit0x1252b0",
           "size": "8",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 592,
           "metadata": {}
         },
         {
           "name": "Tsk_Sleep0x1252c0",
           "size": "36",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 608,
           "metadata": {}
         },
         {
           "name": "Tsk_Signal0x1252f0",
           "size": "36",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 656,
           "metadata": {}
         },
         {
           "name": "Tsk_Kill0x125320",
           "size": "32",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 704,
           "metadata": {}
         }
       ],
       "metadata": {
         "complete": false,
-        "source_path": "src/main/scheduler.s",
+        "source_path": "src/main/scheduler.c",
         "progress_categories": [
           "main"
         ]
@@ -118607,16 +118612,16 @@
       "id": "main",
       "name": "main",
       "measures": {
-        "fuzzy_match_percent": 1.5799573927508705,
-        "total_code": "1627892",
-        "matched_code": "25720",
-        "matched_code_percent": 1.5799573927508705,
-        "total_data": "1009405",
+        "fuzzy_match_percent": 1.5937096873272314,
+        "total_code": "1627900",
+        "matched_code": "25944",
+        "matched_code_percent": 1.5937096873272314,
+        "total_data": "1009917",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 6997,
-        "matched_functions": 175,
-        "matched_functions_percent": 2.5010718879519795,
+        "matched_functions": 181,
+        "matched_functions_percent": 2.5868229241103333,
         "total_units": 150
       }
     },
