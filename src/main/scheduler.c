@@ -2,6 +2,7 @@
 #include "main/scheduler.h"
 
 extern void* memset0x19dd28(void*, u8, u32);
+extern void Select_task0x23a0f0(struct TASK*);
 
 //bss
 TASK tcb_w0x3963b0[0x10];
@@ -21,7 +22,14 @@ void Tsk_Execute0x125200(void* task_func, s32 which) {
     task->task = task_func;
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/scheduler", Select_Tsk_Execute0x125260);
+void Select_Tsk_Execute0x125260(void) {
+    TASK* task = &tcb_w0x3963b0[1];
+
+    memset0x19dd28(task, 0, 0x20);
+    task->flags = TASK_TRIGGERED | TASK_RUNNING;
+    task->task = Select_task0x23a0f0;
+    task->type = 1; // TODO constant?
+}
 
 void Tsk_Exit0x1252b0(TASK* task) {
     task->flags = TASK_KILL;

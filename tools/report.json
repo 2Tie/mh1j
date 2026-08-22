@@ -1,15 +1,15 @@
 {
   "measures": {
-    "fuzzy_match_percent": 0.6095349077615615,
+    "fuzzy_match_percent": 0.6114144480260129,
     "total_code": "4256360",
-    "matched_code": "25944",
-    "matched_code_percent": 0.6095349077615615,
+    "matched_code": "26024",
+    "matched_code_percent": 0.6114144480260129,
     "total_data": "1974653",
     "matched_data": "0",
     "matched_data_percent": 0.0,
     "total_functions": 16080,
-    "matched_functions": 181,
-    "matched_functions_percent": 1.1256218905472637,
+    "matched_functions": 182,
+    "matched_functions_percent": 1.1318407960199004,
     "total_units": 162
   },
   "units": [
@@ -3227,23 +3227,23 @@
     {
       "name": "scheduler.c",
       "measures": {
-        "fuzzy_match_percent": 32.55813953488372,
+        "fuzzy_match_percent": 44.18604651162791,
         "total_code": "688",
-        "matched_code": "224",
-        "matched_code_percent": 32.55813953488372,
+        "matched_code": "304",
+        "matched_code_percent": 44.18604651162791,
         "total_data": "512",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 8,
-        "matched_functions": 6,
-        "matched_functions_percent": 75.0,
+        "matched_functions": 7,
+        "matched_functions_percent": 87.5,
         "total_units": 1
       },
       "sections": [
         {
           "name": ".text",
           "size": "688",
-          "fuzzy_match_percent": 32.55813953488372,
+          "fuzzy_match_percent": 44.18604651162791,
           "metadata": {}
         },
         {
@@ -3277,7 +3277,7 @@
         {
           "name": "Select_Tsk_Execute0x125260",
           "size": "80",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 512,
           "metadata": {}
         },
@@ -118612,16 +118612,16 @@
       "id": "main",
       "name": "main",
       "measures": {
-        "fuzzy_match_percent": 1.5937096873272314,
+        "fuzzy_match_percent": 1.5986239941028317,
         "total_code": "1627900",
-        "matched_code": "25944",
-        "matched_code_percent": 1.5937096873272314,
+        "matched_code": "26024",
+        "matched_code_percent": 1.5986239941028317,
         "total_data": "1009917",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 6997,
-        "matched_functions": 181,
-        "matched_functions_percent": 2.5868229241103333,
+        "matched_functions": 182,
+        "matched_functions_percent": 2.6011147634700587,
         "total_units": 150
       }
     },
