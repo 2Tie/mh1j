@@ -17,7 +17,7 @@ typedef enum {
 typedef struct {
     /* 0x00 */ TASK_FLAG flags;
     /* 0x02 */ s16 timer;
-    /* 0x04 */ void* task;
+    /* 0x04 */ void (*task)(struct TASK *);
     /* 0x08 */ u8 type;
     /* 0x09 */ u8 unk_09;
     /* 0x0A */ u8 unk_0A;
