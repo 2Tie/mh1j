@@ -222,7 +222,7 @@ for l in file:
           #open the src/ c file and check if it's got an INCLUDE_ASM line that ends with v[3] plus );
           tulines = []
           #fname = "src/" + mo.name + "/" + v[4][1:-3]
-          flist = list(Path("src/" + mo.name).rglob(v[4][1:-3]))
+          flist = list(Path("src/").rglob(v[4][1:-3]))
           if(len(flist) == 0):
             print("REPORT.PY ERROR: did not find " + v[4][1:-3])
             break

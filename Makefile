@@ -65,6 +65,7 @@ MAIN_TARGET := $(BUILD_DIR)/$(ELF)
 
 S_FILES := $(shell find $(ASM_DIR) -name '*.s' -not -path *nonmatchings* -not -path */elf* 2>/dev/null)
 GAME_C_FILES := $(shell find $(SRC_DIR)/main -name '*.c' 2>/dev/null)
+ACR_C_FILES := $(shell find $(SRC_DIR)/lib -name  '*.c' 2>/dev/null)
 CRI_C_FILES := $(shell find $(SRC_DIR)/cri -name '*.c' 2>/dev/null)
 
 ENC_FILES := $(TOOLS_DIR)/garbopad.bin $(TOOLS_DIR)/keys.bin $(TOOLS_DIR)/keytables.bin
@@ -76,11 +77,13 @@ ASM_T_FILES := $(addprefix $(BUILD_DIR)/,$(ASM_T_FILES))
 ASM_O_FILES := $(patsubst %.s.t,%.s.o,$(ASM_T_FILES))
 GAME_O_FILES := $(patsubst %.c,%.c.o,$(GAME_C_FILES))
 GAME_O_FILES := $(addprefix $(BUILD_DIR)/,$(GAME_O_FILES))
+ACR_O_FILES := $(patsubst %.c,%.c.o,$(ACR_C_FILES))
+ACR_O_FILES := $(addprefix $(BUILD_DIR)/,$(ACR_O_FILES))
 CRI_O_FILES := $(patsubst %.c,%.c.o,$(CRI_C_FILES))
 CRI_O_FILES := $(addprefix $(BUILD_DIR)/,$(CRI_O_FILES))
 NONMATCHINGS_OLD := $(patsubst %.s,%.s.utf,$(NONMATCHINGS))
 
-ALL_O_FILES := $(ASM_O_FILES) $(GAME_O_FILES) $(CRI_O_FILES)
+ALL_O_FILES := $(ASM_O_FILES) $(GAME_O_FILES) $(ACR_O_FILES) $(CRI_O_FILES)
 
 LINKER_SCRIPT := $(BUILD_DIR)/SLPM_654.95.lcf
 
@@ -116,7 +119,7 @@ split: $(ENC_FILES) $(OVERLAY_BINS)
 	@mkdir -p build/
 	$(GENERATE_LCF) $(LINKER_SCRIPT)
 	@find $(ASM_DIR)/overlay -name '*_header.s' -delete
-	@rm -r asm/main/data/elf/ # need to find a way to stop making these .s files!!!
+	@rm -r asm/data/elf/ # need to find a way to stop making these .s files!!!
 	$(PYTHON) tools/funcrypt.py -i
 	@echo -e "\a"
 

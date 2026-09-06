@@ -9,8 +9,8 @@ options:
   platform: ps2
   compiler: MWCCPS2
   
-  asm_path: asm/main
-  src_path: src/main
+  asm_path: asm
+  src_path: src
   build_path: build
 
   extensions_path: tools/splat_ext
@@ -41,430 +41,430 @@ segments:
     vram: 0x100000
     bss_size: 0x1A9900
     subsegments:
-    - [0x180, asm, crt0]
-    - [0x3b0, asm, ../lib/cri/adx_init]
-    - [0xfa0, c, cardinit]
-    - [0x1010, asm, eft]
-    - [0x9fb0, asm, em]
-    - [0xeda0, asm, fade]
-    - [0xf1d0, asm, game]
-    - [0x1cf70, asm, item]
-    - [0x1dc90, asm, light]
-    - [0x1e9e0, asm, tex]
-    - [0x1eea0, c, load]
-    - [0x1f570, asm, main]
-    - [0x203c0, c, math]
-    - [0x21110, asm, parts]
-    - [0x214b0, asm, yure]
-    - [0x21cf0, asm, model]
-    - [0x251e0, c, scheduler]
-    - [0x254c0, asm, motion]
-    - [0x26940, asm, option]
-    - [0x275c0, asm, cockpit]
-    - [0x34bc0, asm, player]
-    - [0x55020, asm, heap]
-    - [0x55660, asm, info]
-    - [0x590a0, asm, shell]
-    - [0x59550, asm, softdip]
-    - [0x59590, asm, sound]
-    - [0x5a6a0, asm, sprite]
-    - [0x5bc30, c, stage]
-    - [0x61370, asm, system]
+    - [0x180, asm, main/crt0]
+    - [0x3b0, asm, lib/cri/adx_init]
+    - [0xfa0, c, main/cardinit]
+    - [0x1010, asm, main/eft]
+    - [0x9fb0, asm, main/em]
+    - [0xeda0, asm, main/fade]
+    - [0xf1d0, asm, main/game]
+    - [0x1cf70, asm, main/item]
+    - [0x1dc90, asm, main/light]
+    - [0x1e9e0, asm, main/tex]
+    - [0x1eea0, c, main/load]
+    - [0x1f570, asm, main/main]
+    - [0x203c0, c, main/math]
+    - [0x21110, asm, main/parts]
+    - [0x214b0, asm, main/yure]
+    - [0x21cf0, asm, main/model]
+    - [0x251e0, c, main/scheduler]
+    - [0x254c0, asm, main/motion]
+    - [0x26940, asm, main/option]
+    - [0x275c0, asm, main/cockpit]
+    - [0x34bc0, asm, main/player]
+    - [0x55020, asm, main/heap]
+    - [0x55660, asm, main/info]
+    - [0x590a0, asm, main/shell]
+    - [0x59550, asm, main/softdip]
+    - [0x59590, asm, main/sound]
+    - [0x5a6a0, asm, main/sprite]
+    - [0x5bc30, c, main/stage]
+    - [0x61370, asm, main/system]
     # - [0x, asm, tex]
-    - [0x63c30, c, trans]
-    - [0x64280, asm, weapon]
-    - [0x67a40, asm, unk]
-    - [0x69340, c, prim]
-    - [0x69a30, c, vib]
-    - [0x69b60, c, view]
-    - [0x69fd0, asm, em_work]
-    - [0x6ad30, asm, ../lib/AcrSDK/common/fbms]
-    - [0x6b040, asm, ../lib/AcrSDK/ps2/flps2clay]
-    - [0x6db40, asm, ../lib/AcrSDK/ps2/flps2dma]
-    - [0x6f270, asm, ../lib/AcrSDK/ps2/flps2etc]
-    - [0x703b0, asm, ../lib/AcrSDK/ps2/flps2fcurve]
-    - [0x713c0, asm, ../lib/AcrSDK/ps2/flps2math]
-    - [0x73a40, asm, ../lib/AcrSDK/ps2/flps2mesh]
-    - [0x752a0, asm, ../lib/AcrSDK/ps2/flps2ps]
-    - [0x776c0, asm, ../lib/AcrSDK/ps2/flps2render]
-    - [0x79f50, asm, ../lib/AcrSDK/ps2/flps2shader]
-    - [0x87dd0, asm, ../lib/AcrSDK/ps2/flps2vram]
-    - [0x8bf10, asm, ../lib/AcrSDK/flps2init]
-    - [0x8da30, asm, ../lib/AcrSDK/common/memfl]
-    - [0x8dac0, asm, ../lib/AcrSDK/common/mempl]
-    - [0x8e5b0, asm, ../lib/AcrSDK/common/mlPAD]
-    - [0x8f230, asm, ../lib/AcrSDK/common/plaan]
-    - [0x90220, asm, ../lib/AcrSDK/common/plahi]
-    - [0x90780, asm, ../lib/AcrSDK/common/plamo]
-    - [0x92f50, asm, ../lib/AcrSDK/common/plbmp]
-    - [0x92fb0, asm, ../lib/AcrSDK/common/plfcv]
-    - [0x93280, asm, ../lib/AcrSDK/common/plmath]
-    - [0x93740, asm, ../lib/AcrSDK/common/pltm2]
-    - [0x94070, asm, ../lib/AcrSDK/common/plutil]
-    - [0x94a10, asm, ../lib/AcrSDK/common/primlist]
-    - [0x94b80, asm, ../lib/AcrSDK/mcmodule]
-    - [0x94c60, asm, ../lib/AcrSDK/tarPADmodule]
-    - [0x964a0, asm, ../lib/sce/sce_hw]
-    - [0x99900, asm, util]
-    - [0xa96b8, asm, ../lib/sce/sceGs]
-    - [0xaa078, asm, ../lib/sce/sceIpu]
-    - [0xaf6e0, asm, ../lib/sce/sceMc]
-    - [0xb2c28, asm, ../lib/sce/sceMpeg]
-    - [0xb7e28, asm, ../lib/sce/scePad2]
-    - [0xb8720, asm, ../lib/sce/sceVib]
-    - [0xb8890, asm, ../lib/sce/sceVu0]
-    - [0xb9fe0, asm, mwInit]
-    - [0xba0f0, asm, netsync]
-    - [0xbd7e0, asm, sfd]
-    - [0xbdce8, asm, ../lib/CFT]
-    - [0xc4d08, asm, ../lib/M2V]
-    - [0xf3620, asm, ../lib/ADX]
-    - [0x108678, asm, ../lib/SRD]
-    - [0x1099b8, asm, ../lib/DTR]
-    - [0x109ff8, asm, ../lib/UNKLIB]
+    - [0x63c30, c, main/trans]
+    - [0x64280, asm, main/weapon]
+    - [0x67a40, asm, main/unk]
+    - [0x69340, c, main/prim]
+    - [0x69a30, c, main/vib]
+    - [0x69b60, c, main/view]
+    - [0x69fd0, asm, main/em_work]
+    - [0x6ad30, asm, lib/AcrSDK/common/fbms]
+    - [0x6b040, asm, lib/AcrSDK/ps2/flps2clay]
+    - [0x6db40, asm, lib/AcrSDK/ps2/flps2dma]
+    - [0x6f270, asm, lib/AcrSDK/ps2/flps2etc]
+    - [0x703b0, asm, lib/AcrSDK/ps2/flps2fcurve]
+    - [0x713c0, asm, lib/AcrSDK/ps2/flps2math]
+    - [0x73a40, asm, lib/AcrSDK/ps2/flps2mesh]
+    - [0x752a0, c, lib/AcrSDK/ps2/flps2ps]
+    - [0x776c0, asm, lib/AcrSDK/ps2/flps2render]
+    - [0x79f50, asm, lib/AcrSDK/ps2/flps2shader]
+    - [0x87dd0, asm, lib/AcrSDK/ps2/flps2vram]
+    - [0x8bf10, asm, lib/AcrSDK/flps2init]
+    - [0x8da30, asm, lib/AcrSDK/common/memfl]
+    - [0x8dac0, asm, lib/AcrSDK/common/mempl]
+    - [0x8e5b0, asm, lib/AcrSDK/common/mlPAD]
+    - [0x8f230, asm, lib/AcrSDK/common/plaan]
+    - [0x90220, asm, lib/AcrSDK/common/plahi]
+    - [0x90780, asm, lib/AcrSDK/common/plamo]
+    - [0x92f50, asm, lib/AcrSDK/common/plbmp]
+    - [0x92fb0, asm, lib/AcrSDK/common/plfcv]
+    - [0x93280, asm, lib/AcrSDK/common/plmath]
+    - [0x93740, asm, lib/AcrSDK/common/pltm2]
+    - [0x94070, asm, lib/AcrSDK/common/plutil]
+    - [0x94a10, asm, lib/AcrSDK/common/primlist]
+    - [0x94b80, asm, lib/AcrSDK/mcmodule]
+    - [0x94c60, asm, lib/AcrSDK/tarPADmodule]
+    - [0x964a0, asm, lib/sce/sce_hw]
+    - [0x99900, asm, main/util]
+    - [0xa96b8, asm, lib/sce/sceGs]
+    - [0xaa078, asm, lib/sce/sceIpu]
+    - [0xaf6e0, asm, lib/sce/sceMc]
+    - [0xb2c28, asm, lib/sce/sceMpeg]
+    - [0xb7e28, asm, lib/sce/scePad2]
+    - [0xb8720, asm, lib/sce/sceVib]
+    - [0xb8890, asm, lib/sce/sceVu0]
+    - [0xb9fe0, asm, main/mwInit]
+    - [0xba0f0, asm, main/netsync]
+    - [0xbd7e0, asm, main/sfd]
+    - [0xbdce8, asm, lib/CFT]
+    - [0xc4d08, asm, lib/M2V]
+    - [0xf3620, asm, lib/ADX]
+    - [0x108678, asm, lib/SRD]
+    - [0x1099b8, asm, lib/DTR]
+    - [0x109ff8, asm, lib/UNKLIB]
     # DTX, [...], pl2(pro logic 2), RNA, SJMEM, SJRBF, SJUNI, SVM, sdr(1142e0), flsnd
-    - [0x116610, asm, flfnt]
-    - [0x117fd0, c, plAPX]
-    - [0x118710, asm, eft20]
-    - [0x11d5f0, asm, bgm]
-    - [0x11f550, c, camera]
-    - [0x126140, asm, set21]
-    - [0x126970, asm, quest]
-    - [0x12c7e0, asm, CngInet]
+    - [0x116610, asm, main/flfnt]
+    - [0x117fd0, c, main/plAPX]
+    - [0x118710, asm, main/eft20]
+    - [0x11d5f0, asm, main/bgm]
+    - [0x11f550, c, main/camera]
+    - [0x126140, asm, main/set21]
+    - [0x126970, asm, main/quest]
+    - [0x12c7e0, asm, main/CngInet]
     #- [0x12cd70, asm, AQ]
-    - [0x12f930, asm, movie]
-    - [0x12ff50, asm, entry]
-    - [0x12ff80, asm, InetMcs]
-    - [0x132dd0, asm, ../lib/sce/sceSif]
-    - [0x133c90, asm, Ave]
-    - [0x136a40, asm, ../lib/sce/sceNetGlue]
-    - [0x137920, asm, InetDNS]
-    - [0x138070, asm, InetConnect]
-    - [0x13a270, asm, modesel]
-    - [0x13b630, asm, omake]
-    - [0x13c188, asm, ../lib/sce/sceUsbKb]
-    - [0x13d9f0, asm, npc]
-    - [0x13e680, asm, overlays]
-    - [0x13e7b0, asm, textinput]
-    - [0x14a3c0, asm, effect]
-    - [0x154480, asm, scekernel]
-    - [0x15fb00, asm, softkey]
-    - [0x167320, asm, netOverlay]
-    - [0x172020, asm, userdata]
-    - [0x174f90, asm, interface]
-    - [0x17c230, asm, ../lib/sce/sceScf]
-    - [0x17cbd0, asm, eft26]
-    - [0x17d090, asm, cnLBS_download]
-    - [0x17d860, asm, eft02]
-    - [0x17f0e0, asm, save]
-    - [0x186470, c, demo]
-    - [0x186b20, asm, netfile]
-    - [0x18cdc0, asm, hitcoll]
-    - [0x190940, asm, staff]
-    - [0x190de0, asm, poweroff]
-    - [0x190fd0, asm, result]
+    - [0x12f930, asm, main/movie]
+    - [0x12ff50, asm, main/entry]
+    - [0x12ff80, asm, main/InetMcs]
+    - [0x132dd0, asm, lib/sce/sceSif]
+    - [0x133c90, asm, main/Ave]
+    - [0x136a40, asm, lib/sce/sceNetGlue]
+    - [0x137920, asm, main/InetDNS]
+    - [0x138070, asm, main/InetConnect]
+    - [0x13a270, asm, main/modesel]
+    - [0x13b630, asm, main/omake]
+    - [0x13c188, asm, lib/sce/sceUsbKb]
+    - [0x13d9f0, asm, main/npc]
+    - [0x13e680, asm, main/overlays]
+    - [0x13e7b0, asm, main/textinput]
+    - [0x14a3c0, asm, main/effect]
+    - [0x154480, asm, main/scekernel]
+    - [0x15fb00, asm, main/softkey]
+    - [0x167320, asm, main/netOverlay]
+    - [0x172020, asm, main/userdata]
+    - [0x174f90, asm, main/interface]
+    - [0x17c230, asm, lib/sce/sceScf]
+    - [0x17cbd0, asm, main/eft26]
+    - [0x17d090, asm, main/cnLBS_download]
+    - [0x17d860, asm, main/eft02]
+    - [0x17f0e0, asm, main/save]
+    - [0x186470, c, main/demo]
+    - [0x186b20, asm, main/netfile]
+    - [0x18cdc0, asm, main/hitcoll]
+    - [0x190940, asm, main/staff]
+    - [0x190de0, asm, main/poweroff]
+    - [0x190fd0, asm, main/result]
 
-    - [0x193D00, data, vutext]
+    - [0x193D00, data, main/vutext]
 
     #- [0x1E6020, data, data]
-    - [0x1e6020, data, ../lib/CRI/adx_init]
-    - [0x1e61c0, data, eft]
-    - [0x1e8310, data, em]
-    - [0x1e8540, data, fade]
-    - [0x1e86a0, data, game]
-    - [0x1e8880, data, item]
-    - [0x1e8dc0, data, light]
-    - [0x1ebdd0, data, load]
-    - [0x1ed210, data, tex]
-    - [0x1ef510, data, yure]
-    - [0x1ef7d0, data, model]
-    - [0x1ef940, data, option]
-    - [0x1ef9c0, data, cockpit]
-    - [0x1f0f98, data, player]
-    - [0x1f1fd0, data, sound]
-    - [0x1f2780, data, stage]
-    - [0x2007a0, data, system]
-    - [0x200920, data, weapon]
-    - [0x201b60, data, vib]
-    - [0x201b90, data, view]
-    - [0x201bc0, data, fl]
-    - [0x206680, data, ps2]
-    - [0x2067c0, data, ../lib/sce/sce_hw]
-    - [0x2083c8, data, util]
-    - [0x208b40, data, ../lib/sce/sceGs]
-    - [0x208b80, data, ../lib/sce/sceIpu]
-    - [0x208c00, data, ../lib/sce/sceMc]
-    - [0x208c60, data, ../lib/sce/sceMpeg]
-    - [0x208d80, data, ../lib/sce/scePad2]
-    - [0x208db0, data, ../lib/sce/sceVu0]
-    - [0x208df0, data, ../lib/CFT]
-    - [0x20bdf8, data, ../lib/M2V]
-    - [0x20c2d8, data, sfd]
-    - [0x20df80, data, ../lib/ADX]
-    - [0x21e8a0, data, ../lib/CVFS]
-    - [0x21e8b0, data, ../lib/SRD]
-    - [0x21e928, data, ../lib/DTR]
-    - [0x21f900, data, ../lib/UNKLIB] #dvg ci.... im lazy
-    - [0x22d460, data, flfnt]
-    - [0x22d5f0, data, bgm]
-    - [0x22db80, data, em_cmd] #in game.bin
-    - [0x22df70, data, eft20]
-    - [0x231000, data, userdata]
-    - [0x233a50, data, interface]
-    - [0x239050, data, camera]
-    - [0x2395b8, data, set21]
-    - [0x239620, data, quest]
-    - [0x23b1e0, data, CngInet]
-    - [0x248fb0, data, movie]
-    - [0x249040, data, InetMcs]
-    - [0x249070, data, ../lib/sce/sceSif]
-    - [0x249180, data, InetConnect]
-    - [0x249390, data, modesel]
-    - [0x249510, data, omake]
-    - [0x249548, data, ../lib/sce/sceUsbKb]
-    - [0x2495b0, data, npc]
-    - [0x249680, data, overlays]
-    - [0x2496a0, data, textinput]
-    - [0x24aea0, data, scekernel]
-    - [0x24c590, data, softkey]
-    - [0x24f720, data, netOverlay]
-    - [0x251910, data, userdata2]
-    - [0x251a30, data, interface2]
-    - [0x254e10, data, ../lib/sce/sceScf]
-    - [0x254f50, data, eft26]
-    - [0x254f80, data, eft02]
-    - [0x254fd0, data, save]
-    - [0x2555e0, data, demo]
-    - [0x2556a0, data, netfile]
-    - [0x255780, data, staff]
-    - [0x256a90, data, em_meat]
-    - [0x257790, data, quest_table]
-    - [0x257a58, data, result]
+    - [0x1e6020, data, lib/CRI/adx_init]
+    - [0x1e61c0, data, main/eft]
+    - [0x1e8310, data, main/em]
+    - [0x1e8540, data, main/fade]
+    - [0x1e86a0, data, main/game]
+    - [0x1e8880, data, main/item]
+    - [0x1e8dc0, data, main/light]
+    - [0x1ebdd0, data, main/load]
+    - [0x1ed210, data, main/tex]
+    - [0x1ef510, data, main/yure]
+    - [0x1ef7d0, data, main/model]
+    - [0x1ef940, data, main/option]
+    - [0x1ef9c0, data, main/cockpit]
+    - [0x1f0f98, data, main/player]
+    - [0x1f1fd0, data, main/sound]
+    - [0x1f2780, data, main/stage]
+    - [0x2007a0, data, main/system]
+    - [0x200920, data, main/weapon]
+    - [0x201b60, data, main/vib]
+    - [0x201b90, data, main/view]
+    - [0x201bc0, data, main/fl]
+    - [0x206680, data, main/ps2]
+    - [0x2067c0, data, lib/sce/sce_hw]
+    - [0x2083c8, data, main/util]
+    - [0x208b40, data, lib/sce/sceGs]
+    - [0x208b80, data, lib/sce/sceIpu]
+    - [0x208c00, data, lib/sce/sceMc]
+    - [0x208c60, data, lib/sce/sceMpeg]
+    - [0x208d80, data, lib/sce/scePad2]
+    - [0x208db0, data, lib/sce/sceVu0]
+    - [0x208df0, data, lib/CFT]
+    - [0x20bdf8, data, lib/M2V]
+    - [0x20c2d8, data, main/sfd]
+    - [0x20df80, data, lib/ADX]
+    - [0x21e8a0, data, lib/CVFS]
+    - [0x21e8b0, data, lib/SRD]
+    - [0x21e928, data, lib/DTR]
+    - [0x21f900, data, lib/UNKLIB] #dvg ci.... im lazy
+    - [0x22d460, data, main/flfnt]
+    - [0x22d5f0, data, main/bgm]
+    - [0x22db80, data, main/em_cmd] #in game.bin
+    - [0x22df70, data, main/eft20]
+    - [0x231000, data, main/userdata]
+    - [0x233a50, data, main/interface]
+    - [0x239050, data, main/camera]
+    - [0x2395b8, data, main/set21]
+    - [0x239620, data, main/quest]
+    - [0x23b1e0, data, main/CngInet]
+    - [0x248fb0, data, main/movie]
+    - [0x249040, data, main/InetMcs]
+    - [0x249070, data, lib/sce/sceSif]
+    - [0x249180, data, main/InetConnect]
+    - [0x249390, data, main/modesel]
+    - [0x249510, data, main/omake]
+    - [0x249548, data, lib/sce/sceUsbKb]
+    - [0x2495b0, data, main/npc]
+    - [0x249680, data, main/overlays]
+    - [0x2496a0, data, main/textinput]
+    - [0x24aea0, data, main/scekernel]
+    - [0x24c590, data, main/softkey]
+    - [0x24f720, data, main/netOverlay]
+    - [0x251910, data, main/userdata2]
+    - [0x251a30, data, main/interface2]
+    - [0x254e10, data, lib/sce/sceScf]
+    - [0x254f50, data, main/eft26]
+    - [0x254f80, data, main/eft02]
+    - [0x254fd0, data, main/save]
+    - [0x2555e0, data, main/demo]
+    - [0x2556a0, data, main/netfile]
+    - [0x255780, data, main/staff]
+    - [0x256a90, data, main/em_meat]
+    - [0x257790, data, main/quest_table]
+    - [0x257a58, data, main/result]
 
-    - [0x257b00, rodata, ../lib/CRI/adx_init]
-    - [0x257b40, rodata, eft]
-    - [0x257f20, rodata, em]
-    - [0x2581f0, rodata, game]
-    - [0x258560, rodata, model]
-    - [0x258658, rodata, option]
-    - [0x258930, rodata, cockpit]
-    - [0x25a910, rodata, player]
-    - [0x25b940, rodata, info]
-    - [0x25b990, .rodata, stage]
-    - [0x25bb80, rodata, system]
-    - [0x25bd60, rodata, weapon]
-    - [0x25bdd0, rodata, fl]
-    - [0x25c2c0, rodata, pl]
-    - [0x25c310, rodata, ps2]
-    - [0x25c3f8, rodata, ../lib/sce/sce_hw]
-    - [0x25c900, rodata, util]
-    - [0x25d9a8, rodata, ../lib/sce/sceGs]
-    - [0x25dc98, rodata, ../lib/sce/sceIpu]
-    - [0x25e770, rodata, ../lib/sce/sceMc]
-    - [0x25e898, rodata, ../lib/sce/sceMpeg]
-    - [0x25ed30, rodata, ../lib/sce/scePad2]
-    - [0x25ed90, rodata, netsync]
-    - [0x25ee68, rodata, ../lib/CFT]
-    - [0x25ef10, rodata, ../lib/M2V]
-    - [0x2621e0, rodata, ../lib/ADX]
-    - [0x264788, rodata, ../lib/CVFS]
-    - [0x265440, rodata, ../lib/SRD]
-    - [0x2657d0, rodata, ../lib/DTR]
-    - [0x265a30, rodata, ../lib/DVCI]
-    - [0x265e00, rodata, ../lib/HTCI]
-    - [0x266318, rodata, ../lib/LSC]
-    - [0x2668c0, rodata, ../lib/pl2]
-    - [0x266ac8, rodata, ../lib/RNA]
-    - [0x267020, rodata, ../lib/SJ]
-    - [0x267190, rodata, ../lib/SVM]
-    - [0x267340, rodata, sdr]
-    - [0x267370, rodata, flsnd]
-    - [0x267430, rodata, eft20]
-    - [0x267630, rodata, bgm]
-    - [0x267660, rodata, unk]
-    - [0x26b250, .rodata, camera]
-    - [0x26b2f8, rodata, quest]
-    - [0x26b598, rodata, item]
-    - [0x26ca18, rodata, AQ]
-    - [0x26cb30, rodata, ../lib/sce/sceSif]
-    - [0x26ce30, rodata, CngInet]
-    - [0x26d110, rodata, modesel]
-    - [0x26d378, rodata, ../lib/sce/sceUsbKb]
-    - [0x26e1b0, rodata, textinput]
-    - [0x26e240, rodata, effect]
-    - [0x26e288, rodata, scekernel]
-    - [0x26e5d0, rodata, softkey]
-    - [0x270820, rodata, netOverlay]
-    - [0x273670, rodata, userdata]
-    - [0x273780, rodata, interface]
-    - [0x284260, rodata, ../lib/sce/sceScf]
-    - [0x2842d0, rodata, cnLBS_download]
-    - [0x2842f0, rodata, eft02]
-    - [0x2843c0, rodata, save]
-    - [0x285208, rodata, netfile]
-    - [0x285248, rodata, staff]
-    - [0x286590, rodata, poweroff]
-    - [0x2865b0, rodata, result]
-    - [0x286c80, rodata, overlayoffs]
+    - [0x257b00, rodata, lib/CRI/adx_init]
+    - [0x257b40, rodata, main/eft]
+    - [0x257f20, rodata, main/em]
+    - [0x2581f0, rodata, main/game]
+    - [0x258560, rodata, main/model]
+    - [0x258658, rodata, main/option]
+    - [0x258930, rodata, main/cockpit]
+    - [0x25a910, rodata, main/player]
+    - [0x25b940, rodata, main/info]
+    - [0x25b990, .rodata, main/stage]
+    - [0x25bb80, rodata, main/system]
+    - [0x25bd60, rodata, main/weapon]
+    - [0x25bdd0, rodata, main/fl]
+    - [0x25c2c0, rodata, main/pl]
+    - [0x25c310, rodata, main/ps2]
+    - [0x25c3f8, rodata, lib/sce/sce_hw]
+    - [0x25c900, rodata, main/util]
+    - [0x25d9a8, rodata, lib/sce/sceGs]
+    - [0x25dc98, rodata, lib/sce/sceIpu]
+    - [0x25e770, rodata, lib/sce/sceMc]
+    - [0x25e898, rodata, lib/sce/sceMpeg]
+    - [0x25ed30, rodata, lib/sce/scePad2]
+    - [0x25ed90, rodata, main/netsync]
+    - [0x25ee68, rodata, lib/CFT]
+    - [0x25ef10, rodata, lib/M2V]
+    - [0x2621e0, rodata, lib/ADX]
+    - [0x264788, rodata, lib/CVFS]
+    - [0x265440, rodata, lib/SRD]
+    - [0x2657d0, rodata, lib/DTR]
+    - [0x265a30, rodata, lib/DVCI]
+    - [0x265e00, rodata, lib/HTCI]
+    - [0x266318, rodata, lib/LSC]
+    - [0x2668c0, rodata, lib/pl2]
+    - [0x266ac8, rodata, lib/RNA]
+    - [0x267020, rodata, lib/SJ]
+    - [0x267190, rodata, lib/SVM]
+    - [0x267340, rodata, main/sdr]
+    - [0x267370, rodata, main/flsnd]
+    - [0x267430, rodata, main/eft20]
+    - [0x267630, rodata, main/bgm]
+    - [0x267660, rodata, main/unk]
+    - [0x26b250, .rodata, main/camera]
+    - [0x26b2f8, rodata, main/quest]
+    - [0x26b598, rodata, main/item]
+    - [0x26ca18, rodata, main/AQ]
+    - [0x26cb30, rodata, lib/sce/sceSif]
+    - [0x26ce30, rodata, main/CngInet]
+    - [0x26d110, rodata, main/modesel]
+    - [0x26d378, rodata, lib/sce/sceUsbKb]
+    - [0x26e1b0, rodata, main/textinput]
+    - [0x26e240, rodata, main/effect]
+    - [0x26e288, rodata, main/scekernel]
+    - [0x26e5d0, rodata, main/softkey]
+    - [0x270820, rodata, main/netOverlay]
+    - [0x273670, rodata, main/userdata]
+    - [0x273780, rodata, main/interface]
+    - [0x284260, rodata, lib/sce/sceScf]
+    - [0x2842d0, rodata, main/cnLBS_download]
+    - [0x2842f0, rodata, main/eft02]
+    - [0x2843c0, rodata, main/save]
+    - [0x285208, rodata, main/netfile]
+    - [0x285248, rodata, main/staff]
+    - [0x286590, rodata, main/poweroff]
+    - [0x2865b0, rodata, main/result]
+    - [0x286c80, rodata, main/overlayoffs]
 
-    - [0x286d00, sdata, ../lib/CRI/adx_init]
-    - [0x286d08, sdata, eft]
-    - [0x286d38, sdata, game]
-    - [0x286d40, sdata, item]
-    - [0x286d50, sdata, load]
-    - [0x287824, sdata, tex]
-    - [0x287840, sdata, main]
-    - [0x287848, sdata, model]
-    - [0x287880, sdata, option]
-    - [0x287898, sdata, cockpit]
-    - [0x2878f0, sdata, yure]
-    - [0x2878f8, sdata, player]
-    - [0x287914, sdata, stage]
-    - [0x287a78, sdata, system]
-    - [0x287ad8, sdata, fl]
-    - [0x287ae0, sdata, ../lib/ps2]
-    - [0x287af0, sdata, ../lib/ADX]
-    - [0x287b00, sdata, eft20]
-    - [0x287b70, sdata, bgm]
-    - [0x287b78, sdata, set21]
-    - [0x287b88, sdata, quest]
-    - [0x287b94, sdata, CngInet]
-    - [0x287bd4, sdata, movie]
-    - [0x287bd8, sdata, InetMcs]
-    - [0x287bf0, sdata, modesel]
-    - [0x287bf8, sdata, overlays]
-    - [0x287c00, sdata, textinput]
-    - [0x287c48, sdata, netOverlay]
-    - [0x287d90, sdata, interface]
-    - [0x287e00, sdata, save]
-    - [0x287e50, sdata, netfile]
-    - [0x287e58, sdata, quest_table]
-    - [0x287ea8, sdata, result]
-    - [0x287eb8, sdata, gamebin_stragglers]
-    - [0x289f30, sdata, ynbin_stragglers]
-    - [0x289fd8, sdata, lobbybin_stragglers]
-    - [0x28a1a8, sdata, dnasbin_stragglers]
+    - [0x286d00, sdata, lib/CRI/adx_init]
+    - [0x286d08, sdata, main/eft]
+    - [0x286d38, sdata, main/game]
+    - [0x286d40, sdata, main/item]
+    - [0x286d50, sdata, main/load]
+    - [0x287824, sdata, main/tex]
+    - [0x287840, sdata, main/main]
+    - [0x287848, sdata, main/model]
+    - [0x287880, sdata, main/option]
+    - [0x287898, sdata, main/cockpit]
+    - [0x2878f0, sdata, main/yure]
+    - [0x2878f8, sdata, main/player]
+    - [0x287914, sdata, main/stage]
+    - [0x287a78, sdata, main/system]
+    - [0x287ad8, sdata, main/fl]
+    - [0x287ae0, sdata, lib/ps2]
+    - [0x287af0, sdata, lib/ADX]
+    - [0x287b00, sdata, main/eft20]
+    - [0x287b70, sdata, main/bgm]
+    - [0x287b78, sdata, main/set21]
+    - [0x287b88, sdata, main/quest]
+    - [0x287b94, sdata, main/CngInet]
+    - [0x287bd4, sdata, main/movie]
+    - [0x287bd8, sdata, main/InetMcs]
+    - [0x287bf0, sdata, main/modesel]
+    - [0x287bf8, sdata, main/overlays]
+    - [0x287c00, sdata, main/textinput]
+    - [0x287c48, sdata, main/netOverlay]
+    - [0x287d90, sdata, main/interface]
+    - [0x287e00, sdata, main/save]
+    - [0x287e50, sdata, main/netfile]
+    - [0x287e58, sdata, main/quest_table]
+    - [0x287ea8, sdata, main/result]
+    - [0x287eb8, sdata, main/gamebin_stragglers]
+    - [0x289f30, sdata, main/ynbin_stragglers]
+    - [0x289fd8, sdata, main/lobbybin_stragglers]
+    - [0x28a1a8, sdata, main/dnasbin_stragglers]
 
-    - {vram: 0x38a080, type: sbss, name: ../lib/cri/adx_init}
-    - {vram: 0x38a090, type: sbss, name: eft}
-    - {vram: 0x38a09c, type: sbss, name: game}
-    - {vram: 0x38a0ac, type: sbss, name: item}
-    - {vram: 0x38a0b8, type: sbss, name: tex}
-    - {vram: 0x38a0bc, type: sbss, name: main}
-    - {vram: 0x38a0c0, type: sbss, name: cockpit}
-    - {vram: 0x38a0cc, type: sbss, name: heap}
-    - {vram: 0x38a0d8, type: sbss, name: info}
-    - {vram: 0x38a0e4, type: sbss, name: shell}
-    - {vram: 0x38a0f0, type: sbss, name: sound}
-    - {vram: 0x38a0f8, type: sbss, name: sprite}
-    - {vram: 0x38a108, type: .sbss, name: trans}
-    - {vram: 0x38a110, type: sbss, name: view}
-    - {vram: 0x38a114, type: .sbss, name: stage}
-    - {vram: 0x38a11c, type: sbss, name: unsorted1}
-    - {vram: 0x38a18c, type: .sbss, name: prim}
-    - {vram: 0x38a194, type: sbss, name: unsorted2}
+    - {vram: 0x38a080, type: sbss, name: lib/cri/adx_init}
+    - {vram: 0x38a090, type: sbss, name: main/eft}
+    - {vram: 0x38a09c, type: sbss, name: main/game}
+    - {vram: 0x38a0ac, type: sbss, name: main/item}
+    - {vram: 0x38a0b8, type: sbss, name: main/tex}
+    - {vram: 0x38a0bc, type: sbss, name: main/main}
+    - {vram: 0x38a0c0, type: sbss, name: main/cockpit}
+    - {vram: 0x38a0cc, type: sbss, name: main/heap}
+    - {vram: 0x38a0d8, type: sbss, name: main/info}
+    - {vram: 0x38a0e4, type: sbss, name: main/shell}
+    - {vram: 0x38a0f0, type: sbss, name: main/sound}
+    - {vram: 0x38a0f8, type: sbss, name: main/sprite}
+    - {vram: 0x38a108, type: .sbss, name: main/trans}
+    - {vram: 0x38a110, type: sbss, name: main/view}
+    - {vram: 0x38a114, type: .sbss, name: main/stage}
+    - {vram: 0x38a11c, type: sbss, name: main/unsorted1}
+    - {vram: 0x38a18c, type: .sbss, name: main/prim}
+    - {vram: 0x38a194, type: sbss, name: main/unsorted2}
 
     # bss start symbol is at 38aa54, that's a linker quirk
-    - {vram: 0x38AA80, type: bss, name: ..lib/cri/adx_init }
-    - {vram: 0x390880, type: .bss, name: cardinit}
-    - {vram: 0x390910, type: bss, name: eft}
-    - {vram: 0x392b10, type: bss, name: fade}
-    - {vram: 0x392b20, type: bss, name: sortme_coll}
-    - {vram: 0x3936f0, type: bss, name: item}
-    - {vram: 0x394cf0, type: bss, name: light}
-    - {vram: 0x395590, type: bss, name: sortme_mediaver}
-    - {vram: 0x3955a0, type: bss, name: sortme_plshader}
-    - {vram: 0x3955b0, type: bss, name: sortme_hierarchy}
-    - {vram: 0x395db0, type: bss, name: material}
-    - {vram: 0x396330, type: bss, name: model}
-    - {vram: 0x3963b0, type: .bss, name: scheduler}
-    - {vram: 0x3965b0, type: bss, name: cockpit}
-    - {vram: 0x396700, type: bss, name: heap}
-    - {vram: 0x398a00, type: bss, name: info}
-    - {vram: 0x398d70, type: bss, name: shell}
-    - {vram: 0x39c370, type: bss, name: sprite}
-    - {vram: 0x39c470, type: bss, name: system}
-    - {vram: 0x39d870, type: .bss, name: trans}
-    - {vram: 0x39d970, type: bss, name: view}
-    - {vram: 0x39dac0, type: bss, name: interface} #?
-    - {vram: 0x39f230, type: bss, name: sortme_lb}
-    - {vram: 0x39f250, type: bss, name: sortme_lobby}
-    - {vram: 0x39f720, type: bss, name: sortme_lbs}
-    - {vram: 0x3a6e90, type: bss, name: sortme_net}
-    - {vram: 0x3a6f80, type: bss, name: patch}
-    - {vram: 0x3c6fc0, type: bss, name: userdata}
-    - {vram: 0x3c7440, type: bss, name: quest}
-    - {vram: 0x3c75d0, type: bss, name: em}
-    - {vram: 0x3c8d80, type: bss, name: game} #collision?
-    - {vram: 0x3c8dc0, type: bss, name: eft_2}
-    - {vram: 0x3c8de0, type: bss, name: motion}
-    - {vram: 0x3ccfa0, type: bss, name: parts}
-    - {vram: 0x3d7fa0, type: bss, name: light_2} #?
-    - {vram: 0x3d8230, type: .bss, name: stage}
-    - {vram: 0x3d82a0, type: bss, name: em_2 } #?
-    - {vram: 0x3e4be0, type: bss, name: player}
-    - {vram: 0x3e9bf0, type: bss, name: material_2} #?
-    - {vram: 0x3ebc70, type: bss, name: lbc}
-    - {vram: 0x3ebcf0, type: bss, name: prim}
-    - {vram: 0x3f1fd0, type: bss, name: view_2} #?
-    - {vram: 0x3f20e0, type: bss, name: option}
-    - {vram: 0x3f20f0, type: bss, name: save}
-    - {vram: 0x3f2e90, type: bss, name: sortme_reibun} #?
-    - {vram: 0x3f32e0, type: bss, name: edit_task}
-    - {vram: 0x3f3330, type: bss, name: select_task}
-    - {vram: 0x3f33f0, type: bss, name: game_task}
-    - {vram: 0x3f3620, type: bss, name: demo_task}
-    - {vram: 0x3f3670, type: bss, name: system_task}
-    - {vram: 0x3f3990, type: bss, name: tex} #? part of system_task?
-    - {vram: 0x3f3e00, type: bss, name: sortme_mmbb} #? misc?
-    - {vram: 0x3f3f00, type: bss, name: st}
-    - {vram: 0x3f4150, type: bss, name: flps2clay}
-    - {vram: 0x418170, type: bss, name: flps2shader}
-    - {vram: 0x4182c0, type: bss, name: flps2render}
-    - {vram: 0x418c40, type: bss, name: flps2math}
-    - {vram: 0x4196e0, type: bss, name: flps2vram}
-    - {vram: 0x423f00, type: bss, name: flps2dma}
-    - {vram: 0x423f40, type: bss, name: flps2init}
+    - {vram: 0x38AA80, type: bss, name: lib/cri/adx_init }
+    - {vram: 0x390880, type: .bss, name: main/cardinit}
+    - {vram: 0x390910, type: bss, name: main/eft}
+    - {vram: 0x392b10, type: bss, name: main/fade}
+    - {vram: 0x392b20, type: bss, name: main/sortme_coll}
+    - {vram: 0x3936f0, type: bss, name: main/item}
+    - {vram: 0x394cf0, type: bss, name: main/light}
+    - {vram: 0x395590, type: bss, name: main/sortme_mediaver}
+    - {vram: 0x3955a0, type: bss, name: main/sortme_plshader}
+    - {vram: 0x3955b0, type: bss, name: main/sortme_hierarchy}
+    - {vram: 0x395db0, type: bss, name: main/material}
+    - {vram: 0x396330, type: bss, name: main/model}
+    - {vram: 0x3963b0, type: .bss, name: main/scheduler}
+    - {vram: 0x3965b0, type: bss, name: main/cockpit}
+    - {vram: 0x396700, type: bss, name: main/heap}
+    - {vram: 0x398a00, type: bss, name: main/info}
+    - {vram: 0x398d70, type: bss, name: main/shell}
+    - {vram: 0x39c370, type: bss, name: main/sprite}
+    - {vram: 0x39c470, type: bss, name: main/system}
+    - {vram: 0x39d870, type: .bss, name: main/trans}
+    - {vram: 0x39d970, type: bss, name: main/view}
+    - {vram: 0x39dac0, type: bss, name: main/interface} #?
+    - {vram: 0x39f230, type: bss, name: main/sortme_lb}
+    - {vram: 0x39f250, type: bss, name: main/sortme_lobby}
+    - {vram: 0x39f720, type: bss, name: main/sortme_lbs}
+    - {vram: 0x3a6e90, type: bss, name: main/sortme_net}
+    - {vram: 0x3a6f80, type: bss, name: main/patch}
+    - {vram: 0x3c6fc0, type: bss, name: main/userdata}
+    - {vram: 0x3c7440, type: bss, name: main/quest}
+    - {vram: 0x3c75d0, type: bss, name: main/em}
+    - {vram: 0x3c8d80, type: bss, name: main/game} #collision?
+    - {vram: 0x3c8dc0, type: bss, name: main/eft_2}
+    - {vram: 0x3c8de0, type: bss, name: main/motion}
+    - {vram: 0x3ccfa0, type: bss, name: main/parts}
+    - {vram: 0x3d7fa0, type: bss, name: main/light_2} #?
+    - {vram: 0x3d8230, type: .bss, name: main/stage}
+    - {vram: 0x3d82a0, type: bss, name: main/em_2 } #?
+    - {vram: 0x3e4be0, type: bss, name: main/player}
+    - {vram: 0x3e9bf0, type: bss, name: main/material_2} #?
+    - {vram: 0x3ebc70, type: bss, name: main/lbc}
+    - {vram: 0x3ebcf0, type: bss, name: main/prim}
+    - {vram: 0x3f1fd0, type: bss, name: main/view_2} #?
+    - {vram: 0x3f20e0, type: bss, name: main/option}
+    - {vram: 0x3f20f0, type: bss, name: main/save}
+    - {vram: 0x3f2e90, type: bss, name: main/sortme_reibun} #?
+    - {vram: 0x3f32e0, type: bss, name: main/edit_task}
+    - {vram: 0x3f3330, type: bss, name: main/select_task}
+    - {vram: 0x3f33f0, type: bss, name: main/game_task}
+    - {vram: 0x3f3620, type: bss, name: main/demo_task}
+    - {vram: 0x3f3670, type: bss, name: main/system_task}
+    - {vram: 0x3f3990, type: bss, name: main/tex} #? part of system_task?
+    - {vram: 0x3f3e00, type: bss, name: main/sortme_mmbb} #? misc?
+    - {vram: 0x3f3f00, type: bss, name: main/st}
+    - {vram: 0x3f4150, type: bss, name: main/flps2clay}
+    - {vram: 0x418170, type: bss, name: main/flps2shader}
+    - {vram: 0x4182c0, type: bss, name: main/flps2render}
+    - {vram: 0x418c40, type: bss, name: main/flps2math}
+    - {vram: 0x4196e0, type: bss, name: main/flps2vram}
+    - {vram: 0x423f00, type: bss, name: main/flps2dma}
+    - {vram: 0x423f40, type: bss, name: main/flps2init}
     #- {vram: 0x424560, type: bss, name: flps2ps} #?
     #- {vram: 0x424630, type: bss, name: flfms} #?
-    - {vram: 0x4246a0, type: bss, name: memfl}
-    - {vram: 0x4546d0, type: bss, name: mlpad}
-    - {vram: 0x454950, type: bss, name: plaan}
-    - {vram: 0x454970, type: bss, name: plutil}
-    - {vram: 0x455170, type: bss, name: mcmodule}
-    - {vram: 0x455200, type: bss, name: tarpadmodule}
-    - {vram: 0x455680, type: bss, name: crt0}
-    - {vram: 0x455800, type: bss, name: sortme_sce_stuff} #need to split this up
-    - {vram: 0x45dc00, type: bss, name: netgame}
-    - {vram: 0x45dca0, type: bss, name: sortme_cri_stuff} #eventually...
-    - {vram: 0x472180, type: bss, name: flsnd}
-    - {vram: 0x476280, type: bss, name: sortme_silencer}
-    - {vram: 0x4762a0, type: bss, name: flsnd_2}
-    - {vram: 0x4764c0, type: bss, name: camera}
-    - {vram: 0x476dc0, type: bss, name: stiem} #quest?
-    - {vram: 0x476dd0, type: bss, name: CngInet} #and AQ stuff, plus all the packetbuffers lol
-    - {vram: 0x4e36c0, type: bss, name: Ave}
-    - {vram: 0x4e4720, type: bss, name: InetGame} #?
-    - {vram: 0x4e4740, type: bss, name: sortme_InetConnect} #?
-    - {vram: 0x4ef130, type: bss, name: movie}
-    - {vram: 0x4ef1d0, type: bss, name: InetMcs}
-    - {vram: 0x4f9a80, type: bss, name: sceSif}
-    - {vram: 0x4f9ac0, type: bss, name: ave_sif}
-    - {vram: 0x4fa180, type: bss, name: sortme_ave}
-    - {vram: 0x4fa190, type: bss, name: sceNetGlue}
-    - {vram: 0x4fab70, type: bss, name: InetDNS}
-    - {vram: 0x4fb390, type: bss, name: InetConnect}
-    - {vram: 0x4fb400, type: bss, name: sceUsbKb}
-    - {vram: 0x4fd360, type: bss, name: textinput}
-    - {vram: 0x5171c0, type: bss, name: scekernel}
-    - {vram: 0x51ee90, type: bss, name: softkey}
-    - {vram: 0x52fa00, type: bss, name: netOverlay}
-    - {vram: 0x531740, type: bss, name: memcard}
-    - {vram: 0x531910, type: bss, name: demo}
-    - {vram: 0x531940, type: bss, name: staff}
-    - {vram: 0x531950, type: bss, name: poweroff}
-    - {vram: 0x533950, type: bss, name: result}
-    - {vram: 0x533960, type: bss, name: util}
+    - {vram: 0x4246a0, type: bss, name: main/memfl}
+    - {vram: 0x4546d0, type: bss, name: main/mlpad}
+    - {vram: 0x454950, type: bss, name: main/plaan}
+    - {vram: 0x454970, type: bss, name: main/plutil}
+    - {vram: 0x455170, type: bss, name: main/mcmodule}
+    - {vram: 0x455200, type: bss, name: main/tarpadmodule}
+    - {vram: 0x455680, type: bss, name: main/crt0}
+    - {vram: 0x455800, type: bss, name: main/sortme_sce_stuff} #need to split this up
+    - {vram: 0x45dc00, type: bss, name: main/netgame}
+    - {vram: 0x45dca0, type: bss, name: main/sortme_cri_stuff} #eventually...
+    - {vram: 0x472180, type: bss, name: main/flsnd}
+    - {vram: 0x476280, type: bss, name: main/sortme_silencer}
+    - {vram: 0x4762a0, type: bss, name: main/flsnd_2}
+    - {vram: 0x4764c0, type: bss, name: main/camera}
+    - {vram: 0x476dc0, type: bss, name: main/stiem} #quest?
+    - {vram: 0x476dd0, type: bss, name: main/CngInet} #and AQ stuff, plus all the packetbuffers lol
+    - {vram: 0x4e36c0, type: bss, name: main/Ave}
+    - {vram: 0x4e4720, type: bss, name: main/InetGame} #?
+    - {vram: 0x4e4740, type: bss, name: main/sortme_InetConnect} #?
+    - {vram: 0x4ef130, type: bss, name: main/movie}
+    - {vram: 0x4ef1d0, type: bss, name: main/InetMcs}
+    - {vram: 0x4f9a80, type: bss, name: main/sceSif}
+    - {vram: 0x4f9ac0, type: bss, name: main/ave_sif}
+    - {vram: 0x4fa180, type: bss, name: main/sortme_ave}
+    - {vram: 0x4fa190, type: bss, name: main/sceNetGlue}
+    - {vram: 0x4fab70, type: bss, name: main/InetDNS}
+    - {vram: 0x4fb390, type: bss, name: main/InetConnect}
+    - {vram: 0x4fb400, type: bss, name: main/sceUsbKb}
+    - {vram: 0x4fd360, type: bss, name: main/textinput}
+    - {vram: 0x5171c0, type: bss, name: main/scekernel}
+    - {vram: 0x51ee90, type: bss, name: main/softkey}
+    - {vram: 0x52fa00, type: bss, name: main/netOverlay}
+    - {vram: 0x531740, type: bss, name: main/memcard}
+    - {vram: 0x531910, type: bss, name: main/demo}
+    - {vram: 0x531940, type: bss, name: main/staff}
+    - {vram: 0x531950, type: bss, name: main/poweroff}
+    - {vram: 0x533950, type: bss, name: main/result}
+    - {vram: 0x533960, type: bss, name: main/util}
 
   - [0x28A200, databin, elf/shstrtab]
   - [0x28A320, databin, elf/strtab]

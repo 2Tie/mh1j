@@ -248,9 +248,9 @@ void CameraMove0x21f590(void) {
     View_move0x169a80();
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", cam_init_sub_std0x21f810);
+INCLUDE_ASM("asm/nonmatchings/main/camera", cam_init_sub_std0x21f810);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", cam_sub_std0x21f9b0);
+INCLUDE_ASM("asm/nonmatchings/main/camera", cam_sub_std0x21f9b0);
 
 void WyvernFindPlayer0x220420(PLAYER_WORK* player) {
     CAMERA_WORK* camera_work = &CameraWork0x4767c0;
@@ -270,9 +270,9 @@ void BBQcamera_set0x220450(PLAYER_WORK* player) {
     }
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", manual_cam_chk0x220490);
+INCLUDE_ASM("asm/nonmatchings/main/camera", manual_cam_chk0x220490);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", std_cam_sw_set_sub0x220570);
+INCLUDE_ASM("asm/nonmatchings/main/camera", std_cam_sw_set_sub0x220570);
 
 void set_to_std_cam0x220650(s32 view) {
     CAM_W_VIEW* cam_w_view = &CameraWork0x4767c0.views[0];
@@ -293,7 +293,7 @@ void cam_init_sub_stg0x220690(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view) {
     cam_view->pitch = DEG_55_RAD;
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", cam_sub_stg0x2206b0);
+INCLUDE_ASM("asm/nonmatchings/main/camera", cam_sub_stg0x2206b0);
 
 void cam_init_sub_pchngr0x220ee0(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view) {
     CAM_VIEW_STATE_PACHINGER* view_state;
@@ -613,7 +613,7 @@ s32 fish_cam_sub0x221700(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view, CAM_FISHIN
     return 0;
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", NPCZoomInCameraRequest0x221820);
+INCLUDE_ASM("asm/nonmatchings/main/camera", NPCZoomInCameraRequest0x221820);
 
 void NPCZoomInCameraCancel0x221850(void) {
     CameraWork0x4767c0.views[3].state.rot_something[0] = 0;
@@ -912,7 +912,7 @@ void get_angle0x222020(s16* arg0, CAM_W_VIEW* arg1) {
 // temp rodata padding to keep alignment, move/remove as needed?
 const char __pad_cam_0x36B0E8[] = "\0\0\0\0"; // shunts cmd_cam_move jumptable to next 0x10
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", cmd_cam_move0x2220c0);
+INCLUDE_ASM("asm/nonmatchings/main/camera", cmd_cam_move0x2220c0);
 
 s32 point_cam_hit0x222400(CAMERA_WORK* a1, CAM_W_VIEW* a2, POINT_CAM_STATE* a3, void* a4) {
     return 0;
@@ -1211,10 +1211,10 @@ void cam_sw_set_sub0x222d80(CAMERA_WORK* cam) {
     }
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", default_area_data0x222e20);
+INCLUDE_ASM("asm/nonmatchings/main/camera", default_area_data0x222e20);
 
 // this match requires default_area_data match as static
-INCLUDE_ASM("asm/main/nonmatchings/camera", StageCamInit0x223000);
+INCLUDE_ASM("asm/nonmatchings/main/camera", StageCamInit0x223000);
 
 // void StageCamInit0x223000(CAMERA_WORK* cam) {
 //     CAM_DATA_HEADER* dataBuff;
@@ -1356,29 +1356,29 @@ s32 CamAreaAttribChk0x2233c0(CAM_DATA_ENTRY_HEADER* entry, PLAYER_WORK* player) 
     return 1;
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", Area_XZ_Check0x223410);
+INCLUDE_ASM("asm/nonmatchings/main/camera", Area_XZ_Check0x223410);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", GetPanTarget0x223500);
+INCLUDE_ASM("asm/nonmatchings/main/camera", GetPanTarget0x223500);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", GetRailTarget0x2235e0);
+INCLUDE_ASM("asm/nonmatchings/main/camera", GetRailTarget0x2235e0);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", GetRailCamPos0x2236d0);
+INCLUDE_ASM("asm/nonmatchings/main/camera", GetRailCamPos0x2236d0);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", GetNearSection0x223760);
+INCLUDE_ASM("asm/nonmatchings/main/camera", GetNearSection0x223760);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", get_near_point_sub0x223870);
+INCLUDE_ASM("asm/nonmatchings/main/camera", get_near_point_sub0x223870);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", GetNearPoint0x223980);
+INCLUDE_ASM("asm/nonmatchings/main/camera", GetNearPoint0x223980);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", cam_rail_move_sub0x223b50);
+INCLUDE_ASM("asm/nonmatchings/main/camera", cam_rail_move_sub0x223b50);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", cam_rail_move0x223c90);
+INCLUDE_ASM("asm/nonmatchings/main/camera", cam_rail_move0x223c90);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", cam_rail_move_00x223de0);
+INCLUDE_ASM("asm/nonmatchings/main/camera", cam_rail_move_00x223de0);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", CamRailMove0x223e90);
+INCLUDE_ASM("asm/nonmatchings/main/camera", CamRailMove0x223e90);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", CamRailPoint0x223f00);
+INCLUDE_ASM("asm/nonmatchings/main/camera", CamRailPoint0x223f00);
 
 static f32 vInnerProductXZ0x223f90(f32* arg0, f32* arg1) {
     f32 x = arg0[0] * arg1[0];
@@ -1505,9 +1505,9 @@ f32 ZoomRateCalc0x224660(f32 distance, CAM_DATA_ENTRY_HEADER* header) {
     return zoom; // otherwise linear scale between the two values
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", ZoomBaseAngleRail0x2246f0);
+INCLUDE_ASM("asm/nonmatchings/main/camera", ZoomBaseAngleRail0x2246f0);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", RollAngleRail0x224720);
+INCLUDE_ASM("asm/nonmatchings/main/camera", RollAngleRail0x224720);
 
 static void tri_diag0x224790(f32* out, f32* subdiag, f32* diag, f32* superdiag, f32* in, s32 equations) {
     //Thomas Algorithm, aka tridiagonal matrix algorithm
@@ -1538,7 +1538,7 @@ static void tri_diag0x224790(f32* out, f32* subdiag, f32* diag, f32* superdiag, 
     }
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", Spline0x2248c0);
+INCLUDE_ASM("asm/nonmatchings/main/camera", Spline0x2248c0);
 
 static void dCnvComplex0x224cb0(COMPLEX* arg0, f32 fparg0, f32 fparg1) {
     arg0->a = fparg0;
@@ -1654,13 +1654,13 @@ void DKA50x224dd0(COMPLEX* out, f32* products) {
     }
 }
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", Cardano0x225050);
+INCLUDE_ASM("asm/nonmatchings/main/camera", Cardano0x225050);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", k_HitWallCamera0x225370);
+INCLUDE_ASM("asm/nonmatchings/main/camera", k_HitWallCamera0x225370);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", k_HitEmCamera0x225510);
+INCLUDE_ASM("asm/nonmatchings/main/camera", k_HitEmCamera0x225510);
 
-INCLUDE_ASM("asm/main/nonmatchings/camera", QuestClearCameraRequest0x225d80);
+INCLUDE_ASM("asm/nonmatchings/main/camera", QuestClearCameraRequest0x225d80);
 
 void RedDragonEscapeCamera0x225e90(void* target_ptr) {
     DemoCameraRequest0x221b80(0x1C, target_ptr);
