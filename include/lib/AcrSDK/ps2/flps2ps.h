@@ -1,3 +1,8 @@
+#ifndef FLPS2PS_H
+#define FLPS2PS_H
+
+#include "types.h"
+
 typedef struct {
     // total size: 0x470
     u32 VideoMode;                    // offset 0x0, size 0x4
@@ -57,3 +62,20 @@ typedef struct {
     u64 RenderSCISSORStatus2;         // offset 0x458, size 0x4
     s32 RenderSCISSORValue2[4];       // offset 0x460, size 0x10
 } FLPS2State;
+
+typedef struct {
+    // total size: 0x3C
+    u32 channel_id;             // offset 0x0, size 0x4
+    u32 queue_size;             // offset 0x4, size 0x4
+    s32 handleID;               // offset 0x8, size 0x4
+    u32 dma_queue_handle[2];    // offset 0xC, size 0x8
+    u32 queue_ctr[2];           // offset 0x14, size 0x8
+    u32 queue_ptr0[2];          // offset 0x1C, size 0x8
+    u32 queue_ptr1[2];          // offset 0x24, size 0x8
+    u32 now_adrs;               // offset 0x2C, size 0x4
+    u32 dma_normal_mode_status; // offset 0x30, size 0x4
+    uintptr_t old_queue_data;   // offset 0x34, size 0x4
+    uintptr_t old_endtag;       // offset 0x38, size 0x4
+} FLPS2VIF1Control;
+
+#endif
