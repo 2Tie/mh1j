@@ -63,7 +63,7 @@ segments:
     - [0x275c0, asm, main/cockpit]
     - [0x34bc0, asm, main/player]
     - [0x55020, asm, main/heap]
-    - [0x55660, asm, main/info]
+    - [0x55660, asm, main/set]
     - [0x590a0, asm, main/shell]
     - [0x59550, asm, main/softdip]
     - [0x59590, asm, main/sound]
@@ -123,7 +123,7 @@ segments:
     - [0x1099b8, asm, lib/DTR]
     - [0x109ff8, asm, lib/UNKLIB]
     # DTX, [...], pl2(pro logic 2), RNA, SJMEM, SJRBF, SJUNI, SVM, sdr(1142e0), flsnd
-    - [0x116610, asm, main/flfnt]
+    - [0x116610, c, main/flfnt]
     - [0x117fd0, c, main/plAPX]
     - [0x118710, asm, main/eft20]
     - [0x11d5f0, asm, main/bgm]
@@ -249,7 +249,7 @@ segments:
     - [0x258658, rodata, main/option]
     - [0x258930, rodata, main/cockpit]
     - [0x25a910, rodata, main/player]
-    - [0x25b940, rodata, main/info]
+    - [0x25b940, rodata, main/set]
     - [0x25b990, .rodata, main/stage]
     - [0x25bb80, rodata, main/system]
     - [0x25bd60, rodata, main/weapon]
@@ -353,7 +353,7 @@ segments:
     - {vram: 0x38a0bc, type: sbss, name: main/main}
     - {vram: 0x38a0c0, type: sbss, name: main/cockpit}
     - {vram: 0x38a0cc, type: sbss, name: main/heap}
-    - {vram: 0x38a0d8, type: sbss, name: main/info}
+    - {vram: 0x38a0d8, type: sbss, name: main/set}
     - {vram: 0x38a0e4, type: sbss, name: main/shell}
     - {vram: 0x38a0f0, type: sbss, name: main/sound}
     - {vram: 0x38a0f8, type: sbss, name: main/sprite}
@@ -380,7 +380,7 @@ segments:
     - {vram: 0x3963b0, type: .bss, name: main/scheduler}
     - {vram: 0x3965b0, type: bss, name: main/cockpit}
     - {vram: 0x396700, type: bss, name: main/heap}
-    - {vram: 0x398a00, type: bss, name: main/info}
+    - {vram: 0x398a00, type: bss, name: main/set}
     - {vram: 0x398d70, type: bss, name: main/shell}
     - {vram: 0x39c370, type: bss, name: main/sprite}
     - {vram: 0x39c470, type: bss, name: main/system}
