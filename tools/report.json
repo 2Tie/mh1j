@@ -1,15 +1,15 @@
 {
   "measures": {
-    "fuzzy_match_percent": 0.6419256076726603,
-    "total_code": "4256568",
-    "matched_code": "27324",
-    "matched_code_percent": 0.6419256076726603,
+    "fuzzy_match_percent": 0.643434003612327,
+    "total_code": "4256536",
+    "matched_code": "27388",
+    "matched_code_percent": 0.643434003612327,
     "total_data": "1974653",
     "matched_data": "0",
     "matched_data_percent": 0.0,
     "total_functions": 16080,
-    "matched_functions": 191,
-    "matched_functions_percent": 1.1878109452736318,
+    "matched_functions": 195,
+    "matched_functions_percent": 1.212686567164179,
     "total_units": 162
   },
   "units": [
@@ -38006,23 +38006,23 @@
     {
       "name": "flfnt.c",
       "measures": {
-        "fuzzy_match_percent": 8.669108669108669,
-        "total_code": "6552",
-        "matched_code": "568",
-        "matched_code_percent": 8.669108669108669,
+        "fuzzy_match_percent": 9.69325153374233,
+        "total_code": "6520",
+        "matched_code": "632",
+        "matched_code_percent": 9.69325153374233,
         "total_data": "400",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 27,
-        "matched_functions": 6,
-        "matched_functions_percent": 22.22222222222222,
+        "matched_functions": 10,
+        "matched_functions_percent": 37.03703703703704,
         "total_units": 1
       },
       "sections": [
         {
           "name": ".text",
-          "size": "6552",
-          "fuzzy_match_percent": 8.669108669108669,
+          "size": "6520",
+          "fuzzy_match_percent": 9.69325153374233,
           "metadata": {}
         },
         {
@@ -38076,22 +38076,22 @@
         },
         {
           "name": "flfntSetSize0x216890",
-          "size": "32",
-          "fuzzy_match_percent": 0,
+          "size": "20",
+          "fuzzy_match_percent": 100,
           "address": 1024,
           "metadata": {}
         },
         {
           "name": "flfntLocate0x2168b0",
-          "size": "32",
-          "fuzzy_match_percent": 0,
+          "size": "20",
+          "fuzzy_match_percent": 100,
           "address": 1056,
           "metadata": {}
         },
         {
           "name": "flfntSetZ0x2168d0",
-          "size": "16",
-          "fuzzy_match_percent": 0,
+          "size": "12",
+          "fuzzy_match_percent": 100,
           "address": 1088,
           "metadata": {}
         },
@@ -38104,8 +38104,8 @@
         },
         {
           "name": "flfntSetHalftype0x216910",
-          "size": "16",
-          "fuzzy_match_percent": 0,
+          "size": "12",
+          "fuzzy_match_percent": 100,
           "address": 1152,
           "metadata": {}
         },
@@ -118612,16 +118612,16 @@
       "id": "main",
       "name": "main",
       "measures": {
-        "fuzzy_match_percent": 1.678267043709631,
-        "total_code": "1628108",
-        "matched_code": "27324",
-        "matched_code_percent": 1.678267043709631,
+        "fuzzy_match_percent": 1.6822310506389135,
+        "total_code": "1628076",
+        "matched_code": "27388",
+        "matched_code_percent": 1.6822310506389135,
         "total_data": "1009917",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 6997,
-        "matched_functions": 191,
-        "matched_functions_percent": 2.729741317707589,
+        "matched_functions": 195,
+        "matched_functions_percent": 2.786908675146491,
         "total_units": 150
       }
     },

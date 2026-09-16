@@ -70,15 +70,29 @@ void flfntCacheFlush0x216640(void) {
 
 INCLUDE_ASM("asm/nonmatchings/main/flfnt", flfntSetPalData0x2166e0);
 
-INCLUDE_ASM("asm/nonmatchings/main/flfnt", flfntSetSize0x216890);
+void flfntSetSize0x216890(u8 w, u8 h)
+{
+    np0x38a340->width = w;
+    np0x38a340->height = h;
+}
 
-INCLUDE_ASM("asm/nonmatchings/main/flfnt", flfntLocate0x2168b0);
+void flfntLocate0x2168b0(u16 x, u16 y)
+{
+    np0x38a340->pos_x = x;
+    np0x38a340->pos_y = y;
+}
 
-INCLUDE_ASM("asm/nonmatchings/main/flfnt", flfntSetZ0x2168d0);
+void flfntSetZ0x2168d0(f32 z)
+{
+    np0x38a340->pos_z = z;
+}
 
 INCLUDE_ASM("asm/nonmatchings/main/flfnt", flfntSetPalette0x2168e0);
 
-INCLUDE_ASM("asm/nonmatchings/main/flfnt", flfntSetHalftype0x216910);
+void flfntSetHalftype0x216910(u32 type)
+{
+    np0x38a340->half_type = type;
+}
 
 INCLUDE_ASM("asm/nonmatchings/main/flfnt", flfntPrintf0x216920);
 
