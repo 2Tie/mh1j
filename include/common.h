@@ -13,6 +13,10 @@
 #define USHORT_MAX_FLOAT 65536.0f
 #define DEG2RAD  0.0000958738f //2pi / USHRT_MAX
 
+#define ONETHIRD (1.0f/3.0f)
+
+#define ERROREPSILON (1.0e-6) //cardano uses this
+
 #define SCREEN_RATIO 1.4285715 //640/448, used in projections
 
 #define DEG_10_RAD 0.17453294f // 10º 0x3E32B8C3

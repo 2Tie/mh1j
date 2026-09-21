@@ -9,8 +9,11 @@ extern PLAYER_WORK player_work0x3e4bf0[8];
 extern MONSTER_WORK em_work0x3d82a0[20];
 extern VIEW_WORK* lpView0x38a110;
 
+extern f32 flSqrt0x173680(f32);
 extern f32 flPow0x173670(f32, f32);
+extern f32 flCos0x173610(f32);
 extern f32 flSin0x173600(f32);
+extern f32 flArcTan20x1735e0(f32, f32);
 extern f32 flAbs0x173540(f32);
 extern f32 flvecInnerProduct0x173220(f32*, f32*);
 extern f32 flvecCalcDistance0x173140(void*, void*);
@@ -1654,7 +1657,80 @@ void DKA50x224dd0(COMPLEX* out, f32* products) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/main/camera", Cardano0x225050);
+//return val is number of unique real roots, first arg is the returned roots
+s32 Cardano0x225050(f32* roots, f32* coeffs) {
+    f32 c0, c1, c2, c3;
+    f32 alpha, alpha2, discriminant;
+    f32 P;
+    f32 Psquared;
+    f32 PoverU;
+    f32 Q;
+    f32 U;
+    f32 Usquared;
+    f32 Proot;
+    f32 arctan_res;
+    f32 cos_res;
+    f32 sin_res;
+    
+    //remove coef from pow3 in c0x^3 + c1x^2 + c2x + c3
+    c0 = 1.0f / coeffs[0]; //inverted pow3 coef
+    c1 = coeffs[1] * c0; //new pow2 coef
+    c2 = coeffs[2] * c0; //new pow1 coef
+    c3 = coeffs[3] * c0; //new constant
+
+    //depress the cubic, t^3 + Pt + Q
+    alpha = c1 * ONETHIRD;
+    alpha2 = alpha * alpha;
+    P = (c2 * ONETHIRD) - alpha2; //P = c2 - (c1 * c1 / 3), bake an extra /3 in for simpler discriminant calc
+    
+    Q = ((alpha2 + alpha2 - c2) * alpha + c3) * 0.5f; 
+    //Q = ((2(c1/3 * c1/3) - c2) * c1/3 + c3) / 2
+    //Q = ((2*c1*c1*c1)/27 + c1*c2/3 + c3) / 2, baked an extra /2 in for simpler discriminant calc
+    
+    if ((flAbs0x173540(P) < ERROREPSILON) && 
+        (flAbs0x173540(Q) < ERROREPSILON)) {
+        //det of 0 means a triple root
+        roots[0] = -alpha; //return -b/3a
+        return 1;
+    }
+    Psquared = P * P;
+    discriminant = Psquared * P + Q * Q; //note the sign
+    if (discriminant > 0.0f) {
+        //positive det means one real root
+        if ((Q >= 0.0f)) {
+            U = flPow0x173670(Q + flSqrt0x173680(discriminant), ONETHIRD);
+        } else {
+            U = -flPow0x173670(-Q + flSqrt0x173680(discriminant), ONETHIRD);
+        }
+        PoverU = P / U;
+        if (P < 0.0f) {
+            roots[0] = PoverU - U;
+        } else {
+            Usquared = U * U;
+            roots[0] = -2.0f * Q * Usquared / ((Usquared + P) * Usquared + Psquared );
+        }
+        roots[0] = roots[0] - alpha;
+        return 1;
+    }
+    //otherwise det is negative, which means up to three unique real roots
+    if (Q < 0.0f) {
+        Proot = flSqrt0x173680(-P);
+    } else {
+        Proot = -flSqrt0x173680(-P);
+    }
+    if (flAbs0x173540(discriminant) < ERROREPSILON) {
+        roots[0] = Proot + Proot - alpha;
+        roots[1] = -Proot - alpha;
+        return 2;
+    }
+    arctan_res = flArcTan20x1735e0(flSqrt0x173680(-discriminant), -Q) * ONETHIRD;
+    cos_res = Proot * flCos0x173610(arctan_res);
+    sin_res = Proot * flSin0x173600(arctan_res) * 1.7320508f; //2*sin(PI/3)
+    roots[0] = cos_res + cos_res - alpha;
+    roots[1] = -cos_res - sin_res - alpha;
+    roots[2] = -cos_res + sin_res - alpha;
+    return 3;
+}
 
 INCLUDE_ASM("asm/nonmatchings/main/camera", k_HitWallCamera0x225370);
 

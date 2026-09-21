@@ -87,7 +87,9 @@ void flfntSetZ0x2168d0(f32 z)
     np0x38a340->pos_z = z;
 }
 
-INCLUDE_ASM("asm/nonmatchings/main/flfnt", flfntSetPalette0x2168e0);
+void flfntSetPalette0x2168e0(s16 pal) {
+    np0x38a340->pal_num = pal % 0x20;
+}
 
 void flfntSetHalftype0x216910(u32 type)
 {
@@ -126,4 +128,18 @@ INCLUDE_ASM("asm/nonmatchings/main/flfnt", flnecCheckString0x217c10);
 
 INCLUDE_ASM("asm/nonmatchings/main/flfnt", flnecCheckFont0x217d70);
 
-INCLUDE_ASM("asm/nonmatchings/main/flfnt", flnecAscii2Sjis0x217de0);
+s32 flnecAscii2Sjis0x217de0(u8 character) {
+    if (character < 0x21) { //control codes and space
+        return 0x8140; // "　"
+    }
+    if (character < 0x60) { //uppercase
+        return character + 0x7FFF + 0x520; //851F base
+    }
+    if (character < 0x80) { //lowercase
+        return character + 0x7FFF + 0x521; //8520 base
+    }
+    if (character == 0xA5) { //yen symbol
+        return 0x85A3;
+    }
+    return character + 0x7FFF + 0x4FF; //84FE base for ansi extended?
+}
