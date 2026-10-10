@@ -29,5 +29,7 @@
 #define PCH_ANGLE_STEP  0.022340214f // ~1.28° per frame
 
 typedef f32 MATRIX[4][4];
+typedef f32 VEC4[4]; 
+typedef f32 VEC3[3];
 
 #endif

@@ -1534,14 +1534,72 @@ static void tri_diag0x224790(f32* out, f32* subdiag, f32* diag, f32* superdiag, 
         out[idx] = divisor * (in[idx] - (subdiag[idx] * out[idx + - 1]));
     }
 
-    idx = equations - 2;
-    while (idx >= 0) {
+    for (idx = equations - 2; idx >= 0; idx--) {
         out[idx] -= (scratch[idx] * out[idx + 1]);
-        idx--;
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/main/camera", Spline0x2248c0);
+//first arg is result, second is passed points, third is number of points
+void Spline0x2248c0(VEC3 res[][4], VEC4 *pts, s32 num) {
+    SPLINE_WORK ram;
+    SPLINE_WORK* spline = &ram;
+    s32 i;
+    VEC3* vp;
+
+    f32 ba;
+    f32 ab;
+
+    f32 pow;
+    f32 inv;
+    f32 invsq;
+
+    
+    spline->subdiag[0] = 0.0f;
+    spline->diag[0] = pts[0][3] + pts[0][3];
+    spline->superdiag[0] = pts[0][3];
+    spline->b[0][0] = 3.0f * (pts[1][0] - pts[0][0]);
+    spline->b[1][0] = 3.0f * (pts[1][1] - pts[0][1]);
+    spline->b[2][0] = 3.0f * (pts[1][2] - pts[0][2]);
+    
+    for(i = 1; i < num - 1; i++) {
+            ba = pts[i][3]/pts[i-1][3];
+            ab = pts[i-1][3]/pts[i][3];
+            spline->subdiag[i] = pts[i][3];
+            spline->diag[i] = 2.0f * (pts[i-1][3] + pts[i][3]);
+            spline->superdiag[i] = pts[i-1][3];
+            spline->b[0][i] = 3.0f * ((pts[i][0] - pts[i-1][0]) * ba + (pts[i+1][0] - pts[i][0]) * ab);
+            spline->b[1][i] = 3.0f * ((pts[i][1] - pts[i-1][1]) * ba + (pts[i+1][1] - pts[i][1]) * ab);
+            spline->b[2][i] = 3.0f * ((pts[i][2] - pts[i-1][2]) * ba + (pts[i+1][2] - pts[i][2]) * ab);
+    }
+    spline->subdiag[num-1] = pts[num-2][3];
+    spline->diag[num-1] = pts[num-2][3] + pts[num-2][3];
+    spline->superdiag[num-1] = 0.0f;
+    spline->b[0][num-1] = 3.0f * (pts[num-1][0] - pts[num-2][0]);
+    spline->b[1][num-1] = 3.0f * (pts[num-1][1] - pts[num-2][1]);
+    spline->b[2][num-1] = 3.0f * (pts[num-1][2] - pts[num-2][2]);
+    tri_diag0x224790(spline->xy[0], spline->subdiag, spline->diag, spline->superdiag, spline->b[0], num);
+    tri_diag0x224790(spline->xy[1], spline->subdiag, spline->diag, spline->superdiag, spline->b[1], num);
+    tri_diag0x224790(spline->xy[2], spline->subdiag, spline->diag, spline->superdiag, spline->b[2], num);
+    vp = res[0];
+    for(i = 0; i < (num - 1); i++, vp += 4) {
+            inv = 1.0f / pts[i][3];
+            invsq = inv*inv;
+            pow = 1.0f / flPow0x173670(pts[i][3], 3.0f);
+            //pow = 1.0f / pow;
+            vp[0][0] = 2.0f * (pts[i][0] - pts[i + 1][0]) * pow + (spline->xy[0][i] + spline->xy[0][i+1]) * invsq;
+            vp[1][0] = 3.0f * (pts[i + 1][0] - pts[i][0]) * invsq - (2.0f * spline->xy[0][i] + spline->xy[0][i+1]) * inv;
+            vp[2][0] = spline->xy[0][i];
+            vp[3][0] = pts[i][0];
+            vp[0][1] = 2.0f * (pts[i][1] - pts[i + 1][1]) * pow + (spline->xy[1][i] + spline->xy[1][i+1]) * invsq;
+            vp[1][1] = 3.0f * (pts[i+1][1] - pts[i][1]) * invsq - (spline->xy[1][i] * 2.0f + spline->xy[1][i+1]) * inv;
+            vp[2][1] = spline->xy[1][i];
+            vp[3][1] = pts[i][1];
+            vp[0][2] = 2.0f * (pts[i][2] - pts[i + 1][2]) * pow + (spline->xy[2][i] + spline->xy[2][i+1]) * invsq;
+            vp[1][2] = 3.0f * (pts[i + 1][2] - pts[i][2]) * invsq - (spline->xy[2][i] * 2.0f + spline->xy[2][i+1]) * inv;
+            vp[2][2] = spline->xy[2][i];
+            vp[3][2] = pts[i][2];
+    }
+}
 
 static void dCnvComplex0x224cb0(COMPLEX* arg0, f32 fparg0, f32 fparg1) {
     arg0->a = fparg0;

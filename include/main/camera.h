@@ -4,6 +4,16 @@
 #include "types.h"
 #include "common.h"
 
+#define SPLINE_POINT_MAX 0x10
+
+typedef struct{
+    f32 subdiag[SPLINE_POINT_MAX];
+    f32 diag[SPLINE_POINT_MAX];
+    f32 superdiag[SPLINE_POINT_MAX];
+    f32 b[3][SPLINE_POINT_MAX];
+    f32 xy[3][SPLINE_POINT_MAX];
+} SPLINE_WORK;
+
 typedef enum {
     Y,
     XZ
