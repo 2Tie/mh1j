@@ -79,6 +79,8 @@ u32 point_camera0x221be0(CAMERA_WORK*, CAM_W_VIEW*);
 s32 point_cam_sub0x222410(CAMERA_WORK*, CAM_W_VIEW*, POINT_CAM_STATE*);
 void DemoCameraRequest0x221b80(s32, void*);
 void quake_sub0x222bc0(QUAKE*);
+s32 GetOrthogonalPoint0x223fe0(f32* , f32 [4][3], f32* , s32 );
+void Spline0x2248c0(VEC3[][4], VEC4 *, s32);
 void DKA50x224dd0(COMPLEX*, f32*);
 s32 Cardano0x225050(f32*, f32*);
 void cam_plEX_fishing0x221600(CAMERA_WORK*, CAM_W_VIEW*, CAM_FISHING_CONTROL*);
@@ -1369,9 +1371,89 @@ INCLUDE_ASM("asm/nonmatchings/main/camera", GetRailCamPos0x2236d0);
 
 INCLUDE_ASM("asm/nonmatchings/main/camera", GetNearSection0x223760);
 
-INCLUDE_ASM("asm/nonmatchings/main/camera", get_near_point_sub0x223870);
+//returns -1 if last point has negative distance
+//returns 0 if in range of a point
+//returns 1 if last point has a positive distance
+//ret_distance loaded with targeted point's distance
+static s32 get_near_point_sub0x223870(f32* ret_distance, VEC3* arg1, f32* target, f32* distances, u32 points) {
+    f32 closest_distance;
+    s32 retval;
 
-INCLUDE_ASM("asm/nonmatchings/main/camera", GetNearPoint0x223980);
+    if (*distances < 0.0f) { //if first float neg
+        closest_distance = -(*distances); //set to its pos
+        *ret_distance = 0.0f;
+        retval = -1;
+    }
+    else if( *distances > target[3]){ //if > arg3's W
+        closest_distance = *distances -  target[3]; //save the distance
+        *ret_distance =  target[3]; //target the W?
+        retval = 1;
+    }
+    else{
+        *ret_distance = *distances; //in range, use this
+        return 0;
+    }
+    
+    if (points == 1) { //if only one point,
+        return retval; //return with what we have
+    }
+    
+    for (points--; points != 0; points--) {
+        distances++; //check remaining floats
+        if (*distances < 0.0f) {
+            if (closest_distance > -*distances) {
+                closest_distance = -*distances;
+                *ret_distance = 0.0f;
+                retval = -1;
+            }
+        }
+        else if(*distances > target[3]){
+            if ( closest_distance > *distances - target[3] ) { //if closer, update closest
+                closest_distance = *distances - target[3];
+                *ret_distance = target[3];
+                retval = 1;
+            }
+        }
+        else {
+                *ret_distance = *distances;
+                return 0;
+            }
+    }
+    return retval;
+}
+
+//returns 0 if no near points
+s32 GetNearPoint0x223980(RAIL_WORK* rail, SPLINE_RVALUE* spline, CAM_CNF_RAIL* arg2, f32* arg3) {
+    f32 scratch[5];
+    s32 nearest_status;
+    s32 near_points;
+
+    Spline0x2248c0(spline->val, arg2->tar, arg2->point_num);
+    near_points = GetOrthogonalPoint0x223fe0(scratch, spline->val[rail->rail_spline], arg3, arg2->rail_type);
+    if (near_points == 0) {
+        rail->rail_scale = 0;
+        return 0;
+    }
+    nearest_status = get_near_point_sub0x223870(&rail->rail_scale, spline->val[rail->rail_spline], arg2->tar[rail->rail_spline], scratch, near_points);
+    if (nearest_status > 0) { //go to next point
+        if (rail->rail_spline < arg2->point_num - 2) {
+            near_points = GetOrthogonalPoint0x223fe0(scratch, spline->val[rail->rail_spline + 1], arg3, arg2->rail_type);
+            if(near_points != 0) {
+                rail->rail_spline++;
+                get_near_point_sub0x223870(&rail->rail_scale, spline->val[rail->rail_spline], arg2->tar[rail->rail_spline], scratch, near_points);
+            }
+        }
+    } else if (nearest_status < 0) { //go back a point
+        if (rail->rail_spline > 0) {
+            near_points = GetOrthogonalPoint0x223fe0(scratch, spline->val[rail->rail_spline - 1], arg3, arg2->rail_type);
+            if(near_points != 0) {
+                rail->rail_spline--;
+                get_near_point_sub0x223870(&rail->rail_scale, spline->val[rail->rail_spline], arg2->tar[rail->rail_spline], scratch, near_points);
+            }
+        }
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/main/camera", cam_rail_move_sub0x223b50);
 

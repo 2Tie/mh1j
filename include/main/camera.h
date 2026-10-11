@@ -7,12 +7,23 @@
 #define SPLINE_POINT_MAX 0x10
 
 typedef struct{
-    f32 subdiag[SPLINE_POINT_MAX];
-    f32 diag[SPLINE_POINT_MAX];
-    f32 superdiag[SPLINE_POINT_MAX];
-    f32 b[3][SPLINE_POINT_MAX];
-    f32 xy[3][SPLINE_POINT_MAX];
-} SPLINE_WORK;
+    /* 0x000 */ f32 subdiag[SPLINE_POINT_MAX];
+    /* 0x040 */ f32 diag[SPLINE_POINT_MAX];
+    /* 0x080 */ f32 superdiag[SPLINE_POINT_MAX];
+    /* 0x0C0 */ f32 b[3][SPLINE_POINT_MAX];
+    /* 0x180 */ f32 xy[3][SPLINE_POINT_MAX];
+} SPLINE_WORK; // size: 0x240
+
+typedef struct {
+    VEC3 val[0x20][0x04];
+} SPLINE_RVALUE; // size: 0x600
+
+typedef struct{
+	/* 0x0 */ f32 rail_scale;
+    /* 0x4 */ f32 rail_zoom;
+    /* 0x8 */ u8 rail_spline;
+    /* 0x9 */ u8 unk[7];
+} RAIL_WORK; // size: 0x10
 
 typedef enum {
     Y,
@@ -128,6 +139,16 @@ typedef struct {
     /* 0x08 */ u8 unk_8[0x18];
     /* 0x20 */ CAM_HEIGHT_ENTRY entries[];
 } CAM_CNF; // size: 0x24
+
+typedef struct {
+	/* 0x000 */ VEC4 pos[SPLINE_POINT_MAX];
+	/* 0x100 */ VEC4 tar[SPLINE_POINT_MAX];
+	/* 0x200 */ f32  a[SPLINE_POINT_MAX];
+	/* 0x240 */ u16  rot[SPLINE_POINT_MAX];
+	/* 0x260 */ u8   point_num;
+	/* 0x261 */ u8   rail_type;
+	
+} CAM_CNF_RAIL; // size: ??
 
 typedef struct {
     /* 0x00 */ f32 cam_pos[3];
@@ -346,10 +367,7 @@ typedef struct {
     /* 0x5A4 */ u32 map_area_length_u32;
     /* 0x5A8 */ u16 cam_grid_x;
     /* 0x5AA */ u16 cam_grid_y;
-    /* 0x5AC */ f32 rail_scale;
-    /* 0x5B0 */ f32 rail_zoom;
-    /* 0x5B4 */ u8 rail_spline;
-    /* 0x5B5 */ u8 unk_5B5[7];
+    /* 0x5AC */ RAIL_WORK rail_work;
     /* 0x5BC */ QUAKE sub_quake;
     /* 0x5CC */ QUAKE quake;
     /* 0x5DC */ u8 cam_grid_returnval;
