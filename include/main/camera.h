@@ -5,6 +5,7 @@
 #include "common.h"
 
 #define SPLINE_POINT_MAX 0x10
+#define RAIL_SPEED 0.5f
 
 typedef struct{
     /* 0x000 */ f32 subdiag[SPLINE_POINT_MAX];
@@ -19,8 +20,8 @@ typedef struct {
 } SPLINE_RVALUE; // size: 0x600
 
 typedef struct{
-	/* 0x0 */ f32 rail_scale;
-    /* 0x4 */ f32 rail_zoom;
+	/* 0x0 */ f32 rail_progress;
+    /* 0x4 */ f32 rail_percent;
     /* 0x8 */ u8 rail_spline;
     /* 0x9 */ u8 unk[7];
 } RAIL_WORK; // size: 0x10

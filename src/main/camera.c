@@ -16,7 +16,7 @@ extern f32 flSin0x173600(f32);
 extern f32 flArcTan20x1735e0(f32, f32);
 extern f32 flAbs0x173540(f32);
 extern f32 flvecInnerProduct0x173220(f32*, f32*);
-extern f32 flvecCalcDistance0x173140(void*, void*);
+extern f32 flvecCalcDistance0x173140(f32*, f32*);
 extern void View_move0x169a80();
 extern void RollView0x169da0(f32);
 extern void SetAngleOfView0x169db0(f32);
@@ -1369,7 +1369,35 @@ INCLUDE_ASM("asm/nonmatchings/main/camera", GetRailTarget0x2235e0);
 
 INCLUDE_ASM("asm/nonmatchings/main/camera", GetRailCamPos0x2236d0);
 
-INCLUDE_ASM("asm/nonmatchings/main/camera", GetNearSection0x223760);
+s32 GetNearSection0x223760(CAM_CNF_RAIL* cnf, VEC4 pos) {
+    f32 distances[SPLINE_POINT_MAX];
+    f32 max_dist;
+    VEC3* targets;
+    f32* distances_ptr;
+    s32 i;
+    s32 point;
+
+    targets = (VEC3*)&cnf->tar[0]; //??
+    distances_ptr = &distances[0];
+    max_dist = 1e7f; // 10000000.0f
+    point = 0;
+    for(i = 0; i < cnf->point_num; i++, targets++, distances_ptr ++) {
+        *distances_ptr = flvecCalcDistance0x173140(pos, targets[0]);
+        if (max_dist > *distances_ptr) {
+            max_dist = *distances_ptr;
+            point = i;
+        }
+        
+    }
+    if ((point != 0) && (point < (cnf->point_num - 1))) {
+        if (distances[point-1] < distances[point+1]) {
+            point -= 1;
+        }
+    } else if (point >= (cnf->point_num - 1)) {
+        point = cnf->point_num - 2;
+    }
+    return point;
+}
 
 //returns -1 if last point has negative distance
 //returns 0 if in range of a point
@@ -1431,16 +1459,16 @@ s32 GetNearPoint0x223980(RAIL_WORK* rail, SPLINE_RVALUE* spline, CAM_CNF_RAIL* a
     Spline0x2248c0(spline->val, arg2->tar, arg2->point_num);
     near_points = GetOrthogonalPoint0x223fe0(scratch, spline->val[rail->rail_spline], arg3, arg2->rail_type);
     if (near_points == 0) {
-        rail->rail_scale = 0;
+        rail->rail_progress = 0;
         return 0;
     }
-    nearest_status = get_near_point_sub0x223870(&rail->rail_scale, spline->val[rail->rail_spline], arg2->tar[rail->rail_spline], scratch, near_points);
+    nearest_status = get_near_point_sub0x223870(&rail->rail_progress, spline->val[rail->rail_spline], arg2->tar[rail->rail_spline], scratch, near_points);
     if (nearest_status > 0) { //go to next point
         if (rail->rail_spline < arg2->point_num - 2) {
             near_points = GetOrthogonalPoint0x223fe0(scratch, spline->val[rail->rail_spline + 1], arg3, arg2->rail_type);
             if(near_points != 0) {
                 rail->rail_spline++;
-                get_near_point_sub0x223870(&rail->rail_scale, spline->val[rail->rail_spline], arg2->tar[rail->rail_spline], scratch, near_points);
+                get_near_point_sub0x223870(&rail->rail_progress, spline->val[rail->rail_spline], arg2->tar[rail->rail_spline], scratch, near_points);
             }
         }
     } else if (nearest_status < 0) { //go back a point
@@ -1448,16 +1476,86 @@ s32 GetNearPoint0x223980(RAIL_WORK* rail, SPLINE_RVALUE* spline, CAM_CNF_RAIL* a
             near_points = GetOrthogonalPoint0x223fe0(scratch, spline->val[rail->rail_spline - 1], arg3, arg2->rail_type);
             if(near_points != 0) {
                 rail->rail_spline--;
-                get_near_point_sub0x223870(&rail->rail_scale, spline->val[rail->rail_spline], arg2->tar[rail->rail_spline], scratch, near_points);
+                get_near_point_sub0x223870(&rail->rail_progress, spline->val[rail->rail_spline], arg2->tar[rail->rail_spline], scratch, near_points);
             }
         }
     }
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/main/camera", cam_rail_move_sub0x223b50);
+void cam_rail_move_sub0x223b50(RAIL_WORK* rail, CAM_CNF_RAIL* cnf, s32 section, f32 point) {
+    f32 spline_left;
+    f32 progress;
+    f32 railspeed;
 
-INCLUDE_ASM("asm/nonmatchings/main/camera", cam_rail_move0x223c90);
+    railspeed = RAIL_SPEED;
+    if (rail->rail_spline < section) {
+        do {
+            progress = rail->rail_progress;
+            spline_left = cnf->tar[rail->rail_spline][3] - progress; //how long to go
+            if (spline_left <= railspeed) {
+                railspeed -= spline_left;
+                rail->rail_spline++;
+                rail->rail_progress = 0.0f;
+            } else {
+                rail->rail_progress = progress + railspeed;
+                return;
+            } 
+        } while (rail->rail_spline < section);
+        progress = rail->rail_progress;
+        if ((point - progress) <= railspeed) {
+            rail->rail_progress = point;
+        } else {
+            rail->rail_progress = progress + railspeed;
+        }
+    } else {
+        do {
+            if (rail->rail_progress <= railspeed) {
+                railspeed -= rail->rail_progress;
+                rail->rail_spline--;
+                rail->rail_progress = cnf->tar[section][3];
+            } else {
+                rail->rail_progress = rail->rail_progress - railspeed;
+                return;
+            }
+        } while (rail->rail_spline > section);
+        progress = rail->rail_progress;
+        if ((progress - point) <= railspeed) {
+            rail->rail_progress = point;
+        } else {
+            rail->rail_progress = progress - railspeed;
+        }    
+    }
+}
+
+s32 cam_rail_move0x223c90(RAIL_WORK* rail, CAM_CNF_RAIL* cnf, SPLINE_RVALUE* spline, VEC4 point) {
+    RAIL_WORK temp_rail;
+
+    temp_rail.rail_spline = GetNearSection0x223760(cnf, point);
+    if (GetNearPoint0x223980(&temp_rail, spline, cnf, point)) {
+        if (rail->rail_spline == temp_rail.rail_spline) {
+            if (rail->rail_progress < temp_rail.rail_progress) {
+                if ((temp_rail.rail_progress - rail->rail_progress) <= RAIL_SPEED) {
+                    rail->rail_progress = temp_rail.rail_progress;
+                } else {
+                    rail->rail_progress += RAIL_SPEED;
+                }
+            } else if (rail->rail_progress > temp_rail.rail_progress) {
+                if ((rail->rail_progress - temp_rail.rail_progress) <= RAIL_SPEED) {
+                    rail->rail_progress = temp_rail.rail_progress;
+                } else {
+                    rail->rail_progress -= RAIL_SPEED;
+                }
+            }
+        } else {
+            cam_rail_move_sub0x223b50(rail, cnf, temp_rail.rail_spline, temp_rail.rail_progress);
+        }
+    } else {
+        return -1;
+    }
+    rail->rail_percent = rail->rail_progress / cnf->tar[rail->rail_spline][3];
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/main/camera", cam_rail_move_00x223de0);
 
