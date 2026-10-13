@@ -28,6 +28,7 @@ extern void flmatCopy0x172cb0(MATRIX, MATRIX);
 extern void flmatRotXYZ330x1724e0(MATRIX, f32, f32, f32);
 extern void flmatGetTrans0x171ee0(f32*, MATRIX);
 extern void nlCalcPoint0x120ec0(f32*, f32*, MATRIX);
+extern void ScaleVector0x1208a0(f32*, f32*, f32);
 extern void SubVector0x120860(f32*, f32*, f32*);
 extern void AddVector0x120820(f32*, f32*, f32*);
 extern void flvecApplyMat330x172e00(f32*, f32*, MATRIX);
@@ -70,8 +71,8 @@ static void default_area_data0x222e20(CAMERA_WORK*);
 void StageCamInit0x223000(CAMERA_WORK*);
 s32 SetAreaData0x223070(CAMERA_WORK*);
 u8 Get_cam_grid_XZ0x223190(u16*, u16*, f32*, CAM_AREA_XZ*);
-s32 CameraAreaCheck0x2232a0(CAM_DATA_ENTRY_HEADER*, PLAYER_WORK*, u8);
-s32 CamAreaAttribChk0x2233c0(CAM_DATA_ENTRY_HEADER*, PLAYER_WORK*);
+s32 CameraAreaCheck0x2232a0(CAM_AREA_DATA*, PLAYER_WORK*, u8);
+s32 CamAreaAttribChk0x2233c0(CAM_AREA_DATA*, PLAYER_WORK*);
 s32 Area_XZ_Check0x223410(CAM_GEOMETRY_ZONE*, f32*);
 s8 PachiTypeCheck0x221460(PLAYER_WORK*);
 s32 pch_lock_chk0x221400(PLAYER_WORK*);
@@ -108,7 +109,7 @@ void CameraInit0x21f410(void) {
 }
 
 void SetCameraData0x21f470(CAM_DATA_HEADER* data) {
-    CAM_DATA_ENTRY_HEADER* entry;
+    CAM_AREA_DATA* entry;
     u8* next_offset;
     CAM_GRID_CELL* grid;
     CAM_DATA_ENTRY_HEADER** entry_ptrs;
@@ -125,13 +126,13 @@ void SetCameraData0x21f470(CAM_DATA_HEADER* data) {
         for (count = data->entry_count; count != 0; count--) {
             next_offset = (void*) entry;
 
-            if (entry->bytepairs_ptr != 0) {
-                entry->zones_ptr = (CAM_GEOMETRY_ZONE*) (next_offset + entry->zones_offset);
-                entry->bytepairs_ptr = (u8*) next_offset + entry->bytepairs_offset;
-                entry = (CAM_DATA_ENTRY_HEADER*) ((u32) entry + 0x300 + entry->zone_count * 0x40) + 1;
+            if (entry->header.bytepairs_ptr != 0) {
+                entry->header.zones_ptr = (CAM_GEOMETRY_ZONE*) (next_offset + entry->header.zones_offset);
+                entry->header.bytepairs_ptr = (u8*) next_offset + entry->header.bytepairs_offset;
+                entry = (CAM_AREA_DATA*) ((u32) (entry + 1) + entry->header.zone_count * sizeof(CAM_GEOMETRY_ZONE) + sizeof(AREA_CONNECT)*AREA_CONNECT_COUNT); 
             } else {
-                entry->zones_ptr = (CAM_GEOMETRY_ZONE*) (next_offset + entry->zones_offset);
-                entry = (CAM_DATA_ENTRY_HEADER*) ((u32) entry + 0x300 + entry->zone_count * 0x40);
+                entry->header.zones_ptr = (CAM_GEOMETRY_ZONE*) (next_offset + entry->header.zones_offset);
+               entry = (CAM_AREA_DATA*) ((u32) (entry + 1) + entry->header.zone_count * sizeof(CAM_GEOMETRY_ZONE));
             }
         }
 
@@ -146,7 +147,7 @@ void SetCameraData0x21f470(CAM_DATA_HEADER* data) {
 
         for (count = cell_count; count != 0; count--) {
             if (grid->entry_count != 0) {
-                grid->entries_ptr = (CAM_DATA_ENTRY_HEADER**) ((u8*) data + grid->entries_offset);
+                grid->entries_ptr = (CAM_AREA_DATA**) ((u8*) data + grid->entries_offset);
                 total_ptrs += grid->entry_count;
             }
             grid++;
@@ -183,7 +184,7 @@ void CameraMove0x21f590(void) {
         cam_work->cam_entry_index = -1;
 
         if (SetAreaData0x223070(cam_work) >= 0) {
-            cam_work->cam_entry_index = cam_work->CamAreaPtr->index;
+            cam_work->cam_entry_index = cam_work->CamAreaPtr->header.index;
         }
 
         cam_view = &cam_work->views[0];
@@ -200,7 +201,7 @@ void CameraMove0x21f590(void) {
         cam_work->active_view = 0;
 
         if (cam_work->CamAreaPtr != NULL) {
-            if (cam_work->CamAreaPtr->move_type == NO_MOVE_TYPE) {
+            if (cam_work->CamAreaPtr->header.move_type == NO_MOVE_TYPE) {
                 cam_work->active_view = 0;
             } else {
                 cam_work->active_view = 1;
@@ -213,7 +214,7 @@ void CameraMove0x21f590(void) {
     if (cam_work->cam_entry_index == 0) {
         if (SetAreaData0x223070(cam_work) > 0) {
             cam_work->prev_cam_entry_index = cam_work->cam_entry_index;
-            cam_work->cam_entry_index = cam_work->CamAreaPtr->index;
+            cam_work->cam_entry_index = cam_work->CamAreaPtr->header.index;
             cam_work->has_active_view = 1;
         }
     } else if (CameraAreaCheck0x2232a0(cam_work->CamAreaPtr, player, 2) != 0) {
@@ -221,14 +222,14 @@ void CameraMove0x21f590(void) {
         cam_work->has_active_view = 1;
 
         if (SetAreaData0x223070(cam_work) >= 0) {
-            cam_work->cam_entry_index = cam_work->CamAreaPtr->index;
+            cam_work->cam_entry_index = cam_work->CamAreaPtr->header.index;
         }
     }
 
     cam_work->prev_has_active_view = cam_work->active_view;
 
     if (cam_work->CamAreaPtr != NULL) {
-        switch (cam_work->CamAreaPtr->move_type) {
+        switch (cam_work->CamAreaPtr->header.move_type) {
             case NO_MOVE_TYPE:
                 cam_work->active_view = 0;
                 break;
@@ -1244,7 +1245,7 @@ s32 SetAreaData0x223070(CAMERA_WORK* cam) {
     CAM_GRID_CELL* grid;
     s32 grid_index;
     CAM_GRID_CELL* cell;
-    CAM_DATA_ENTRY_HEADER** cell_entries;
+    CAM_AREA_DATA** cell_entries;
     s32 count;
 
     data = cam->CamDataBuffer;
@@ -1318,7 +1319,7 @@ u8 Get_cam_grid_XZ0x223190(u16* cam_x, u16* cam_z, f32* pos, CAM_AREA_XZ* area_c
     return boundsflag;
 }
 
-s32 CameraAreaCheck0x2232a0(CAM_DATA_ENTRY_HEADER* entry, PLAYER_WORK* player, u8 mask) {
+s32 CameraAreaCheck0x2232a0(CAM_AREA_DATA* entry, PLAYER_WORK* player, u8 mask) {
     CAM_GEOMETRY_ZONE* zone;
     s32 zone_count;
     f32 player_dir[3];
@@ -1328,8 +1329,8 @@ s32 CameraAreaCheck0x2232a0(CAM_DATA_ENTRY_HEADER* entry, PLAYER_WORK* player, u
         return 2;
     }
 
-    zone_count = entry->zone_count;
-    zone = entry->zones_ptr;
+    zone_count = entry->header.zone_count;
+    zone = entry->header.zones_ptr;
 
     for (; zone_count != 0; zone_count--) {
         if (!(zone->flags & mask)) {
@@ -1351,8 +1352,8 @@ s32 CameraAreaCheck0x2232a0(CAM_DATA_ENTRY_HEADER* entry, PLAYER_WORK* player, u
     return 2;
 }
 
-s32 CamAreaAttribChk0x2233c0(CAM_DATA_ENTRY_HEADER* entry, PLAYER_WORK* player) {
-    if (entry->attribute & 0x80) {
+s32 CamAreaAttribChk0x2233c0(CAM_AREA_DATA* entry, PLAYER_WORK* player) {
+    if (entry->header.attribute & 0x80) {
         if (player->unk_14 || player->unk_15 < 0x27 || player->unk_15 > 0x2B) {
             return 0;
         }
@@ -1557,11 +1558,40 @@ s32 cam_rail_move0x223c90(RAIL_WORK* rail, CAM_CNF_RAIL* cnf, SPLINE_RVALUE* spl
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/main/camera", cam_rail_move_00x223de0);
+s32 cam_rail_move_00x223de0(RAIL_WORK* rail, CAM_CNF_RAIL* cnf, SPLINE_RVALUE* spline, VEC4 pos) {
+    rail->rail_spline = GetNearSection0x223760(cnf, pos);
+    if (GetNearPoint0x223980(rail, spline, cnf, pos) != 0) {
+        rail->rail_percent = rail->rail_progress / (cnf->tar[rail->rail_spline][3]);
+        return 0;
+    }
+    rail->rail_percent = 0.0f;
+    rail->rail_progress = 0.0f;
+    return -1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/main/camera", CamRailMove0x223e90);
 
-INCLUDE_ASM("asm/nonmatchings/main/camera", CamRailPoint0x223f00);
+s32 CamRailMove0x223e90(CAMERA_WORK* cam, SPLINE_RVALUE* spline, VEC4 point, s32 arg3) {
+    CAM_AREA_DATA* area;
+
+    area = cam->CamAreaPtr;
+    if (area == 0) {
+        return -1;
+    }
+    if (arg3 == 0) {
+        return cam_rail_move_00x223de0(&cam->rail_work, &area->rail, spline, point);
+    } else {
+        return cam_rail_move0x223c90(&cam->rail_work, &area->rail, spline, point);
+    }
+}
+
+void CamRailPoint0x223f00(VEC4 res, VEC3* vecs, f32 scale) {
+    ScaleVector0x1208a0(res, vecs[0], scale);
+    AddVector0x120820(res, res, vecs[1]);
+    ScaleVector0x1208a0(res, res, scale);
+    AddVector0x120820(res, res, vecs[2]);
+    ScaleVector0x1208a0(res, res, scale);
+    AddVector0x120820(res, res, vecs[3]);
+}
 
 static f32 vInnerProductXZ0x223f90(f32* arg0, f32* arg1) {
     f32 x = arg0[0] * arg1[0];
@@ -1688,9 +1718,17 @@ f32 ZoomRateCalc0x224660(f32 distance, CAM_DATA_ENTRY_HEADER* header) {
     return zoom; // otherwise linear scale between the two values
 }
 
-INCLUDE_ASM("asm/nonmatchings/main/camera", ZoomBaseAngleRail0x2246f0);
+static f32 ZoomBaseAngleRail0x2246f0(CAM_CNF_RAIL* cnf, s32 which, f32 scale) {
+    return cnf->a[which] * (1.0f - scale) + (cnf->a[which+1] * scale);
+}
 
-INCLUDE_ASM("asm/nonmatchings/main/camera", RollAngleRail0x224720);
+static f32 RollAngleRail0x224720(CAM_CNF_RAIL* cnf, s32 which, f32 scale) {
+    s16 temp[2];
+    
+    *(s32*)&temp[0] = (s32)(cnf->rot[which+1] - cnf->rot[which]) * (s32)(65536.0f * scale);
+    temp[1] += cnf->rot[which];
+    return (f32)temp[1] * DEG2RAD;
+}
 
 static void tri_diag0x224790(f32* out, f32* subdiag, f32* diag, f32* superdiag, f32* in, s32 equations) {
     //Thomas Algorithm, aka tridiagonal matrix algorithm

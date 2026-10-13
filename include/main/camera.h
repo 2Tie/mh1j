@@ -5,26 +5,8 @@
 #include "common.h"
 
 #define SPLINE_POINT_MAX 0x10
+#define AREA_CONNECT_COUNT 0x10
 #define RAIL_SPEED 0.5f
-
-typedef struct{
-    /* 0x000 */ f32 subdiag[SPLINE_POINT_MAX];
-    /* 0x040 */ f32 diag[SPLINE_POINT_MAX];
-    /* 0x080 */ f32 superdiag[SPLINE_POINT_MAX];
-    /* 0x0C0 */ f32 b[3][SPLINE_POINT_MAX];
-    /* 0x180 */ f32 xy[3][SPLINE_POINT_MAX];
-} SPLINE_WORK; // size: 0x240
-
-typedef struct {
-    VEC3 val[0x20][0x04];
-} SPLINE_RVALUE; // size: 0x600
-
-typedef struct{
-	/* 0x0 */ f32 rail_progress;
-    /* 0x4 */ f32 rail_percent;
-    /* 0x8 */ u8 rail_spline;
-    /* 0x9 */ u8 unk[7];
-} RAIL_WORK; // size: 0x10
 
 typedef enum {
     Y,
@@ -56,6 +38,25 @@ typedef struct {
     /* 0x0E */ s16 timer;
 } QUAKE; // size: 0x10
 
+typedef struct{
+    /* 0x000 */ f32 subdiag[SPLINE_POINT_MAX];
+    /* 0x040 */ f32 diag[SPLINE_POINT_MAX];
+    /* 0x080 */ f32 superdiag[SPLINE_POINT_MAX];
+    /* 0x0C0 */ f32 b[3][SPLINE_POINT_MAX];
+    /* 0x180 */ f32 xy[3][SPLINE_POINT_MAX];
+} SPLINE_WORK; // size: 0x240
+
+typedef struct {
+    VEC3 val[0x20][0x04];
+} SPLINE_RVALUE; // size: 0x600
+
+typedef struct{
+	/* 0x0 */ f32 rail_progress;
+    /* 0x4 */ f32 rail_percent;
+    /* 0x8 */ u8 rail_spline;
+    /* 0x9 */ u8 unk[7];
+} RAIL_WORK; // size: 0x10
+
 typedef struct {
     /* 0x00 */ u8 vertices[0x20];
     /* 0x20 */ f32 origin[3];
@@ -64,6 +65,11 @@ typedef struct {
     /* 0x30 */ f32 axis_normal[3];
     /* 0x3C */ f32 max_extent;
 } CAM_GEOMETRY_ZONE; // size: 0x40
+
+typedef struct {
+	/* 0x0 */ u8 v1;
+	/* 0x1 */ u8 v2;
+} AREA_CONNECT; //size: 0x02
 
 typedef struct {
     /* 0x00 */ u8 unk_0;
@@ -89,10 +95,42 @@ typedef struct {
 } CAM_DATA_ENTRY_HEADER; // size: 0x20
 
 typedef struct {
+    /* 0x00 */ f32 unk_0;
+    /* 0x04 */ f32 unk_4;
+    /* 0x08 */ f32 unk_8;
+    /* 0x0C */ u8 unk_C[0x4];
+    /* 0x10 */ f32 height;
+    /* 0x14 */ u8 unk_14[0xC];
+} CAM_HEIGHT_ENTRY; // size: 0x20
+
+typedef struct {
+    /* 0x00 */ f32 min_distance;
+    /* 0x04 */ f32 max_distance;
+    /* 0x08 */ u8 unk_8[0x18];
+    /* 0x20 */ CAM_HEIGHT_ENTRY entries[];
+} CAM_CNF; // size: 0x24
+
+typedef struct {
+	/* 0x000 */ VEC4 pos[SPLINE_POINT_MAX];
+	/* 0x100 */ VEC4 tar[SPLINE_POINT_MAX];
+	/* 0x200 */ f32  a[SPLINE_POINT_MAX];
+	/* 0x240 */ s16  rot[SPLINE_POINT_MAX];
+	/* 0x260 */ u8   point_num;
+	/* 0x261 */ u8   rail_type;
+	
+} CAM_CNF_RAIL; // size: ??
+
+typedef struct {
+    /* 0x00 */ CAM_DATA_ENTRY_HEADER header;
+    /* 0x20 */ CAM_CNF_RAIL rail;
+    /* 0x284 */ u8 unk_284[0x300 - 0x284];
+} CAM_AREA_DATA; // size: 0x300
+
+typedef struct {
     /* 0x00 */ s32 entry_count;
     /* 0x04 */ union {
         u32 entries_offset;
-        CAM_DATA_ENTRY_HEADER** entries_ptr;
+        CAM_AREA_DATA** entries_ptr;
     };
 } CAM_GRID_CELL; // size: 0x08
 
@@ -119,37 +157,11 @@ typedef struct {
     /* 0x24 */ void* eof;
     /* 0x28 */ union {
         u32 first_entry_offset;
-        CAM_DATA_ENTRY_HEADER* first_entry_ptr;
+        CAM_AREA_DATA* first_entry_ptr;
     };
     /* 0x2C */ f32 unk_2c;
-    /* 0x30 */ CAM_DATA_ENTRY_HEADER entries[];
+    /* 0x30 */ CAM_AREA_DATA entries[];
 } CAM_DATA_HEADER; // size: 0x30 plus entries
-
-typedef struct {
-    /* 0x00 */ f32 unk_0;
-    /* 0x04 */ f32 unk_4;
-    /* 0x08 */ f32 unk_8;
-    /* 0x0C */ u8 unk_C[0x4];
-    /* 0x10 */ f32 height;
-    /* 0x14 */ u8 unk_14[0xC];
-} CAM_HEIGHT_ENTRY; // size: 0x20
-
-typedef struct {
-    /* 0x00 */ f32 min_distance;
-    /* 0x04 */ f32 max_distance;
-    /* 0x08 */ u8 unk_8[0x18];
-    /* 0x20 */ CAM_HEIGHT_ENTRY entries[];
-} CAM_CNF; // size: 0x24
-
-typedef struct {
-	/* 0x000 */ VEC4 pos[SPLINE_POINT_MAX];
-	/* 0x100 */ VEC4 tar[SPLINE_POINT_MAX];
-	/* 0x200 */ f32  a[SPLINE_POINT_MAX];
-	/* 0x240 */ u16  rot[SPLINE_POINT_MAX];
-	/* 0x260 */ u8   point_num;
-	/* 0x261 */ u8   rail_type;
-	
-} CAM_CNF_RAIL; // size: ??
 
 typedef struct {
     /* 0x00 */ f32 cam_pos[3];
@@ -362,7 +374,7 @@ typedef struct {
     u8 padding[0x3];
     /* 0x584 */ PLAYER_WORK* player_ptr;
     /* 0x588 */ CAM_DATA_HEADER* CamDataBuffer;
-    /* 0x58C */ CAM_DATA_ENTRY_HEADER* CamAreaPtr;
+    /* 0x58C */ CAM_AREA_DATA* CamAreaPtr;
     /* 0x590 */ CAM_AREA_XZ area_xz;
     /* 0x5A0 */ u32 map_area_width_u32;
     /* 0x5A4 */ u32 map_area_length_u32;
