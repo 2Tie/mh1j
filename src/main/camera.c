@@ -80,6 +80,7 @@ u32 point_camera0x221be0(CAMERA_WORK*, CAM_W_VIEW*);
 s32 point_cam_sub0x222410(CAMERA_WORK*, CAM_W_VIEW*, POINT_CAM_STATE*);
 void DemoCameraRequest0x221b80(s32, void*);
 void quake_sub0x222bc0(QUAKE*);
+void CamRailPoint0x223f00(VEC4, VEC3*, f32);
 s32 GetOrthogonalPoint0x223fe0(f32* , f32 [4][3], f32* , s32 );
 void Spline0x2248c0(VEC3[][4], VEC4 *, s32);
 void DKA50x224dd0(COMPLEX*, f32*);
@@ -1366,9 +1367,38 @@ INCLUDE_ASM("asm/nonmatchings/main/camera", Area_XZ_Check0x223410);
 
 INCLUDE_ASM("asm/nonmatchings/main/camera", GetPanTarget0x223500);
 
-INCLUDE_ASM("asm/nonmatchings/main/camera", GetRailTarget0x2235e0);
+void GetRailTarget0x2235e0(CAMERA_WORK* cam, VEC4 out, CAM_AREA_DATA* area, VEC4 in) {
+    PLAYER_WORK *player = cam->player_ptr;
 
-INCLUDE_ASM("asm/nonmatchings/main/camera", GetRailCamPos0x2236d0);
+    switch (area->header.target_type) {
+    case NO_MOVE_TYPE:                                    
+        flvecCopy0x173300(out, in);
+        break;
+    case PAN:
+        nlCalcPoint0x120ec0(out, area->rail.player_pan_target, player->matrix);
+        break;
+    case RAIL:
+        AddVector0x120820(out, player->pos, area->rail.player_rail_target);
+        break;
+    }
+    
+    switch (area->header.axes) {
+    case Y:   
+        out[1] = in[1];
+        break;
+    case XZ:      
+        out[0] = in[0];
+        out[2] = in[2];
+    }
+}
+
+void GetRailCamPos0x2236d0(VEC4 arg0, CAMERA_WORK* cam, CAM_AREA_DATA* area, SPLINE_RVALUE* res) {
+    f32 distance;
+
+    Spline0x2248c0(res->val, area->rail.pos, area->rail.point_num);
+    distance = cam->rail_work.rail_percent * area->rail.pos[cam->rail_work.rail_spline][3];
+    CamRailPoint0x223f00(arg0, res->val[cam->rail_work.rail_spline], distance);
+}
 
 s32 GetNearSection0x223760(CAM_CNF_RAIL* cnf, VEC4 pos) {
     f32 distances[SPLINE_POINT_MAX];

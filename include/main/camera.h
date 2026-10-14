@@ -117,13 +117,16 @@ typedef struct {
 	/* 0x240 */ s16  rot[SPLINE_POINT_MAX];
 	/* 0x260 */ u8   point_num;
 	/* 0x261 */ u8   rail_type;
+    /* 0x262 */ u8   unk_262[0x270 - 0x262];
+    /* 0x270 */ VEC3 player_pan_target;
+    /* 0x27C */ VEC3 player_rail_target;
 	
-} CAM_CNF_RAIL; // size: ??
+} CAM_CNF_RAIL; // size: 288?
 
 typedef struct {
     /* 0x00 */ CAM_DATA_ENTRY_HEADER header;
     /* 0x20 */ CAM_CNF_RAIL rail;
-    /* 0x284 */ u8 unk_284[0x300 - 0x284];
+    /* 0x2A8 */ u8 unk_284[0x300 - 0x2A8];
 } CAM_AREA_DATA; // size: 0x300
 
 typedef struct {
