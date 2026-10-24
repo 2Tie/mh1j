@@ -263,7 +263,7 @@ typedef struct {
     /* 0x00 */ f32 pos[3];
     /* 0x0C */ f32 unk_c[3];
     /* 0x18 */ f32 tar[3];
-    /* 0x24 */ f32 unk_24[3];
+    /* 0x24 */ f32 ground_hit[3];
     /* 0x30 */ f32 yaw_end;
     /* 0x34 */ f32 yaw_start;
     /* 0x38 */ f32 pitch_end;
