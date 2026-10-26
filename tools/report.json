@@ -1,15 +1,15 @@
 {
   "measures": {
-    "fuzzy_match_percent": 0.7800899908655888,
+    "fuzzy_match_percent": 0.7827213027249114,
     "total_code": "4256432",
-    "matched_code": "33204",
-    "matched_code_percent": 0.7800899908655888,
+    "matched_code": "33316",
+    "matched_code_percent": 0.7827213027249114,
     "total_data": "1974645",
     "matched_data": "0",
     "matched_data_percent": 0.0,
     "total_functions": 16080,
-    "matched_functions": 213,
-    "matched_functions_percent": 1.3246268656716418,
+    "matched_functions": 214,
+    "matched_functions_percent": 1.3308457711442785,
     "total_units": 162
   },
   "units": [
@@ -38614,23 +38614,23 @@
     {
       "name": "camera.c",
       "measures": {
-        "fuzzy_match_percent": 66.4306784660767,
+        "fuzzy_match_percent": 66.84365781710915,
         "total_code": "27120",
-        "matched_code": "18016",
-        "matched_code_percent": 66.4306784660767,
+        "matched_code": "18128",
+        "matched_code_percent": 66.84365781710915,
         "total_data": "1541",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 93,
-        "matched_functions": 81,
-        "matched_functions_percent": 87.09677419354838,
+        "matched_functions": 82,
+        "matched_functions_percent": 88.17204301075269,
         "total_units": 1
       },
       "sections": [
         {
           "name": ".text",
           "size": "27120",
-          "fuzzy_match_percent": 66.4306784660767,
+          "fuzzy_match_percent": 66.84365781710915,
           "metadata": {}
         },
         {
@@ -39012,7 +39012,7 @@
         {
           "name": "StageCamInit0x223000",
           "size": "112",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 15408,
           "metadata": {}
         },
@@ -118612,16 +118612,16 @@
       "id": "main",
       "name": "main",
       "measures": {
-        "fuzzy_match_percent": 2.0395928185497048,
+        "fuzzy_match_percent": 2.046472543753824,
         "total_code": "1627972",
-        "matched_code": "33204",
-        "matched_code_percent": 2.0395928185497048,
+        "matched_code": "33316",
+        "matched_code_percent": 2.046472543753824,
         "total_data": "1009909",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 6997,
-        "matched_functions": 213,
-        "matched_functions_percent": 3.044161783621552,
+        "matched_functions": 214,
+        "matched_functions_percent": 3.0584536229812773,
         "total_units": 150
       }
     },

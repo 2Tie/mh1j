@@ -1309,7 +1309,7 @@ void cam_sw_set_sub0x222d80(CAMERA_WORK* cam) {
     }
 }
 
-void default_area_data0x222e20(CAMERA_WORK* cam_work) {
+static void default_area_data0x222e20(CAMERA_WORK* cam_work) {
     CAM_DATA_HEADER* cam_data = cam_data_area0x38a204;
     CAM_AREA_DATA* entry;
     CAM_HEIGHT_ENTRY* stage_data;
@@ -1369,25 +1369,22 @@ void default_area_data0x222e20(CAMERA_WORK* cam_work) {
     cam_work->CamDataBuffer = cam_data;
 }
 
-// this match requires default_area_data match as static
-INCLUDE_ASM("asm/nonmatchings/main/camera", StageCamInit0x223000);
-
-// void StageCamInit0x223000(CAMERA_WORK* cam) {
-//     CAM_DATA_HEADER* dataBuff;
-//
-//     if (cam->CamDataBuffer == 0) {
-//         default_area_data0x222e20(cam);
-//     }
-//     dataBuff = cam->CamDataBuffer;
-//     cam->area_xz.map_area_count_x = dataBuff->x_count;
-//     cam->area_xz.map_area_count_z =  dataBuff->y_count;
-//     cam->area_xz.map_area_width = dataBuff->area_width;
-//     cam->area_xz.map_area_length = dataBuff->area_length;
-//     cam->area_xz.map_area_offset_x = dataBuff->base_offset_x;
-//     cam->area_xz.map_area_offset_z = dataBuff->base_offset_y;
-//     cam->map_area_width_u32 = dataBuff->area_width32;
-//     cam->map_area_length_u32 = dataBuff->area_length32;
-// }
+void StageCamInit0x223000(CAMERA_WORK* cam) {
+    CAM_DATA_HEADER* dataBuff;
+	
+    if (cam->CamDataBuffer == 0) {
+        default_area_data0x222e20(cam);
+    }
+    dataBuff = cam->CamDataBuffer;
+    cam->area_xz.map_area_count_x = dataBuff->x_count;
+    cam->area_xz.map_area_count_z =  dataBuff->y_count;
+    cam->area_xz.map_area_width = dataBuff->area_width;
+    cam->area_xz.map_area_length = dataBuff->area_length;
+    cam->area_xz.map_area_offset_x = dataBuff->base_offset_x;
+    cam->area_xz.map_area_offset_z = dataBuff->base_offset_y;
+    cam->map_area_width_u32 = dataBuff->area_width32;
+    cam->map_area_length_u32 = dataBuff->area_length32;
+}
 
 s32 SetAreaData0x223070(CAMERA_WORK* cam) {
     CAM_DATA_HEADER* data;
