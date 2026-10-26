@@ -58,6 +58,9 @@ extern f32 dka_init_tbl0x3393a0[5][2];
 extern void* Demo_cam_tbl0x348d70[35];
 extern FISH_CAM_OFFSET* fishcam_ofs_tbl0x339080[90];
 
+extern CAM_DATA_HEADER* cam_data_area0x38a204;
+extern CAM_HEIGHT_ENTRY* stage_camera_data_tbl0x2f58e0[4];
+
 // bss
 extern CAMERA_WORK CameraWork0x4767c0;
 
@@ -91,6 +94,8 @@ void cam_plEX_zoom0x221870(CAMERA_WORK*, CAM_W_VIEW*, CAM_ZOOM_CONTROL*);
 s32 fish_cam_sub0x221700(CAMERA_WORK*, CAM_W_VIEW*, CAM_FISHING_CONTROL*);
 s32 fishing_cam_chk0x2216e0(PLAYER_WORK*);
 
+
+// funcs
 void CameraWorkInit0x21f3d0(void) {
     flMemset0x16f5f0(CameraWork0x4767c0, 0, sizeof(CameraWork0x4767c0));
 }
@@ -1304,7 +1309,65 @@ void cam_sw_set_sub0x222d80(CAMERA_WORK* cam) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/main/camera", default_area_data0x222e20);
+void default_area_data0x222e20(CAMERA_WORK* cam_work) {
+    CAM_DATA_HEADER* cam_data = cam_data_area0x38a204;
+    CAM_AREA_DATA* entry;
+    CAM_HEIGHT_ENTRY* stage_data;
+    s32 i;
+
+    // CAM_DATA_HEADER
+    cam_data->unk_0 = 258;
+    cam_data->entry_count = 0;
+    cam_data->x_count = 1;
+    cam_data->y_count = 1;
+    cam_data->area_width = 20000;
+    cam_data->area_length = 20000;
+    cam_data->base_offset_x = 0;
+    cam_data->base_offset_y = 0;
+    cam_data->area_width32 = 20000;
+    cam_data->area_length32 = 20000;
+    cam_data->cam_grid_ptr = NULL;
+    cam_data->entry_list_ptr = NULL;
+    cam_data->eof = NULL;
+
+    entry = &cam_data->entries[0];
+    cam_data->first_entry_ptr = entry;
+
+    // CAM_DATA_ENTRY(first entry in CAM_DATA_HEADER.entries)
+    entry->header.unk_0 = 0;
+    entry->header.index = 0;
+    entry->header.move_type = NO_MOVE_TYPE;
+    entry->header.axes = 2; // missing enum number
+    entry->header.target_type = NO_TARGET;
+    entry->header.zone_count = 0;
+    entry->header.min_distance = 400.0f;
+    entry->header.max_distance = 2400.0f;
+    entry->header.near_zoom = 1.0f;
+    entry->header.far_zoom = 0.75f;
+    entry->header.zones_ptr = NULL;
+    entry->header.bytepairs_ptr = NULL;
+
+    for (i = 0; i < 4; i++) {
+        stage_data = &stage_camera_data_tbl0x2f58e0[i][game_w0x3f33f0.current_area_id];
+        entry->follow.entries[i + 1].data.unk_4 = stage_data->unk_4;
+        entry->follow.entries[i + 1].data.unk_8 = stage_data->unk_8;
+        entry->follow.entries[i + 1].data.height = stage_data->height;
+        entry->follow.entries[i + 1].data.unk_18 = stage_data->unk_18;
+    }
+
+    entry->follow.entries[0].data.unk_4 = 300.0f;
+    entry->follow.entries[0].data.unk_8 = 160.0f;
+    entry->follow.entries[0].data.height = 184.0f;
+    entry->follow.entries[0].data.unk_18 = 80.0f;
+
+    entry->follow.fov = 0.87266463f;
+    entry->follow.roll = 0;
+    entry->follow.unk_8 = 0;
+    entry->follow.unk_E = 0;
+    entry->follow.unk_C = 0;
+    
+    cam_work->CamDataBuffer = cam_data;
+}
 
 // this match requires default_area_data match as static
 INCLUDE_ASM("asm/nonmatchings/main/camera", StageCamInit0x223000);

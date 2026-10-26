@@ -100,8 +100,9 @@ typedef struct {
     /* 0x08 */ f32 unk_8;
     /* 0x0C */ u8 unk_C[0x4];
     /* 0x10 */ f32 height;
-    /* 0x14 */ u8 unk_14[0xC];
-} CAM_HEIGHT_ENTRY; // size: 0x20
+    /* 0x14 */ u8 unk_14[0x4];
+    /* 0x18 */ f32 unk_18;
+} CAM_HEIGHT_ENTRY; // size: 0x1C
 
 typedef struct {
     /* 0x00 */ f32 min_distance;
@@ -109,6 +110,16 @@ typedef struct {
     /* 0x08 */ u8 unk_8[0x18];
     /* 0x20 */ CAM_HEIGHT_ENTRY entries[];
 } CAM_CNF; // size: 0x24
+
+typedef struct {
+	/* 0x00 */ f32 fov;
+	/* 0x04 */ f32 roll;
+	/* 0x08 */ s32 unk_8;
+	/* 0x0C */ s16 unk_C;
+	/* 0x0E */ s16 unk_E;
+	/* 0x10 */ VEC4 base_offset;
+	/* 0x20 */ struct { CAM_HEIGHT_ENTRY data; u8 pad[4];} entries[];
+} AREA_DATA_CNF; // size: 0x20+
 
 typedef struct {
 	/* 0x000 */ VEC4 pos[SPLINE_POINT_MAX];
@@ -125,7 +136,10 @@ typedef struct {
 
 typedef struct {
     /* 0x00 */ CAM_DATA_ENTRY_HEADER header;
-    /* 0x20 */ CAM_CNF_RAIL rail;
+    /* 0x20 */ union {
+		CAM_CNF_RAIL rail; //size 288
+		AREA_DATA_CNF follow; //size ?
+	};
     /* 0x2A8 */ u8 unk_284[0x300 - 0x2A8];
 } CAM_AREA_DATA; // size: 0x300
 
@@ -138,8 +152,7 @@ typedef struct {
 } CAM_GRID_CELL; // size: 0x08
 
 typedef struct {
-    /* 0x00 */ u8 unk_0;
-    /* 0x01 */ u8 unk_1;
+    /* 0x00 */ s16 unk_0;
     /* 0x02 */ u16 entry_count;
     /* 0x04 */ u16 x_count;
     /* 0x06 */ u16 y_count;
