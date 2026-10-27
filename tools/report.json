@@ -1,15 +1,15 @@
 {
   "measures": {
-    "fuzzy_match_percent": 0.7827213027249114,
-    "total_code": "4256432",
-    "matched_code": "33316",
-    "matched_code_percent": 0.7827213027249114,
+    "fuzzy_match_percent": 0.8601602850849165,
+    "total_code": "4256416",
+    "matched_code": "36612",
+    "matched_code_percent": 0.8601602850849165,
     "total_data": "1974645",
     "matched_data": "0",
     "matched_data_percent": 0.0,
     "total_functions": 16080,
-    "matched_functions": 214,
-    "matched_functions_percent": 1.3308457711442785,
+    "matched_functions": 217,
+    "matched_functions_percent": 1.349502487562189,
     "total_units": 162
   },
   "units": [
@@ -38614,23 +38614,23 @@
     {
       "name": "camera.c",
       "measures": {
-        "fuzzy_match_percent": 66.84365781710915,
-        "total_code": "27120",
-        "matched_code": "18128",
-        "matched_code_percent": 66.84365781710915,
+        "fuzzy_match_percent": 79.04368358913814,
+        "total_code": "27104",
+        "matched_code": "21424",
+        "matched_code_percent": 79.04368358913814,
         "total_data": "1541",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 93,
-        "matched_functions": 82,
-        "matched_functions_percent": 88.17204301075269,
+        "matched_functions": 85,
+        "matched_functions_percent": 91.39784946236558,
         "total_units": 1
       },
       "sections": [
         {
           "name": ".text",
-          "size": "27120",
-          "fuzzy_match_percent": 66.84365781710915,
+          "size": "27104",
+          "fuzzy_match_percent": 79.04368358913814,
           "metadata": {}
         },
         {
@@ -38682,15 +38682,15 @@
         },
         {
           "name": "cam_init_sub_std0x21f810",
-          "size": "416",
-          "fuzzy_match_percent": 0,
+          "size": "408",
+          "fuzzy_match_percent": 100,
           "address": 1088,
           "metadata": {}
         },
         {
           "name": "cam_sub_std0x21f9b0",
-          "size": "2672",
-          "fuzzy_match_percent": 0,
+          "size": "2696",
+          "fuzzy_match_percent": 100,
           "address": 1504,
           "metadata": {}
         },
@@ -38698,77 +38698,77 @@
           "name": "WyvernFindPlayer0x220420",
           "size": "40",
           "fuzzy_match_percent": 100,
-          "address": 4176,
+          "address": 4208,
           "metadata": {}
         },
         {
           "name": "BBQcamera_set0x220450",
           "size": "56",
           "fuzzy_match_percent": 100,
-          "address": 4224,
+          "address": 4256,
           "metadata": {}
         },
         {
           "name": "manual_cam_chk0x220490",
           "size": "224",
-          "fuzzy_match_percent": 0,
-          "address": 4288,
+          "fuzzy_match_percent": 100,
+          "address": 4320,
           "metadata": {}
         },
         {
           "name": "std_cam_sw_set_sub0x220570",
           "size": "224",
           "fuzzy_match_percent": 0,
-          "address": 4512,
+          "address": 4544,
           "metadata": {}
         },
         {
           "name": "set_to_std_cam0x220650",
           "size": "56",
           "fuzzy_match_percent": 100,
-          "address": 4736,
+          "address": 4768,
           "metadata": {}
         },
         {
           "name": "cam_init_sub_stg0x220690",
           "size": "20",
           "fuzzy_match_percent": 100,
-          "address": 4800,
+          "address": 4832,
           "metadata": {}
         },
         {
           "name": "cam_sub_stg0x2206b0",
           "size": "2096",
           "fuzzy_match_percent": 0,
-          "address": 4832,
+          "address": 4864,
           "metadata": {}
         },
         {
           "name": "cam_init_sub_pchngr0x220ee0",
           "size": "72",
           "fuzzy_match_percent": 100,
-          "address": 6928,
+          "address": 6960,
           "metadata": {}
         },
         {
           "name": "cam_sub_pchngr0x220f30",
           "size": "1220",
           "fuzzy_match_percent": 100,
-          "address": 7008,
+          "address": 7040,
           "metadata": {}
         },
         {
           "name": "pch_lock_chk0x221400",
           "size": "96",
           "fuzzy_match_percent": 100,
-          "address": 8240,
+          "address": 8272,
           "metadata": {}
         },
         {
           "name": "PachiTypeCheck0x221460",
-          "size": "208",
+          "size": "176",
           "fuzzy_match_percent": 100,
-          "address": 8336,
+          "address": 8368,
           "metadata": {}
         },
         {
@@ -118612,16 +118612,16 @@
       "id": "main",
       "name": "main",
       "measures": {
-        "fuzzy_match_percent": 2.046472543753824,
-        "total_code": "1627972",
-        "matched_code": "33316",
-        "matched_code_percent": 2.046472543753824,
+        "fuzzy_match_percent": 2.2489551314654697,
+        "total_code": "1627956",
+        "matched_code": "36612",
+        "matched_code_percent": 2.2489551314654697,
         "total_data": "1009909",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 6997,
-        "matched_functions": 214,
-        "matched_functions_percent": 3.0584536229812773,
+        "matched_functions": 217,
+        "matched_functions_percent": 3.1013291410604547,
         "total_units": 150
       }
     },

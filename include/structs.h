@@ -30,6 +30,35 @@ typedef struct {
     /* 0x20 */ u16 unk;
 } PSW; // Size: 0x22
 
+typedef enum {
+	SW_NONE = 0x0000,
+	SW_R3 = 0x0001,
+	SW_L3 = 0x0002,
+	SW_L2 = 0x0004,
+	SW_L1 = 0x0008,
+	SW_R2 = 0x0010,
+	SW_CIRCLE = 0x0020,
+	SW_CROSS = 0x0040,
+	SW_R1 = 0x0080,
+	SW_TRIANGLE = 0x0100,
+	SW_SQUARE = 0x0200,
+	SW_D_RIGHT = 0x0400,
+	SW_D_LEFT = 0x0800,
+	SW_D_DOWN = 0x1000,
+	SW_D_UP = 0x2000,
+	SW_SELECT = 0x4000,
+	SW_START = 0x8000
+} SW_BUTTONS;
+
+typedef enum {
+	JOB_GREATSWORD = 0,
+	JOB_BOWGUN_HEAVY = 1,
+	JOB_HAMMER = 2,
+	JOB_LANCE = 3,
+	JOB_SNS = 4,
+	JOB_BOWGUN_LIGHT = 5
+} JOBS;
+
 typedef struct {
     /* 0x00 */ u8* memoryblock;
     /* 0x04 */ u8* baseandcap[2];
@@ -251,10 +280,14 @@ typedef struct PART_WORK {
 
 typedef struct {
     /* 0x000 */ u8 unk_0[0x2];
-    /* 0x002 */ u8 unk_2;
+    /* 0x002 */ JOBS job;
     /* 0x003 */ u8 unk_3[0x9];
     /* 0x00C */ u16 player_num;
-    /* 0x00E */ u8 unk_E[0x6];
+    /* 0x00E */ u8 unk_E[0x02];
+	/* 0x010 */ u8 is_monster;
+	/* 0x011 */ u8 unk_11[1];
+	/* 0x012 */ u8 unk_12;
+	/* 0x013 */ u8 unk_13;
     /* 0x014 */ u8 unk_14;
     /* 0x015 */ u8 unk_15;
     /* 0x016 */ u8 unk_16[0x4A];
@@ -267,14 +300,57 @@ typedef struct {
     /* 0x110 */ PART_WORK* part_ptrs[32];
     /* 0x190 */ u8 unk_190[0x14C];
     /* 0x2DC */ u16 unk_2DC;
-    /* 0x2DE */ u8 unk_2DE[0x485];
+    /* 0x2DE */ u8 unk_2DE[0x352 - 0x2DE];
+	/* 0x352 */ u8 armor_leg;
+	/* 0x353 */ u8 unk_353;
+	/* 0x354 */ u8 armor_head;
+	/* 0x355 */ u8 armor_body;
+	/* 0x356 */ u8 armor_arm;
+	/* 0x357 */ u8 armor_waist;
+	/* 0x358 */ u8 unk_358[0x35F - 0x358];
+	/* 0x35F */ u8 weapon_discipline;
+	/* 0x360 */ u16 current_weapon_ID;
+	/* 0x362 */ u8 unk_362[0x364 - 0x362];
+	// controller inputs
+	/* 0x364 */ SW_BUTTONS sw_now;
+	/* 0x366 */ SW_BUTTONS sw_last;
+	/* 0x368 */ SW_BUTTONS sw_new;
+	/* 0x36A */ SW_BUTTONS sw_last_new;
+	/* 0x36C */ SW_BUTTONS backup_sw_now;
+	/* 0x36E */ SW_BUTTONS backup_sw_last;
+	/* 0x370 */ SW_BUTTONS backup_sw_new;
+	/* 0x372 */ SW_BUTTONS backup_sw_last_new;
+	/* 0x374 */ SW_BUTTONS sw_released;
+	/* 0x376 */ u8 unk_376[0x378 - 0x376];
+	/* 0x378 */ u16 an_now;
+	/* 0x37A */ u16 an_last;
+	/* 0x37C */ u16 an_new;
+	/* 0x37E */ u16 an_last_new;
+	/* 0x380 */ u16 an_ang_left;
+	/* 0x382 */ u16 an_ang_right;
+	/* 0x384 */ u16 an_pow_left;
+	/* 0x386 */ u16 an_pow_right;
+	/* 0x388 */ u8 unk_388;
+    /* 0x389 */ u8 unk_389[0x1F];
+    /* 0x3A8 */ s32 unk_3A8;
+    /* 0x3AC */ u8 unk_3AC[0x1C2];
+    /* 0x56E */ u8 unk_56E;
+    /* 0x56F */ u8 unk_56F[0x95];
+    /* 0x604 */ u8 unk_604;
+    /* 0x605 */ u8 unk_605[0x10F];
+    /* 0x714 */ u8 unk_714;
+    /* 0x715 */ u8 unk_715[0x4E];
     /* 0x763 */ u8 sight_timer;
     /* 0x764 */ u8 unk_764;
     /* 0x765 */ u8 unk_765[0x113];
     /* 0x878 */ void* unk_878_ptr;
-    /* 0x87C */ u8 unk_87C[0x4A];
+    /* 0x87C */ u8 unk_87C[0x46];
+    /* 0x8C2 */ u8 unk_8C2;
+    /* 0x8C3 */ u8 unk_8C3[0x3];
     /* 0x8C6 */ u8 ojiisan_timer;
-    /* 0x8C7 */ u8 unk_8C7[0x27];
+    /* 0x8C7 */ u8 unk_8C7[1];
+	/* 0x8C8 */ u8 unk_8C8;
+	/* 0x8C9 */ u8 unk_8C9[0x25];
     /* 0x8EE */ s16 unk_8EE;
     /* 0x8F0 */ u8 unk_8F0[0x110];
 } PLAYER_WORK; // size: 0xA00
@@ -305,7 +381,7 @@ typedef struct {
     /* 0x00C */ u8 unk_C;
     /* 0x00D */ u8 unk_D;
     /* 0x00E */ u8 unk_E;
-    /* 0x00F */ u8 unk_F;
+    /* 0x00F */ u8 cam_invert_y;
     /* 0x010 */ u8 BGM_flags;
     /* 0x011 */ u8 BGM;
     /* 0x012 */ u8 unk_12;
@@ -346,7 +422,8 @@ typedef struct {
     /* 0x1A8 */ u32 quest_item_box_taken_flags[2];
     /* 0x1B0 */ u8 unk_1B0[0x30];
     /* 0x1E0 */ u16 current_sound_effect;
-    /* 0x1E2 */ u8 unk_1E2[0x5];
+    /* 0x1E2 */ u8 unk_1E2[0x4];
+	/* 0x1E6 */ u8 unk_1E6;
     /* 0x1E7 */ u8 in_tutorial;
     /* 0x1E8 */ char user_id_1[8];
     /* 0x1F0 */ char user_id_2[8];

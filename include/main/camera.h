@@ -5,7 +5,7 @@
 #include "common.h"
 
 #define SPLINE_POINT_MAX 0x10
-#define AREA_CONNECT_COUNT 0x10
+#define VIEW_TRANSITION_COUNT 0x10
 #define RAIL_SPEED 0.5f
 
 typedef enum {
@@ -67,9 +67,9 @@ typedef struct {
 } CAM_GEOMETRY_ZONE; // size: 0x40
 
 typedef struct {
-	/* 0x0 */ u8 v1;
-	/* 0x1 */ u8 v2;
-} AREA_CONNECT; //size: 0x02
+	/* 0x0 */ u8 cam_index_match;
+	/* 0x1 */ u8 move_frames;
+} VIEW_TRANSITION; //size: 0x02
 
 typedef struct {
     /* 0x00 */ u8 unk_0;
@@ -89,26 +89,26 @@ typedef struct {
         CAM_GEOMETRY_ZONE* zones_ptr;
     };
     /* 0x1C */ union {
-        u32 bytepairs_offset;
-        void* bytepairs_ptr;
+        u32 transitions_offset;
+        VIEW_TRANSITION* transitions_ptr;
     };
 } CAM_DATA_ENTRY_HEADER; // size: 0x20
 
 typedef struct {
-    /* 0x00 */ f32 unk_0;
-    /* 0x04 */ f32 unk_4;
-    /* 0x08 */ f32 unk_8;
+    /* 0x00 */ f32 off_x;
+    /* 0x04 */ f32 off_y;
+    /* 0x08 */ f32 off_z;
     /* 0x0C */ u8 unk_C[0x4];
     /* 0x10 */ f32 height;
     /* 0x14 */ u8 unk_14[0x4];
-    /* 0x18 */ f32 unk_18;
-} CAM_HEIGHT_ENTRY; // size: 0x1C
+    /* 0x18 */ f32 distance_offset;
+} CAM_HEIGHT_ENTRY; // size: 0x16
 
 typedef struct {
     /* 0x00 */ f32 min_distance;
     /* 0x04 */ f32 max_distance;
     /* 0x08 */ u8 unk_8[0x18];
-    /* 0x20 */ CAM_HEIGHT_ENTRY entries[];
+    /* 0x20 */ struct{ CAM_HEIGHT_ENTRY data; u8 pad[0x4];} entries[];
 } CAM_CNF; // size: 0x24
 
 typedef struct {
@@ -137,6 +137,7 @@ typedef struct {
 typedef struct {
     /* 0x00 */ CAM_DATA_ENTRY_HEADER header;
     /* 0x20 */ union {
+		CAM_CNF cnf;
 		CAM_CNF_RAIL rail; //size 288
 		AREA_DATA_CNF follow; //size ?
 	};
@@ -236,7 +237,7 @@ typedef struct {
     /* 0x54 */ f32 angle_delta;
     /* 0x58 */ f32 angle_cur;
     /* 0x5C */ f32 angle_pan;
-    /* 0x60 */ s16 unk_60;
+    /* 0x60 */ s16 subject_rotation;
     /* 0x62 */ s8 pachi_type;
     /* 0x63 */ u8 unk_63;
     /* 0x64 */ u8 unk_64;
@@ -305,6 +306,30 @@ typedef struct {
 } CAM_FISHING_CONTROL; // size: 0xC
 
 typedef struct {
+    /* 0x00 */ f32 cam_pos[3];
+    /* 0x0C */ f32 target_pos[3];
+    /* 0x18 */ f32 prev_cam_pos[3];
+    /* 0x24 */ f32 ground_y;
+    /* 0x28 */ s8 ground_hit;
+    /* 0x29 */ u8 unk_29[0x07];
+    /* 0x30 */ f32 prev_target_a[3];
+    /* 0x3C */ f32 prev_target_b[3];
+    /* 0x48 */ f32 min_dist_save;
+    /* 0x4C */ f32 min_dist_prev;
+    /* 0x50 */ f32 max_dist_save;
+    /* 0x54 */ f32 max_dist_prev;
+    /* 0x58 */ CAM_CNF* cfg_entry;
+    /* 0x5C */ CAM_HEIGHT_ENTRY* cfg_height;
+    /* 0x60 */ f32 wall_distance;
+    /* 0x64 */ f32 move_amount;
+    /* 0x68 */ s16 target_rotation;
+    /* 0x6A */ SW_BUTTONS sw_now;
+    /* 0x6C */ SW_BUTTONS sw_new;
+    /* 0x6E */ u8 pass_over;
+    /* 0x6F */ u8 hit_wall;
+} CAM_VIEW_STATE_STD; // size: 0x70
+
+typedef struct {
     /* 0x00 */ u8 unk_0[0x2];
     /* 0x02 */ u8 unk_2;
     /* 0x03 */ u8 unk_6[0xA9];
@@ -334,11 +359,14 @@ typedef struct {
     /* 0x00 */ f32 cam_pos[3];
     /* 0x0C */ f32 target_pos[3];
     /* 0x18 */ f32 prev_cam_pos[3];
-    /* 0x24 */ u8 unk_24[0x3C];
+    /* 0x24 */ u8 unk_24[0xC];
+    /* 0x30 */ f32 unk_30[3];
+    /* 0x3C */ f32 unk_3C[3];
+    /* 0x48 */ u8 unk_48[0x18];
     /* 0x60 */ f32 yaw;
     /* 0x64 */ f32 roll;
     /* 0x68 */ f32 pitch;
-    /* 0x6C */ u8 unk_6C[0x4];
+    /* 0x6C */ f32 cam_pitch;
     /* 0x70 */ u8 which_sub;
     /* 0x71 */ u8 this_view_active;
     /* 0x72 */ u8 which_view;
@@ -357,9 +385,10 @@ typedef struct {
     /* 0x82 */ s16 target_pitch;
     /* 0x84 */ s16 current_yaw;
     /* 0x86 */ s16 current_pitch;
-    /* 0x88 */ s16 unk_88;
+    /* 0x88 */ s16 subject_rotation;
     /* 0x8A */ u8 unk_8A[0x6];
     /* 0x90 */ union {
+        CAM_VIEW_STATE_STD state_std;
         CAM_VIEW_STATE state;
         CAM_VIEW_STATE_DEMO state_demo;
         CAM_VIEW_STATE_PACHINGER state_pchngr;

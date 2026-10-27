@@ -9,6 +9,14 @@ extern PLAYER_WORK player_work0x3e4bf0[8];
 extern MONSTER_WORK em_work0x3d82a0[20];
 extern VIEW_WORK* lpView0x38a110;
 
+extern void flmatInit0x171ce0(MATRIX);
+extern void flmatCopy0x172cb0(MATRIX, MATRIX);
+extern void flmatRotXYZ330x1724e0(MATRIX, f32, f32, f32);
+extern void flmatGetTrans0x171ee0(f32*, MATRIX);
+extern void flvecApplyMat33_20x172e70(VEC3, MATRIX);
+extern void flvecApplyMat330x172e00(f32*, f32*, MATRIX);
+extern void flvecCopy0x173300(f32*, f32*);
+extern void flvecRotY0x173070(f32*, f32);
 extern f32 flSqrt0x173680(f32);
 extern f32 flPow0x173670(f32, f32);
 extern f32 flCos0x173610(f32);
@@ -17,33 +25,36 @@ extern f32 flArcTan20x1735e0(f32, f32);
 extern f32 flAbs0x173540(f32);
 extern f32 flvecInnerProduct0x173220(f32*, f32*);
 extern f32 flvecCalcDistance0x173140(f32*, f32*);
+
 extern void View_move0x169a80();
 extern void RollView0x169da0(f32);
 extern void SetAngleOfView0x169db0(f32);
 extern s32 Game_clear_ck0x162db0(s32);
+
 extern u32 Pl_stg_ck0x151ff0(PLAYER_WORK*);
 extern s32 Em_stg_ck0x152010(MONSTER_WORK*);
-extern void flmatInit0x171ce0(MATRIX);
-extern void flmatCopy0x172cb0(MATRIX, MATRIX);
-extern void flmatRotXYZ330x1724e0(MATRIX, f32, f32, f32);
-extern void flmatGetTrans0x171ee0(f32*, MATRIX);
+
 extern void nlCalcPoint0x120ec0(f32*, f32*, MATRIX);
+extern void PointToPoint0x1207e0(f32*, f32*, f32*); 
 extern void ScaleVector0x1208a0(f32*, f32*, f32);
 extern void SubVector0x120860(f32*, f32*, f32*);
 extern void AddVector0x120820(f32*, f32*, f32*);
-extern void flvecApplyMat33_20x172e70(VEC3, MATRIX);
-extern void flvecApplyMat330x172e00(f32*, f32*, MATRIX);
-extern void flvecCopy0x173300(f32*, f32*);
-extern void flvecRotY0x173070(f32*, f32);
 extern void cpInterVector0x120e30(f32*, f32*, f32*, f32);
+extern void cpRotMatrix0x1202c0(s32*, MATRIX);
+
 extern s32 Pl_scope_ck0x154d00(PLAYER_WORK*);
-extern s16 act_ck0x14ef20(PLAYER_WORK*, s8, s8);
+extern s32 act_ck0x14ef20(PLAYER_WORK*, s8, s8);
 extern s32 pl_flag_ck0x14ef60(PLAYER_WORK*, u32);
+
+extern f32 GetGroundHit0x119210(f32*);
+extern u8 GetWallHitLine0x11b2a0(f32*, f32*, f32*, s32);
 
 // rodata
 extern s16 quake_time_tbl0x338ed0[6];
 extern void (*cam_init_sub_jmp0x3391f0[5])(CAMERA_WORK*, CAM_W_VIEW*);
 extern void (*cam_sub_jmp0x339210[5])(CAMERA_WORK*, CAM_W_VIEW*);
+extern CAM_CNF cam_cnf_chs0x339230;
+extern CAM_HEIGHT_ENTRY stage_camera_data_ex0x339330;
 extern f32 pch_pos0x339350[3][6];
 extern f32 dka_j_tbl0x3393D0[];
 /*f32 dka_j_tbl0x3393D0[6] = {
@@ -71,6 +82,7 @@ void cmd_copy0x221f90(f32*, s32);
 void cmd_cam_move0x2220c0(CAMERA_WORK*, CAM_W_VIEW*, POINT_CAM_STATE*);
 void cam2view0x2227a0(CAMERA_WORK*);
 void cam_sw_set_sub0x222d80(CAMERA_WORK*);
+void std_cam_sw_set_sub0x220570(CAMERA_WORK*, CAM_VIEW_STATE_STD*);
 static void default_area_data0x222e20(CAMERA_WORK*);
 void StageCamInit0x223000(CAMERA_WORK*);
 s32 SetAreaData0x223070(CAMERA_WORK*);
@@ -93,6 +105,8 @@ void cam_plEX_fishing0x221600(CAMERA_WORK*, CAM_W_VIEW*, CAM_FISHING_CONTROL*);
 void cam_plEX_zoom0x221870(CAMERA_WORK*, CAM_W_VIEW*, CAM_ZOOM_CONTROL*);
 s32 fish_cam_sub0x221700(CAMERA_WORK*, CAM_W_VIEW*, CAM_FISHING_CONTROL*);
 s32 fishing_cam_chk0x2216e0(PLAYER_WORK*);
+void k_HitEmCamera0x225510(f32*, f32*);
+void k_HitWallCamera0x225370(f32*, f32*, f32*);
 
 
 // funcs
@@ -133,10 +147,10 @@ void SetCameraData0x21f470(CAM_DATA_HEADER* data) {
         for (count = data->entry_count; count != 0; count--) {
             next_offset = (void*) entry;
 
-            if (entry->header.bytepairs_ptr != 0) {
+            if (entry->header.transitions_ptr != 0) {
                 entry->header.zones_ptr = (CAM_GEOMETRY_ZONE*) (next_offset + entry->header.zones_offset);
-                entry->header.bytepairs_ptr = (u8*) next_offset + entry->header.bytepairs_offset;
-                entry = (CAM_AREA_DATA*) ((u32) (entry + 1) + entry->header.zone_count * sizeof(CAM_GEOMETRY_ZONE) + sizeof(AREA_CONNECT)*AREA_CONNECT_COUNT); 
+                entry->header.transitions_ptr = (VIEW_TRANSITION*) next_offset + entry->header.transitions_offset;
+                entry = (CAM_AREA_DATA*) ((u32) (entry + 1) + entry->header.zone_count * sizeof(CAM_GEOMETRY_ZONE) + sizeof(VIEW_TRANSITION)*VIEW_TRANSITION_COUNT); 
             } else {
                 entry->header.zones_ptr = (CAM_GEOMETRY_ZONE*) (next_offset + entry->header.zones_offset);
                entry = (CAM_AREA_DATA*) ((u32) (entry + 1) + entry->header.zone_count * sizeof(CAM_GEOMETRY_ZONE));
@@ -261,9 +275,373 @@ void CameraMove0x21f590(void) {
     View_move0x169a80();
 }
 
-INCLUDE_ASM("asm/nonmatchings/main/camera", cam_init_sub_std0x21f810);
+void cam_init_sub_std0x21f810(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view) {
+    f32 local_offset[3];
+    f32 rotated_offset[3];
+    s32 rot_angles[3];
+    MATRIX rot_matrix;
+    
+    CAM_VIEW_STATE_STD* state;
+    PLAYER_WORK* player;
+    CAM_AREA_DATA* area_data;
 
-INCLUDE_ASM("asm/nonmatchings/main/camera", cam_sub_std0x21f9b0);
+    player = cam_work->player_ptr;
+    cam_view->which_view = -1;
+    area_data = cam_work->CamAreaPtr;
+    state = &cam_view->state_std;
+    
+    if (area_data->header.move_type != NO_MOVE_TYPE) {
+        state->cfg_entry = &cam_cnf_chs0x339230;
+    } else {
+        state->cfg_entry = &area_data->cnf;
+    }
+
+    state->cfg_height = &state->cfg_entry->entries[cam_work->player_cam_height_level].data;
+
+    state->min_dist_save = state->cfg_entry->min_distance;
+    state->max_dist_save = state->cfg_entry->max_distance;
+    
+    cam_view->subject_rotation = player->angle + 0x8000;
+    
+    rot_angles[0] = 0;
+    rot_angles[1] = cam_view->subject_rotation;
+    rot_angles[2] = 0;
+    cpRotMatrix0x1202c0(rot_angles, rot_matrix);
+    
+    local_offset[0] = 0.0f;
+    local_offset[1] = state->cfg_height->off_y;
+    local_offset[2] = state->cfg_height->off_z;
+    flvecApplyMat330x172e00(rotated_offset, local_offset, rot_matrix);
+    
+    state->target_pos[0] = player->pos[0];
+    state->target_pos[1] = player->pos[1] + state->cfg_height->height;
+    state->target_pos[2] = player->pos[2];
+
+    state->cam_pos[0] = state->target_pos[0] + rotated_offset[0];
+    state->cam_pos[1] = player->pos[1] + rotated_offset[1];
+    state->cam_pos[2] = state->target_pos[2] + rotated_offset[2];
+
+    state->target_rotation = cam_view->subject_rotation;
+    flvecCopy0x173300(state->prev_target_a, state->cam_pos);
+    flvecCopy0x173300(state->prev_target_b, state->target_pos);
+    
+    state->ground_y = GetGroundHit0x119210(state->target_pos);
+    state->ground_hit = -1;
+
+    flvecCopy0x173300(state->prev_cam_pos, state->cam_pos);
+
+    state->min_dist_prev = state->min_dist_save;
+    state->max_dist_prev = state->max_dist_save;
+
+    state->pass_over = 0;
+}
+
+void cam_sub_std0x21f9b0(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view) {
+    f32 tmp_offset;
+    f32 cam_distance_offset;
+    f32 y_limit;
+    f32 move_amount;
+    s32 temp_rot;
+    s16 rot_change;
+    
+    u8 prev_view_index;
+    f32 length;
+    f32 sq_x, sq_y, sq_z;
+    f32 cam_ground_y;
+    f32 temp_calc;
+
+    f32 local_offset[3];
+    f32 rotated_offset[3];
+    s32 rot_angles[3];
+    f32 wall_hit_pos[3];
+    f32 cam_to_target_vector[3];    
+    MATRIX rot_matrix;
+
+    CAM_VIEW_STATE_STD* state;
+    PLAYER_WORK* player;
+    CAM_W_VIEW* prev_view;
+    CAM_AREA_DATA* area_data;
+
+    s32 move_frames;
+    VIEW_TRANSITION* byte_pair;
+    s32 loop_cnt;   
+
+    if (cam_work->active_view != 0) {
+        cam_view->this_view_active = 0;
+        cam_view->cmd_status = 0;
+        return;
+    }
+    
+    cam_view->this_view_active = 1;
+    state = &cam_view->state_std;
+    player = cam_work->player_ptr;
+    
+    std_cam_sw_set_sub0x220570(cam_work, state);
+    
+    flvecCopy0x173300(state->prev_cam_pos, state->cam_pos);
+    
+    if (cam_work->wyvern_target != NULL) {
+        state->hit_wall = 0;
+        state->target_rotation = player->unk_3A8 + 0x8000;
+    } else {
+        prev_view_index = cam_view->which_view;
+        if (prev_view_index != 0xFF) {
+            cam_view->which_view = -1;
+            prev_view = &cam_work->views[prev_view_index];
+            tmp_offset = RAD2DEG * flArcTan20x1735e0(prev_view->cam_pos[0] - prev_view->target_pos[0], prev_view->cam_pos[2] - prev_view->target_pos[2]);
+            state->target_rotation = tmp_offset;
+            cam_view->subject_rotation = tmp_offset;
+        } else if (cam_work->prev_has_active_view != 0) {
+            tmp_offset = RAD2DEG * flArcTan20x1735e0(cam_work->pos[0] - cam_work->target[0], cam_work->pos[2] - cam_work->target[2]);
+            state->target_rotation = tmp_offset;
+            cam_view->subject_rotation = tmp_offset;
+        } else if ((state->sw_new & SW_L1) || (player->unk_8C8 != 0) || (state->hit_wall != 0)) {
+            state->hit_wall = 0;
+            state->target_rotation = player->angle + 0x8000;
+        } else {
+            if (game_w0x3f33f0.cam_invert_y != 2) {
+                rot_change = 950;
+            } else {
+                rot_change = -950;
+            }
+            if (state->sw_now & SW_D_LEFT) {
+                state->target_rotation += rot_change;
+            }
+            if (state->sw_now & SW_D_RIGHT) {
+                state->target_rotation -= rot_change;
+            }
+        }
+    }
+
+    rot_angles[0] = 0;
+    rot_angles[1] = cam_view->subject_rotation;
+    rot_angles[2] = 0;
+    cpRotMatrix0x1202c0(rot_angles, rot_matrix);
+    
+    area_data = cam_work->CamAreaPtr;
+    if (area_data->header.move_type != NO_MOVE_TYPE) {
+        state->cfg_entry = &cam_cnf_chs0x339230;
+    } else {
+        state->cfg_entry = &area_data->cnf;
+    }
+    
+    if (player->unk_714 != 0) {
+        state->cfg_height = &stage_camera_data_ex0x339330;
+    } else {
+        if (game_w0x3f33f0.cam_invert_y == 0) {
+            if ((state->sw_new & SW_D_DOWN) && (cam_work->player_cam_height_level > 0)) {
+                cam_work->player_cam_height_level--;
+            }
+            if ((state->sw_new & SW_D_UP) && (cam_work->player_cam_height_level < 3)) {
+                cam_work->player_cam_height_level++;
+            }
+        } else {
+            if ((state->sw_new & SW_D_UP) && (cam_work->player_cam_height_level > 0)) {
+                cam_work->player_cam_height_level--;
+            }
+            if ((state->sw_new & SW_D_DOWN) && (cam_work->player_cam_height_level < 3)) {
+                cam_work->player_cam_height_level++;
+            }
+        }
+        
+        if ((player->unk_388 == 1) && (cam_work->player_cam_height_level == 2)) {
+            state->cfg_height = &state->cfg_entry->entries[4].data;
+        } else {
+            state->cfg_height = &state->cfg_entry->entries[cam_work->player_cam_height_level].data;
+        }
+    }
+
+    local_offset[0] = 0.0f;
+    local_offset[1] = state->cfg_height->off_y;
+    local_offset[2] = state->cfg_height->off_z;
+
+    cam_distance_offset = state->cfg_height->distance_offset;
+    
+    if (player->is_monster == false) {
+        state->prev_target_b[1] = player->pos[1] + state->cfg_height->height;
+    } else {
+        state->prev_target_b[1] = 140.0f + player->pos[1];
+    }
+
+    if ((player->unk_604 != 3) && (player->unk_604 != 0)) {
+        local_offset[0] = 0.0f;
+        local_offset[1] = 400.0f;
+        local_offset[2] = 400.0f;
+        state->prev_target_b[1] = 100.0f + player->pos[1];
+    } else if (player->unk_604 != 0 ||
+               act_ck0x14ef20(player, 0, 0x11) != 0 || 
+               act_ck0x14ef20(player, 0, 0x1B) != 0 || 
+               act_ck0x14ef20(player, 0, 0x1E) != 0 || 
+               act_ck0x14ef20(player, 0, 0x3A) != 0 ) {
+        local_offset[0] = 0.0f;
+        local_offset[1] = 20.0f;
+        local_offset[2] = state->cfg_height->off_z;
+        state->prev_target_b[1] = 30.0f + player->pos[1];
+    }
+
+    flvecApplyMat330x172e00(rotated_offset, local_offset, rot_matrix);
+
+    y_limit = 100.0f;
+    
+    state->prev_target_b[0] = player->pos[0];
+    state->prev_target_b[2] = player->pos[2];
+    
+    state->target_pos[0] = player->pos[0];
+    state->target_pos[2] = player->pos[2];
+    
+    state->prev_target_a[0] = state->prev_target_b[0] + rotated_offset[0];
+    state->prev_target_a[1] = player->pos[1] + rotated_offset[1];
+    state->prev_target_a[2] = state->prev_target_b[2] + rotated_offset[2];
+    
+    cam_ground_y = GetGroundHit0x119210(state->prev_target_b);
+    if ((cam_ground_y - state->ground_y) > -100.0f) {
+        state->ground_hit = 0;
+        state->ground_y = cam_ground_y;
+    } else {
+        switch (state->ground_hit) {
+            case 0:
+                state->ground_hit = 1;
+                /* fallthrough */
+            
+            case 1:
+                y_limit = 1000.0f;
+                break;
+            
+            default:
+                state->ground_hit = 0;
+                state->ground_y = cam_ground_y;
+                break;
+        }
+    }
+
+    cam_ground_y = GetGroundHit0x119210(state->prev_target_a);
+    if ((cam_ground_y - state->prev_target_a[1]) < y_limit) {
+        tmp_offset = cam_ground_y + cam_distance_offset;
+        if (tmp_offset > state->prev_target_a[1]) {
+            state->prev_target_a[1] = tmp_offset;
+        } else {
+            state->ground_hit = -1;
+        }
+    }
+
+    temp_rot = (state->target_rotation - cam_view->subject_rotation) & 0xFFFF;
+    if (temp_rot > 0x8000) {
+        cam_view->subject_rotation -= (((cam_view->subject_rotation + 0x10000 - state->target_rotation) & 0xFFFF) / 6);
+    } else {
+        cam_view->subject_rotation += (temp_rot / 6);
+    }
+
+    state->target_pos[1] += 0.25f * (state->prev_target_b[1] - state->target_pos[1]);
+    state->cam_pos[1] += 0.125f * (state->prev_target_a[1] - state->cam_pos[1]);
+    state->cam_pos[0] += (state->prev_target_a[0] - state->cam_pos[0]);
+    state->cam_pos[2] += (state->prev_target_a[2] - state->cam_pos[2]);
+    
+    k_HitEmCamera0x225510(state->cam_pos, state->prev_cam_pos);
+    k_HitWallCamera0x225370(state->cam_pos, state->prev_cam_pos, &state->wall_distance);
+
+    if (game_w0x3f33f0.unk_1E6 != 0) {
+        state->hit_wall = GetWallHitLine0x11b2a0(state->target_pos, state->cam_pos, wall_hit_pos, 0xC009);
+    } else {
+        state->hit_wall = GetWallHitLine0x11b2a0(state->target_pos, state->cam_pos, wall_hit_pos, 9);
+    }
+    
+    cam_ground_y = GetGroundHit0x119210(state->cam_pos);
+    temp_calc = cam_ground_y + cam_distance_offset;
+    if (temp_calc > state->cam_pos[1]) {
+        state->cam_pos[1] = temp_calc;
+    }
+
+    if (state->pass_over == 0) {
+        cam_distance_offset = 300.0f;
+    } else {
+        cam_distance_offset = 400.0f;
+        state->pass_over = 0;
+    }
+    
+    PointToPoint0x1207e0(cam_to_target_vector, state->target_pos, state->cam_pos);
+
+    length = flvecCalcLength0x1730f0(cam_to_target_vector);
+    if (length < cam_distance_offset) {
+        sq_x = cam_to_target_vector[0] * cam_to_target_vector[0];
+        sq_y = cam_to_target_vector[1] * cam_to_target_vector[1];
+        sq_z = cam_to_target_vector[2] * cam_to_target_vector[2];
+        if (DEG_67_5_RAD < flArcCos0x173560(flSqrt0x173680((sq_x + sq_z) / (sq_x + sq_y + sq_z)))) {
+            state->pass_over = 1;
+            length *= flSin0x173600(DEG_67_5_RAD);
+
+            if (cam_to_target_vector[1] < 0.0f) {
+                state->target_pos[1] = state->cam_pos[1] - length;
+            } else {
+                state->target_pos[1] = state->cam_pos[1] + length;
+            }
+        }
+    }
+    
+    if (cam_work->has_active_view != 0) {
+        move_frames = 15;
+        if (area_data != NULL && area_data->header.transitions_ptr != NULL) {
+            byte_pair = area_data->header.transitions_ptr;
+            for (loop_cnt = VIEW_TRANSITION_COUNT;loop_cnt != 0;loop_cnt--, byte_pair++) {
+                if (byte_pair->cam_index_match == cam_work->prev_cam_entry_index) {
+                    move_frames = byte_pair->move_frames;
+                    break;
+                }
+            }
+        }
+
+        switch (move_frames) {
+            default:
+                cam_view->cmd_status = 1;
+                cam_view->move_cur = move_frames - 1;
+                state->move_amount = 1.0f / move_frames;
+                break;
+
+            case 0:
+            case 1:
+                cam_view->cmd_status = 0;
+                break;
+        }
+    }
+
+    if (state->wall_distance > 250.0f) {
+        state->wall_distance = 250.0f;
+    }
+
+    flvecCopy0x173300(cam_view->cam_pos, state->cam_pos);
+    flvecCopy0x173300(cam_view->target_pos, state->target_pos);
+
+    cam_view->cam_pos[1] += state->wall_distance;
+
+    switch (cam_view->cmd_status) {
+        case 0:
+            cam_view->yaw = state->max_dist_save;
+            cam_view->pitch = state->min_dist_save;
+            break;
+
+        case 1:
+            flvecCopy0x173300(cam_view->unk_30, cam_work->pos);
+            flvecCopy0x173300(cam_view->unk_3C, cam_work->target);
+            cam_view->roll = cam_work->roll;
+            cam_view->cam_pitch = cam_work->pitch;
+            cam_view->cmd_status += 1;
+            /* fallthrough */
+        
+        case 2:
+            move_amount = cam_view->move_cur * state->move_amount;
+            cpInterVector0x120e30(cam_view->cam_pos, cam_view->unk_30, cam_view->cam_pos, move_amount);
+            cpInterVector0x120e30(cam_view->target_pos, cam_view->unk_3C, cam_view->target_pos, move_amount);
+
+            cam_view->yaw = (cam_view->roll * move_amount) + (state->max_dist_save * (1.0f - move_amount));
+            cam_view->pitch = (cam_view->cam_pitch * move_amount) + (state->min_dist_save * (1.0f - move_amount));
+            cam_view->move_cur -= 1;
+
+            if (cam_view->move_cur == 0) {
+                cam_view->cmd_status = 0;
+            }
+            break;
+    }
+}
+
 
 void WyvernFindPlayer0x220420(PLAYER_WORK* player) {
     CAMERA_WORK* camera_work = &CameraWork0x4767c0;
@@ -283,7 +661,28 @@ void BBQcamera_set0x220450(PLAYER_WORK* player) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/main/camera", manual_cam_chk0x220490);
+s32 manual_cam_chk0x220490(CAMERA_WORK* cam_work, PLAYER_WORK* player) {
+    if (Cockpit_menu_chk0x1279f0() == 1) {
+        return 0;
+    }
+    if (player->unk_56E != 0) {
+        return 0;
+    }
+    if (player->unk_8C2 != 0) {
+        return 0;
+    }
+    if (player->sight_timer != 0) {
+        return 0;
+    }
+    if (fishing_cam_chk0x2216e0(player) != 0) {
+        return 0;
+    }
+    if (((player->job == JOB_BOWGUN_HEAVY) || (player->job == JOB_BOWGUN_LIGHT)) &&
+        (player->unk_12 != 0) && (player->sw_now & SW_L1)) {
+        return 0;
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/main/camera", std_cam_sw_set_sub0x220570);
 
@@ -480,8 +879,8 @@ void cam_sub_pchngr0x220f30(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view) {
             flvecApplyMat330x172e00(tmp_vec2, &pch_pos0x339350[view_state->pachi_type][3], view_state->matrix);
             AddVector0x120820(cam_view->target_pos, tmp_vec3, tmp_vec2);
 
-            cam_view->unk_88 = player->angle + 0x8000;
-            view_state->unk_60 = player->angle + 0x8000;
+            cam_view->subject_rotation = player->angle + 0x8000;
+            view_state->subject_rotation = player->angle + 0x8000;
             cam_view->this_view_active = 1;
     }
 }
@@ -510,7 +909,7 @@ s8 PachiTypeCheck0x221460(PLAYER_WORK* player) {
         return 2;
     }
 
-    if (player->unk_2 == 1 || player->unk_2 == 5) {
+    if (player->job == JOB_BOWGUN_HEAVY || player->job == JOB_BOWGUN_LIGHT) {
         return 0;
     }
 
@@ -1345,20 +1744,20 @@ static void default_area_data0x222e20(CAMERA_WORK* cam_work) {
     entry->header.near_zoom = 1.0f;
     entry->header.far_zoom = 0.75f;
     entry->header.zones_ptr = NULL;
-    entry->header.bytepairs_ptr = NULL;
+    entry->header.transitions_ptr = NULL;
 
     for (i = 0; i < 4; i++) {
         stage_data = &stage_camera_data_tbl0x2f58e0[i][game_w0x3f33f0.current_area_id];
-        entry->follow.entries[i + 1].data.unk_4 = stage_data->unk_4;
-        entry->follow.entries[i + 1].data.unk_8 = stage_data->unk_8;
+        entry->follow.entries[i + 1].data.off_y = stage_data->off_y;
+        entry->follow.entries[i + 1].data.off_z = stage_data->off_z;
         entry->follow.entries[i + 1].data.height = stage_data->height;
-        entry->follow.entries[i + 1].data.unk_18 = stage_data->unk_18;
+        entry->follow.entries[i + 1].data.distance_offset = stage_data->distance_offset;
     }
 
-    entry->follow.entries[0].data.unk_4 = 300.0f;
-    entry->follow.entries[0].data.unk_8 = 160.0f;
+    entry->follow.entries[0].data.off_y = 300.0f;
+    entry->follow.entries[0].data.off_z = 160.0f;
     entry->follow.entries[0].data.height = 184.0f;
-    entry->follow.entries[0].data.unk_18 = 80.0f;
+    entry->follow.entries[0].data.distance_offset = 80.0f;
 
     entry->follow.fov = 0.87266463f;
     entry->follow.roll = 0;
