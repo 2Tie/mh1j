@@ -1,10 +1,20 @@
-AI DISCLOSURE:
+## AI DISCLOSURE: ##
 This project does not knowingly contain nor accept any code produced in any capacity by "AI" or LLMs. Likewise, the indexing or modification of the code in this repository by agents is strictly forbidden. If you want to make something cool, enrich yourself with the skills to do so! Don't ask autocomplete to do it for you!
 
-PROGRESS:
-We are now past 1% match for the main ELF, with the total code including overlays resting at about 0.5% completion. For an interactive look at the current progress, take a look at https://decomp.dev/2Tie/mh1j.
+## PROGRESS: ##
+![overall progress badge for the project](https://decomp.dev/2Tie/mh1j/SLPM_654.95.svg?mode=shield&style=plastic)  
+For an interactive look at the current progress, take a look at https://decomp.dev/2Tie/mh1j.  
+| CODE BLOCK | progress | data migrated? | 
+| :---: | :---: | :--: |
+| Main Elf | ![elf progress badge](https://decomp.dev/2Tie/mh1j/SLPM_654.95.svg?mode=shield&category=main&style=plastic) | no |
+| Main Menus | ![select progress badge](https://decomp.dev/2Tie/mh1j/SLPM_654.95.svg?mode=shield&category=select&style=plastic) | no | 
+| Quest Logic | ![game progress badge](https://decomp.dev/2Tie/mh1j/SLPM_654.95.svg?mode=shield&category=game&style=plastic) | no |
+| Town/City | ![lobby progress badge](https://decomp.dev/2Tie/mh1j/SLPM_654.95.svg?mode=shield&category=lobby&style=plastic) | no |
+| Driver Loader | ![yn progress badge](https://decomp.dev/2Tie/mh1j/SLPM_654.95.svg?mode=shield&category=yn&style=plastic) | no |
+| DNAS Frontend | ![dnas_ins progress badge](https://decomp.dev/2Tie/mh1j/SLPM_654.95.svg?mode=shield&category=dnas_ins&style=plastic) | no |  
+| DNAS Backend | ![dnas_net progress badge](https://decomp.dev/2Tie/mh1j/SLPM_654.95.svg?mode=shield&category=dnas_net&style=plastic) | no |
 
-GETTING SET UP:
+## GETTING SET UP: ##
 You will need to have Python 3.9 or higher installed. You can check current version with "python3 --version".
 
 Next, you will need the splat scripts installed and configured for mips, done by running "python3 -m pip install -r requirements.txt". This will ensure supported versions are used, as newer versions of spim break the injector script. Dependencies will also be handled.
@@ -16,17 +26,19 @@ The next step will be "make split", this will handle the DNAS overlays' deobfusc
 Before you begin decompiling, you may want to run "make build" to confirm that the compilation tools are running correctly and that the working state of the repository results in a matching output. Note that currently the build has a handful of nonmatching output in main and a ton in the overlays, this is normal.
 
 
-WORKFLOW:
+## WORKFLOW: ##
 To identify unfinished C files, they will have matching-named folders in the asm/*/nonmatching folder. In the C file (in the src/ folder), functions that are yet to be decompiled will be denoted with an INCLUDE_ASM macro pointing to the assembly code file. 
 
 To work on a decompilation, i recommend the wonderful online tool https://decomp.me. Work-in-progress functions are called "scratches", and when you start a new one select PS2 and select the Monster Hunter (JP) preset. Target Assembly is where you place the nonmatching assembly code (from asm/*.s). Context requires a little more work, go ahead and run "python3 tools/m2ctx.py path", where path is the C file containing the function we're about to scratch. This will output the file "ctx.c" in the root, and you will copy out everything between the #defines and the finished code/semicolons into the Context field. (for larger C files, you may want to prune definitions you don't need.) Once the scratch is started, the Source Code tab is where you'll be writing C code to try and match the assembly. If you'd like a head start on getting the function to be "c-like" then the emotionengine-reloaded plugin for Ghidra is a great help, though decomp.me does a decent job guessing a starting point.
 
+When adding a func to a C file, be sure to remove the nonmatching asm counterpart, otherwise mwccgap or mwldps2 may complain about multiply defined symbols. 
+
 When migrating TU variables to the C files, be sure to reverse the order of variables relative to their final address; this is a quirk of the metrowerks compiler's bucketing system. Also, be sure to delete decomped asm files from the asm/ folder (or just delete the asm folder and re-split). same goes for when migrating assembly to nonmatching, make sure the original gets removed!
 
-If you add a new struct to include/structs.c, make sure you define its size (and set the type as u8) in the config/*_symbol_addrs file it belongs to, otherwise overlay funcs will fumble accessing its members and decomp.me targets using it will have a different access detail, making it impossible to 100% match without override.
+If you add a new struct to include/structs.h, make sure you define its size (and set the type as u8) in the config/*_symbol_addrs file it belongs to, otherwise overlay funcs will fumble accessing its members and decomp.me targets using it will have a different access detail, making it impossible to 100% match without override.
 
 To start a new C file, you'll want to open one of the .yaml files in the config/ folder, and look for an 'asm' entry. Change the "asm" to "c", and then you'll want to find the "rodata" entry lower in the segments list that matches the name of the new "c" entry, and change "rodata" to ".rodata". for example:
-...
+```...
 - [0x1000, asm, rave]
 - [0x1200, asm, party]
 - [0x1400, asm, disco]
@@ -35,8 +47,9 @@ To start a new C file, you'll want to open one of the .yaml files in the config/
 - [0x3100, rodata, party]
 - [0x3200, rodata, disco]
 ...
+```
 should become this when changing "party":
-...
+```...
 - [0x1000, asm, rave]
 - [0x1200, c, party]
 - [0x1400, asm, disco]
@@ -45,23 +58,24 @@ should become this when changing "party":
 - [0x3100, .rodata, party]
 - [0x3200, rodata, disco]
 ...
+```
 Then run "make split", this will generate the C file in src/ and move the assembly to asm/*/nonmatching/.
 
-BUILDING:
+## BUILDING: ##
 "make build" will attempt to run the codebase through the MetroWerks PS2 tools to create the elf and overlays in build/. Currently the process is set up for WSL2 or WIBO, as the assembler, compiler, and linker are all windows executables. WIBO is used for pure linux setups, and automatically disabled by the Makefile if WSL2 is detected. 
 
-After a successful build, a byte-for-byte comparison will be ran on the built binaries, and the first few mismatches reported to console (offset from file start, not vram addresses).
+After a successful build, a byte-for-byte comparison will be ran on the built binaries, and the first few mismatches reported to console **(offset from file start, not vram addresses!)**.
 
-KNOWN ISSUES:
+## KNOWN ISSUES: ##
 The main elf currently has a few reported mismatches for a "good" build, stemming from the Sony PS2 libraries used that were instead built with EEGCC and have a different style for branching to local targets. Changing the PS2 libs to use EEGCC (or pivoting to using prebuilt libraries) will fix these in the future.
 
-Overlays are currently unable to see struct members from the main elf's symbol_addrs file, leading to mismatches in the build due to missing addresses.
+Overlays are currently unable to see struct members from the main elf's symbol_addrs file, leading to mismatches in the build due to missing addresses. In the meantime, matching for overlays is commented out from the makefile.
 
-The __bss_start symbol is 'early' in retail, this doesn't affect good build.
+The __bss_start symbol is 'early' in retail, this is normal mwld behaviour and doesn't affect good build.
 
 NONMATCHING labels are omitted from the split output (configured in the .yaml files) because MWLDPS2 doesn't like them, complaining about too many symbols. A custom report script has been made to interface with https://decomp.dev instead, which is updated upon successful build... but it currently assumes any function present is fully matched.
 
-DOCUMENTATION:
+## DOCUMENTATION: ##
 The repository's wiki will serve as the place to document file formats and game mechanics from an in-depth technical standpoint.
 
 big thanks to the PS2 decomp community for all the help, and much love to the MHOldschool community.
