@@ -39,6 +39,7 @@ extern s32 Em_stg_ck0x152010(MONSTER_WORK*);
 extern void nlCalcPoint0x120ec0(f32*, f32*, MATRIX);
 extern void PointToPoint0x1207e0(f32*, f32*, f32*); 
 extern void ScaleVector0x1208a0(f32*, f32*, f32);
+extern void SetVector0x1207d0(f32*, f32, f32, f32);
 extern void SubVector0x120860(f32*, f32*, f32*);
 extern void AddVector0x120820(f32*, f32*, f32*);
 extern void cpInterVector0x120e30(f32*, f32*, f32*, f32);
@@ -48,6 +49,7 @@ extern s32 Pl_scope_ck0x154d00(PLAYER_WORK*);
 extern s32 act_ck0x14ef20(PLAYER_WORK*, s8, s8);
 extern s32 pl_flag_ck0x14ef60(PLAYER_WORK*, u32);
 
+extern s32 GetWallHitBit20x115eb0(f32*, f32*, void*, u16, f32);
 extern f32 GetGroundHit0x119210(f32*);
 extern u8 GetWallHitLine0x11b2a0(f32*, f32*, f32*, s32);
 
@@ -67,6 +69,7 @@ extern f32 dka_j_tbl0x3393D0[];
     0.25f,
     0.2f
 };*/
+extern VEC4 push010x3393f0[2];
 extern f32 dka_init_tbl0x3393a0[5][2];
 extern void* Demo_cam_tbl0x348d70[35];
 extern FISH_CAM_OFFSET* fishcam_ofs_tbl0x339080[90];
@@ -108,7 +111,7 @@ void cam_plEX_zoom0x221870(CAMERA_WORK*, CAM_W_VIEW*, CAM_ZOOM_CONTROL*);
 s32 fish_cam_sub0x221700(CAMERA_WORK*, CAM_W_VIEW*, CAM_FISHING_CONTROL*);
 s32 fishing_cam_chk0x2216e0(PLAYER_WORK*);
 void k_HitEmCamera0x225510(f32*, f32*);
-void k_HitWallCamera0x225370(f32*, f32*, f32*);
+f32 k_HitWallCamera0x225370(f32*, f32*, f32*);
 
 
 // funcs
@@ -2640,7 +2643,34 @@ s32 Cardano0x225050(f32* roots, f32* coeffs) {
     return 3;
 }
 
-INCLUDE_ASM("asm/nonmatchings/main/camera", k_HitWallCamera0x225370);
+f32 k_HitWallCamera0x225370(f32* pos, f32* old_pos, f32* wall_distance) {
+    VEC3 old_off;
+    VEC3 new_off;
+    f32 new_vec[4];
+    VEC4* pushvec;
+    u8 wall_bit;
+
+    for(pushvec = push010x3393f0; pushvec[0][3] != -1.0f; pushvec++){
+        old_off[0] = old_pos[0] + pushvec[0][0];
+        old_off[1] = old_pos[1] + pushvec[0][1];
+        old_off[2] = old_pos[2] + pushvec[0][2];
+        new_off[0] = pos[0] + pushvec[0][0];
+        new_off[1] = pos[1] + pushvec[0][1];
+        new_off[2] = pos[2] + pushvec[0][2];
+        SetVector0x1207d0(new_vec, pos[0], pos[1], pos[2]);
+        if (game_w0x3f33f0.unk_1E6 != 0) {
+            wall_bit = GetWallHitBit20x115eb0(old_off, new_off, pos, 0xC001, pushvec[0][3]);
+        } else {
+            wall_bit = GetWallHitBit20x115eb0(old_off, new_off, pos, 0x8001, pushvec[0][3]);
+        }
+        if (wall_bit) {
+            *wall_distance = flvecCalcDistance0x173140(new_vec, pos);
+        } else {
+            *wall_distance = 0.0f;
+        }
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/main/camera", k_HitEmCamera0x225510);
 

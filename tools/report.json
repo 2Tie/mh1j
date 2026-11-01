@@ -1,15 +1,15 @@
 {
   "measures": {
-    "fuzzy_match_percent": 0.8714406540738653,
+    "fuzzy_match_percent": 0.8812141716004135,
     "total_code": "4256400",
-    "matched_code": "37092",
-    "matched_code_percent": 0.8714406540738653,
+    "matched_code": "37508",
+    "matched_code_percent": 0.8812141716004135,
     "total_data": "1974645",
     "matched_data": "0",
     "matched_data_percent": 0.0,
     "total_functions": 16080,
-    "matched_functions": 220,
-    "matched_functions_percent": 1.3681592039800996,
+    "matched_functions": 221,
+    "matched_functions_percent": 1.3743781094527363,
     "total_units": 162
   },
   "units": [
@@ -38614,23 +38614,23 @@
     {
       "name": "camera.c",
       "measures": {
-        "fuzzy_match_percent": 80.86237448316598,
+        "fuzzy_match_percent": 82.39810986414649,
         "total_code": "27088",
-        "matched_code": "21904",
-        "matched_code_percent": 80.86237448316598,
+        "matched_code": "22320",
+        "matched_code_percent": 82.39810986414649,
         "total_data": "1541",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 93,
-        "matched_functions": 88,
-        "matched_functions_percent": 94.6236559139785,
+        "matched_functions": 89,
+        "matched_functions_percent": 95.6989247311828,
         "total_units": 1
       },
       "sections": [
         {
           "name": ".text",
           "size": "27088",
-          "fuzzy_match_percent": 80.86237448316598,
+          "fuzzy_match_percent": 82.39810986414649,
           "metadata": {}
         },
         {
@@ -39229,7 +39229,7 @@
         {
           "name": "k_HitWallCamera0x225370",
           "size": "416",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 24480,
           "metadata": {}
         },
@@ -118612,16 +118612,16 @@
       "id": "main",
       "name": "main",
       "measures": {
-        "fuzzy_match_percent": 2.2784623511923043,
+        "fuzzy_match_percent": 2.304016118530167,
         "total_code": "1627940",
-        "matched_code": "37092",
-        "matched_code_percent": 2.2784623511923043,
+        "matched_code": "37508",
+        "matched_code_percent": 2.304016118530167,
         "total_data": "1009909",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 6997,
-        "matched_functions": 220,
-        "matched_functions_percent": 3.1442046591396315,
+        "matched_functions": 221,
+        "matched_functions_percent": 3.1584964984993564,
         "total_units": 150
       }
     },
