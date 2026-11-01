@@ -50,6 +50,8 @@ typedef enum {
 	SW_START = 0x8000
 } SW_BUTTONS;
 
+#define SW_ALL 0xFFFF
+
 typedef enum {
 	JOB_GREATSWORD = 0,
 	JOB_BOWGUN_HEAVY = 1,
@@ -277,6 +279,13 @@ typedef struct PART_WORK {
     PART_WORK* unkCC;
     PART_WORK* unkD0;
 } PART_WORK; // size: unk
+
+typedef struct {
+	/* 0x00 */ u8 unk_0[0x2];
+    /* 0x02 */ u8 unk_2;
+    /* 0x03 */ u8 unk_6[0xA9];
+    /* 0xAC */ f32 pos[3];
+} ENTITY; //monster and player have this as the base, not sure how large yet
 
 typedef struct {
     /* 0x000 */ u8 unk_0[0x2];

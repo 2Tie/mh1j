@@ -15,10 +15,11 @@
 #define RAD2DEG (USHORT_MAX_FLOAT/(2*PI)) // 10430.378f 0x4622f983
 
 #define ONETHIRD (1.0f/3.0f)
+#define TWOTHIRDS (2.0f/3.0f)
 
 #define ERROREPSILON (1.0e-6) // cardano uses this
 
-#define SCREEN_RATIO 1.4285715 // 640/448, used in projections
+#define SCREEN_RATIO (640.0f/448.0f) //1.4285715f, used in projections
 
 #define DEG_10_RAD 0.17453294f // 10º 0x3E32B8C3
 #define DEG_30_RAD (PI/6) // 30º 0x3F060A92 0.52359879f

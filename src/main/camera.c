@@ -16,12 +16,14 @@ extern void flmatGetTrans0x171ee0(f32*, MATRIX);
 extern void flvecApplyMat33_20x172e70(VEC3, MATRIX);
 extern void flvecApplyMat330x172e00(f32*, f32*, MATRIX);
 extern void flvecCopy0x173300(f32*, f32*);
+extern f32 flvecCalcLength0x1730f0(f32*);
 extern void flvecRotY0x173070(f32*, f32);
 extern f32 flSqrt0x173680(f32);
 extern f32 flPow0x173670(f32, f32);
 extern f32 flCos0x173610(f32);
 extern f32 flSin0x173600(f32);
 extern f32 flArcTan20x1735e0(f32, f32);
+extern f32 flArcCos0x173560(f32);
 extern f32 flAbs0x173540(f32);
 extern f32 flvecInnerProduct0x173220(f32*, f32*);
 extern f32 flvecCalcDistance0x173140(f32*, f32*);
@@ -149,7 +151,7 @@ void SetCameraData0x21f470(CAM_DATA_HEADER* data) {
 
             if (entry->header.transitions_ptr != 0) {
                 entry->header.zones_ptr = (CAM_GEOMETRY_ZONE*) (next_offset + entry->header.zones_offset);
-                entry->header.transitions_ptr = (VIEW_TRANSITION*) next_offset + entry->header.transitions_offset;
+                entry->header.transitions_ptr = (VIEW_TRANSITION*) (next_offset + entry->header.transitions_offset);
                 entry = (CAM_AREA_DATA*) ((u32) (entry + 1) + entry->header.zone_count * sizeof(CAM_GEOMETRY_ZONE) + sizeof(VIEW_TRANSITION)*VIEW_TRANSITION_COUNT); 
             } else {
                 entry->header.zones_ptr = (CAM_GEOMETRY_ZONE*) (next_offset + entry->header.zones_offset);
@@ -684,7 +686,33 @@ s32 manual_cam_chk0x220490(CAMERA_WORK* cam_work, PLAYER_WORK* player) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/main/camera", std_cam_sw_set_sub0x220570);
+void std_cam_sw_set_sub0x220570(CAMERA_WORK* cam_work, CAM_VIEW_STATE_STD* cam_state) {
+    PLAYER_WORK* player;
+
+    if (cam_work->active_view == 0) {
+        player = cam_work->player_ptr;
+
+        if (manual_cam_chk0x220490(cam_work, player) == 1) {
+            cam_state->sw_now = cam_work->pad_state;
+            cam_state->sw_new = cam_work->pad_new;
+
+            if ((Pl_bari_ck0x14fc40(player) == 1) && (player->sw_now & SW_L1)) {
+                cam_state->sw_now &= (SW_ALL - (SW_D_RIGHT | SW_D_LEFT)); //mask off d-left and d-right
+                cam_state->sw_new &= (SW_ALL - (SW_D_RIGHT | SW_D_LEFT));
+            }
+            return;
+        }
+        
+        if (Cockpit_chat_chk0x275220() == 0) {
+            cam_state->sw_now = cam_work->pad_state & SW_L1;
+            cam_state->sw_new = cam_work->pad_new & SW_L1;
+            return;
+        }
+    }
+    
+    cam_state->sw_new = 0;
+    cam_state->sw_now = 0;  
+}
 
 void set_to_std_cam0x220650(s32 view) {
     CAM_W_VIEW* cam_w_view = &CameraWork0x4767c0.views[0];
@@ -705,7 +733,7 @@ void cam_init_sub_stg0x220690(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view) {
     cam_view->pitch = DEG_55_RAD;
 }
 
-INCLUDE_ASM("asm/nonmatchings/main/camera", cam_sub_stg0x2206b0);
+INCLUDE_ASM("asm/nonmatchings/main/camera", cam_sub_stg0x2206b0); //https://decomp.me/scratch/JxG9M
 
 void cam_init_sub_pchngr0x220ee0(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view) {
     CAM_VIEW_STATE_PACHINGER* view_state;
@@ -901,11 +929,11 @@ s32 pch_lock_chk0x221400(PLAYER_WORK* player) {
 }
 
 s8 PachiTypeCheck0x221460(PLAYER_WORK* player) {
-    if (act_ck0x14ef20(player, 0, 0x65) != 0 || act_ck0x14ef20(player, 0, 0x66) != 0) {
+    if ((s16)act_ck0x14ef20(player, 0, 0x65) != 0 || (s16)act_ck0x14ef20(player, 0, 0x66) != 0) {
         return 1;
     }
 
-    if (act_ck0x14ef20(player, 0, 0x36) != 0 || act_ck0x14ef20(player, 0, 0x48) != 0) {
+    if ((s16)act_ck0x14ef20(player, 0, 0x36) != 0 || (s16)act_ck0x14ef20(player, 0, 0x48) != 0) {
         return 2;
     }
 
@@ -940,7 +968,7 @@ void cam_init_sub_playerEX0x221580(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view) 
 
     cam_view->state_player.fishing_control.active_s32 = 0;
     cam_view->state_player.zoom_control.state_s32 = 0;
-    cam_view->state_player.zoom_control.unk_20 = 0;
+    cam_view->state_player.zoom_control.active = 0;
 }
 
 void cam_sub_playerEX0x2215a0(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view) {
@@ -1025,48 +1053,53 @@ s32 fish_cam_sub0x221700(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view, CAM_FISHIN
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/main/camera", NPCZoomInCameraRequest0x221820);
+void NPCZoomInCameraRequest0x221820(ENTITY* ent) {
+    CAM_ZOOM_CONTROL* zoom = &CameraWork0x4767c0.views[3].state_player.zoom_control;
+    zoom->active = 1;
+    zoom->ent = ent;
+    flvecCopy0x173300(zoom->target, ent->pos);
+}
 
 void NPCZoomInCameraCancel0x221850(void) {
-    CameraWork0x4767c0.views[3].state.rot_something[0] = 0;
+    CameraWork0x4767c0.views[3].state_player.zoom_control.active = 0;
 }
 
 s32 NPCZoomInCameraCheck0x221860(void) {
-    return (u16) CameraWork0x4767c0.views[3].state.rot_something[0] != 0;
+    return CameraWork0x4767c0.views[3].state_player.zoom_control.active != 0;
 }
 
 void cam_plEX_zoom0x221870(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view, CAM_ZOOM_CONTROL* cam_zoom) {
     PLAYER_WORK* player;
     CAM_W_VIEW* active_view;
-    UNK_ZOOM_STRUCT* unk;
-    f32 tmp;
+    ENTITY* ent;
+    f32 progress;
 
     cam_view->this_view_active = false;
 
     switch (cam_zoom->state) {
-        case 0:
-            if (cam_zoom->unk_20 != 0) {
-                cam_zoom->unk_22 = 0;
+        case CAM_ZOOM_INACTIVE:
+            if (cam_zoom->active != 0) {
+                cam_zoom->zoom_amount = 0;
                 cam_zoom->state += 1;
             }
             return;
 
-        case 1:
-            if (cam_zoom->unk_22 < 15) {
-                cam_zoom->unk_22 += 1;
+        case CAM_ZOOM_IN:
+            if (cam_zoom->zoom_amount < 15) {
+                cam_zoom->zoom_amount += 1;
             }
-            if (cam_zoom->unk_20 == 0) {
+            if (cam_zoom->active == 0) {
                 cam_zoom->state += 1;
             }
             break;
 
-        case 2:
-            if (cam_zoom->unk_22 > 0) {
-                cam_zoom->unk_22 -= 1;
+        case CAM_ZOOM_OUT:
+            if (cam_zoom->zoom_amount > 0) {
+                cam_zoom->zoom_amount -= 1;
             }
-            if (cam_zoom->unk_20 != 0) {
+            if (cam_zoom->active != 0) {
                 cam_zoom->state = 1;
-            } else if (cam_zoom->unk_22 == 0) {
+            } else if (cam_zoom->zoom_amount == 0) {
                 cam_zoom->state = 0;
                 return;
             }
@@ -1078,21 +1111,21 @@ void cam_plEX_zoom0x221870(CAMERA_WORK* cam_work, CAM_W_VIEW* cam_view, CAM_ZOOM
 
     player = cam_work->player_ptr;
     active_view = &cam_work->views[cam_work->active_view];
-    unk = cam_zoom->unk_4;
+    ent = cam_zoom->ent;
 
-    if (unk->unk_2 == 3) {
-        cpInterVector0x120e30(cam_zoom->unk_14, player->pos, unk->unk_AC, 0.5f);
-        cam_zoom->unk_14[1] += 64.0f;
+    if (ent->unk_2 == 3) {
+        cpInterVector0x120e30(cam_zoom->inter_target, player->pos, ent->pos, 0.5f);
+        cam_zoom->inter_target[1] += 64.0f;
     } else {
-        cpInterVector0x120e30(cam_zoom->unk_14, player->pos, cam_zoom->unk_8, 0.2f);
-        cam_zoom->unk_14[1] += 150.0f;
+        cpInterVector0x120e30(cam_zoom->inter_target, player->pos, cam_zoom->target, 0.2f);
+        cam_zoom->inter_target[1] += 150.0f;
     }
 
-    tmp = 0.06666667f * cam_zoom->unk_22;
+    progress = (1.0f/15.0f) * cam_zoom->zoom_amount; // 1/15th, also the number of frames of transitions above
 
-    cpInterVector0x120e30(cam_view->target_pos, cam_zoom->unk_14, active_view->target_pos, tmp);
+    cpInterVector0x120e30(cam_view->target_pos, cam_zoom->inter_target, active_view->target_pos, progress);
 
-    cam_view->pitch = (active_view->pitch * (1.0f - tmp)) + (DEG_30_RAD * tmp);
+    cam_view->pitch = (active_view->pitch * (1.0f - progress)) + (DEG_30_RAD * progress);
 
     flvecCopy0x173300(cam_view->cam_pos, active_view->cam_pos);
 
@@ -1908,9 +1941,33 @@ s32 CamAreaAttribChk0x2233c0(CAM_AREA_DATA* entry, PLAYER_WORK* player) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/main/camera", Area_XZ_Check0x223410);
+INCLUDE_ASM("asm/nonmatchings/main/camera", Area_XZ_Check0x223410); //https://decomp.me/scratch/IEWUV
 
-INCLUDE_ASM("asm/nonmatchings/main/camera", GetPanTarget0x223500);
+void GetPanTarget0x223500(CAMERA_WORK* cam_work, f32* target_pos, CAM_AREA_DATA* cam_data) {
+    PLAYER_WORK* player = cam_work->player_ptr;
+    
+    switch (cam_data->header.target_type) {
+        case NO_TARGET:
+            flvecCopy0x173300(target_pos, cam_data->pan.target);
+            break;
+        case PLAYER_UNK:
+            nlCalcPoint0x120ec0(target_pos, cam_data->pan.model, player->matrix);
+            break;
+        case PLAYER:
+            AddVector0x120820(target_pos, player->pos, cam_data->pan.world);
+            break;
+    }
+    
+    switch (cam_data->header.axes) {
+        case Y:
+            target_pos[1] = cam_data->pan.target[1];
+            break;
+        case XZ:
+            target_pos[0] = cam_data->pan.target[0];
+            target_pos[2] = cam_data->pan.target[2];
+            break;
+    }
+}
 
 void GetRailTarget0x2235e0(CAMERA_WORK* cam, VEC4 out, CAM_AREA_DATA* area, VEC4 in) {
     PLAYER_WORK *player = cam->player_ptr;
@@ -2587,7 +2644,7 @@ INCLUDE_ASM("asm/nonmatchings/main/camera", k_HitWallCamera0x225370);
 
 INCLUDE_ASM("asm/nonmatchings/main/camera", k_HitEmCamera0x225510);
 
-INCLUDE_ASM("asm/nonmatchings/main/camera", QuestClearCameraRequest0x225d80);
+INCLUDE_ASM("asm/nonmatchings/main/camera", QuestClearCameraRequest0x225d80); //https://decomp.me/scratch/imtOh
 
 void RedDragonEscapeCamera0x225e90(void* target_ptr) {
     DemoCameraRequest0x221b80(0x1C, target_ptr);

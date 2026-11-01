@@ -26,6 +26,12 @@ typedef enum {
     PLAYER
 } CAM_DATA_ENTRY_TARGET_TYPE;
 
+typedef enum {
+	CAM_ZOOM_INACTIVE,
+	CAM_ZOOM_IN,
+	CAM_ZOOM_OUT
+} CAM_ZOOM_STATE;
+
 typedef struct {
     /* 0x00 */ f32 a;
     /* 0x04 */ f32 b;
@@ -135,11 +141,19 @@ typedef struct {
 } CAM_CNF_RAIL; // size: 288?
 
 typedef struct {
+	/* 0x00 */ f32 pos[3];
+    /* 0x0C */ f32 target[3];
+    /* 0x18 */ f32 model[3];
+    /* 0x24 */ f32 world[3];
+} CAM_CNF_PAN; // size: 0x30
+
+typedef struct {
     /* 0x00 */ CAM_DATA_ENTRY_HEADER header;
     /* 0x20 */ union {
 		CAM_CNF cnf;
 		CAM_CNF_RAIL rail; //size 288
 		AREA_DATA_CNF follow; //size ?
+		CAM_CNF_PAN pan; //size 30
 	};
     /* 0x2A8 */ u8 unk_284[0x300 - 0x2A8];
 } CAM_AREA_DATA; // size: 0x300
@@ -187,10 +201,7 @@ typedef struct {
     /* 0x24 */ f32 ground_y;
     /* 0x28 */ s8 ground_hit;
     /* 0x29 */ u8 unk_29[0x07];
-    /* 0x30 */ union {
-        s16 rot_something[6];
-        f32 prev_target_a[3];
-    };
+    /* 0x30 */ f32 prev_target_a[3];
     /* 0x3C */ f32 prev_target_b[3];
     /* 0x48 */ f32 min_dist_save;
     /* 0x4C */ union {
@@ -329,23 +340,17 @@ typedef struct {
     /* 0x6F */ u8 hit_wall;
 } CAM_VIEW_STATE_STD; // size: 0x70
 
-typedef struct {
-    /* 0x00 */ u8 unk_0[0x2];
-    /* 0x02 */ u8 unk_2;
-    /* 0x03 */ u8 unk_6[0xA9];
-    /* 0xAC */ f32 unk_AC[3];
-} UNK_ZOOM_STRUCT; // size: unk
 
 typedef struct {
     /* 0x00 */ union {
-        u8 state;
+        CAM_ZOOM_STATE state;
         s32 state_s32;
     }; // Had to use int to match cam_init_sub_playerEX
-    /* 0x04 */ UNK_ZOOM_STRUCT* unk_4;
-    /* 0x08 */ f32 unk_8[3];
-    /* 0x14 */ f32 unk_14[3];
-    /* 0x20 */ u16 unk_20;
-    /* 0x22 */ s16 unk_22;
+    /* 0x04 */ ENTITY* ent;
+    /* 0x08 */ f32 target[3];
+    /* 0x14 */ f32 inter_target[3];
+    /* 0x20 */ u16 active;
+    /* 0x22 */ s16 zoom_amount;
 } CAM_ZOOM_CONTROL; // size: 0x24
 
 typedef struct {
@@ -354,6 +359,22 @@ typedef struct {
     /* 0x10 */ CAM_ZOOM_CONTROL zoom_control;
     /* 0x34 */ u8 unk_34[0x3C];
 } CAM_VIEW_STATE_PLAYER; // size: 0x70
+
+typedef struct {
+	VEC3 pos;
+	VEC3 tar;
+	VEC3 unk_18;
+	VEC3 unk_24;
+	f32 unk_30;
+	f32 unk_34;
+	f32 unk_38;
+	f32 unk_3C;
+	s16 unk_40;
+	s16 unk_42;
+	s32 unk_44;
+	s16 unk_48;
+	s16 unk_4A;
+} CAM_VIEW_STATE_STG; //size: 0x4C
 
 typedef struct {
     /* 0x00 */ f32 cam_pos[3];
@@ -388,6 +409,7 @@ typedef struct {
     /* 0x88 */ s16 subject_rotation;
     /* 0x8A */ u8 unk_8A[0x6];
     /* 0x90 */ union {
+		CAM_VIEW_STATE_STG state_stage;
         CAM_VIEW_STATE_STD state_std;
         CAM_VIEW_STATE state;
         CAM_VIEW_STATE_DEMO state_demo;
