@@ -1,15 +1,15 @@
 {
   "measures": {
-    "fuzzy_match_percent": 0.8812141716004135,
-    "total_code": "4256400",
-    "matched_code": "37508",
-    "matched_code_percent": 0.8812141716004135,
+    "fuzzy_match_percent": 0.8873251216759375,
+    "total_code": "4256388",
+    "matched_code": "37768",
+    "matched_code_percent": 0.8873251216759375,
     "total_data": "1974645",
     "matched_data": "0",
     "matched_data_percent": 0.0,
     "total_functions": 16080,
-    "matched_functions": 221,
-    "matched_functions_percent": 1.3743781094527363,
+    "matched_functions": 222,
+    "matched_functions_percent": 1.3805970149253732,
     "total_units": 162
   },
   "units": [
@@ -38614,23 +38614,23 @@
     {
       "name": "camera.c",
       "measures": {
-        "fuzzy_match_percent": 82.39810986414649,
-        "total_code": "27088",
-        "matched_code": "22320",
-        "matched_code_percent": 82.39810986414649,
+        "fuzzy_match_percent": 83.39488846210666,
+        "total_code": "27076",
+        "matched_code": "22580",
+        "matched_code_percent": 83.39488846210666,
         "total_data": "1541",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 93,
-        "matched_functions": 89,
-        "matched_functions_percent": 95.6989247311828,
+        "matched_functions": 90,
+        "matched_functions_percent": 96.7741935483871,
         "total_units": 1
       },
       "sections": [
         {
           "name": ".text",
-          "size": "27088",
-          "fuzzy_match_percent": 82.39810986414649,
+          "size": "27076",
+          "fuzzy_match_percent": 83.39488846210666,
           "metadata": {}
         },
         {
@@ -39242,8 +39242,8 @@
         },
         {
           "name": "QuestClearCameraRequest0x225d80",
-          "size": "272",
-          "fuzzy_match_percent": 0,
+          "size": "260",
+          "fuzzy_match_percent": 100,
           "address": 27056,
           "metadata": {}
         },
@@ -118612,16 +118612,16 @@
       "id": "main",
       "name": "main",
       "measures": {
-        "fuzzy_match_percent": 2.304016118530167,
-        "total_code": "1627940",
-        "matched_code": "37508",
-        "matched_code_percent": 2.304016118530167,
+        "fuzzy_match_percent": 2.3200043245155806,
+        "total_code": "1627928",
+        "matched_code": "37768",
+        "matched_code_percent": 2.3200043245155806,
         "total_data": "1009909",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 6997,
-        "matched_functions": 221,
-        "matched_functions_percent": 3.1584964984993564,
+        "matched_functions": 222,
+        "matched_functions_percent": 3.172788337859082,
         "total_units": 150
       }
     },

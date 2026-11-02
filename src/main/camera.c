@@ -7,7 +7,8 @@ extern PSW Psw0x3f3710[2];
 extern GAME_WORK game_w0x3f33f0;
 extern PLAYER_WORK player_work0x3e4bf0[8];
 extern MONSTER_WORK em_work0x3d82a0[20];
-extern VIEW_WORK* lpView0x38a110;
+extern VIEW_WORK* lpView0x38a110;    
+extern QUEST_WORK quest_w0x3c7440;
 
 extern void flmatInit0x171ce0(MATRIX);
 extern void flmatCopy0x172cb0(MATRIX, MATRIX);
@@ -71,6 +72,7 @@ extern f32 dka_j_tbl0x3393D0[];
 };*/
 extern VEC4 push010x3393f0[2];
 extern f32 dka_init_tbl0x3393a0[5][2];
+extern u8 quest_clear_camera_tbl0x339410[];
 extern void* Demo_cam_tbl0x348d70[35];
 extern FISH_CAM_OFFSET* fishcam_ofs_tbl0x339080[90];
 
@@ -2674,7 +2676,59 @@ f32 k_HitWallCamera0x225370(f32* pos, f32* old_pos, f32* wall_distance) {
 
 INCLUDE_ASM("asm/nonmatchings/main/camera", k_HitEmCamera0x225510);
 
-INCLUDE_ASM("asm/nonmatchings/main/camera", QuestClearCameraRequest0x225d80); //https://decomp.me/scratch/imtOh
+void QuestClearCameraRequest0x225d80(void) {
+    s32 demo_id;
+    MONSTER_WORK* target;
+
+    if (!(quest_w0x3c7440.hunt_type_flag & 1)) {
+        return;
+    }
+
+    target = quest_w0x3c7440.killed_monster;
+    if (target == NULL) {
+        target = quest_w0x3c7440.active_monster;
+        if (target == NULL) {
+            return;
+        }
+        if (target->species != EM_LAO_SHAN_LUNG && target->species != EM_FATALIS) {
+            return;
+        }
+    }
+
+    if (game_w0x3f33f0.current_area_id != target->current_area_id) {
+        return;
+    }
+            
+    switch (target->species) {
+        case EM_LAO_SHAN_LUNG:
+            if (game_w0x3f33f0.current_area_id != 0xC) {
+                return;
+            }
+            if (quest_w0x3c7440.monster_lives == 0) {
+                demo_id = 0x1D;
+            } else {
+                return;
+            }
+            break;
+
+        case EM_FATALIS:
+            if (quest_w0x3c7440.monster_lives == 0) {
+                demo_id = 0x20;
+            } else {
+                return;
+            }
+            break;
+
+        default:
+            demo_id = quest_clear_camera_tbl0x339410[target->species];
+            if (demo_id == 0xFF) {
+                return;
+            }
+            break;
+    }
+
+    DemoCameraRequest0x221b80(demo_id, target);
+}
 
 void RedDragonEscapeCamera0x225e90(void* target_ptr) {
     DemoCameraRequest0x221b80(0x1C, target_ptr);

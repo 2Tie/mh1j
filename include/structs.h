@@ -61,6 +61,43 @@ typedef enum {
 	JOB_BOWGUN_LIGHT = 5
 } JOBS;
 
+typedef enum {
+	EM_RATHIAN = 1,
+	EM_FATALIS = 2,
+	EM_KELBI = 3,
+	EM_MOSSWINE = 4,
+	EM_BULLFANGO = 5,
+	EM_YIAN_KUT_KU = 6,
+	EM_LAO_SHAN_LUNG = 7,
+	EM_CEPHADROME = 8,
+	EM_FELYNE = 9,
+	EM_VEGGIE_ELDER = 10,
+	EM_RATHALOS = 11,
+	EM_APTONOTH = 12,
+	EM_GENPREY = 13,
+	EM_DIABLOS = 14,
+	EM_KHEZU = 15,
+	EM_VELOCIPREY = 16,
+	EM_GRAVIOS = 17,
+	EM_CART = 18,
+	EM_VESPOID = 19,
+	EM_GYPCEROS = 20,
+	EM_PLESIOTH = 21,
+	EM_BASARIOS = 22,
+	EM_MELYNX = 23,
+	EM_HORNETAUR = 24,
+	EM_APCEROS = 25,
+	EM_MONOBLOS = 26,
+	EM_VELOCIDROME = 27,
+	EM_GENDROME = 28,
+	EM_ROCK = 29,
+	EM_IOPREY = 30,
+	EM_IODROME = 31,
+	EM_POOGIE = 32,
+	EM_KIRIN = 33,
+	EM_CEPHALOS = 34
+} SPECIES;
+
 typedef struct {
     /* 0x00 */ u8* memoryblock;
     /* 0x04 */ u8* baseandcap[2];
@@ -282,7 +319,11 @@ typedef struct PART_WORK {
 
 typedef struct {
 	/* 0x00 */ u8 unk_0[0x2];
-    /* 0x02 */ u8 unk_2;
+    /* 0x02 */ union{
+		JOBS job; 
+		SPECIES species; 
+		u8 unk_2; //NPC ID?
+	};
     /* 0x03 */ u8 unk_6[0xA9];
     /* 0xAC */ f32 pos[3];
 } ENTITY; //monster and player have this as the base, not sure how large yet
@@ -367,15 +408,60 @@ typedef struct {
 typedef struct {
     /* 0x000 */ u8 exists;
     /* 0x001 */ u8 unk_1;
-    /* 0x002 */ u8 species;
+    /* 0x002 */ SPECIES species;
     /* 0x003 */ u8 unk_3[0x5D];
     /* 0x060 */ MATRIX matrix;
     /* 0x0A0 */ u8 unk_a0[0xC];
     /* 0x0AC */ f32 pos[3];
     /* 0x0B8 */ u8 unk_0B8[0x2D0];
     /* 0x388 */ u8 unk_388; // read in F_DragonEscapeCamera
-    /* 0x389 */ u8 unk_389[0x687];
+    /* 0x389 */ u8 unk_389[0x736-0x389];
+	/* 0x736 */ u8 current_area_id;
+	/* 0x737 */ u8 unk_737[0xa10-0x737];
 } MONSTER_WORK; // size: 0xa10?
+
+typedef struct {
+	/* 0x000 */ u8 unk_0[0x7];
+	/* 0x007 */ u8 quest_id;
+	/* 0x008 */ u8 unk_8[0x10 - 0x8];
+	/* 0x010 */ u32 time_limit_ticks;
+	/* 0x014 */ u32 reward_total;
+	/* 0x018 */ u32 cart_penalty;
+	/* 0x01C */ s16 target_item[4];
+	/* 0x024 */ s16 target_item_quantity[4];
+	/* 0x02C */ s16 monster_cap_target[2];
+	/* 0x030 */ s16 monster_cap_quantity[2];
+	/* 0x034 */ s16 monster_lives;
+	/* 0x036 */ u8 unk_36[0x3C - 0x36];
+	/* 0x03C */ MONSTER_WORK* killed_monster;
+	/* 0x040 */ u32 hunt_type_flag;
+	/* 0x044 */ u8 unk_40[0x64 - 0x44];
+	/* 0x064 */ void* mib_head_ptr;
+	/* 0x068 */ u8 unk_68[4];
+	/* 0x06C */ void* mib_script_ptr;
+	/* 0x070 */ void* mib_text_ptr;
+	/* 0x074 */ void* mib_ents_ptr;
+	/* 0x078 */ void* mib_mons_ptr;
+	/* 0x07C */ void* mib_links_ptr;
+	/* 0x080 */ void* mib_origins_ptr;
+	/* 0x084 */ void* mib_msg_ptr;
+	/* 0x088 */ void* mib_rewards_ptr;
+	/* 0x08C */ void* mib_gathering_ptr;
+	/* 0x090 */ void* mib_objects_ptr;
+	/* 0x094 */ void* mib_header_ptr;
+	/* 0x098 */ u8 unk_98[0xAF - 0x98];
+	/* 0x0AF */ u8 quest_timer_chunks;
+	/* 0x0B0 */ MONSTER_WORK* active_monster;
+	/* 0x0B4 */ u8 hunter_ranks[4][2];
+	/* 0x0BC */ u8 unk_BC[0x13C - 0xBC];
+	/* 0x13C */ u32 break_flags;
+	/* 0x140 */ u8 unk_140[4];
+	/* 0x144 */ s16 target_monster[2];
+	/* 0x148 */ s16 target_monster_quantity[2];
+	/* 0x14C */ s16 fatalis_hp;
+	/* 0x14E */ u8 mib_level;
+	/* 0x14F */ u8 unk_14F[0x190 - 0x14F];
+} QUEST_WORK; // size: 0x190
 
 typedef struct {
 	    /* 0x000 */ u8 top_state;
