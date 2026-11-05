@@ -64,7 +64,7 @@ typedef struct{
 } RAIL_WORK; // size: 0x10
 
 typedef struct {
-    /* 0x00 */ u8 vertices[0x20];
+    /* 0x00 */ f32 vertices[8];
     /* 0x20 */ f32 origin[3];
     /* 0x2C */ u8 flags;
     /* 0x2D */ u8 padding[3];

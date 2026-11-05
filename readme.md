@@ -27,7 +27,7 @@ Before you begin decompiling, you may want to run "make build" to confirm that t
 
 
 ## WORKFLOW: ##
-To identify unfinished C files, they will have matching-named folders in the asm/*/nonmatching folder. In the C file (in the src/ folder), functions that are yet to be decompiled will be denoted with an INCLUDE_ASM macro pointing to the assembly code file. 
+To identify unfinished C files, they will have matching-named folders in the asm/nonmatching folder. In the C file (in the src/ folder), functions that are yet to be decompiled will be denoted with an INCLUDE_ASM macro pointing to the assembly code file. 
 
 To work on a decompilation, i recommend the wonderful online tool https://decomp.me. Work-in-progress functions are called "scratches", and when you start a new one select PS2 and select the Monster Hunter (JP) preset. Target Assembly is where you place the nonmatching assembly code (from asm/*.s). Context requires a little more work, go ahead and run "python3 tools/m2ctx.py path", where path is the C file containing the function we're about to scratch. This will output the file "ctx.c" in the root, and you will copy out everything between the #defines and the finished code/semicolons into the Context field. (for larger C files, you may want to prune definitions you don't need.) Once the scratch is started, the Source Code tab is where you'll be writing C code to try and match the assembly. If you'd like a head start on getting the function to be "c-like" then the emotionengine-reloaded plugin for Ghidra is a great help, though decomp.me does a decent job guessing a starting point.
 
@@ -59,7 +59,7 @@ should become this when changing "party":
 - [0x3200, rodata, disco]
 ...
 ```
-Then run "make split", this will generate the C file in src/ and move the assembly to asm/*/nonmatching/.
+Then run "make split", this will generate the C file in src/ and move the assembly to asm/nonmatching/*/.
 
 ## BUILDING: ##
 "make build" will attempt to run the codebase through the MetroWerks PS2 tools to create the elf and overlays in build/. Currently the process is set up for WSL2 or WIBO, as the assembler, compiler, and linker are all windows executables. WIBO is used for pure linux setups, and automatically disabled by the Makefile if WSL2 is detected. 

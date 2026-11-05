@@ -1360,7 +1360,7 @@ void get_angle0x222020(s16* arg0, CAM_W_VIEW* arg1) {
 }
 
 // temp rodata padding to keep alignment, move/remove as needed?
-const char __pad_cam_0x36B0E8[] = "\0\0\0\0"; // shunts cmd_cam_move jumptable to next 0x10
+//const char __pad_cam_0x36B0E8[] = "\0\0\0\0"; // shunts cmd_cam_move jumptable to next 0x10
 
 void cmd_cam_move0x2220c0(CAMERA_WORK* cam, CAM_W_VIEW* view, POINT_CAM_STATE* pcam) {
     f32 move_progress;
@@ -1946,7 +1946,50 @@ s32 CamAreaAttribChk0x2233c0(CAM_AREA_DATA* entry, PLAYER_WORK* player) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/main/camera", Area_XZ_Check0x223410); //https://decomp.me/scratch/IEWUV
+s32 Area_XZ_Check0x223410(CAM_GEOMETRY_ZONE* zone, f32* player_pos) {
+    f32 a, b, c, d;
+    f32 r;
+
+    b = player_pos[0] - zone->vertices[0];
+    c = player_pos[2] - zone->vertices[2];
+
+    d = zone->vertices[0] - zone->vertices[4];
+    a = zone->vertices[2] - zone->vertices[6];
+
+    r = (a * b) - (c * d);
+    if (r < 0.0f) {
+        return 2;
+    }
+
+    d = zone->vertices[5] - zone->vertices[0];
+    a = zone->vertices[7] - zone->vertices[2];
+
+    r = (a * b) - (c * d);
+    if (r < 0.0f) {
+        return 2;
+    }
+
+    b = player_pos[0] - zone->vertices[1];
+    c = player_pos[2] - zone->vertices[3];
+
+    d = zone->vertices[4] - zone->vertices[1];
+    a = zone->vertices[6] - zone->vertices[3];
+
+    r = (a * b) - (c * d);
+    if (r < 0.0f) {
+        return 2;
+    }
+
+    d = zone->vertices[1] - zone->vertices[5];
+    a = zone->vertices[3] - zone->vertices[7];
+
+    r = (a * b) - (c * d);
+    if (r < 0.0f) {
+        return 2;
+    }
+
+    return 0;
+}
 
 void GetPanTarget0x223500(CAMERA_WORK* cam_work, f32* target_pos, CAM_AREA_DATA* cam_data) {
     PLAYER_WORK* player = cam_work->player_ptr;

@@ -217,6 +217,17 @@ typedef struct {
 } STAGE_FOG; // Size: 0x0C
 
 typedef struct {
+	s16 parent_bone;
+	s16 is_capsule;
+	s16 meat_zone;
+	s16 body_group;
+	s32 unk_8;
+	f32 radius; //capsule
+	VEC3 point_1;
+	VEC3 point_2;
+} HIT_DATA; // size: 0x28
+
+typedef struct {
     /* 0x00 */ u16 item;
     /* 0x02 */ u16 quantity;
 } ITEM_SLOT; // Size:0x04
@@ -324,7 +335,10 @@ typedef struct {
 		SPECIES species; 
 		u8 unk_2; //NPC ID?
 	};
-    /* 0x03 */ u8 unk_6[0xA9];
+	
+    /* 0x03 */ u8 unk_3[0x10 - 0x3];
+    /* 0x10 */ u8 is_monster; // maybe entity_type? 0 player, 1 monster... 3 npc?
+    /* 0x11 */ u8 unk_11[0xAC - 0x11];
     /* 0xAC */ f32 pos[3];
 } ENTITY; //monster and player have this as the base, not sure how large yet
 
@@ -409,11 +423,13 @@ typedef struct {
     /* 0x000 */ u8 exists;
     /* 0x001 */ u8 unk_1;
     /* 0x002 */ SPECIES species;
-    /* 0x003 */ u8 unk_3[0x5D];
+    /* 0x003 */ u8 unk_3[0x10 - 0x3];
+    /* 0x010 */ u8 is_monster;
+    /* 0x011 */ u8 unk_11[0x60 - 0x11];
     /* 0x060 */ MATRIX matrix;
     /* 0x0A0 */ u8 unk_a0[0xC];
     /* 0x0AC */ f32 pos[3];
-    /* 0x0B8 */ u8 unk_0B8[0x2D0];
+    /* 0x0B8 */ u8 unk_0B8[0x2D0]; // 0xB8 might be f32 scale?
     /* 0x388 */ u8 unk_388; // read in F_DragonEscapeCamera
     /* 0x389 */ u8 unk_389[0x736-0x389];
 	/* 0x736 */ u8 current_area_id;
@@ -515,7 +531,9 @@ typedef struct {
     /* 0x0D6 */ u8 unk_D6[0x52];
     /* 0x128 */ ITEM_SLOT quest_item_box[32];
     /* 0x1A8 */ u32 quest_item_box_taken_flags[2];
-    /* 0x1B0 */ u8 unk_1B0[0x30];
+    /* 0x1B0 */ u8 unk_1B0[0x1dc - 0x1b0];
+	/* 0x1DC */ u8 in_lobby;
+	/* 0x1DD */ u8 unk_1DD[0x1e0 - 0x1dd];
     /* 0x1E0 */ u16 current_sound_effect;
     /* 0x1E2 */ u8 unk_1E2[0x4];
 	/* 0x1E6 */ u8 unk_1E6;
