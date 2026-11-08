@@ -1,7 +1,8 @@
 #include "common.h"
 #include "structs.h"
+#include "main/option.h"
 
-extern OPTIONS_WORK option_w0x3f20e0;
+extern OPTION_WORK option_w0x3f20e0;
 extern s32 vib_tbl0x3019e0[5][2];
 
 extern void flPADShockSet0x196200(s32, s32, s32);
@@ -9,7 +10,7 @@ extern s32 Pl_master_ck0x14fc20(void*);
 
 // funcs
 static s32 vib_check0x1698b0(void) {
-    return option_w0x3f20e0.vibrate == false;
+    return option_w0x3f20e0.cfg.vibration == false;
 }
 
 void vib_set0x1698d0(s32 controller, s32 which) {

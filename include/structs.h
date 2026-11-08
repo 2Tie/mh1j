@@ -141,25 +141,6 @@ typedef struct {
 } EVENT_DEMO; // Size: 0x24
 
 typedef struct {
-    bool is_stereo;
-    u8 BGM_vol;
-    u8 SFX_vol;
-    bool vibrate;
-    u8 targeting_type;
-    u8 screen_xoff;
-    u8 screen_yoff;
-    u8 unk_7;
-    u8 unk_8;
-    u8 unk_9;
-    u8 unk_A;
-    u8 unk_B;
-    u8 unk_C;
-    u8 unk_D;
-    u8 unk_E;
-    u8 unk_F;
-} OPTIONS_WORK;
-
-typedef struct {
     f32 pos[3];
     f32 target[3];
     f32 pitch;
