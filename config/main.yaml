@@ -179,7 +179,7 @@ segments:
     - [0x1ef510, data, main/yure]
     - [0x1ef7d0, data, main/model]
     - [0x1ef940, data, main/option]
-    - [0x1ef9c0, data, main/cockpit]
+    - [0x1ef9e0, data, main/cockpit]
     - [0x1f0f98, data, main/player]
     - [0x1f1fd0, data, main/sound]
     - [0x1f2780, data, main/stage]
