@@ -32,6 +32,14 @@ typedef enum {
 	CAM_ZOOM_OUT
 } CAM_ZOOM_STATE;
 
+typedef enum {
+	CAM_VIEW_STD,
+	CAM_VIEW_STG,
+	CAM_VIEW_PCHNGR,
+	CAM_VIEW_PLAYEREX,
+	CAM_VIEW_DEMO
+} CAM_VIEW_TYPE;
+
 typedef struct {
     /* 0x00 */ f32 a;
     /* 0x04 */ f32 b;
@@ -365,22 +373,22 @@ typedef struct {
 	VEC3 tar;
 	VEC3 unk_18;
 	VEC3 unk_24;
-	f32 unk_30;
-	f32 unk_34;
-	f32 unk_38;
-	f32 unk_3C;
+	f32 last_pitch;
+	f32 last_roll;
+	f32 pitch;
+	f32 roll;
 	s16 unk_40;
-	s16 unk_42;
-	s32 unk_44;
-	s16 unk_48;
-	s16 unk_4A;
+	s16 transition_frames_left;
+	f32 transition_step_size;
+	s16 pitch_adjust;
+	s16 rotation_adjust;
 } CAM_VIEW_STATE_STG; //size: 0x4C
 
 typedef struct {
     /* 0x00 */ f32 cam_pos[3];
     /* 0x0C */ f32 target_pos[3];
     /* 0x18 */ f32 prev_cam_pos[3];
-    /* 0x24 */ u8 unk_24[0xC];
+    /* 0x24 */ f32 tar_offset[3];
     /* 0x30 */ f32 unk_30[3];
     /* 0x3C */ f32 unk_3C[3];
     /* 0x48 */ u8 unk_48[0x18];
@@ -409,7 +417,7 @@ typedef struct {
     /* 0x88 */ s16 subject_rotation;
     /* 0x8A */ u8 unk_8A[0x6];
     /* 0x90 */ union {
-		CAM_VIEW_STATE_STG state_stage;
+		CAM_VIEW_STATE_STG state_stg;
         CAM_VIEW_STATE_STD state_std;
         CAM_VIEW_STATE state;
         CAM_VIEW_STATE_DEMO state_demo;
@@ -455,7 +463,7 @@ typedef struct {
     /* 0x5DE */ u8 prev_cam_entry_index;
     /* 0x5DF */ u8 has_active_view;
     /* 0x5E0 */ u8 prev_has_active_view;
-    /* 0x5E1 */ u8 active_view;
+    /* 0x5E1 */ CAM_VIEW_TYPE active_view;
     /* 0x5E2 */ u16 pad_state;
     /* 0x5E4 */ u16 pad_new;
     /* 0x5E6 */ u16 pad_sticks;
