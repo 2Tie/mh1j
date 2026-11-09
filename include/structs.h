@@ -99,6 +99,26 @@ typedef enum {
 } SPECIES;
 
 typedef struct {
+    VEC3 pt1;
+    VEC3 pt2;
+    f32 rad;
+} CAPSULE;
+
+typedef struct {
+    VEC3 pos;
+    f32 rad;
+} SPHERE;
+
+typedef struct {
+    VEC3 pt1;
+    VEC3 pt2;
+    f32 rad;
+    VEC3 pts_vec;
+    VEC3 origin;
+    f32 cap_distance;
+} PK;
+
+typedef struct {
     /* 0x00 */ u8* memoryblock;
     /* 0x04 */ u8* baseandcap[2];
     /* 0x0C */ u8* frame[2];
