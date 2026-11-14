@@ -87,7 +87,7 @@ typedef struct {
     /* 0x04 */ s16 direction;
     /* 0x06 */ s8 rotation;
     /* 0x07 */ u8 pad;
-} ARROW_ENTRY; // size: 0x8 (8)
+} ARROW_OPTION; // size: 0x8 (8)
 
 void option_default_set0x1267c0(void);
 void Option_task0x126800(OPTION_TASK* task);

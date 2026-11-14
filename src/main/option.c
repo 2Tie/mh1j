@@ -62,8 +62,8 @@ extern OPTION_CFG cfg_default0x2ef830;
 // OPTION_CFG cfg_default0x2ef830 = {
 //     1, 7, 7, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 // };
-extern ARROW_ENTRY arrow_tbl0x2ef840[4];
-// ARROW_ENTRY arrow_tbl0x2ef840[4] = {
+extern ARROW_OPTION arrow_tbl0x2ef840[4];
+// ARROW_OPTION arrow_tbl0x2ef840[4] = {
 //     {296, 96, 8192, 2, 0},
 //     {232, 160, 2048, 0, 0},
 //     {296, 224, 4096, 3, 0},
@@ -95,14 +95,14 @@ extern s32 save_file_req0x100e80(void);
 extern void Tsk_Exit0x1252b0(TASK*);
 extern void Load_overlay0x23e510(s32, s32);
 extern void Select_Tsk_Execute0x125260(void);
-extern s32 strlen0x1a13b8(char*);
+extern u32 strlen0x1a13b8(char*);
 extern void flfntLocate0x2168b0(s16, s16);
 extern void font_print0x161970(char*, char*);
 extern void Sel_back_disp0x23af30(s32);
 extern void Sel_menu_disp0x23afc0(s32);
 extern void flfntSetSize0x216890(u8, u8);
 extern void font_set_palette0x1626a0(s16);
-extern void font_print_ex0x161b80(s32, s32, s32, ...);
+extern void font_print_ex0x161b80(s16, s16, s16, char*, ...);
 extern void Disp_button0x163420(s32, s32, s32, s32, f32);
 extern void reload_tex0x11f170(s32, s32);
 extern void SetTextureStage0x161550(s32);
@@ -266,11 +266,8 @@ void param_change0x126b30(OPTION_TASK* task, s32 direction) {
 
 s32 cfg_change_ck0x126c60(void) {
     s16 i;
-    s8* options;
-    s8* default_options;
-
-    options = (s8*) &option_w0x3f20e0;
-    default_options = (s8*) &cfg_default0x2ef830;
+    s8* options = (s8*) &option_w0x3f20e0;
+    s8* default_options = (s8*) &cfg_default0x2ef830;
 
     for (i = 0; i < 16; i++) {
         if (*options != *default_options) {
@@ -386,73 +383,6 @@ void option_exit0x126e90(OPTION_TASK* task, u16 input) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/main/option", opt_sub_disp0x126fd0);
-// void opt_sub_disp0x126fd0(s16 pos_y, char* str) {
-//     u32 str_length = strlen0x1a13b8(str);
-//     s16 pos_x = 440 - (str_length * 9) / 2;
-
-//     flfntLocate0x2168b0(pos_x, pos_y);
-//     font_print0x161970("%s", str);
-// }
-
-INCLUDE_ASM("asm/nonmatchings/main/option", disp_option_menu0x127040);
-// void disp_option_menu0x127040(OPTION_TASK* task) {
-//     s32 pos_y;
-//     s32 menu_item;
-//     s32 palette;
-//     s8* str;
-
-//     Sel_back_disp0x23af30(255);
-//     Sel_menu_disp0x23afc0(2);
-
-//     pos_y = 100;
-
-//     flfntSetSize0x216890(18, 18);
-
-//     for (menu_item = 0; menu_item < 8; menu_item++) {
-//         if (menu_item == task->cursor) {
-//             palette = 11; // orange - cursor highlight
-//         } else if (menu_item == OPT_DEFAULT_SETTINGS && cfg_change_ck0x126c60()) {
-//             palette = 3; // green - default settings highlight
-//         } else {
-//             palette = 0; // white
-//         }
-
-//         if (menu_item == OPT_EXIT) {
-//             pos_y += 12;
-//         }
-
-//         flfntLocate0x2168b0(44, pos_y);
-//         font_set_palette0x1626a0(palette);
-//         font_print0x161970("%s", option_menu_msg0x2ef7c0[menu_item]);
-
-//         switch (menu_item) {
-//             case OPT_SOUND:
-//                 str = sub_str_tbl0x2ef810[menu_item][((s8*) &option_w0x3f20e0.cfg)[menu_item]];
-//                 opt_sub_disp0x126fd0(pos_y, str);
-//                 break;
-
-//             case OPT_VIBRATION:
-//                 str = sub_str_tbl0x2ef810[menu_item][((s8*) &option_w0x3f20e0.cfg)[menu_item]];
-//                 opt_sub_disp0x126fd0(pos_y, str);
-//                 break;
-
-//             case OPT_TARGETING:
-//                 str = sub_str_tbl0x2ef810[menu_item][((s8*) &option_w0x3f20e0.cfg)[menu_item]];
-//                 opt_sub_disp0x126fd0(pos_y, str);
-//                 break;
-
-//             case OPT_BGM_LEVEL:
-//             case OPT_SE_LEVEL:
-//                 str = sub_str_tbl0x2ef810[menu_item][((s8*) &option_w0x3f20e0.cfg)[menu_item]];
-//                 opt_sub_disp0x126fd0(pos_y, str);
-//                 break;
-//         }
-
-//         pos_y += 40;
-//     }
-// }
-
 INCLUDE_RODATA("asm/nonmatchings/main/option", @550x3584d8); // "ＳＯＵＮＤ"
 
 INCLUDE_RODATA("asm/nonmatchings/main/option", @560x3584f0); // "ＢＧＭ　ＬＥＶＥＬ"
@@ -499,65 +429,117 @@ INCLUDE_RODATA("asm/nonmatchings/main/option", @800x358720); // "ＲＥＶＥＲ
 
 INCLUDE_RODATA("asm/nonmatchings/main/option", @810x358740); // "ＲＥＶＥＲＳＥ２"
 
-INCLUDE_RODATA("asm/nonmatchings/main/option", @2950x358758); // "%s"
+void opt_sub_disp0x126fd0(s16 pos_y, char* str) {
+    u32 str_length = strlen0x1a13b8(str);
+    s16 pos_x = 440 - (str_length * 9) / 2;
 
-// splat not generating those ?
+    flfntLocate0x2168b0(pos_x, pos_y);
+    font_print0x161970("%s", str);
+}
 
-// INCLUDE_RODATA("asm/nonmatchings/main/option", @3890x358760); // "Ｘ　ＰＯＳＩＴＩＯＮ"
+void disp_option_menu0x127040(OPTION_TASK* task) {
+    s32 pos_y;
+    s32 menu_item;
+    s32 palette;
+    char* str;
 
-// INCLUDE_RODATA("asm/nonmatchings/main/option", @3900x358780); // "Ｙ　ＰＯＳＩＴＩＯＮ"
+    Sel_back_disp0x23af30(255);
+    Sel_menu_disp0x23afc0(2);
 
-// INCLUDE_RODATA("asm/nonmatchings/main/option", @3910x358798); // "：ＥＸＩＴ"
+    pos_y = 100;
 
-// INCLUDE_RODATA("asm/nonmatchings/main/option", @3920x3587a8); // "%d"
+    flfntSetSize0x216890(18, 18);
 
-INCLUDE_ASM("asm/nonmatchings/main/option", disp_option_sub_menu0x127250);
-// void disp_option_sub_menu0x127250(OPTION_TASK* task, u16 input) {
-//     ARROW_ENTRY* arrow;
-//     SPRITE sprite;
-//     s16 i;
+    for (menu_item = 0; menu_item < 8; menu_item++) {
+        if (menu_item == task->cursor) {
+            palette = 11; // orange - cursor highlight
+        } else if (menu_item == OPT_DEFAULT_SETTINGS && cfg_change_ck0x126c60()) {
+            palette = 3; // green - default settings highlight
+        } else {
+            palette = 0; // white
+        }
 
-//     switch (task->cursor) {
-//         case OPT_SCREEN_ADJUST:
-//             Sel_back_disp0x23af30(255);
-//             Sel_menu_disp0x23afc0(3);
+        if (menu_item == OPT_EXIT) {
+            pos_y += 12;
+        }
 
-//             flfntSetSize0x216890(18, 18);
-//             font_print_ex0x161b80(184, 304, 0, "Ｘ　ＰＯＳＩＴＩＯＮ");
-//             font_print_ex0x161b80(184, 340, 0, "Ｙ　ＰＯＳＩＴＩＯＮ");
-//             font_print_ex0x161b80(292, 392, 0, "：ＥＸＩＴ");
+        flfntLocate0x2168b0(44, pos_y);
+        font_set_palette0x1626a0(palette);
+        font_print0x161970("%s", option_menu_msg0x2ef7c0[menu_item]);
 
-//             flfntSetSize0x216890(36, 18);
-//             font_print_ex0x161b80(418, 304, 0, "%d", option_w0x3f20e0.cfg.screen_pos_x);
-//             font_print_ex0x161b80(418, 340, 0, "%d", option_w0x3f20e0.cfg.screen_pos_y);
+        switch (menu_item) {
+            case OPT_SOUND:
+                str = sub_str_tbl0x2ef810[menu_item][((s8*) &option_w0x3f20e0.cfg)[menu_item]];
+                opt_sub_disp0x126fd0(pos_y, str);
+                break;
 
-//             Disp_button0x163420(1, 271, 389, 8, 1.0f);
+            case OPT_VIBRATION:
+                str = sub_str_tbl0x2ef810[menu_item][((s8*) &option_w0x3f20e0.cfg)[menu_item]];
+                opt_sub_disp0x126fd0(pos_y, str);
+                break;
 
-//             reload_tex0x11f170(1, 8);
-//             SetTextureStage0x161550(8);
+            case OPT_TARGETING:
+                str = sub_str_tbl0x2ef810[menu_item][((s8*) &option_w0x3f20e0.cfg)[menu_item]];
+                opt_sub_disp0x126fd0(pos_y, str);
+                break;
 
-//             sprite.w = 64;
-//             sprite.h = 64;
-//             sprite.u0 = 0;
-//             sprite.v0 = 160;
-//             sprite.u1 = sprite.u0 + 64;
-//             sprite.v1 = sprite.v0 + 64;
+            case OPT_BGM_LEVEL:
+            case OPT_SE_LEVEL:
+                str = sub_str_tbl0x2ef810[menu_item][((s8*) &option_w0x3f20e0.cfg)[menu_item]];
+                opt_sub_disp0x126fd0(pos_y, str);
+                break;
+        }
 
-//             for (i = 0; i < 4; i++) {
-//                 arrow = &arrow_tbl0x2ef840[i];
+        pos_y += 40;
+    }
+}
 
-//                 sprite.x = arrow->x;
-//                 sprite.y = arrow->y;
+void disp_option_sub_menu0x127250(OPTION_TASK* task, u16 input) {
+    ARROW_OPTION* arrow;
+    SPRITE sprite;
+    s16 i;
 
-//                 if (input & arrow->direction) {
-//                     sprite.color = 0xFF00FFFF; // cyan
-//                 } else {
-//                     sprite.color = 0xFFFFFFFF; // white
-//                 }
+    switch (task->cursor) {
+        case OPT_SCREEN_ADJUST:
+            Sel_back_disp0x23af30(255);
+            Sel_menu_disp0x23afc0(3);
 
-//                 Put_sprite_rotate0x15b300(&sprite, arrow->rotation);
-//             }
-//     }
+            flfntSetSize0x216890(18, 18);
+            font_print_ex0x161b80(184, 304, 0, "Ｘ　ＰＯＳＩＴＩＯＮ");
+            font_print_ex0x161b80(184, 340, 0, "Ｙ　ＰＯＳＩＴＩＯＮ");
+            font_print_ex0x161b80(292, 392, 0, "：ＥＸＩＴ");
 
-//     SetFilterMode0x161500(1);
-// }
+            flfntSetSize0x216890(36, 18);
+            font_print_ex0x161b80(418, 304, 0, "%d", option_w0x3f20e0.cfg.screen_pos_x);
+            font_print_ex0x161b80(418, 340, 0, "%d", option_w0x3f20e0.cfg.screen_pos_y);
+
+            Disp_button0x163420(1, 271, 389, 8, 1.0f);
+
+            reload_tex0x11f170(1, 8);
+            SetTextureStage0x161550(8);
+
+            sprite.w = 64;
+            sprite.h = 64;
+            sprite.u0 = 0;
+            sprite.v0 = 160;
+            sprite.u1 = sprite.u0 + 64;
+            sprite.v1 = sprite.v0 + 64;
+
+            for (i = 0; i < 4; i++) {
+                arrow = &arrow_tbl0x2ef840[i];
+
+                sprite.x = arrow->x;
+                sprite.y = arrow->y;
+
+                if (input & arrow->direction) {
+                    sprite.color = 0xFF00FFFF; // cyan
+                } else {
+                    sprite.color = 0xFFFFFFFF; // white
+                }
+
+                Put_sprite_rotate0x15b300(&sprite, arrow->rotation);
+            }
+    }
+
+    SetFilterMode0x161500(1);
+}
