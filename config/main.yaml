@@ -59,7 +59,7 @@ segments:
     - [0x21cf0, asm, main/model]
     - [0x251e0, c, main/scheduler]
     - [0x254c0, asm, main/motion]
-    - [0x26940, asm, main/option]
+    - [0x26940, c, main/option]
     - [0x275c0, asm, main/cockpit]
     - [0x34bc0, asm, main/player]
     - [0x55020, asm, main/heap]
@@ -179,7 +179,7 @@ segments:
     - [0x1ef510, data, main/yure]
     - [0x1ef7d0, data, main/model]
     - [0x1ef940, data, main/option]
-    - [0x1ef9c0, data, main/cockpit]
+    - [0x1ef9e0, data, main/cockpit]
     - [0x1f0f98, data, main/player]
     - [0x1f1fd0, data, main/sound]
     - [0x1f2780, data, main/stage]
@@ -246,7 +246,7 @@ segments:
     - [0x257f20, rodata, main/em]
     - [0x2581f0, rodata, main/game]
     - [0x258560, rodata, main/model]
-    - [0x258658, rodata, main/option]
+    - [0x258658, .rodata, main/option]
     - [0x258930, rodata, main/cockpit]
     - [0x25a910, rodata, main/player]
     - [0x25b940, rodata, main/set]
@@ -408,8 +408,8 @@ segments:
     - {vram: 0x3ebcf0, type: bss, name: main/prim}
     - {vram: 0x3f1fd0, type: bss, name: main/view_2} #?
     - {vram: 0x3f20e0, type: bss, name: main/option}
-    - {vram: 0x3f20f0, type: bss, name: main/save}
-    - {vram: 0x3f2e90, type: bss, name: main/sortme_reibun} #?
+    # - {vram: 0x3f20f0, type: bss, name: main/save} # part of option
+    # - {vram: 0x3f2e90, type: bss, name: main/sortme_reibun} # part of option
     - {vram: 0x3f32e0, type: bss, name: main/edit_task}
     - {vram: 0x3f3330, type: bss, name: main/select_task}
     - {vram: 0x3f33f0, type: bss, name: main/game_task}
