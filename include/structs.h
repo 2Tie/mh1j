@@ -11,6 +11,18 @@ typedef struct {
 } Vec3; // Size: 0x0C
 
 typedef struct {
+    /* 0x00 */ s16 x;
+    /* 0x02 */ s16 y;
+    /* 0x04 */ s16 w;
+    /* 0x06 */ s16 h;
+    /* 0x08 */ u32 color;
+    /* 0x0C */ s16 u0;
+    /* 0x0E */ s16 v0;
+    /* 0x10 */ s16 u1;
+    /* 0x12 */ s16 v1;
+} SPRITE; // size: 0x14 (20)
+
+typedef struct {
     /* 0x00 */ u16 current_state;
     /* 0x02 */ u16 previous_state;
     /* 0x04 */ u16 just_pressed;
@@ -159,25 +171,6 @@ typedef struct {
     /* 0x03 */ u8 pad2;
     /* 0x04 */ ACTIVE_EVENT_DEMO demos[2];
 } EVENT_DEMO; // Size: 0x24
-
-typedef struct {
-    bool is_stereo;
-    u8 BGM_vol;
-    u8 SFX_vol;
-    bool vibrate;
-    u8 targeting_type;
-    u8 screen_xoff;
-    u8 screen_yoff;
-    u8 unk_7;
-    u8 unk_8;
-    u8 unk_9;
-    u8 unk_A;
-    u8 unk_B;
-    u8 unk_C;
-    u8 unk_D;
-    u8 unk_E;
-    u8 unk_F;
-} OPTIONS_WORK;
 
 typedef struct {
     f32 pos[3];
