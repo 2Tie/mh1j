@@ -19,7 +19,7 @@ char* menu_audio0x387700[2] = {
     "ＭＯＮＡＵＲＡＬ",
     "ＳＴＥＲＥＯ",
 };
-//extern char* menu_bgm0x2ef7e0[8];
+
 char* menu_bgm0x2ef7e0[8] = {
     "ＭＩＮ□□□□□□□ＭＡＸ", "ＭＩＮ■□□□□□□ＭＡＸ", "ＭＩＮ■■□□□□□ＭＡＸ",
     "ＭＩＮ■■■□□□□ＭＡＸ", "ＭＩＮ■■■■□□□ＭＡＸ", "ＭＩＮ■■■■■□□ＭＡＸ",
@@ -29,7 +29,7 @@ char* menu_vib0x387708[2] = {
     "ＯＦＦ",
     "ＯＮ",
 };
-//extern char* menu_gun0x2ef800[4];
+
 char* menu_gun0x2ef800[4] = {
     "ＮＯＲＭＡＬ",
     "ＲＥＶＥＲＳＥ１",
@@ -464,7 +464,7 @@ void disp_option_sub_menu0x127250(OPTION_TASK* task, u16 input) {
             font_print_ex0x161b80(418, 304, 0, "%d", option_w0x3f20e0.cfg.screen_pos_x);
             font_print_ex0x161b80(418, 340, 0, "%d", option_w0x3f20e0.cfg.screen_pos_y);
 
-            Disp_button0x163420(1, 271, 389, 8, 1.0f);
+            Disp_button0x163420(BUTTON_CROSS, 271, 389, 8, 1.0f);
 
             reload_tex0x11f170(1, 8);
             SetTextureStage0x161550(8);
