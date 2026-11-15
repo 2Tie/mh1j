@@ -3,72 +3,65 @@
 #include "main/scheduler.h"
 #include "main/option.h"
 
-/* bss */
-extern OPTION_WORK option_w0x3f20e0;
+OPTION_WORK option_w0x3f20e0;
 
-/* sdata */
-extern char* menu_audio0x387700[2];
-// char* menu_audio0x387700[2] = {
-//     "ＭＯＮＡＵＲＡＬ",
-//     "ＳＴＥＲＥＯ",
-// };
-extern char* menu_vib0x387708[2];
-// char* menu_vib0x387708[2] = {
-//     "ＯＦＦ",
-//     "ＯＮ",
-// };
-extern s8 option_max_kind0x387710[8];
-// s8 option_max_kind0x387710[8] = {
-//     2, 8, 8, 2, 3, 0, 0, 0,
-// };
+char* option_menu_msg0x2ef7c0[8] = {
+    "ＳＯＵＮＤ",
+    "ＢＧＭ　ＬＥＶＥＬ",
+    "ＳＥ　ＬＥＶＥＬ",
+    "ＶＩＢＲＡＴＩＯＮ",
+    "ＴＡＲＧＥＴＩＮＧ",
+    "ＳＣＲＥＥＮ　ＡＤＪＵＳＴ",
+    "ＤＥＦＡＵＬＴ　ＳＥＴＴＩＮＧＳ",
+    "ＥＸＩＴ",
+};
+char* menu_audio0x387700[2] = {
+    "ＭＯＮＡＵＲＡＬ",
+    "ＳＴＥＲＥＯ",
+};
+//extern char* menu_bgm0x2ef7e0[8];
+char* menu_bgm0x2ef7e0[8] = {
+    "ＭＩＮ□□□□□□□ＭＡＸ", "ＭＩＮ■□□□□□□ＭＡＸ", "ＭＩＮ■■□□□□□ＭＡＸ",
+    "ＭＩＮ■■■□□□□ＭＡＸ", "ＭＩＮ■■■■□□□ＭＡＸ", "ＭＩＮ■■■■■□□ＭＡＸ",
+    "ＭＩＮ■■■■■■□ＭＡＸ", "ＭＩＮ■■■■■■■ＭＡＸ",
+};
+char* menu_vib0x387708[2] = {
+    "ＯＦＦ",
+    "ＯＮ",
+};
+//extern char* menu_gun0x2ef800[4];
+char* menu_gun0x2ef800[4] = {
+    "ＮＯＲＭＡＬ",
+    "ＲＥＶＥＲＳＥ１",
+    "ＲＥＶＥＲＳＥ２",
+    NULL,
+};
 
-/* data */
-extern char* option_menu_msg0x2ef7c0[8];
-// char* option_menu_msg0x2ef7c0[8] = {
-//     "ＳＯＵＮＤ",
-//     "ＢＧＭ　ＬＥＶＥＬ",
-//     "ＳＥ　ＬＥＶＥＬ",
-//     "ＶＩＢＲＡＴＩＯＮ",
-//     "ＴＡＲＧＥＴＩＮＧ",
-//     "ＳＣＲＥＥＮ　ＡＤＪＵＳＴ",
-//     "ＤＥＦＡＵＬＴ　ＳＥＴＴＩＮＧＳ",
-//     "ＥＸＩＴ",
-// };
-extern char* menu_bgm0x2ef7e0[8];
-// char* menu_bgm0x2ef7e0[8] = {
-//     "ＭＩＮ□□□□□□□ＭＡＸ", "ＭＩＮ■□□□□□□ＭＡＸ", "ＭＩＮ■■□□□□□ＭＡＸ",
-//     "ＭＩＮ■■■□□□□ＭＡＸ", "ＭＩＮ■■■■□□□ＭＡＸ", "ＭＩＮ■■■■■□□ＭＡＸ",
-//     "ＭＩＮ■■■■■■□ＭＡＸ", "ＭＩＮ■■■■■■■ＭＡＸ",
-// };
-extern char* menu_gun0x2ef800[4];
-// char* menu_gun0x2ef800[4] = {
-//     "ＮＯＲＭＡＬ",
-//     "ＲＥＶＥＲＳＥ１",
-//     "ＲＥＶＥＲＳＥ２",
-//     NULL,
-// };
-extern char** sub_str_tbl0x2ef810[8];
-// char** sub_str_tbl0x2ef810[8] = {
-//     menu_audio0x387700,
-//     menu_bgm0x2ef7e0,
-//     menu_bgm0x2ef7e0,
-//     menu_vib0x387708,
-//     menu_gun0x2ef800,
-//     NULL,
-//     NULL,
-//     NULL,
-// };
-extern OPTION_CFG cfg_default0x2ef830;
-// OPTION_CFG cfg_default0x2ef830 = {
-//     1, 7, 7, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-// };
-extern ARROW_OPTION arrow_tbl0x2ef840[4];
-// ARROW_OPTION arrow_tbl0x2ef840[4] = {
-//     {296, 96, 8192, 2, 0},
-//     {232, 160, 2048, 0, 0},
-//     {296, 224, 4096, 3, 0},
-//     {360, 160, 1024, 1, 0},
-// };
+char** sub_str_tbl0x2ef810[8] = {
+    menu_audio0x387700,
+    menu_bgm0x2ef7e0,
+    menu_bgm0x2ef7e0,
+    menu_vib0x387708,
+    menu_gun0x2ef800,
+    NULL,
+    NULL,
+    NULL,
+};
+
+OPTION_CFG cfg_default0x2ef830 = {
+    1, 7, 7, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+};
+
+ARROW_OPTION arrow_tbl0x2ef840[4] = {
+    {296, 96, 8192, 2, 0},
+    {232, 160, 2048, 0, 0},
+    {296, 224, 4096, 3, 0},
+    {360, 160, 1024, 1, 0},
+};
+
+s8 option_max_kind0x387710[8] = {
+    2, 8, 8, 2, 3, 0, 0, 0,
+};
 
 /* extern */
 extern PSW Psw0x3f3710[2];
@@ -109,6 +102,8 @@ extern void SetTextureStage0x161550(s32);
 extern void Put_sprite_rotate0x15b300(SPRITE*, s8);
 extern void SetFilterMode0x161500(s32);
 
+
+/* funcs */
 void option_default_set0x1267c0(void) {
     memcpy0x19db70(&option_w0x3f20e0.cfg, &cfg_default0x2ef830, sizeof(OPTION_CFG));
     system_w_set0x11f8a0();
@@ -383,51 +378,7 @@ void option_exit0x126e90(OPTION_TASK* task, u16 input) {
     }
 }
 
-INCLUDE_RODATA("asm/nonmatchings/main/option", @550x3584d8); // "ＳＯＵＮＤ"
 
-INCLUDE_RODATA("asm/nonmatchings/main/option", @560x3584f0); // "ＢＧＭ　ＬＥＶＥＬ"
-
-INCLUDE_RODATA("asm/nonmatchings/main/option", @570x358510); // "ＳＥ　ＬＥＶＥＬ"
-
-INCLUDE_RODATA("asm/nonmatchings/main/option", @580x358530); // "ＶＩＢＲＡＴＩＯＮ"
-
-INCLUDE_RODATA("asm/nonmatchings/main/option", @590x358550); // "ＴＡＲＧＥＴＩＮＧ"
-
-INCLUDE_RODATA("asm/nonmatchings/main/option", @600x358570); // "ＳＣＲＥＥＮ　ＡＤＪＵＳＴ"
-
-INCLUDE_RODATA("asm/nonmatchings/main/option", @610x358590); // "ＤＥＦＡＵＬＴ　ＳＥＴＴＩＮＧＳ"
-
-INCLUDE_RODATA("asm/nonmatchings/main/option", @620x3585b8); // "ＥＸＩＴ"
-
-INCLUDE_RODATA("asm/nonmatchings/main/option", @670x3585d0); // "ＭＯＮＡＵＲＡＬ"
-
-INCLUDE_RODATA("asm/nonmatchings/main/option", @680x3585e8); // "ＳＴＥＲＥＯ"
-
-INCLUDE_RODATA("asm/nonmatchings/main/option", @690x358600); // "ＭＩＮ□□□□□□□ＭＡＸ"
-
-INCLUDE_RODATA("asm/nonmatchings/main/option", @700x358620); // "ＭＩＮ■□□□□□□ＭＡＸ"
-
-INCLUDE_RODATA("asm/nonmatchings/main/option", @710x358640); // "ＭＩＮ■■□□□□□ＭＡＸ"
-
-INCLUDE_RODATA("asm/nonmatchings/main/option", @720x358660); // "ＭＩＮ■■■□□□□ＭＡＸ"
-
-INCLUDE_RODATA("asm/nonmatchings/main/option", @730x358680); // "ＭＩＮ■■■■□□□ＭＡＸ"
-
-INCLUDE_RODATA("asm/nonmatchings/main/option", @740x3586a0); // "ＭＩＮ■■■■■□□ＭＡＸ"
-
-INCLUDE_RODATA("asm/nonmatchings/main/option", @750x3586c0); // "ＭＩＮ■■■■■■□ＭＡＸ"
-
-INCLUDE_RODATA("asm/nonmatchings/main/option", @760x3586e0); // "ＭＩＮ■■■■■■■ＭＡＸ"
-
-INCLUDE_RODATA("asm/nonmatchings/main/option", @770x358700); // "ＯＦＦ"
-
-INCLUDE_RODATA("asm/nonmatchings/main/option", @780x358708); // "ＯＮ"
-
-INCLUDE_RODATA("asm/nonmatchings/main/option", @790x358710); // "ＮＯＲＭＡＬ"
-
-INCLUDE_RODATA("asm/nonmatchings/main/option", @800x358720); // "ＲＥＶＥＲＳＥ１"
-
-INCLUDE_RODATA("asm/nonmatchings/main/option", @810x358740); // "ＲＥＶＥＲＳＥ２"
 
 void opt_sub_disp0x126fd0(s16 pos_y, char* str) {
     u32 str_length = strlen0x1a13b8(str);
