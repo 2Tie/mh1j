@@ -1,13 +1,17 @@
 #include "common.h"
 #include "lib/AcrSDK/common/plaan.h"
 
+extern f32 plGetFcurveTime0x192fa0(MOTION_HOLDER*);
+extern u8* base_addr0x38a300;
+
 static u32 plAANGetModelNum0x190080(AAN*);
+s32 plGetMotionSizeFromAAN0x18f260(AAN_CONTAINER*);
 
 static AAN* GetFileHeadAAN0x18f0b0(AAN* ptr){
 	return ptr;
 }
 
-AAN* GetModelHeadAAN0x18f0c0(AAN* arg1, s32 which) {
+AAN_CONTAINER* GetModelHeadAAN0x18f0c0(AAN* arg1, s32 which) {
     AAN* addr;
     AAN_CONTAINER* scratch;
     s32 i;
@@ -39,12 +43,40 @@ AAN* GetModelHeadAAN0x18f0c0(AAN* arg1, s32 which) {
             } while (i < which);
         }
     }
-    return addr;
+    return &addr->head.cont;
 }
 
-INCLUDE_ASM("asm/nonmatchings/lib/AcrSDK/common/plaan", plGetLoopInfoAan0x18f180);
+bool plGetLoopInfoAan0x18f180(AAN* arg0, f32* pt) {
+    AAN* head;
+    bool ret;
 
-INCLUDE_ASM("asm/nonmatchings/lib/AcrSDK/common/plaan", plGetMotionSetSizeFromAAN0x18f1d0);
+    head = GetFileHeadAAN0x18f0b0(arg0);
+    if (head->head.animtype != 0) {
+        ret = true;
+        *pt = head->head.loop;
+    } else {
+        ret = false;
+        *pt = 0;
+    }
+    return ret;
+}
+
+s32 plGetMotionSetSizeFromAAN0x18f1d0(AAN* arg0) {
+    s32 i;
+    AAN_CONTAINER* head;
+    s32 children;
+    s32 size;
+
+    children = plAANGetModelNum0x190080(arg0);
+    size = (children * 4) + sizeof(MOTION_SET); //size of MOTION_SET, plus a pointer per children it reserves
+    for(i = 0; i < children; i += 1) {
+        head = GetModelHeadAAN0x18f0c0(arg0, i); //seek to child
+        size += sizeof(MOTION_REFERENCE);
+        size += head->children * sizeof(MOTION_HOLDER);
+        size += plGetMotionSizeFromAAN0x18f260(head);
+    }
+    return size;
+}
 
 s32 plGetMotionSizeFromAAN0x18f260(AAN_CONTAINER* arg0) {
     AAN_CONTAINER* container;
@@ -102,7 +134,20 @@ INCLUDE_ASM("asm/nonmatchings/lib/AcrSDK/common/plaan", plCreateFcurveDataAAN_He
 
 INCLUDE_ASM("asm/nonmatchings/lib/AcrSDK/common/plaan", plCreateFcurveDataAAN_ComplexShort0x18fe70);
 
-INCLUDE_ASM("asm/nonmatchings/lib/AcrSDK/common/plaan", plAANGetMotionEndTime0x18ff40);
+f32 plAANGetMotionEndTime0x18ff40(MOTION_REFERENCE* arg0) { //passed is pointer to (unpacked) motion data
+    f32 candidate;
+    f32 latest;
+    s32 i;
+
+    latest = 0.0f;
+    
+    for (i = 0; i < arg0->entries; i += 1) {
+        candidate = plGetFcurveTime0x192fa0(&((MOTION_HOLDER*)((u32)arg0->mot_off + (u32)base_addr0x38a300))[i]);
+        if (candidate > latest)
+            latest = candidate;
+    }
+    return latest;
+}
 
 INCLUDE_ASM("asm/nonmatchings/lib/AcrSDK/common/plaan", plAANGetMotionStartTime0x18ffe0);
 

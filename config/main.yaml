@@ -82,7 +82,8 @@ segments:
     - [0x69a30, c, main/vib]
     - [0x69b60, c, main/view]
     - [0x69fd0, asm, main/em_work]
-    - [0x6ad30, asm, lib/AcrSDK/common/fbms]
+    - [0x6ad30, c, lib/AcrSDK/common/fbms]
+    - [0x6ae48, asm, lib/AcrSDK/ps2/flps2mem] #close alignment here
     - [0x6b040, asm, lib/AcrSDK/ps2/flps2clay]
     - [0x6db40, asm, lib/AcrSDK/ps2/flps2dma]
     - [0x6f270, asm, lib/AcrSDK/ps2/flps2etc]
@@ -430,7 +431,7 @@ segments:
     - {vram: 0x423f00, type: bss, name: main/flps2dma}
     - {vram: 0x423f40, type: bss, name: main/flps2init}
     #- {vram: 0x424560, type: bss, name: flps2ps} #?
-    #- {vram: 0x424630, type: bss, name: flfms} #?
+    - {vram: 0x424630, type: bss, name: lib/AcrSDK/common/fbms}
     - {vram: 0x4246a0, type: bss, name: main/memfl}
     - {vram: 0x4546d0, type: bss, name: main/mlpad}
     - {vram: 0x454950, type: bss, name: main/plaan}
