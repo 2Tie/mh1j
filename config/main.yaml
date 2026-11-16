@@ -30,6 +30,10 @@ options:
   asm_inc_header: |
     .set noat      /* allow manual use of $at */
     .set noreorder /* don't insert nops after branches */
+    .set ACC $ACC  /* compat with old VU0 reg syntax */
+    .set Q $Q
+    .set R $R
+    .set I $I
 
   section_order: [".text", ".vutext", ".data", ".vudata", ".rodata", ".init", ".ctor", ".vtables", ".sdata", ".sbss", ".bss", ".common", ".vubss"]
 segments:
@@ -93,7 +97,7 @@ segments:
     - [0x8da30, asm, lib/AcrSDK/common/memfl]
     - [0x8dac0, asm, lib/AcrSDK/common/mempl]
     - [0x8e5b0, asm, lib/AcrSDK/common/mlPAD]
-    - [0x8f230, asm, lib/AcrSDK/common/plaan]
+    - [0x8f230, c, lib/AcrSDK/common/plaan]
     - [0x90220, asm, lib/AcrSDK/common/plahi]
     - [0x90780, asm, lib/AcrSDK/common/plamo]
     - [0x92f50, asm, lib/AcrSDK/common/plbmp]

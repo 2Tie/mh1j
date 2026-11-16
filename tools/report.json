@@ -1,15 +1,15 @@
 {
   "measures": {
-    "fuzzy_match_percent": 1.0662601859048035,
-    "total_code": "4256372",
-    "matched_code": "45384",
-    "matched_code_percent": 1.0662601859048035,
+    "fuzzy_match_percent": 1.0779900574188759,
+    "total_code": "4256440",
+    "matched_code": "45884",
+    "matched_code_percent": 1.0779900574188759,
     "total_data": "1979038",
     "matched_data": "0",
     "matched_data_percent": 0.0,
     "total_functions": 16080,
-    "matched_functions": 236,
-    "matched_functions_percent": 1.4676616915422884,
+    "matched_functions": 240,
+    "matched_functions_percent": 1.4925373134328357,
     "total_units": 162
   },
   "units": [
@@ -13030,25 +13030,25 @@
       }
     },
     {
-      "name": "plaan.s",
+      "name": "plaan.c",
       "measures": {
-        "fuzzy_match_percent": 0.0,
-        "total_code": "4000",
-        "matched_code": "0",
-        "matched_code_percent": 0.0,
+        "fuzzy_match_percent": 12.291052114060964,
+        "total_code": "4068",
+        "matched_code": "500",
+        "matched_code_percent": 12.291052114060964,
         "total_data": "0",
         "matched_data": "0",
         "matched_data_percent": 0,
         "total_functions": 18,
-        "matched_functions": 0,
-        "matched_functions_percent": 0.0,
+        "matched_functions": 4,
+        "matched_functions_percent": 22.22222222222222,
         "total_units": 1
       },
       "sections": [
         {
           "name": ".text",
-          "size": "4000",
-          "fuzzy_match_percent": 0.0,
+          "size": "4068",
+          "fuzzy_match_percent": 12.291052114060964,
           "metadata": {}
         }
       ],
@@ -13056,20 +13056,20 @@
         {
           "name": "GetFileHeadAAN0x18f0b0",
           "size": "8",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 0,
           "metadata": {}
         },
         {
           "name": "GetModelHeadAAN0x18f0c0",
           "size": "188",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 16,
           "metadata": {}
         },
         {
           "name": "plGetLoopInfoAan0x18f180",
-          "size": "68",
+          "size": "80",
           "fuzzy_match_percent": 0,
           "address": 208,
           "metadata": {}
@@ -13084,13 +13084,13 @@
         {
           "name": "plGetMotionSizeFromAAN0x18f260",
           "size": "272",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 432,
           "metadata": {}
         },
         {
           "name": "plCreateMotionSetFromAAN0x18f370",
-          "size": "824",
+          "size": "832",
           "fuzzy_match_percent": 0,
           "address": 704,
           "metadata": {}
@@ -13104,63 +13104,63 @@
         },
         {
           "name": "plCreateMotionFromAANSub_SRT0x18f790",
-          "size": "604",
+          "size": "608",
           "fuzzy_match_percent": 0,
           "address": 1760,
           "metadata": {}
         },
         {
           "name": "plCreateFcurveDataAAN0x18f9f0",
-          "size": "196",
+          "size": "208",
           "fuzzy_match_percent": 0,
           "address": 2368,
           "metadata": {}
         },
         {
           "name": "plCreateFcurveDataAAN_Linear0x18fac0",
-          "size": "172",
+          "size": "176",
           "fuzzy_match_percent": 0,
           "address": 2576,
           "metadata": {}
         },
         {
           "name": "plCreateFcurveDataAAN_Hermite0x18fb70",
-          "size": "188",
+          "size": "192",
           "fuzzy_match_percent": 0,
           "address": 2752,
           "metadata": {}
         },
         {
           "name": "plCreateFcurveDataAAN_Complex0x18fc30",
-          "size": "204",
+          "size": "208",
           "fuzzy_match_percent": 0,
           "address": 2944,
           "metadata": {}
         },
         {
           "name": "plCreateFcurveDataAAN_LinearShort0x18fd00",
-          "size": "172",
+          "size": "176",
           "fuzzy_match_percent": 0,
           "address": 3152,
           "metadata": {}
         },
         {
           "name": "plCreateFcurveDataAAN_HermiteShort0x18fdb0",
-          "size": "188",
+          "size": "192",
           "fuzzy_match_percent": 0,
           "address": 3328,
           "metadata": {}
         },
         {
           "name": "plCreateFcurveDataAAN_ComplexShort0x18fe70",
-          "size": "204",
+          "size": "208",
           "fuzzy_match_percent": 0,
           "address": 3520,
           "metadata": {}
         },
         {
           "name": "plAANGetMotionEndTime0x18ff40",
-          "size": "152",
+          "size": "160",
           "fuzzy_match_percent": 0,
           "address": 3728,
           "metadata": {}
@@ -13175,14 +13175,14 @@
         {
           "name": "plAANGetModelNum0x190080",
           "size": "32",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 4048,
           "metadata": {}
         }
       ],
       "metadata": {
         "complete": false,
-        "source_path": "src/main/plaan.s",
+        "source_path": "src/main/plaan.c",
         "progress_categories": [
           "main"
         ]
@@ -118617,16 +118617,16 @@
       "id": "main",
       "name": "main",
       "measures": {
-        "fuzzy_match_percent": 2.7878656831573205,
-        "total_code": "1627912",
-        "matched_code": "45384",
-        "matched_code_percent": 2.7878656831573205,
+        "fuzzy_match_percent": 2.8184621432695733,
+        "total_code": "1627980",
+        "matched_code": "45884",
+        "matched_code_percent": 2.8184621432695733,
         "total_data": "1014302",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 6997,
-        "matched_functions": 236,
-        "matched_functions_percent": 3.3728740888952404,
+        "matched_functions": 240,
+        "matched_functions_percent": 3.430041446334143,
         "total_units": 150
       }
     },
