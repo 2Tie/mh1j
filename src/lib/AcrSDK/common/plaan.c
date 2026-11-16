@@ -2,6 +2,7 @@
 #include "lib/AcrSDK/common/plaan.h"
 
 extern f32 plGetFcurveTime0x192fa0(MOTION_HOLDER*);
+extern f32 plGetFcurveStartTime0x192ec0(MOTION_HOLDER*);
 extern u8* base_addr0x38a300;
 
 static u32 plAANGetModelNum0x190080(AAN*);
@@ -149,7 +150,20 @@ f32 plAANGetMotionEndTime0x18ff40(MOTION_REFERENCE* arg0) { //passed is pointer 
     return latest;
 }
 
-INCLUDE_ASM("asm/nonmatchings/lib/AcrSDK/common/plaan", plAANGetMotionStartTime0x18ffe0);
+f32 plAANGetMotionStartTime0x18ffe0(MOTION_REFERENCE* arg0) {
+    f32 candidate;
+    f32 earliest;
+    s32 i;
+
+    earliest = 1e10f;
+    
+    for (i = 0; i < arg0->entries; i++){
+        candidate = plGetFcurveStartTime0x192ec0(&((MOTION_HOLDER*)((s32)arg0->mot_off + (s32)base_addr0x38a300))[i]);
+        if (candidate < earliest) 
+            earliest = candidate;
+    }
+    return earliest;
+}
 
 u32 plAANGetModelNum0x190080(AAN* arg) {
     return GetFileHeadAAN0x18f0b0(arg)->head.cont.children;

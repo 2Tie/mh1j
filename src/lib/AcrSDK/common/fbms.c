@@ -1,9 +1,35 @@
 #include "common.h"
 #include "structs.h"
 
-INCLUDE_ASM("asm/nonmatchings/lib/AcrSDK/common/fbms", fmsInitialize0x16abb0);
+s32 fmsInitialize0x16abb0(FL_FMS* fms, u8* base_addr, s32 size, s32 alignment) {
+    size = ~(alignment - 1) & (size + alignment - 1);
+    fms->memoryblock = base_addr;
+    fms->align = alignment;
+    fms->baseandcap[0] = (u8*) (~(fms->align - 1) & (((int)fms->memoryblock + fms->align) - 1));
+    fms->baseandcap[1] = (u8*) (~(fms->align - 1) & ((fms->align + ((int)(fms->memoryblock) + size)) - 1));
+    fms->frame[0] = fms->baseandcap[0];
+    fms->frame[1] = fms->baseandcap[1];
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/lib/AcrSDK/common/fbms", fmsAllocMemory0x16ac30);
+void* fmsAllocMemory0x16ac30(FL_FMS* lp, int bytes, int heapnum) {
+    void* pMem;
+    bytes = ~(lp->align - 1) & ((unsigned int)bytes + lp->align - 1);
+
+    if (lp->frame[0] + bytes > lp->frame[1]) {
+        return NULL;
+    }
+    
+    if (heapnum != 0) {
+        lp->frame[1] -= bytes;
+        pMem = lp->frame[1];
+    } else {
+        pMem = lp->frame[0];
+        lp->frame[0] += bytes;
+    }
+
+    return pMem;
+}
 
 s32 fmsGetFrame0x16ac90(FL_FMS* fms, s32 heap, FMS_FRAME* frame) {
     frame->pFrame = fms->frame[heap];
@@ -11,4 +37,6 @@ s32 fmsGetFrame0x16ac90(FL_FMS* fms, s32 heap, FMS_FRAME* frame) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/lib/AcrSDK/common/fbms", fmsReleaseFrame0x16acb0);
+void fmsReleaseFrame0x16acb0(FL_FMS* fms, FMS_FRAME* frame) {
+    fms->frame[frame->heapnum] = frame->pFrame;
+}
