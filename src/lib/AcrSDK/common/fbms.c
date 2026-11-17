@@ -5,16 +5,16 @@ s32 fmsInitialize0x16abb0(FL_FMS* fms, u8* base_addr, s32 size, s32 alignment) {
     size = ~(alignment - 1) & (size + alignment - 1);
     fms->memoryblock = base_addr;
     fms->align = alignment;
-    fms->baseandcap[0] = (u8*) (~(fms->align - 1) & (((int)fms->memoryblock + fms->align) - 1));
-    fms->baseandcap[1] = (u8*) (~(fms->align - 1) & ((fms->align + ((int)(fms->memoryblock) + size)) - 1));
+    fms->baseandcap[0] = (u8*) (~(fms->align - 1) & (((s32)fms->memoryblock + fms->align) - 1));
+    fms->baseandcap[1] = (u8*) (~(fms->align - 1) & ((fms->align + ((s32)(fms->memoryblock) + size)) - 1));
     fms->frame[0] = fms->baseandcap[0];
     fms->frame[1] = fms->baseandcap[1];
     return 1;
 }
 
-void* fmsAllocMemory0x16ac30(FL_FMS* lp, int bytes, int heapnum) {
+void* fmsAllocMemory0x16ac30(FL_FMS* lp, s32 bytes, s32 heapnum) {
     void* pMem;
-    bytes = ~(lp->align - 1) & ((unsigned int)bytes + lp->align - 1);
+    bytes = ~(lp->align - 1) & ((u32)bytes + lp->align - 1);
 
     if (lp->frame[0] + bytes > lp->frame[1]) {
         return NULL;
