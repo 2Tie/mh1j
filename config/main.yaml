@@ -99,7 +99,7 @@ segments:
     - [0x8dac0, asm, lib/AcrSDK/common/mempl]
     - [0x8e5b0, asm, lib/AcrSDK/common/mlPAD]
     - [0x8f230, c, lib/AcrSDK/common/plaan]
-    - [0x90220, asm, lib/AcrSDK/common/plahi]
+    - [0x90220, c, lib/AcrSDK/common/plahi]
     - [0x90780, asm, lib/AcrSDK/common/plamo]
     - [0x92f50, asm, lib/AcrSDK/common/plbmp]
     - [0x92fb0, asm, lib/AcrSDK/common/plfcv]
