@@ -1,15 +1,15 @@
 {
   "measures": {
-    "fuzzy_match_percent": 1.1682139792858397,
-    "total_code": "4256412",
-    "matched_code": "49724",
-    "matched_code_percent": 1.1682139792858397,
+    "fuzzy_match_percent": 1.1814723483595464,
+    "total_code": "4256384",
+    "matched_code": "50288",
+    "matched_code_percent": 1.1814723483595464,
     "total_data": "1979038",
     "matched_data": "0",
     "matched_data_percent": 0.0,
     "total_functions": 16080,
-    "matched_functions": 260,
-    "matched_functions_percent": 1.616915422885572,
+    "matched_functions": 267,
+    "matched_functions_percent": 1.66044776119403,
     "total_units": 163
   },
   "units": [
@@ -13224,23 +13224,23 @@
     {
       "name": "plahi.c",
       "measures": {
-        "fuzzy_match_percent": 5.263157894736842,
-        "total_code": "1368",
-        "matched_code": "72",
-        "matched_code_percent": 5.263157894736842,
+        "fuzzy_match_percent": 47.462686567164184,
+        "total_code": "1340",
+        "matched_code": "636",
+        "matched_code_percent": 47.462686567164184,
         "total_data": "0",
         "matched_data": "0",
         "matched_data_percent": 0,
         "total_functions": 12,
-        "matched_functions": 2,
-        "matched_functions_percent": 16.666666666666664,
+        "matched_functions": 9,
+        "matched_functions_percent": 75.0,
         "total_units": 1
       },
       "sections": [
         {
           "name": ".text",
-          "size": "1368",
-          "fuzzy_match_percent": 5.263157894736842,
+          "size": "1340",
+          "fuzzy_match_percent": 47.462686567164184,
           "metadata": {}
         }
       ],
@@ -13255,35 +13255,35 @@
         {
           "name": "plAHIGetTreeNum0x1900e0",
           "size": "48",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 64,
           "metadata": {}
         },
         {
           "name": "plAHIGetTreeRootModel0x190110",
-          "size": "96",
-          "fuzzy_match_percent": 0,
+          "size": "88",
+          "fuzzy_match_percent": 100,
           "address": 112,
           "metadata": {}
         },
         {
           "name": "plAHIGetTreeModelNum0x190170",
           "size": "48",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 208,
           "metadata": {}
         },
         {
           "name": "plAHIGetTreeModelNum20x1901a0",
           "size": "32",
-          "fuzzy_match_percent": 0,
+          "fuzzy_match_percent": 100,
           "address": 256,
           "metadata": {}
         },
         {
           "name": "GetTreeModelNum0x1901c0",
-          "size": "112",
-          "fuzzy_match_percent": 0,
+          "size": "108",
+          "fuzzy_match_percent": 100,
           "address": 288,
           "metadata": {}
         },
@@ -13296,15 +13296,15 @@
         },
         {
           "name": "GetDataHeadAHI0x190240",
-          "size": "112",
-          "fuzzy_match_percent": 0,
+          "size": "108",
+          "fuzzy_match_percent": 100,
           "address": 416,
           "metadata": {}
         },
         {
           "name": "GetModelDataHeadAHI0x1902b0",
-          "size": "144",
-          "fuzzy_match_percent": 0,
+          "size": "132",
+          "fuzzy_match_percent": 100,
           "address": 528,
           "metadata": {}
         },
@@ -118650,16 +118650,16 @@
       "id": "main",
       "name": "main",
       "measures": {
-        "fuzzy_match_percent": 3.054389810018969,
-        "total_code": "1627952",
-        "matched_code": "49724",
-        "matched_code_percent": 3.054389810018969,
+        "fuzzy_match_percent": 3.0890876969686545,
+        "total_code": "1627924",
+        "matched_code": "50288",
+        "matched_code_percent": 3.0890876969686545,
         "total_data": "1014302",
         "matched_data": "0",
         "matched_data_percent": 0.0,
         "total_functions": 6997,
-        "matched_functions": 260,
-        "matched_functions_percent": 3.715878233528655,
+        "matched_functions": 267,
+        "matched_functions_percent": 3.815921109046734,
         "total_units": 151
       }
     },
