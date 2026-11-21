@@ -421,7 +421,7 @@ segments:
     - {vram: 0x3f3620, type: bss, name: main/demo_task}
     - {vram: 0x3f3670, type: bss, name: main/system_task}
     - {vram: 0x3f3990, type: bss, name: main/tex} #? part of system_task?
-    - {vram: 0x3f3e00, type: bss, name: main/sortme_mmbb} #? misc?
+    # - {vram: 0x3f3e00, type: bss, name: main/sortme_mmbb} # part of mem_tex
     - {vram: 0x3f3f00, type: bss, name: main/st}
     - {vram: 0x3f4150, type: bss, name: main/flps2clay}
     - {vram: 0x418170, type: bss, name: main/flps2shader}
