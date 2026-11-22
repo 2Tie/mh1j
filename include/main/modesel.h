@@ -2,8 +2,25 @@
 #define MODESEL_H
 
 #include "types.h"
+#include "main/scheduler.h"
 
-typedef struct TASK TASK; // size: 0x20 (32)
+typedef enum {
+    MAIN_MENU_NEW_GAME,
+    MAIN_MENU_CONTINUE,
+    MAIN_MENU_GALLERY,
+    MAIN_MENU_OPTIONS,
+} MAIN_MENU_ITEM;
+
+typedef enum {
+    SEL_MODE_MENU_NETWORK,
+    SEL_MODE_MENU_SINGLE,
+} SELECT_MODE_MENU_ITEM;
+
+typedef struct {
+    s16 x0, y0;
+    s16 x1, y1;
+    u32 colors[4];
+} CURSOR_RECT;
 
 void Select_task0x23a0f0(TASK* task);
 void csub000x23a230(TASK* task);
@@ -13,9 +30,9 @@ void sel_sel_sub0x23a3e0(u16 input_current, u16 input_pressed, u8* cursor, u8 ma
 void mode_sel0x23a4b0(TASK* task, u16 input_current, u16 input_pressed);
 void mode_sel_end0x23a7f0(TASK* task);
 void mode_sel_exit0x23a9c0(TASK* task);
-s32 key_rept_du0x23aa60(s32 arg0, u16 input_current, u16 input_pressed);
+s32 key_rept_du0x23aa60(s32 controller, u16 input_current, u16 input_pressed);
 void disp_mode_menu0x23ab50(void);
-void Sel_back_disp0x23af30(u32 arg0);
+void Sel_back_disp0x23af30(u32 brightness);
 void Sel_menu_disp0x23afc0(s16 menu_id);
 void Sel_csr_disp0x23b2e0(s16 pos_x, s16 pos_y, s16 width, s16 height, u32 color);
 s32 omake_check0x23b4b0(s32 arg0);
