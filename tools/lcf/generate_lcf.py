@@ -82,7 +82,12 @@ class LCFWriter:
         self.write_line(f"ALIGNALL(0x{alignment:X});")
 
     def add_entry(self, entry: LinkerEntry, section: str):
-        self.write_line(f"{strip_path(entry.object_path)} ({section})")
+        if "flps2mem" in entry.segment.get_cname() and section == ".text":
+            self.write_line(f"ALIGNALL(0x4);")
+            self.write_line(f"{strip_path(entry.object_path)} ({section})")
+            self.write_line(f"ALIGNALL(0x10);")
+        else:
+            self.write_line(f"{strip_path(entry.object_path)} ({section})")
 
     def add_entries(self, entries: list[LinkerEntry], section: str):
         for entry in entries:
@@ -143,7 +148,9 @@ class LCFWriter:
             is_cri = "cri" in path
             is_crt0 = "crt0" in path
             is_sce = "sce" in path
-            alignment = 0x4
+            is_mem = "flps2mem" in run.entries[0].segment.get_cname()
+            #print(run.entries[0].segment.get_cname())
+            alignment = 0x10
 
             if run.is_game:
                 alignment = 0x10
@@ -153,6 +160,8 @@ class LCFWriter:
                 self.add_entry(run.entries, ".text")
                 self.align(0x10)
                 continue
+            elif is_mem:
+                alignment = 0x4
 
             self.align_all(alignment)
             self.add_entries(run.entries, ".text")
