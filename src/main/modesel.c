@@ -125,6 +125,21 @@ extern void flSetRenderState0x177720(u8, u32);
 extern void SetTrnslMode0x161480(s32, s32);
 extern f32 flSin0x173600(f32);
 extern void flps00050x175750(void*);
+extern s32 Omake_flag_ck0x272fc0(u16);
+extern void Staff_init0x2907c0(void);
+extern void se_req0x159450(s32, s32, s32);
+extern void fade_reset0x10f020(void);
+extern void movie_reset0x22f7b0(void);
+extern void movie_start0x22f7d0(u16);
+extern void movie_request0x22f990(u16, s32);
+extern void movie_exit0x22fb00(void);
+extern s32 movie_status_ck0x22fb80();
+extern s32 movie_server0x22fbb0(void);
+extern void movie_draw0x22fc50(void);
+extern void Load_overlay0x23e510(s32, s32);
+extern void Select_Tsk_Execute0x125260(void);
+extern void str_play0x100980(s32, s32);
+extern s32 Staff_main0x290800(void);
 
 void Select_task0x23a0f0(TASK* task) {
     u16 input_current = Psw0x3f3710->current_state;
@@ -200,13 +215,13 @@ void csub000x23a230(TASK* task) {
 }
 
 s32 ck_start_sw0x23a350(void) {
-    s32 var_v0 = 0;
+    s32 pressed = 0;
 
     if (Psw0x3f3710->just_pressed & SW_START) {
-        var_v0 |= 1;
+        pressed |= 1; // matched with or ?
     }
 
-    return var_v0;
+    return pressed;
 }
 
 void init_mode_sel0x23a370(TASK* task) {
@@ -220,7 +235,7 @@ void init_mode_sel0x23a370(TASK* task) {
     task->unk_8 += 1;
     task->unk_9 = 0;
     task->unk_a = 0;
-    task->unk_14 = 1;
+    task->unk_14 = MAIN_CONTINUE;
     task->unk_b = 0;
 }
 
@@ -255,23 +270,23 @@ void mode_sel0x23a4b0(TASK* task, u16 input_current, u16 input_pressed) {
                 case SW_CIRCLE:
                 case SW_START:
                     switch (task->unk_14) {
-                        case MAIN_MENU_OPTIONS:
+                        case MAIN_OPTIONS:
                         default:
                             task->unk_8 = 3;
                             decide_se0x162d20();
                             fade_set0x10ef80(1);
                             break;
 
-                        case MAIN_MENU_NEW_GAME:
+                        case MAIN_NEW_GAME:
                             task->unk_9 += 1;
-                            task->unk_15 = SEL_MODE_MENU_NETWORK;
+                            task->unk_15 = SEL_MODE_NETWORK;
                             decide_se0x162d20();
                             fade_set0x10ef80(1);
                             break;
 
-                        case MAIN_MENU_CONTINUE:
+                        case MAIN_CONTINUE:
                             task->unk_9 += 1;
-                            task->unk_15 = SEL_MODE_MENU_NETWORK;
+                            task->unk_15 = SEL_MODE_NETWORK;
                             decide_se0x162d20();
                             fade_set0x10ef80(1);
                             break;
@@ -292,19 +307,19 @@ void mode_sel0x23a4b0(TASK* task, u16 input_current, u16 input_pressed) {
 
         case 1:
             switch (task->unk_14) {
-                case MAIN_MENU_OPTIONS:
+                case MAIN_OPTIONS:
                 default:
                     task->unk_9 += 1;
                     break;
 
-                case MAIN_MENU_NEW_GAME:
+                case MAIN_NEW_GAME:
                     if (Fade_busy_ck0x10ed70() != true) {
                         Tsk_Exit0x1252b0((TASK*) task);
                         Tsk_Execute0x125200(Edit_task0x5367f0, 4);
                     }
                     break;
 
-                case MAIN_MENU_CONTINUE:
+                case MAIN_CONTINUE:
                     if (Fade_busy_ck0x10ed70() != true) {
                         task->unk_9 += 1;
                         select_w0x3f3330[0xB6] = 0;
@@ -317,10 +332,10 @@ void mode_sel0x23a4b0(TASK* task, u16 input_current, u16 input_pressed) {
 
         case 2:
             task->unk_9 += 1;
-            if (task->unk_14 == MAIN_MENU_CONTINUE && User_data0x3c6fc0[0x3ED] != 0) {
-                task->unk_15 = SEL_MODE_MENU_SINGLE;
+            if (task->unk_14 == MAIN_CONTINUE && User_data0x3c6fc0[0x3ED] != 0) {
+                task->unk_15 = SEL_MODE_SINGLE;
             } else {
-                task->unk_15 = SEL_MODE_MENU_NETWORK;
+                task->unk_15 = SEL_MODE_NETWORK;
             }
             task->unk_10 = 20;
             /* fallthrough */
@@ -338,11 +353,11 @@ void mode_sel0x23a4b0(TASK* task, u16 input_current, u16 input_pressed) {
                         decide_se0x162d20();
                         User_data0x3c6fc0[0x3ED] = task->unk_15;
                         switch (task->unk_14) {
-                            case MAIN_MENU_NEW_GAME:
+                            case MAIN_NEW_GAME:
                                 fade_set0x10ef80(1);
                                 break;
 
-                            case MAIN_MENU_CONTINUE:
+                            case MAIN_CONTINUE:
                                 fade_set0x10ef80(1);
                                 break;
                         }
@@ -356,13 +371,13 @@ void mode_sel0x23a4b0(TASK* task, u16 input_current, u16 input_pressed) {
 
                 default:
                     switch (task->unk_14) {
-                        case MAIN_MENU_OPTIONS:
+                        case MAIN_OPTIONS:
                         default:
                             task->unk_9 = 0;
                             return;
 
-                        case MAIN_MENU_NEW_GAME:
-                        case MAIN_MENU_CONTINUE:
+                        case MAIN_NEW_GAME:
+                        case MAIN_CONTINUE:
                             break;
                     }
 
@@ -375,9 +390,9 @@ void mode_sel0x23a4b0(TASK* task, u16 input_current, u16 input_pressed) {
 
 void mode_sel_end0x23a7f0(TASK* task) {
     switch (task->unk_14) {
-        case MAIN_MENU_NEW_GAME:
+        case MAIN_NEW_GAME:
             if (Fade_busy_ck0x10ed70() != true) {
-                if (task->unk_15 == SEL_MODE_MENU_NETWORK) {
+                if (task->unk_15 == SEL_MODE_NETWORK) {
                     system_w0x3f3690.online = true;
                 } else {
                     system_w0x3f3690.online = false;
@@ -390,9 +405,9 @@ void mode_sel_end0x23a7f0(TASK* task) {
             }
             return;
 
-        case MAIN_MENU_CONTINUE:
+        case MAIN_CONTINUE:
             if (Fade_busy_ck0x10ed70() != true) {
-                if (task->unk_15 == SEL_MODE_MENU_NETWORK) {
+                if (task->unk_15 == SEL_MODE_NETWORK) {
                     system_w0x3f3690.online = true;
                 } else {
                     system_w0x3f3690.online = false;
@@ -405,14 +420,14 @@ void mode_sel_end0x23a7f0(TASK* task) {
             }
             return;
 
-        case MAIN_MENU_OPTIONS:
+        case MAIN_OPTIONS:
             if (Fade_busy_ck0x10ed70() != true) {
                 Tsk_Exit0x1252b0(task);
                 Tsk_Execute0x125200(Option_task0x126800, 4);
             }
             return;
 
-        case MAIN_MENU_GALLERY:
+        case MAIN_GALLERY:
             if (Fade_busy_ck0x10ed70() != true) {
                 Tsk_Exit0x1252b0(task);
                 Tsk_Execute0x125200(Omake_task0x23bd00, 4);
@@ -514,11 +529,11 @@ void disp_mode_menu0x23ab50(void) {
             cursor = task->unk_15;
 
             switch (task->unk_14) {
-                case MAIN_MENU_OPTIONS:
+                case MAIN_OPTIONS:
                     return;
 
-                case MAIN_MENU_NEW_GAME:
-                case MAIN_MENU_CONTINUE:
+                case MAIN_NEW_GAME:
+                case MAIN_CONTINUE:
                     Sel_menu_disp0x23afc0(1);
                     DispFrameMessage0x276160(help_mess0x349350, 0);
 
@@ -529,7 +544,7 @@ void disp_mode_menu0x23ab50(void) {
 
                     menu_msg = game_menu_msg20x349230;
 
-                    if (task->unk_15 != SEL_MODE_MENU_NETWORK) {
+                    if (task->unk_15 != SEL_MODE_NETWORK) {
                         pos_x = (640 - (strlen0x1a13b8(menu_msg[2]) * 10)) / 2;
                         font_print_ex0x161b80(pos_x, pos_y, 0, "%s", menu_msg[2]);
 
@@ -568,12 +583,12 @@ void disp_mode_menu0x23ab50(void) {
         pos_x = (640 - (strlen0x1a13b8(menu_msg[i]) * 12)) / 2;
 
         if (i == cursor) {
-            palette_1 = 0;
-            palette_2 = 2;
+            palette_1 = 0; // white
+            palette_2 = 2; // red
             Sel_csr_disp0x23b2e0(320, (pos_y - 3), 280, 32, 0xFF20C0C0);
         } else {
-            palette_1 = 12;
-            palette_2 = 1;
+            palette_1 = 12; // brown
+            palette_2 = 1;  // black
         }
 
         font_print_ex0x161b80((pos_x + 2), (pos_y + 2), palette_2, "%s", menu_msg[i]);
@@ -728,16 +743,246 @@ void Sel_csr_disp0x23b2e0(s16 pos_x, s16 pos_y, s16 width, s16 height, u32 color
     flSetRenderState0x177720(96, 0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/main/modesel", omake_check0x23b4b0);
+s32 omake_check0x23b4b0(s32 arg0) {
+    if (check_bit_no0x349390[arg0] == 0xFFFF) {
+        return 1;
+    }
 
-INCLUDE_ASM("asm/nonmatchings/main/modesel", disp_omake_menu0x23b500);
+    return Omake_flag_ck0x272fc0(check_bit_no0x349390[arg0]);
+}
 
-INCLUDE_ASM("asm/nonmatchings/main/modesel", omake_init0x23b790);
+void disp_omake_menu0x23b500(TASK* task) {
+    s16 menu_item;
+    s16 pos_x, pos_y;
+    s16 palette;
+    s32 off_x;
 
-INCLUDE_ASM("asm/nonmatchings/main/modesel", omake_main0x23b810);
+    Sel_back_disp0x23af30(255);
+    Sel_menu_disp0x23afc0(6);
+    flfntSetSize0x216890(24, 24);
 
-INCLUDE_ASM("asm/nonmatchings/main/modesel", omake_play0x23ba80);
+    for (menu_item = 0; menu_item < 9; menu_item++) {
+        if (menu_item < 4) {
+            pos_x = 160;
+            pos_y = (menu_item % 4) * 48 + 96;
+        } else if (menu_item < 8) {
+            pos_x = 480;
+            pos_y = (menu_item % 4) * 48 + 96;
+        } else {
+            pos_x = 320;
+            pos_y = 288;
+        }
 
-INCLUDE_ASM("asm/nonmatchings/main/modesel", omake_exit0x23bc90);
+        palette = (task->unk_14 == menu_item) ? 0 : 9; // white (0) gray (9)
 
-INCLUDE_ASM("asm/nonmatchings/main/modesel", Omake_task0x23bd00);
+        if (omake_check0x23b4b0(menu_item) == true) {
+            off_x = (strlen0x1a13b8(omake_str0x349360[menu_item]) * 12) / 2;
+            font_print_ex0x161b80((pos_x - off_x), pos_y, palette, "%s", omake_str0x349360[menu_item]);
+        } else {
+            off_x = (strlen0x1a13b8(omake_str0x349360[9]) * 12) / 2;
+            font_print_ex0x161b80((pos_x - off_x), pos_y, palette, "%s", omake_str0x349360[9]);
+        }
+
+        if (task->unk_14 == menu_item) {
+            Sel_csr_disp0x23b2e0(pos_x, (pos_y - 3), 240, 32, 0xFF20C0C0);
+        }
+    }
+
+    font_print_ex0x161b80(112, 360, 0, "ムービー再生");
+    font_print_ex0x161b80(400, 360, 0, "キャンセル");
+
+    Disp_button0x163420(BUTTON_CIRCLE, 88, 360, 8, 1.0f);
+    Disp_button0x163420(BUTTON_CROSS, 376, 360, 8, 1.0f);
+}
+
+void omake_init0x23b790(TASK* task) {
+    if (Fade_busy_ck0x10ed70() != true) {
+        task->unk_8 += 1;
+        task->unk_14 = GALLERY_E3_TRAILER;
+
+        setBGcolor0x11f9e0(0);
+
+        if (mem_tex0x3f3990[234] == 0) {
+            load_texlist0x11e9e0(PIT_TEX0x2ef290[2], 234, 0);
+        }
+
+        fade_set0x10ef80(2);
+        disp_omake_menu0x23b500(task);
+    }
+}
+
+void omake_main0x23b810(TASK* task) {
+    u16 input = Psw0x3f3710->just_pressed | Psw0x3f3710->held_state;
+
+    if (Fade_busy_ck0x10ed70() != true) {
+        if (input & SW_CROSS) {
+            cancel_se0x162d40();
+            task->unk_8 = 5;
+            fade_set0x10ef80(1);
+        } else if (Psw0x3f3710->just_pressed & SW_CIRCLE) {
+            if (omake_check0x23b4b0(task->unk_14) == 1) {
+                if (task->unk_14 != GALLERY_CREDITS) {
+                    task->unk_8 = 4;
+                } else {
+                    task->unk_8 += 1;
+                }
+                task->unk_9 = 0;
+                fade_set0x10ef80(1);
+                Staff_init0x2907c0();
+                decide_se0x162d20();
+            } else {
+                se_req0x159450(7, 21, 0);
+            }
+        } else {
+            if (input & (SW_D_UP | SW_D_DOWN | SW_D_RIGHT | SW_D_LEFT)) {
+                cursor_se0x162d30();
+            }
+
+            if (input & SW_D_UP) {
+                if (task->unk_14 == GALLERY_E3_TRAILER) {
+                    task->unk_14 = GALLERY_GRAVIOS;
+                } else if (task->unk_14 == GALLERY_PLESIOTH) {
+                    task->unk_14 = GALLERY_CREDITS;
+                } else {
+                    task->unk_14 -= 1;
+                }
+            }
+
+            if (input & SW_D_DOWN) {
+                if (task->unk_14 == GALLERY_GRAVIOS) {
+                    task->unk_14 = GALLERY_CREDITS;
+                } else if (task->unk_14 == GALLERY_CREDITS) {
+                    task->unk_14 = GALLERY_PLESIOTH;
+                } else {
+                    task->unk_14 += 1;
+                }
+            }
+
+            if (input & SW_D_RIGHT) {
+                if (task->unk_14 == GALLERY_GRAVIOS) {
+                    task->unk_14 = GALLERY_RATHIAN;
+                } else if (task->unk_14 == GALLERY_CREDITS) {
+                    task->unk_14 = GALLERY_RATHIAN;
+                } else {
+                    task->unk_14 = (task->unk_14 + 4) % 8;
+                }
+            }
+
+            if (input & SW_D_LEFT) {
+                if (task->unk_14 == GALLERY_CREDITS) {
+                    task->unk_14 = GALLERY_GRAVIOS;
+                } else {
+                    task->unk_14 = (task->unk_14 + 4) % 8;
+                }
+            }
+        }
+    }
+    disp_omake_menu0x23b500(task);
+}
+
+void omake_play0x23ba80(TASK* task) {
+    switch (task->unk_9) {
+        case 0:
+            task->unk_a = 0;
+            if (Fade_busy_ck0x10ed70() != true || task->unk_14 == GALLERY_CREDITS) {
+                task->unk_9 += 1;
+            } else {
+                disp_omake_menu0x23b500(task);
+            }
+            break;
+
+        case 1:
+            task->unk_9 += 1;
+            task->unk_a = 0;
+            fade_reset0x10f020();
+            movie_reset0x22f7b0();
+            movie_start0x22f7d0(movie_no0x3493b0[task->unk_14]);
+            movie_request0x22f990(movie_no0x3493b0[task->unk_14], 0);
+            break;
+
+        case 2:
+            if (Psw0x3f3710->current_state & SW_START) {
+                task->unk_9 += 1;
+                fade_set0x10ef80(1);
+            }
+            break;
+
+        case 3:
+            if (Fade_busy_ck0x10ed70() != true) {
+                if (task->unk_a == 0) {
+                    task->unk_a = 1;
+                    movie_exit0x22fb00();
+                }
+                task->unk_8 = 1;
+                fade_set0x10ef80(2);
+            }
+            break;
+    }
+
+    if (task->unk_9 > 1 && task->unk_a == 0) {
+        if (movie_status_ck0x22fb80() == 3) {
+            if (task->unk_9 == 2) {
+                task->unk_9 += 1;
+                fade_set0x10ef80(1);
+                task->unk_a = 1;
+                movie_exit0x22fb00();
+            }
+        } else if (movie_server0x22fbb0() != 0) {
+            if (demo_w0x3f3620.playing == false) {
+                demo_w0x3f3620.playing += 1;
+            }
+            movie_draw0x22fc50();
+        }
+    }
+}
+
+void omake_exit0x23bc90(TASK* task) {
+    if (Fade_busy_ck0x10ed70() != true) {
+        Tsk_Exit0x1252b0(task);
+        Load_overlay0x23e510(1, 1);
+        Select_Tsk_Execute0x125260();
+        fade_set0x10ef80(2);
+    } else {
+        disp_omake_menu0x23b500(task);
+    }
+}
+
+void Omake_task0x23bd00(TASK* task) {
+    SetTrnslMode0x161480(4, 5);
+
+    switch (task->unk_8) {
+        case 0:
+            omake_init0x23b790(task);
+            break;
+
+        case 1:
+            omake_main0x23b810(task);
+            break;
+
+        case 2:
+            if (Fade_busy_ck0x10ed70() != true) {
+                task->unk_8 += 1;
+                str_play0x100980(0, 64);
+            } else {
+                disp_omake_menu0x23b500(task);
+            }
+            break;
+
+        case 3:
+            if (Staff_main0x290800() == 0) {
+                task->unk_8 += 1;
+                fade_set0x10ef80(1);
+            }
+            break;
+
+        case 4:
+            omake_play0x23ba80(task);
+            break;
+
+        case 5:
+            omake_exit0x23bc90(task);
+            break;
+    }
+
+    trans0x163bc0();
+}

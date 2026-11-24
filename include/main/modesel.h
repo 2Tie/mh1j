@@ -5,22 +5,36 @@
 #include "main/scheduler.h"
 
 typedef enum {
-    MAIN_MENU_NEW_GAME,
-    MAIN_MENU_CONTINUE,
-    MAIN_MENU_GALLERY,
-    MAIN_MENU_OPTIONS,
-} MAIN_MENU_ITEM;
+    MAIN_NEW_GAME,
+    MAIN_CONTINUE,
+    MAIN_GALLERY,
+    MAIN_OPTIONS,
+} MAIN_MENU;
 
 typedef enum {
-    SEL_MODE_MENU_NETWORK,
-    SEL_MODE_MENU_SINGLE,
-} SELECT_MODE_MENU_ITEM;
+    SEL_MODE_NETWORK,
+    SEL_MODE_SINGLE,
+} SELECT_MODE_MENU;
+
+typedef enum {
+    GALLERY_E3_TRAILER,
+    GALLERY_OPENING,
+    GALLERY_TOWN,
+    GALLERY_GRAVIOS,
+    GALLERY_PLESIOTH,
+    GALLERY_KHEZU,
+    GALLERY_DIABLOS,
+    GALLERY_RATHIAN,
+    GALLERY_CREDITS,
+} GALLERY_MENU;
 
 typedef struct {
-    s16 x0, y0;
-    s16 x1, y1;
-    u32 colors[4];
-} CURSOR_RECT;
+    /* 0x00 */ s16 x0;
+    /* 0x02 */ s16 y0;
+    /* 0x04 */ s16 x1;
+    /* 0x06 */ s16 y1;
+    /* 0x08 */ u32 colors[4];
+} CURSOR_RECT; // size: 0x18 (24)
 
 void Select_task0x23a0f0(TASK* task);
 void csub000x23a230(TASK* task);
