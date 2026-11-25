@@ -24,6 +24,8 @@ options:
   rodata_string_guesser_level: 2
   disasm_unknown: True
   gp_value: 0x0038EB70
+  global_vram_start: 0x010000
+  global_vram_end: 0xe00000
 
   asm_function_macro: .fn
   asm_data_macro: .obj

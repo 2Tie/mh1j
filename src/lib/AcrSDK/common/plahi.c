@@ -1,7 +1,7 @@
 #include "common.h"
 #include "lib/AcrSDK/common/plahi.h"
 
-extern s32 tree_model_num0x38a304;
+s32 tree_model_num0x38a304;
 
 //protos
 static TAG_CONTAINER* GetFileHeadAHI0x190230(TAG_CONTAINER*);

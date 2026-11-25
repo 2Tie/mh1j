@@ -102,7 +102,7 @@ segments:
     - [0x90220, c, lib/AcrSDK/common/plahi]
     - [0x90780, asm, lib/AcrSDK/common/plamo]
     - [0x92f50, asm, lib/AcrSDK/common/plbmp]
-    - [0x92fb0, asm, lib/AcrSDK/common/plfcv]
+    - [0x92fb0, c, lib/AcrSDK/common/plfcv]
     - [0x93280, asm, lib/AcrSDK/common/plmath]
     - [0x93740, asm, lib/AcrSDK/common/pltm2]
     - [0x94070, asm, lib/AcrSDK/common/plutil]
@@ -376,9 +376,61 @@ segments:
     - {vram: 0x38a108, type: .sbss, name: main/trans}
     - {vram: 0x38a110, type: sbss, name: main/view}
     - {vram: 0x38a114, type: .sbss, name: main/stage}
-    - {vram: 0x38a11c, type: sbss, name: main/unsorted1}
+    - {vram: 0x38a11c, type: sbss, name: main/smokescreen_unsorted}
+    - {vram: 0x38a124, type: sbss, name: main/lobby_unsorted}
+    - {vram: 0x38a154, type: sbss, name: main/system}
+    - {vram: 0x38a158, type: sbss, name: main/em_work}
+    - {vram: 0x38a170, type: sbss, name: main/edit_unsorted}
+    - {vram: 0x38a184, type: sbss, name: main/trans_stage_unsorted}
+    - {vram: 0x38a188, type: sbss, name: main/ask_unsorted}
     - {vram: 0x38a18c, type: .sbss, name: main/prim}
-    - {vram: 0x38a194, type: sbss, name: main/unsorted2}
+    - {vram: 0x38a194, type: sbss, name: main/ot_high_unsorted} #still prim?
+    - {vram: 0x38a1a8, type: sbss, name: main/reload_tex_unsorted}
+    - {vram: 0x38a1b4, type: sbss, name: main/flfnt}
+    - {vram: 0x38a1b8, type: sbss, name: main/ioread_unsorted}
+    - {vram: 0x38a1c0, type: sbss, name: main/render_unsorted}
+    - {vram: 0x38a1c8, type: sbss, name: main/game_unsorted}
+    - {vram: 0x38a1f4, type: sbss, name: main/main_unsorted}
+    - {vram: 0x38a200, type: sbss, name: main/std_unsorted}
+    - {vram: 0x38a204, type: sbss, name: main/common_work_unsorted}
+    - {vram: 0x38a248, type: sbss, name: lib/AcrSDK/ps2/flps2dma}
+    - {vram: 0x38a258, type: sbss, name: lib/AcrSDK/ps2/flps2fcurve}
+    - {vram: 0x38a25c, type: sbss, name: lib/AcrSDK/ps2/flmotion_unsorted}
+    - {vram: 0x38a260, type: sbss, name: lib/AcrSDK/ps2/ps2_vsync_unsorted}
+    - {vram: 0x38a264, type: sbss, name: lib/AcrSDK/ps2/flps2clay}
+    - {vram: 0x38a274, type: sbss, name: lib/AcrSDK/ps2/flps2shader}
+    - {vram: 0x38a298, type: sbss, name: lib/AcrSDK/ps2/flps2render}
+    - {vram: 0x38a2f4, type: sbss, name: lib/AcrSDK/common/mlPAD}
+    - {vram: 0x38a300, type: .sbss, name: lib/AcrSDK/common/plaan}
+    - {vram: 0x38a304, type: .sbss, name: lib/AcrSDK/common/plahi}
+    - {vram: 0x38a308, type: .sbss, name: lib/AcrSDK/common/plfcv}
+    - {vram: 0x38a30c, type: sbss, name: lib/AcrSDK/common/plamo}
+    - {vram: 0x38a314, type: sbss, name: lib/AcrSDK/tarPADmodule}
+    - {vram: 0x38a320, type: sbss, name: main/netsync}
+    - {vram: 0x38a338, type: sbss, name: main/flsfd_unsorted}
+    - {vram: 0x38a33c, type: sbss, name: main/sdr_unsorted}
+    - {vram: 0x38a340, type: sbss, name: main/flfnt_unsorted}
+    - {vram: 0x38a348, type: sbss, name: main/st_wall_tbl_unsorted}
+    - {vram: 0x38a568, type: sbss, name: main/set21}
+    - {vram: 0x38a56c, type: sbss, name: main/AQ_unsorted}
+    - {vram: 0x38a580, type: sbss, name: main/inet_unsorted}
+    - {vram: 0x38a5dc, type: sbss, name: main/cnginet}
+    - {vram: 0x38a5e8, type: sbss, name: main/InetMcs}
+    - {vram: 0x38a5ec, type: sbss, name: main/module_unsorted}
+    - {vram: 0x38a5f4, type: sbss, name: main/inet_dnas_unsorted}
+    - {vram: 0x38a610, type: sbss, name: lib/sce/sceUsbKb}
+    - {vram: 0x38a638, type: sbss, name: main/overlays}
+    - {vram: 0x38a63c, type: sbss, name: main/textinput}
+    - {vram: 0x38a6cc, type: sbss, name: main/softkey}
+    - {vram: 0x38a6d4, type: sbss, name: main/netmemcard_unsorted}
+    - {vram: 0x38a718, type: sbss, name: main/result}
+    - {vram: 0x38a720, type: sbss, name: main/eft10_unsorted}
+    - {vram: 0x38a728, type: sbss, name: main/eft15_unsorted}
+    - {vram: 0x38a730, type: sbss, name: main/em_behavior_unsorted}
+    - {vram: 0x38a7e4, type: sbss, name: main/soncho_unsorted}
+    - {vram: 0x38a7e8, type: sbss, name: main/yn_unsorted}
+    - {vram: 0x38a7f4, type: sbss, name: main/lobby_overlay_unsorted}
+    - {vram: 0x38aa40, type: sbss, name: main/dnas_net_overlay_unsorted}
 
     # bss start symbol is at 38aa54, that's a linker quirk
     - {vram: 0x38AA80, type: bss, name: lib/cri/adx_init }

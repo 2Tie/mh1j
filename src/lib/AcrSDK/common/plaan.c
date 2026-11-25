@@ -7,7 +7,8 @@ extern f32 plGetFcurveStartTime0x192ec0(MOTION_HOLDER*);
 extern void* fmsAllocMemory0x16ac30(FL_FMS*, s32, s32);
 extern s32 fmsInitialize0x16abb0(FL_FMS*, u8*, s32, s32);
 
-extern u8* base_addr0x38a300;
+u8* base_addr0x38a300;
+
 extern FL_FMS fms0x454950;
 
 

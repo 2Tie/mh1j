@@ -3,6 +3,7 @@
 #pragma cats off
 extern void* memset0x19dd28(void* __s, int __c, size_t __n);
 extern u8* Stage_data_get0x226900(u8 area);
+
 s16 flash_timer0x38a118;
 s16 flash_flag0x38a114;
 
