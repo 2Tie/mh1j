@@ -156,9 +156,9 @@ segments:
     - [0x136a40, asm, lib/sce/sceNetGlue]
     - [0x137920, asm, main/InetDNS]
     - [0x138070, asm, main/InetConnect]
-    - [0x13a270, asm, main/modesel]
-    - [0x13b630, asm, main/omake]
-    - [0x13c188, asm, lib/sce/sceUsbKb]
+    - [0x13a270, c, main/modesel]
+    # - [0x13b630, asm, main/omake]
+    - [0x13bf90, asm, lib/sce/sceUsbKb]
     - [0x13d9f0, asm, main/npc]
     - [0x13e680, asm, main/overlays]
     - [0x13e7b0, asm, main/textinput]
@@ -235,8 +235,8 @@ segments:
     - [0x249040, data, main/InetMcs]
     - [0x249070, data, lib/sce/sceSif]
     - [0x249180, data, main/InetConnect]
-    - [0x249390, data, main/modesel]
-    - [0x249510, data, main/omake]
+    - [0x249390, .data, main/modesel]
+    # - [0x249510, data, main/omake]
     - [0x249548, data, lib/sce/sceUsbKb]
     - [0x2495b0, data, main/npc]
     - [0x249680, data, main/overlays]
@@ -304,7 +304,7 @@ segments:
     - [0x26ca18, rodata, main/AQ]
     - [0x26cb30, rodata, lib/sce/sceSif]
     - [0x26ce30, rodata, main/CngInet]
-    - [0x26d110, rodata, main/modesel]
+    - [0x26d110, .rodata, main/modesel]
     - [0x26d378, rodata, lib/sce/sceUsbKb]
     - [0x26e1b0, rodata, main/textinput]
     - [0x26e240, rodata, main/effect]
@@ -347,7 +347,7 @@ segments:
     - [0x287b94, sdata, main/CngInet]
     - [0x287bd4, sdata, main/movie]
     - [0x287bd8, sdata, main/InetMcs]
-    - [0x287bf0, sdata, main/modesel]
+    - [0x287bf0, .sdata, main/modesel]
     - [0x287bf8, sdata, main/overlays]
     - [0x287c00, sdata, main/textinput]
     - [0x287c48, sdata, main/netOverlay]
@@ -484,7 +484,7 @@ segments:
     - {vram: 0x3f3620, type: bss, name: main/demo_task}
     - {vram: 0x3f3670, type: bss, name: main/system_task}
     - {vram: 0x3f3990, type: bss, name: main/tex} #? part of system_task?
-    - {vram: 0x3f3e00, type: bss, name: main/sortme_mmbb} #? misc?
+    # - {vram: 0x3f3e00, type: bss, name: main/sortme_mmbb} # part of mem_tex
     - {vram: 0x3f3f00, type: bss, name: main/st}
     - {vram: 0x3f4150, type: bss, name: main/flps2clay}
     - {vram: 0x418170, type: bss, name: main/flps2shader}

@@ -28,7 +28,7 @@ void Scheduler0x125080(void) {
 
     System_timer0x38a1f4 += 1;
     ran_suu0x161230(1);
-    if ((System_flag0x38a1fc == 0) && ((system_w0x3f3690.unk_03 == 0) || (game_w0x3f33f0.unk_22[1] == 0))) {
+    if ((System_flag0x38a1fc == 0) && ((system_w0x3f3690.unk_3 == 0) || (game_w0x3f33f0.unk_22[1] == 0))) {
         reset = 0;
     } else {
         reset = 1;
@@ -85,7 +85,7 @@ void Select_Tsk_Execute0x125260(void) {
     memset0x19dd28(task, 0, 0x20);
     task->flags = TASK_TRIGGERED | TASK_RUNNING;
     task->task = Select_task0x23a0f0;
-    task->type = 1; // TODO constant?
+    task->unk_8 = 1; // TODO constant?
 }
 
 void Tsk_Exit0x1252b0(TASK* task) {
